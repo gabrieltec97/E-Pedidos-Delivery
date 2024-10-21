@@ -87,66 +87,71 @@ class OrderController extends Controller
         $user = Auth::user();
         $tray = DB::table('trays')->where('user_id', $user->id)->get();
 
-        //Verificação para evitar ids duplicados.
-        $id = mt_rand(1,9000);
-        $checkId = Order::find($id);
+        //Evitando bug de criação de pedido errôneo.
+        if (count($tray) == 0){
+            return redirect()->back();
+        }else{
+            //Verificação para evitar ids duplicados.
+            $id = mt_rand(1,9000);
+            $checkId = Order::find($id);
 
-        if ($checkId != null){
-             while($id == $checkId->id){
-                 $id = mt_rand(1,9000);
+            if ($checkId != null){
+                while($id == $checkId->id){
+                    $id = mt_rand(1,9000);
+                }
             }
-        }
 
-        //Capturando valor.
-        $value = 0;
+            //Capturando valor.
+            $value = 0;
 
-        foreach ($tray as $t){
-            $value += $t->value;
+            foreach ($tray as $t){
+                $value += $t->value;
 
-            $item = new OrderItems();
-            $item->user_id = $user->id;
-            $item->order_id = $id;
-            $item->product = $t->product;
-            $item->ammount = $t->ammount;
-            $item->value = $t->value;
-            $item->address = $user->address;
-            $item->neighbourhood = $user->neighbourhood;
-            $item->user_name = $user->firstname . " " . $user->lastname;
-            $item->month = $this->monthConverter();
-            $item->save();
+                $item = new OrderItems();
+                $item->user_id = $user->id;
+                $item->order_id = $id;
+                $item->product = $t->product;
+                $item->ammount = $t->ammount;
+                $item->value = $t->value;
+                $item->address = $user->address;
+                $item->neighbourhood = $user->neighbourhood;
+                $item->user_name = $user->firstname . " " . $user->lastname;
+                $item->month = $this->monthConverter();
+                $item->save();
 
-            //Abatendo do estoque.
-            $itemSub = DB::table('products')
-                ->select('type', 'stock')
-                ->where('name', $t->product)
-                ->get();
-
-            if ($itemSub[0]->type != 'Comida'){
-
-                $updStock = $itemSub[0]->stock -= $t->ammount;
-                DB::table('products')
+                //Abatendo do estoque.
+                $itemSub = DB::table('products')
+                    ->select('type', 'stock')
                     ->where('name', $t->product)
-                    ->update(['stock' => $updStock]);
+                    ->get();
+
+                if ($itemSub[0]->type != 'Comida'){
+
+                    $updStock = $itemSub[0]->stock -= $t->ammount;
+                    DB::table('products')
+                        ->where('name', $t->product)
+                        ->update(['stock' => $updStock]);
+                }
             }
+
+            $order = new Order();
+            $order->id = $id;
+            $order->user_id = $user->id;
+            $order->status = 'Novo Pedido';
+            $order->value = $value;
+            $order->month = $this->monthConverter();
+            $order->day = date("j");
+            $order->year = date("Y");
+            $order->userAdress = $user->address;
+            $order->neighborhood = $user->neighbourhood;
+            $order->user_name = $user->firstname . " " . $user->lastname;
+            $order->save();
+
+            //Limpando bandeja.
+            DB::table('trays')->where('user_id', $user->id)->delete();
+
+            return redirect()->back();
         }
-
-        $order = new Order();
-        $order->id = $id;
-        $order->user_id = $user->id;
-        $order->status = 'Novo Pedido';
-        $order->value = $value;
-        $order->month = $this->monthConverter();
-        $order->day = date("j");
-        $order->year = date("Y");
-        $order->userAdress = $user->address;
-        $order->neighborhood = $user->neighbourhood;
-        $order->user_name = $user->firstname . " " . $user->lastname;
-        $order->save();
-
-        //Limpando bandeja.
-        DB::table('trays')->where('user_id', $user->id)->delete();
-
-        return redirect()->back();
     }
 
     /**
