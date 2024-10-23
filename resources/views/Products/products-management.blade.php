@@ -6,8 +6,10 @@
         <div class="row">
             <div class="col-12">
                 <div class="card mb-4">
-                    <div class="card-header pb-0">
+                    <div class="card-header pb-0 d-flex">
                         <h6>Itens Cadastrados</h6>
+
+                        <a href="{{ route('produtos.create') }}" class="btn btn-primary ms-auto"><i class="fa-solid fa-plus"></i> Novo produto</a>
                     </div>
                     <div class="card-body px-0 pt-0 pb-2">
                         <div class="table-responsive p-0">
@@ -41,7 +43,7 @@
                                                              alt="user1">
                                                     </div>
                                                     <div class="d-flex flex-column justify-content-center">
-                                                        <a class="mb-0 text-sm" href="{{ route('produtos.edit', $product->id) }}">{{ $product->name }}</a>
+                                                        <a class="mb-0 text-sm font-weight-bold" href="{{ route('produtos.edit', $product->id) }}" style="color: black;">{{ $product->name }}</a>
                                                     </div>
                                                 </div>
                                             </td>

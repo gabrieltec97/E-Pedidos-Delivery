@@ -90,6 +90,38 @@ class HomeController extends Controller
         $keys = array_column($totalOrders, 'total');
         array_multisort($keys, SORT_DESC, $totalOrders);
 
+
+        //Métricas para o dia.
+        $metDay = intval(date('d'));
+        $metMonth = $this->monthConverter();
+
+        function calcPercent($metDay, $metMonth){
+            $salesDate = DB::table('orders')
+                ->select('value')
+                ->where('day', $metDay)
+                ->where('month', $metMonth)
+                ->get();
+
+            $valueYesterday = 0;
+            foreach ($salesDate as $sale) {
+                $valueYesterday += doubleval($sale->value);
+            }
+
+            return $valueYesterday;
+        }
+
+        if (date('d') > 1){
+            $metDay -= 1;
+
+            $hoje = calcPercent($metDay, $metMonth);
+        }else{
+
+        }
+
+        echo $hoje;
+
+        die();
+
         return view('pages.dashboard', [
             'lowStock' => $lowstock,
             'chart' => $chart->build(),

@@ -8,7 +8,7 @@
             <div class="card mb-4">
                 <div class="card-header pb-0 d-flex">
                     <h6>Gerenciamento de usuários</h6>
-                    <a href="{{ route('usuarios.create') }}" class="btn btn-danger ms-auto"><i class="fa-solid fa-user-plus" style="margin-left: -10px; margin-right: 5px"></i> Novo usuário</a>
+                    <a href="{{ route('usuarios.create') }}" class="btn btn-primary ms-auto"><i class="fa-solid fa-user-plus"></i> Novo usuário</a>
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">
                     <div class="table-responsive p-0">
