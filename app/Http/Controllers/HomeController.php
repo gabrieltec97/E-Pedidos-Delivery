@@ -91,7 +91,7 @@ class HomeController extends Controller
         array_multisort($keys, SORT_DESC, $totalOrders);
 
 
-        //Métricas para o dia.
+        //Métricas para o dia em dinheiro e pedidos.
         $metDay = intval(date('d'));
         $metMonth = $this->monthConverter();
 
@@ -107,20 +107,26 @@ class HomeController extends Controller
                 $valueYesterday += doubleval($sale->value);
             }
 
-            return $valueYesterday;
+            $salesDateToday = DB::table('orders')
+                ->select('value')
+                ->where('day', date('d'))
+                ->where('month', $metMonth)
+                ->get();
+
+            $valueToday = 0;
+            foreach ($salesDateToday as $sale) {
+                $valueToday += doubleval($sale->value);
+            }
+
+            $percent = (($valueToday - $valueYesterday) / $valueYesterday) * 100;
+
+            return round($percent, 2);
         }
 
         if (date('d') > 1){
             $metDay -= 1;
-
-            $hoje = calcPercent($metDay, $metMonth);
-        }else{
-
+            $moneyMetrics = calcPercent($metDay, $metMonth);
         }
-
-        echo $hoje;
-
-        die();
 
         return view('pages.dashboard', [
             'lowStock' => $lowstock,
@@ -128,6 +134,7 @@ class HomeController extends Controller
             'totalOrders' => $totalOrders,
             'totalItems' => $totalItems,
             'ammount' => $ammount,
+            'moneyMetrics' => $moneyMetrics,
             'orders' => $todayOrders
         ]);
     }

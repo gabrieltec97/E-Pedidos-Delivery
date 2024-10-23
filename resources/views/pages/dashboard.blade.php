@@ -14,10 +14,12 @@
                                     <h5 class="font-weight-bolder">
                                         R$ {{ $ammount }}
                                     </h5>
-                                    <p class="mb-0">
-                                        <span class="text-success text-sm font-weight-bolder">+55%</span>
-                                        superior a ontem
-                                    </p>
+                                    @if($moneyMetrics > 0)
+                                        <p class="mb-0">
+                                            <span class="text-success text-sm font-weight-bolder">+{{$moneyMetrics}}%</span>
+                                            superior a ontem!
+                                        </p>
+                                    @endif
                                 </div>
                             </div>
                             <div class="col-4 text-end">
