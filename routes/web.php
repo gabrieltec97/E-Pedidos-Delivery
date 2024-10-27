@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\AdditionalController;
+use App\Http\Controllers\NeighbourhoodController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\TesteController;
 use App\Http\Controllers\TrayController;
 use App\Http\Controllers\UserController;
 use App\Models\Product;
@@ -29,7 +31,7 @@ use App\Http\Controllers\ChangePassword;
 
 Route::get('/usuarios', [UserController::class, 'index'])->name('users');
 
-Route::get('/teste', [\App\Http\Controllers\TesteController::class, 'teste']);
+Route::get('/teste', [TesteController::class, 'teste']);
 
 //Route::get('/teste2', function (){
 //
@@ -38,6 +40,8 @@ Route::get('/teste', [\App\Http\Controllers\TesteController::class, 'teste']);
 //});
 
 Route::resource('/produtos', ProductController::class);
+
+Route::resource('/bairros', NeighbourhoodController::class);
 
 Route::resource('/adicionais', AdditionalController::class);
 
@@ -51,7 +55,7 @@ Route::resource('/usuarios', UserController::class);
 
 
 Route::get('log', function (){
-    Auth::loginUsingId(5);
+    Auth::loginUsingId(1);
 });
 
 

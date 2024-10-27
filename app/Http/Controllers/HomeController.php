@@ -77,7 +77,7 @@ class HomeController extends Controller
         $keys = array_column($totalItems, 'total');
         array_multisort($keys, SORT_DESC, $totalItems);
 
-        $neighborhoods = DB::table('neighborhoods')->select('name')->get();
+        $neighborhoods = DB::table('neighbourhoods')->select('name')->get();
         $totalOrders = [];
 
         foreach ($neighborhoods as $neighborhood){
@@ -118,9 +118,10 @@ class HomeController extends Controller
                 $valueToday += doubleval($sale->value);
             }
 
-            $percent = (($valueToday - $valueYesterday) / $valueYesterday) * 100;
-
-            return round($percent, 2);
+            if ($valueYesterday != 0){
+                $percent = (($valueToday - $valueYesterday) / $valueYesterday) * 100;
+                return round($percent, 2);
+            }
         }
 
         if (date('d') > 1){
