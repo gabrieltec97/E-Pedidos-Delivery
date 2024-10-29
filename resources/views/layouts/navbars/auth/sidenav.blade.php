@@ -21,24 +21,37 @@
                     <span class="nav-link-text ms-1">Dashboard</span>
                 </a>
             </li>
-
             <li class="nav-item">
                 <a class="nav-link {{ Route::currentRouteName() == 'pedidos.index' ? 'active' : '' }}" href="{{ route('pedidos.index') }}">
-                    <div
-                        class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
+                    <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="fa-solid fa-bell-concierge text-dark text-sm opacity-10"></i>
                     </div>
                     <span class="nav-link-text ms-1">Pedidos</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ Route::currentRouteName() == 'produtos.index' ? 'active' : '' }}" href="{{ route('produtos.index') }}">
-                    <div
-                        class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
+                <a class="nav-link dropdown-toggle {{ Route::currentRouteName() == 'produtos.index' ? 'active' : '' }}" id="dropdownProducts" role="button" data-bs-toggle="collapse" data-bs-target="#submenuProducts" aria-expanded="false" aria-controls="submenuProducts">
+                    <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="fa-solid fa-utensils text-dark text-sm opacity-10"></i>
                     </div>
-                    <span class="nav-link-text ms-1">Produtos</span>
+                    <span class="nav-link-text ms-1">Itens</span>
                 </a>
+                <div class="collapse" id="submenuProducts">
+                    <ul class="navbar-nav ms-4">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="fa-solid fa-circle-plus text-primary ml-0"></i>
+                                <span class="nav-link-text ms-1">Adicionais</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('produtos.index') }}">
+                                <i class="fa-solid fa-database text-success ml-0"></i>
+                                <span class="nav-link-text ms-1">Cadastrados</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </li>
             <li class="nav-item">
                 <a class="nav-link {{ Route::currentRouteName() == 'bairros.index' ? 'active' : '' }}" href="{{ route('bairros.index') }}">
