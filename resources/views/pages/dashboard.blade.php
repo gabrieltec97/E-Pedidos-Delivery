@@ -118,7 +118,7 @@
                 <div class="card ">
                     <div class="card-header pb-0 p-3">
                         <div class="d-flex justify-content-between">
-                            <h6 class="mb-2">Bairros com mais pedidos</h6>
+                            <h6 class="mb-3">Bairros com mais pedidos</h6>
                         </div>
                     </div>
                     <div class="table-responsive">
@@ -146,13 +146,13 @@
                                     <td>
                                         <div class="text-center">
                                             <p class="text-xs font-weight-bold mb-0">Faturamento:</p>
-                                            <h6 class="text-sm mb-0">R$1890,00</h6>
+                                            <h6 class="text-sm mb-0">R${{ $neighboor['totalValue'] }}</h6>
                                         </div>
                                     </td>
                                     <td class="align-middle text-sm">
                                         <div class="col text-center">
                                             <p class="text-xs font-weight-bold mb-0">Porcentagem:</p>
-                                            <h6 class="text-sm mb-0">49.9%</h6>
+                                            <h6 class="text-sm mb-0">{{ $neighboor['porcentagem'] }}%</h6>
                                         </div>
                                     </td>
                                 </tr>
@@ -165,7 +165,7 @@
             <div class="col-lg-5">
                 <div class="card">
                     <div class="card-header pb-0 p-3">
-                        <h6 class="mb-0">Itens mais vendidos</h6>
+                        <h6 class="mb-3">Itens mais vendidos</h6>
                     </div>
                     <div class="card-body p-3">
                         <ul class="list-group">

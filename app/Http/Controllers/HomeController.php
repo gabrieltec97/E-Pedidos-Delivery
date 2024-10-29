@@ -78,11 +78,15 @@ class HomeController extends Controller
         array_multisort($keys, SORT_DESC, $totalItems);
 
         $neighborhoods = DB::table('neighbourhoods')->select('name')->get();
+        $countForPercent = DB::table('orders')->where('status', 'Pedido Entregue')->count();
         $totalOrders = [];
 
         foreach ($neighborhoods as $neighborhood){
-            $count = DB::table('orders')->where('neighborhood', '=',$neighborhood->name)->count();
-            array_push($totalOrders, ['name' => $neighborhood->name, 'total' => $count]);
+            $count = DB::table('orders')->where('neighborhood', $neighborhood->name)->count();
+            $totalNeighborhood = DB::table('orders')->where('neighborhood', $neighborhood->name)->sum('value');
+            $percentOrders = ($count / $countForPercent) * 100;
+            array_push($totalOrders, ['name' => $neighborhood->name, 'total' => $count,
+                'porcentagem' => $percentOrders, 'totalValue' => $totalNeighborhood]);
 //            $totalOrders[$neighborhood->name] = $count;
         }
 
