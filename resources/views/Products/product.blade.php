@@ -51,25 +51,36 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <input type="checkbox" name="is_available" id="available" style="margin-top: 45px;" @checked($product->is_available)>
-                                        <label for="available">Disponível em estoque</label>
+                                        <label for="available">Disponível
+                                            @if($product->type == "Comida")
+                                                para venda
+                                            @else
+                                                em estoque
+                                            @endif
+                                        </label>
                                     </div>
                                 </div>
-                                <hr class="horizontal dark">
+
                                 <div class="col-12">
-                                    <p class="text-sm">Adicionais para este produto</p>
-                                    @foreach($additionals as $additional)
-                                        @if($additional->benefitedProduct == $product->type)
-                                            <input type="checkbox" name="additionals[]" id="additionals{{ $additional->id }}" value="{{ $additional->id }}"
-                                            @php
-                                            $items = explode(',', $product->additionals);
-                                            if (in_array($additional->id, $items)){
-                                               echo 'checked';
-                                            }
-                                            @endphp>
-                                            <label for="additionals{{ $additional->id }}" style="margin-right: 30px;">{{ $additional->name }}</label>
-                                        @endif
-                                    @endforeach
+                                    @if(count($additionals) != 0)
+                                        <hr class="horizontal dark">
+                                        <p class="text-md font-weight-bold">Adicionais para este produto</p>
+                                        @foreach($additionals as $additional)
+                                            @if($additional->benefitedProduct == $product->type)
+                                                <input type="checkbox" name="additionals[]" id="additionals{{ $additional->id }}" value="{{ $additional->id }}"
+                                                    @php
+                                                        $items = explode(',', $product->additionals);
+                                                        if (in_array($additional->id, $items)){
+                                                           echo 'checked';
+                                                        }
+                                                    @endphp>
+                                                <label for="additionals{{ $additional->id }}" style="margin-right: 30px;">{{ $additional->name }}</label>
+                                            @endif
+                                        @endforeach
+                                        <hr>
+                                    @endif
                                 </div>
+
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="example-text-input" class="form-control-label">Descrição</label>
@@ -77,10 +88,19 @@
                                     </div>
                                 </div>
                             </div>
+                        </form>
+                    <div class="row">
+                        <div class="col-12">
+                            <form action="{{ route('produtos.destroy', $product->id) }}" method="post">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn btn-danger mb-0" type="submit">Deletar produto</button>
+                            </form>
                         </div>
                     </div>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
+</div>
 @endsection

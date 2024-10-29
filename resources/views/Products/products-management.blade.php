@@ -7,7 +7,7 @@
             <div class="col-12">
                 <div class="card mb-4">
                     <div class="card-header pb-0 d-flex">
-                        <h6>Itens Cadastrados</h6>
+                        <h4>Itens Cadastrados</h4>
 
                         <a href="{{ route('produtos.create') }}" class="btn btn-primary ms-auto"><i class="fa-solid fa-plus"></i> Novo produto</a>
                     </div>
@@ -23,9 +23,9 @@
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Status</th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Qt. Estoque</th>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Estoque</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        Disponibilidade</th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Ação</th>
                                 </tr>
@@ -38,12 +38,8 @@
                                         <tr>
                                             <td>
                                                 <div class="d-flex px-2 py-1">
-                                                    <div>
-                                                        <img src="/img/team-2.jpg" class="avatar avatar-sm me-3"
-                                                             alt="user1">
-                                                    </div>
                                                     <div class="d-flex flex-column justify-content-center">
-                                                        <a class="mb-0 text-sm font-weight-bold" href="{{ route('produtos.edit', $product->id) }}" style="color: black;">{{ $product->name }}</a>
+                                                        <a class="mb-0 text-sm font-weight-bold" href="{{ route('produtos.edit', $product->id) }}" style="color: black; text-decoration: none;">{{ $product->name }}</a>
                                                     </div>
                                                 </div>
                                             </td>
@@ -61,7 +57,7 @@
                                             </td>
                                             @if($product->type != 'Comida')
                                             <td>
-                                                <p class="text-xs font-weight-bold mb-0" style="margin-left: 25px;">
+                                                <p class="text-xs font-weight-bold mb-0 d-flex justify-content-center" style="margin-left: 25px;">
                                                     @if($product->stock > 1)
                                                         {{ $product->stock }} unidades
                                                     @elseif($product->stock == 1)
@@ -70,7 +66,15 @@
                                                         0 unidade
                                                     @endif
                                                 </p>
-                                            </td>
+                                            @else
+                                                <td>
+                                                    <p class="text-xs font-weight-bold d-flex justify-content-center">
+                                                        Não se aplica
+                                                    </p>
+                                                </td>
+                                            @endif
+
+                                                @if($product->type != 'Comida')
                                             <td class="align-middle text-center">
                                                 <div class="d-flex align-items-center justify-content-center"
                                                      @if($stockPercent <=30)
@@ -103,20 +107,22 @@
                                                     @endif
                                                 </div>
                                             </td>
+                                            @else
+                                                <td>
+                                                    <p class="text-xs font-weight-bold d-flex justify-content-center">
+                                                        @if($product->is_available == true)
+                                                            <i class="fa-solid fa-circle-check" style="font-size: 22px; color: #0cca8a"></i>
+                                                        @else
+                                                            <i class="fa-solid fa-circle-xmark" style="font-size: 22px; color: #f10707"></i>
+                                                        @endif
+                                                    </p>
+                                                </td>
                                             @endif
                                             <td class="align-right ml-5 text-right text-sm">
-                                                <form action="{{ route('produtos.edit', $product->id) }}">
-                                                    @csrf
-                                                    @method('PUT')
-                                                    <button title="Editar" type="submit" style="cursor: pointer; border: none;" class="badge badge-sm bg-gradient-success"><i class="fa-solid fa-pen-to-square"></i></button>
-                                                </form>
-
-
-                                                <form action="{{ route('produtos.destroy', $product->id) }}" method="post">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" title="Deletar" style="cursor: pointer; border: none;" class="badge badge-sm bg-gradient-danger"><i class="fa-solid fa-trash"></i></button>
-                                                </form>
+                                                <a href="{{ route('produtos.edit', $product->id) }}" class="text-secondary font-weight-bold text-xs d-flex justify-content-center"
+                                                   data-toggle="tooltip" data-original-title="Edit user">
+                                                    Editar
+                                                </a>
                                             </td>
                                         </tr>
                                     @endforeach

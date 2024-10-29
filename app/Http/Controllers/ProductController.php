@@ -160,6 +160,6 @@ class ProductController extends Controller
         $product = Product::find($id);
         $product->delete();
 
-        return redirect()->back();
+        return redirect()->route('produtos.index');
     }
 }
