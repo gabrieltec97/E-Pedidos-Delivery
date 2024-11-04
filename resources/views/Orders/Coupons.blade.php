@@ -33,32 +33,69 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>
-                                        <div class="d-flex px-2 py-1">
-                                            <div class="d-flex flex-column justify-content-center">
-                                                <h6 class="mb-0 text-sm">John Michael</h6>
-                                                <p class="text-xs text-secondary mb-0">john@creative-tim.com</p>
+                                @foreach($coupons as $coupom)
+                                    @php
+                                        $percent = round(($coupom->used / $coupom->limit) * 100, 0);
+                                    @endphp
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex px-2 py-1">
+                                                <div class="d-flex flex-column justify-content-center">
+                                                    <h6 class="mb-0 text-sm font-weight-bold text-success">{{ $coupom->name }}</h6>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <p class="text-xs font-weight-bold mb-0">Manager</p>
-                                        <p class="text-xs text-secondary mb-0">Organization</p>
-                                    </td>
-                                    <td class="align-middle text-center text-sm">
-                                        <span class="badge badge-sm bg-gradient-success">Online</span>
-                                    </td>
-                                    <td class="align-middle text-center">
-                                        <span class="text-secondary text-xs font-weight-bold">23/04/18</span>
-                                    </td>
-                                    <td class="align-middle">
-                                        <a href="javascript:;" class="text-secondary font-weight-bold text-xs"
-                                           data-toggle="tooltip" data-original-title="Edit user">
-                                            Edit
-                                        </a>
-                                    </td>
-                                </tr>
+                                        </td>
+                                        <td>
+                                            @if($coupom->type == "Porcentagem")
+                                                <p class="text-xs font-weight-bold mb-0">{{ $coupom->discount }}% de desconto</p>
+                                            @elseif($coupom->type == "Dinheiro")
+                                                <p class="text-xs font-weight-bold mb-0">{{ $coupom->discount }}reais de desconto</p>
+                                            @else
+                                                <p class="text-xs font-weight-bold mb-0">Frete grátis</p>
+                                            @endif
+                                        </td>
+                                        <td class="align-middle text-center text-sm">
+                                            <p class="text-xs font-weight-bold mb-0">{{ $coupom->products }}</p>
+                                        </td>
+                                        <td class="align-middle text-center text-sm">
+                                            <div class="d-flex align-items-center justify-content-center">
+                                                <span class="me-2 text-xs font-weight-bold">({{ $coupom->used }}/{{ $coupom->limit }}) {{ $percent }}%</span>
+                                                <div>
+                                                    <div class="progress">
+                                                        <div class="progress-bar
+
+                                                        @if($percent <= 30)
+                                                        bg-gradient-success
+                                                        @elseif($percent > 30 && $percent <= 60)
+                                                        bg-gradient-info
+                                                        @elseif($percent > 60 && $percent <= 90)
+                                                        bg-gradient-warning
+                                                        @else
+                                                        bg-gradient-danger
+                                                        @endif
+
+                                                        " role="progressbar"
+                                                             aria-valuenow="{{ $percent }}" aria-valuemin="0" aria-valuemax="100"
+                                                             style="width: {{ $percent }}%;"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="align-middle text-center">
+                                            @if($coupom->status == true)
+                                                <span class="badge badge-sm bg-gradient-success">Disponível</span>
+                                            @else
+                                                <span class="badge badge-sm bg-gradient-danger">Indisponível</span>
+                                            @endif
+                                        </td>
+                                        <td class="align-middle">
+                                            <a href="javascript:;" class="text-secondary font-weight-bold text-xs"
+                                               data-toggle="tooltip" data-original-title="Edit user">
+                                                Edit
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @endforeach
                                 </tbody>
                             </table>
                         </div>

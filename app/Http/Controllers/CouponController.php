@@ -12,7 +12,10 @@ class CouponController extends Controller
      */
     public function index()
     {
-        return view('Orders.Coupons');
+        $coupons = Coupon::all();
+        return view('Orders.Coupons', [
+            'coupons' => $coupons
+        ]);
     }
 
     /**
@@ -33,6 +36,7 @@ class CouponController extends Controller
         $coupon->products = $request->items;
         $coupon->type = $request->aplication;
         $coupon->limit = $request->limit;
+        $coupon->used = 0;
 
         if ($request->type == "Frete grátis"){
             $coupon->discount == "Frete grátis";
