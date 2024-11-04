@@ -43,7 +43,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('pedidos.historico') }}">
+                            <a class="nav-link" href="{{ route('cupons.index') }}">
                                 <i class="fa-solid fa-ticket text-success ml-0"></i>
                                 <span class="nav-link-text ms-1">Cupons</span>
                             </a>

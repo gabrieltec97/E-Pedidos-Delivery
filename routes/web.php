@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdditionalController;
+use App\Http\Controllers\CouponController;
 use App\Http\Controllers\NeighbourhoodController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
@@ -31,15 +32,9 @@ use App\Http\Controllers\ChangePassword;
 
 Route::get('/usuarios', [UserController::class, 'index'])->name('users');
 
-Route::get('/teste', [TesteController::class, 'teste']);
-
-//Route::get('/teste2', function (){
-//
-//
-//
-//});
-
 Route::resource('/produtos', ProductController::class);
+
+Route::resource('/cupons', CouponController::class);
 
 Route::resource('/bairros', NeighbourhoodController::class);
 
