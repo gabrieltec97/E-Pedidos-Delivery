@@ -86,7 +86,7 @@ class HomeController extends Controller
             $totalNeighborhood = DB::table('orders')->where('neighborhood', $neighborhood->name)->sum('value');
             $percentOrders = ($count / $countForPercent) * 100;
             array_push($totalOrders, ['name' => $neighborhood->name, 'total' => $count,
-                'porcentagem' => $percentOrders, 'totalValue' => $totalNeighborhood]);
+                'porcentagem' => round($percentOrders,2), 'totalValue' => $totalNeighborhood]);
 //            $totalOrders[$neighborhood->name] = $count;
         }
 

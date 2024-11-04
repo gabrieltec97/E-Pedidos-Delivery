@@ -22,12 +22,34 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ Route::currentRouteName() == 'pedidos.index' ? 'active' : '' }}" href="{{ route('pedidos.index') }}">
+                <a class="nav-link dropdown-toggle {{ Route::currentRouteName() == 'produtos.index' ? 'active' : '' }}" id="dropdownOrders" role="button" data-bs-toggle="collapse" data-bs-target="#submenuOrders" aria-expanded="false" aria-controls="submenuOrders">
                     <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="fa-solid fa-bell-concierge text-dark text-sm opacity-10"></i>
                     </div>
                     <span class="nav-link-text ms-1">Pedidos</span>
                 </a>
+                <div class="collapse" id="submenuOrders">
+                    <ul class="navbar-nav ms-4">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('pedidos.index') }}">
+                                <div class="spinner-grow spinner-grow-sm text-danger" style="margin-right: 10px;" role="status"></div>
+                                <span class="nav-link-text ms-1">Tempo Real</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('pedidos.historico') }}">
+                                <i class="fa-solid fa-circle-plus text-primary ml-0"></i>
+                                <span class="nav-link-text ms-1">Histórico de Pedidos</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('pedidos.historico') }}">
+                                <i class="fa-solid fa-ticket text-success ml-0"></i>
+                                <span class="nav-link-text ms-1">Cupons</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </li>
             <li class="nav-item">
                 <a class="nav-link dropdown-toggle {{ Route::currentRouteName() == 'produtos.index' ? 'active' : '' }}" id="dropdownProducts" role="button" data-bs-toggle="collapse" data-bs-target="#submenuProducts" aria-expanded="false" aria-controls="submenuProducts">
@@ -60,15 +82,6 @@
                         <i class="fa-solid fa-house-flag text-dark text-sm opacity-10"></i>
                     </div>
                     <span class="nav-link-text ms-1">Bairros</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link {{ Route::currentRouteName() == 'users' ? 'active' : '' }}" href="{{ route('pedidos.historico') }}">
-                    <div
-                        class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
-                    </div>
-                    <span class="nav-link-text ms-1">Histórico de Pedidos</span>
                 </a>
             </li>
             <li class="nav-item">
