@@ -89,12 +89,111 @@
                                             @endif
                                         </td>
                                         <td class="align-middle">
-                                            <a href="javascript:;" class="text-secondary font-weight-bold text-xs"
-                                               data-toggle="tooltip" data-original-title="Edit user">
-                                                Edit
+                                            <a style="text-decoration: none; cursor: pointer;" class="text-secondary font-weight-bold text-xs"
+                                               data-bs-toggle="modal" data-bs-target="#editmodal{{$coupom->id}}">
+                                                Editar
+                                            </a>
+                                            <a style="text-decoration: none; cursor: pointer;" class="text-secondary font-weight-bold text-xs"
+                                               data-bs-toggle="modal" data-bs-target="#deletemodal{{$coupom->id}}">
+                                                &nbsp;Deletar
                                             </a>
                                         </td>
                                     </tr>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="deletemodal{{ $coupom->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Atenção!</h5>
+                                                    <i class="fa-solid fa-circle-xmark" style="cursor: pointer; color: #ef4444;" data-bs-dismiss="modal" aria-label="Close"></i>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <h6>Tem certeza que deseja excluir o cupom <b>{{ $coupom->name }} ?</b></h6>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <form action="{{ route('cupons.destroy', $coupom->id) }}" method="post">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger">Deletar cupom</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Modal de edição de cupom-->
+                                    <div class="modal fade" id="editmodal{{$coupom->id}}" tabindex="-1" role="dialog" aria-labelledby="editmodal" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Edição de cupom</h5>
+                                                    <i class="fa-solid fa-circle-xmark" style="cursor: pointer; color: #ef4444;" data-bs-dismiss="modal" aria-label="Close"></i>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="container-fluid">
+                                                        <form action="{{ route('cupons.update', $coupom->id) }}" method="post">
+                                                            @csrf
+                                                            @method('PATCH')
+                                                            <div class="row">
+                                                                <div class="col-lg-6">
+                                                                    <div class="form-group">
+                                                                        <label for="example-text-input" class="form-control-label">Nome</label>
+                                                                        <input class="form-control" value="{{ $coupom->name }}" type="text" style="text-transform: uppercase;" oninput="this.value = this.value.replace(/\s+/g, '');" name="name" required>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-6">
+                                                                    <div class="form-group">
+                                                                        <label for="example-text-input" class="form-control-label">Items</label>
+                                                                        <select class="form-control" name="items">
+                                                                            <option selected disabled>Selecione</option>
+                                                                            <option value="Todos"  @selected($coupom->products == "Todos")>Todos</option>
+                                                                            <option value="Comida"  @selected($coupom->products == "Comida")>Comida</option>
+                                                                            <option value="Bebida"  @selected($coupom->products == "Bebida")>Bebida</option>
+                                                                            <option value="Sobremesa"  @selected($coupom->products == "Sobremesa")>Sobremesa</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-6">
+                                                                    <div class="form-group">
+                                                                        <label for="example-text-input" class="form-control-label">Aplicação</label>
+                                                                        <select class="form-control" name="aplication">
+                                                                            <option selected disabled>Selecione</option>
+                                                                            <option value="Frete grátis"  @selected($coupom->type == "Frete grátis")>Frete grátis</option>
+                                                                            <option value="Porcentagem"  @selected($coupom->type == "Porcentagem")>Porcentagem</option>
+                                                                            <option value="Dinheiro"  @selected($coupom->type == "Dinheiro")>Dinheiro</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-6">
+                                                                    <div class="form-group">
+                                                                        <label for="example-text-input" class="form-control-label">Desconto</label>
+                                                                        <input class="form-control" type="number" placeholder="Total do desconto" name="discount" value="{{ $coupom->discount }}" required>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-6">
+                                                                    <div class="form-group">
+                                                                        <label for="example-text-input" class="form-control-label">Limite de uso</label>
+                                                                        <input class="form-control" type="number" placeholder="Quantidade de pedidos" value="{{ $coupom->limit }}" name="limit" required>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-6">
+                                                                    <div class="form-group">
+                                                                        <input type="checkbox" name="is_available" id="available" style="margin-top: 45px;" @checked($coupom->status)>
+                                                                        <label for="available">Disponível para uso</label>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-6"></div>
+                                                            </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="submit" class="btn btn-primary">Salvar</button>
+                                                </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
                                 @endforeach
                                 </tbody>
                             </table>
@@ -105,7 +204,7 @@
         </div>
     </div>
 
-    <!-- Modal -->
+    <!-- Modal de novo cupom-->
     <div class="modal fade" id="modalCadastro" tabindex="-1" role="dialog" aria-labelledby="modalCadastro" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -170,7 +269,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    <button type="submit" class="btn btn-primary">Salvar</button>
                 </div>
             </div>
             </form>

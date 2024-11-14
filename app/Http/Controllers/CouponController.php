@@ -74,16 +74,40 @@ class CouponController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Coupon $coupon)
+    public function update(Request $request, string $id)
     {
-        //
+        $coupon = Coupon::find($id);
+        $coupon->name = strtoupper($request->name);
+        $coupon->products = $request->items;
+        $coupon->type = $request->aplication;
+        $coupon->limit = $request->limit;
+        $coupon->used = 0;
+
+        if ($request->type == "Frete grátis"){
+            $coupon->discount == "Frete grátis";
+        }else{
+            $coupon->discount = $request->discount;
+        }
+
+        if ($request->is_available == "on"){
+            $coupon->status = true;
+        }else{
+            $coupon->status = false;
+        }
+
+        $coupon->save();
+
+        return redirect()->back();
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Coupon $coupon)
+    public function destroy(string $id)
     {
-        //
+        $coupon = Coupon::find($id);
+        $coupon->delete();
+
+        return redirect()->back();
     }
 }
