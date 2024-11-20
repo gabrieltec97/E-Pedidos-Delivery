@@ -30,10 +30,7 @@
                                @endforeach
 
                                <div class="col-12 text-end">
-                                   <form action="{{ route('pedidos.store') }}" method="post">
-                                       @csrf
-                                        <button type="submit" class="btn btn-primary">Finalizar pedido</button>
-                                   </form>
+                                   <a href="{{ route('review') }}" type="button" class="btn btn-primary">Finalizar pedido</a>
                                </div>
                            </div>
                         </div>

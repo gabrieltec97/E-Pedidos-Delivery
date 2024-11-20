@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\Neighbourhood;
 use App\Models\OrderItems;
 use App\Models\Product;
 use Faker\Provider\DateTime;
@@ -77,6 +78,19 @@ class OrderController extends Controller
         );
 
         return $mes_extenso["$mes"];
+    }
+
+    public function review()
+    {
+        $user = Auth::user();
+        $neighborhoods = Neighbourhood::all();
+        $items = DB::table('trays')->where('user_id', $user->id)->get();
+
+        return view('Orders.Review', [
+            'user' => $user,
+            'items' => $items,
+            'neighborhoods' => $neighborhoods
+        ]);
     }
 
     /**

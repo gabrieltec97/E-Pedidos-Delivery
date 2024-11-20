@@ -42,6 +42,8 @@ Route::resource('/adicionais', AdditionalController::class);
 
 Route::resource('/cardapio', TrayController::class);
 
+Route::get('revisar-pedido', [OrderController::class, 'review'])->name('review');
+
 Route::resource('/pedidos', OrderController::class);
 
 Route::get('/historicoDePedidos', [OrderController::class, 'historic'])->name('pedidos.historico');
