@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Neighbourhood;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -53,8 +54,10 @@ class UserController extends Controller
     public function show(string $id)
     {
         $user = User::find($id);
+        $neighborhoods = Neighbourhood::all();
         return view('Users.user-profile', [
-            'user' => $user
+            'user' => $user,
+            'neighborhoods' => $neighborhoods
         ]);
     }
 
