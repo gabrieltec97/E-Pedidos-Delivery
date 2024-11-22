@@ -13,12 +13,49 @@
                         <div class="container-fluid mt-lg-3">
                             <div class="row">
                              @foreach($items as $item)
-                               <div class="col-md-6">
+                               <div class="col-md-12" style="margin-bottom: -18px;">
                                  <div class="form-group">
-                                   <label for="example-text-input" class="form-control-label">{{ $item->product }}</label>
-                                   <input class="form-control" type="number" name="address" value="{{ $item->ammount }}">
+                                   <label for="example-text-input" class="form-control-label">{{ $item->product }} -
+                                       @if($item->ammount > 1)
+                                           {{ $item->ammount }} Unidades
+                                       @else
+                                           {{ $item->ammount }} Unidade
+                                       @endif
+
+                                       - <i class="fa-solid fa-trash text-danger" data-bs-toggle="modal" data-bs-target="#deleteitem{{ $item->id }}" style="cursor: pointer; font-size: 12.5px;" title="Excluir do pedido"></i> <i class="fa-solid fa-file-pen text-success" style="cursor: pointer; font-size: 12.5px;" title="Editar"></i>
+                                   </label>
                                  </div>
                                </div>
+
+                                    <!-- Modal de deleção de item-->
+                                    <div class="modal fade" id="deleteitem{{ $item->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Exclusão de itens</h5>
+                                                    <i class="fa-solid fa-circle-xmark" style="cursor: pointer; color: #ef4444;" data-bs-dismiss="modal" aria-label="Close"></i>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p>
+                                                        Deseja excluir da sua bandeja {{ $item->product }} -
+                                                        @if($item->ammount > 1)
+                                                            {{ $item->ammount }} Unidades?
+                                                        @else
+                                                            {{ $item->ammount }} Unidade?
+                                                        @endif
+                                                    </p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <form action="{{ route('cardapio.destroy',  $item->id) }}" method="post">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger mb-0">Deletar</button>
+                                                    </form>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                             @endforeach
                             </div>
                         </div>

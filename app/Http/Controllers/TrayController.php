@@ -100,6 +100,18 @@ class TrayController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $user = Auth::user();
+        $item = Tray::find($id);
+        $item->delete();
+
+        $check = DB::table('trays')
+            ->where('user_id', $user->id)
+            ->count();
+
+        if ($check == 0){
+            return redirect(route('cardapio.index'));
+        }else{
+            return redirect()->back();
+        }
     }
 }
