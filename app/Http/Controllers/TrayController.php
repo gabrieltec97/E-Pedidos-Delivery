@@ -92,7 +92,11 @@ class TrayController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $item = Tray::find($id);
+        $item->ammount = $request->ammount;
+        $item->save();
+
+        return redirect()->back();
     }
 
     /**

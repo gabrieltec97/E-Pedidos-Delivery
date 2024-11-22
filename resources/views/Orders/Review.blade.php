@@ -22,7 +22,7 @@
                                            {{ $item->ammount }} Unidade
                                        @endif
 
-                                       - <i class="fa-solid fa-trash text-danger" data-bs-toggle="modal" data-bs-target="#deleteitem{{ $item->id }}" style="cursor: pointer; font-size: 12.5px;" title="Excluir do pedido"></i> <i class="fa-solid fa-file-pen text-success" style="cursor: pointer; font-size: 12.5px;" title="Editar"></i>
+                                       - <i class="fa-solid fa-trash text-danger" data-bs-toggle="modal" data-bs-target="#deleteitem{{ $item->id }}" style="cursor: pointer; font-size: 12.5px;" title="Excluir do pedido"></i> <i class="fa-solid fa-file-pen text-success" data-bs-toggle="modal" data-bs-target="#edititem{{ $item->id }}" style="cursor: pointer; font-size: 12.5px;" title="Editar"></i>
                                    </label>
                                  </div>
                                </div>
@@ -52,6 +52,38 @@
                                                         <button type="submit" class="btn btn-danger mb-0">Deletar</button>
                                                     </form>
 
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <!-- Modal de edição de item-->
+                                    <div class="modal fade" id="edititem{{ $item->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Edição de itens</h5>
+                                                    <i class="fa-solid fa-circle-xmark" style="cursor: pointer; color: #ef4444;" data-bs-dismiss="modal" aria-label="Close"></i>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="container-fluid">
+                                                        <form action="{{ route('cardapio.update',  $item->id) }}" method="post">
+                                                            @csrf
+                                                            @method('PATCH')
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="example-text-input" class="form-control-label">{{ $item->product }}</label>
+                                                                    <input class="form-control" type="number" name="ammount" value="{{ $item->ammount }}" required>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                   <button type="submit" class="btn btn-primary mb-0">Salvar alterações</button>
+                                                        </form>
                                                 </div>
                                             </div>
                                         </div>
