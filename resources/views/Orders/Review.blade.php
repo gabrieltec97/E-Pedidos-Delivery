@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-md-6 col-sm-12">
                 <div class="card mb-4">
-                    <div class="card-header pb-0">
+                    <div class="card-header pb-3">
                         <h6>Itens do pedido</h6>
                     </div>
                     <div class="card-body px-0 pt-0 pb-2">
@@ -95,7 +95,34 @@
                 </div>
             </div>
 
-            <div class="col-md-6 col-sm-12">
+            <div class="col-md-6">
+                <div class="card mb-4">
+                    <div class="card-header pb-3">
+                        <h6>Insira seu cupom</h6>
+                    </div>
+                    <div class="card-body px-0 pt-0 pb-2">
+                        <div class="container-fluid mt-lg-3">
+                            <div class="row">
+                                <div class="col-12">
+                                    <form action="#" method="post">
+                                        @csrf
+                                        <div class="form-group">
+                                            <label for="example-text-input" class="form-control-label">Cupom</label>
+                                            <input class="form-control" type="text" placeholder="Digite seu cupom" name="coupon">
+                                        </div>
+
+                                        <div class="col-12 d-flex justify-content-end mb-0">
+                                            <button type="submit" class="btn btn-success" style="margin-bottom: 0px;">Aplicar cupom</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
                 <div class="card mb-4">
                     <div class="card-header pb-3">
                         <h6>Dados de entrega</h6>
