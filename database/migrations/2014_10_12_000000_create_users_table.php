@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('address');
             $table->string('city');
             $table->string('neighbourhood');
+            $table->string('contact');
             $table->string('cep')->nullable();
             $table->rememberToken();
             $table->timestamps();

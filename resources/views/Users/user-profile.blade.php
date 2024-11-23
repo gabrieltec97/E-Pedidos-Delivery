@@ -100,7 +100,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="example-text-input" class="form-control-label">Contato</label>
-                                            <input class="form-control" name="contact" type="text">
+                                            <input class="form-control" name="contact" type="text" value="{{ $user->contact }}">
                                         </div>
                                     </div>
                                 </div>
@@ -123,8 +123,8 @@
                                         <input type="file" class="form-control" name="profile-photo" id="profile-photo">
                                     </div>
 
-                                    <div class="col-md-12 d-flex mt-5">
-                                        <button type="submit" class="btn btn-primary btn-sm ms-auto">Salvar alterações</button>
+                                    <div class="col-md-12 d-flex justify-content-end mt-5">
+                                        <button type="submit" class="btn btn-primary mb-0">Salvar alterações</button>
                                     </div>
                                 </div>
                             </form>
@@ -173,7 +173,7 @@
                                     <i class="ni business_briefcase-24 mr-2"></i>{{ $user->city }} - {{ $user->neighbourhood }}
                                 </div>
                                 <div>
-                                    <i class="ni education_hat mr-2"></i>Cliente desde - {{ $user->created_at }}
+                                    <i class="ni education_hat mr-2"></i>Cliente desde {{ $user->created_at }}
                                 </div>
                             </div>
                         </div>
