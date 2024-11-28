@@ -46,7 +46,7 @@ Route::get('revisar-pedido', [OrderController::class, 'review'])->name('review')
 
 Route::resource('/pedidos', OrderController::class);
 
-Route::get('/historicoDePedidos', [OrderController::class, 'historic'])->name('pedidos.historico');
+Route::view('/historicoDePedidos', 'Orders.Historic')->name('pedidos.historico');
 
 Route::resource('/usuarios', UserController::class);
 

@@ -49,13 +49,7 @@ class OrderController extends Controller
 
     public function historic()
     {
-        $orders = Order::all();
-        $items = OrderItems::all();
-
-        return view('Orders.Historic', [
-            'orders' => $orders,
-            'items' => $items
-        ]);
+       return view('Orders.Historic');
     }
 
     public function monthConverter()
