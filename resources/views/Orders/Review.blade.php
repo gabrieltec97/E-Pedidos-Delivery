@@ -94,9 +94,17 @@
                                  @if($taxe != 0)
                                      <p style="margin-bottom: 0px;">Taxa de entrega: R$ {{ $taxe }}</p>
                                      <p style="margin-bottom: 0px;">Total do pedido: R$ {{ $total}}</p>
+                                     @if($coupon)
+                                         {{ $coupon }}
+                                         <p class="text-success">{{ $coupon }} - <a href="{{ route('remover-cupom') }}" style="font-size: 15px; text-decoration: none; color: grey;">Remover cupom</a></p>
+                                     @endif
+
                                  @else
                                      <p class="text-success mb-0">Frete grátis</p>
                                      <p style="margin-bottom: 0px;">Total do pedido: R$ {{ $total }}</p>
+                                     @if($coupon)
+                                         <p class="text-success">{{ $coupon }} - <a href="{{ route('remover-cupom') }}" style="font-size: 15px; text-decoration: none; color: grey;">Remover cupom</a></p>
+                                     @endif
                                  @endif
                             </div>
                         </div>
@@ -117,11 +125,20 @@
                                         @csrf
                                         <div class="form-group">
                                             <label for="example-text-input" class="form-control-label">Cupom</label>
-                                            <input class="form-control" type="text" style="text-transform: uppercase;" oninput="this.value = this.value.replace(/\s+/g, '');"  name="coupon">
+                                            <input class="form-control" type="text" style="text-transform: uppercase;" oninput="this.value = this.value.replace(/\s+/g, '');"  name="coupon"
+                                            @if($coupon)
+                                                value="{{ $coupon }}"
+                                                readonly
+                                            @endif
+                                            >
                                         </div>
 
                                         <div class="col-12 d-flex justify-content-end mb-0">
-                                            <button type="submit" class="btn btn-success" style="margin-bottom: 0px;">Aplicar cupom</button>
+                                            <button type="submit" class="btn btn-success
+                                            @if($coupon)
+                                                d-none
+                                            @endif
+                                            " style="margin-bottom: 0px;">Aplicar cupom</button>
                                         </div>
                                     </form>
                                 </div>

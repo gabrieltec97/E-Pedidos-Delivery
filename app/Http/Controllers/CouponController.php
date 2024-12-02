@@ -80,6 +80,19 @@ class CouponController extends Controller
         }
     }
 
+    public function remove()
+    {
+        $user = Auth::user();
+        $firstTray = Tray::where('user_id', $user->id)
+            ->first();
+
+        $update = Tray::find($firstTray->id);
+        $update->coupon_apply = null;
+        $update->save();
+
+        return redirect()->back();
+    }
+
     /**
      * Update the specified resource in storage.
      */

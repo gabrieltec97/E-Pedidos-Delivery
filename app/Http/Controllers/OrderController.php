@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Coupon;
 use App\Models\Order;
 use App\Models\Neighbourhood;
 use App\Models\OrderItems;
@@ -95,7 +96,7 @@ class OrderController extends Controller
         $firstTray = Tray::where('user_id', $user->id)
             ->first();
 
-        if ($firstTray != null){
+        if ($firstTray->coupon_apply != null){
             $coupon = DB::table('coupons')
                 ->where('name', $firstTray->coupon_apply)
                 ->get();
@@ -110,6 +111,7 @@ class OrderController extends Controller
         }
 
         $total = number_format($total, 2, ',', '');
+        $apllyied = $firstTray->coupon_apply;
 
        if ($total != 0){
 
@@ -118,7 +120,8 @@ class OrderController extends Controller
                'items' => $items,
                'neighborhoods' => $neighborhoods,
                'total' => $total,
-               'taxe' => $taxe
+               'taxe' => $taxe,
+               'coupon' => $apllyied
            ]);
        }else{
            return redirect(route('cardapio.index'));
@@ -188,6 +191,30 @@ class OrderController extends Controller
                 }
             }
 
+            //Verificando desconto.
+            $firstTray = Tray::where('user_id', $user->id)
+                ->first();
+
+            if ($firstTray->coupon_apply != null){
+                $coupon = DB::table('coupons')
+                    ->where('name', $firstTray->coupon_apply)
+                    ->get();
+
+                //Verificando o tipo de cupom.
+                if ($coupon[0]->type == 'Porcentagem'){
+                    $percent = floatval('0.'. floatval($coupon[0]->discount));
+                    $value -= $value * $percent;
+                }else{
+                    $value -= floatval($coupon[0]->discount);
+                }
+
+                //Atualizando tabela de cupons.
+                $use = $coupon[0]->used + 1;
+                $updateCoupons = Coupon::find($coupon[0]->id);
+                $updateCoupons->used = $use;
+                $updateCoupons->save();
+            }
+
             $order = new Order();
             $order->id = $id;
             $order->user_id = $user->id;
@@ -204,7 +231,7 @@ class OrderController extends Controller
             //Limpando bandeja.
             DB::table('trays')->where('user_id', $user->id)->delete();
 
-            return redirect()->back();
+            return redirect()->route('cardapio.index');
         }
     }
 
