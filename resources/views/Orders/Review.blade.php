@@ -113,11 +113,11 @@
                         <div class="container-fluid mt-lg-3">
                             <div class="row">
                                 <div class="col-12">
-                                    <form action="#" method="post">
+                                    <form action="{{ route('aplicar-cupom') }}" method="post">
                                         @csrf
                                         <div class="form-group">
                                             <label for="example-text-input" class="form-control-label">Cupom</label>
-                                            <input class="form-control" type="text" placeholder="Digite seu cupom" name="coupon">
+                                            <input class="form-control" type="text" style="text-transform: uppercase;" oninput="this.value = this.value.replace(/\s+/g, '');"  name="coupon">
                                         </div>
 
                                         <div class="col-12 d-flex justify-content-end mb-0">

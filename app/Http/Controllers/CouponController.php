@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Coupon;
+use App\Models\Tray;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class CouponController extends Controller
 {
@@ -16,14 +19,6 @@ class CouponController extends Controller
         return view('Orders.Coupons', [
             'coupons' => $coupons
         ]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -56,20 +51,33 @@ class CouponController extends Controller
         return redirect()->back();
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Coupon $coupon)
+    public function apply(Request $request)
     {
-        //
-    }
+        $user = Auth::user();
+        $total = 0;
+        $coupon = DB::table('coupons')
+            ->where('name', $request->coupon)
+            ->get();
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Coupon $coupon)
-    {
-        //
+        $firstTray = Tray::where('user_id', $user->id)
+            ->first();
+
+        $trays = Tray::where('user_id', $user->id)
+            ->get();
+
+        foreach ($trays as $tray){
+            $total += $tray->value;
+        }
+
+        if ($total > $coupon[0]->role){
+            $update = Tray::find($firstTray->id);
+            $update->coupon_apply = $coupon[0]->name;
+            $update->save();
+
+            return redirect()->back();
+        }else{
+            return redirect()->back();
+        }
     }
 
     /**

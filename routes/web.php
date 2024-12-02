@@ -44,6 +44,8 @@ Route::resource('/cardapio', TrayController::class);
 
 Route::get('revisar-pedido', [OrderController::class, 'review'])->name('review');
 
+Route::post('/aplicar-cupom', [CouponController::class, 'apply'])->name('aplicar-cupom');
+
 Route::resource('/pedidos', OrderController::class);
 
 Route::view('/historicoDePedidos', 'Orders.Historic')->name('pedidos.historico');

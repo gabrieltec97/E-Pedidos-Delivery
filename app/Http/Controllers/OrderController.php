@@ -6,6 +6,7 @@ use App\Models\Order;
 use App\Models\Neighbourhood;
 use App\Models\OrderItems;
 use App\Models\Product;
+use App\Models\Tray;
 use Faker\Provider\DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -89,6 +90,24 @@ class OrderController extends Controller
        if ($taxe != 0 ){
            $total += $taxe;
        }
+
+       //Verificando desconto.
+        $firstTray = Tray::where('user_id', $user->id)
+            ->first();
+
+        if ($firstTray != null){
+            $coupon = DB::table('coupons')
+                ->where('name', $firstTray->coupon_apply)
+                ->get();
+
+            //Verificando o tipo de cupom.
+            if ($coupon[0]->type == 'Porcentagem'){
+                $percent = floatval('0.'. floatval($coupon[0]->discount));
+                $total -= $total * $percent;
+            }else{
+                $total -= floatval($coupon[0]->discount);
+            }
+        }
 
         $total = number_format($total, 2, ',', '');
 

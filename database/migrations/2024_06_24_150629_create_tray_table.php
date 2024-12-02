@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('product_id');
             $table->string('value');
             $table->string('ammount');
+            $table->string('coupon_apply');
             $table->string('comments')->nullable();
             $table->timestamps();
         });
