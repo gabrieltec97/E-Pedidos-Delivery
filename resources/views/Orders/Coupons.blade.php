@@ -179,6 +179,12 @@
                                                                 </div>
                                                                 <div class="col-lg-6">
                                                                     <div class="form-group">
+                                                                        <label for="example-text-input" class="form-control-label">Pedidos acima de:</label>
+                                                                        <input class="form-control" type="number" value="{{ $coupom->role }}" name="role" required>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-6">
+                                                                    <div class="form-group">
                                                                         <input type="checkbox" name="is_available" id="available" style="margin-top: 45px;" @checked($coupom->status)>
                                                                         <label for="available">Disponível para uso</label>
                                                                     </div>
@@ -260,7 +266,13 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <input type="checkbox" name="is_available" id="available" style="margin-top: 45px;" checked>
+                                        <label for="example-text-input" class="form-control-label">Pedidos acima de:</label>
+                                        <input class="form-control" type="number" placeholder="Insira o valor" name="role" required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <input type="checkbox" name="is_available" id="available" checked>
                                         <label for="available">Disponível para uso</label>
                                     </div>
                                 </div>

@@ -138,7 +138,7 @@ class HomeController extends Controller
             'chart' => $chart->build(),
             'totalOrders' => $totalOrders,
             'totalItems' => $totalItems,
-            'ammount' => $ammount,
+            'ammount' =>  number_format($ammount, 2, ',', '.'),
             'moneyMetrics' => $moneyMetrics,
             'orders' => $todayOrders
         ]);

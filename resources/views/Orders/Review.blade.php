@@ -90,7 +90,14 @@
                                     </div>
                             @endforeach
 
-                                 <p style="margin-bottom: 0px;">Total do pedido: R$ {{ $total }}</p>
+
+                                 @if($taxe != 0)
+                                     <p style="margin-bottom: 0px;">Taxa de entrega: R$ {{ $taxe }}</p>
+                                     <p style="margin-bottom: 0px;">Total do pedido: R$ {{ $total}}</p>
+                                 @else
+                                     <p class="text-success mb-0">Frete grátis</p>
+                                     <p style="margin-bottom: 0px;">Total do pedido: R$ {{ $total }}</p>
+                                 @endif
                             </div>
                         </div>
                     </div>

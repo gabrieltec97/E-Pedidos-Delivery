@@ -36,6 +36,7 @@ class CouponController extends Controller
         $coupon->products = $request->items;
         $coupon->type = $request->aplication;
         $coupon->limit = $request->limit;
+        $coupon->role = $request->role;
         $coupon->used = 0;
 
         if ($request->type == "Frete grátis"){

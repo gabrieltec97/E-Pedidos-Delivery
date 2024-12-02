@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('discount');
             $table->string('products');
             $table->string('limit');
+            $table->string('role');
             $table->boolean('status');
             $table->string('used')->nullable();
             $table->timestamps();

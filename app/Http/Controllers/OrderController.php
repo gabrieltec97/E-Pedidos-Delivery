@@ -75,9 +75,22 @@ class OrderController extends Controller
         $items = DB::table('trays')->where('user_id', $user->id)->get();
         $total = 0;
 
+        foreach ($neighborhoods as $neighborhood){
+            if ($neighborhood->name == $user->neighbourhood){
+                $taxe = floatval($neighborhood->taxe);
+                $taxe = number_format($taxe, 2, '.', '');
+            }
+        }
+
        foreach ($items as $item){
            $total += $item->value;
        }
+
+       if ($taxe != 0 ){
+           $total += $taxe;
+       }
+
+        $total = number_format($total, 2, ',', '');
 
        if ($total != 0){
 
@@ -85,7 +98,8 @@ class OrderController extends Controller
                'user' => $user,
                'items' => $items,
                'neighborhoods' => $neighborhoods,
-               'total' => $total
+               'total' => $total,
+               'taxe' => $taxe
            ]);
        }else{
            return redirect(route('cardapio.index'));
@@ -100,7 +114,14 @@ class OrderController extends Controller
     {
         $user = Auth::user();
         $tray = DB::table('trays')->where('user_id', $user->id)->get();
+        $neighborhoods = Neighbourhood::all();
 
+        //Cálculo de taxa.
+        foreach ($neighborhoods as $neighborhood){
+            if ($neighborhood->name == $user->neighbourhood){
+                $taxe = $neighborhood->taxe;
+            }
+        }
         //Evitando bug de criação de pedido errôneo.
         if (count($tray) == 0){
             return redirect()->back();
@@ -152,7 +173,7 @@ class OrderController extends Controller
             $order->id = $id;
             $order->user_id = $user->id;
             $order->status = 'Novo Pedido';
-            $order->value = $value;
+            $order->value = $value + $taxe;
             $order->month = $this->monthConverter();
             $order->day = date('d');
             $order->year = date("Y");
