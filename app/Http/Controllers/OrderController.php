@@ -47,11 +47,6 @@ class OrderController extends Controller
         ]);
     }
 
-    public function historic()
-    {
-       return view('Orders.Historic');
-    }
-
     public function monthConverter()
     {
         $mes = date('M');
@@ -79,11 +74,17 @@ class OrderController extends Controller
         $user = Auth::user();
         $neighborhoods = Neighbourhood::all();
         $items = DB::table('trays')->where('user_id', $user->id)->get();
+        $total = 0;
+
+       foreach ($items as $item){
+           $total += $item->value;
+       }
 
         return view('Orders.Review', [
             'user' => $user,
             'items' => $items,
-            'neighborhoods' => $neighborhoods
+            'neighborhoods' => $neighborhoods,
+            'total' => $total
         ]);
     }
 

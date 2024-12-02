@@ -46,15 +46,22 @@ class TrayController extends Controller
             $addTray->product = $item->name;
             $addTray->value = $item->price;
             $addTray->ammount = $request->ammount;
+            $addTray->product_id = $item->id;
             $addTray->save();
         } else {
             $exist = false;
             foreach ($hasTray as $trayItem){
                 if ($trayItem->product == $item->name){
+                    $value = floatval($trayItem->value) + (floatval($item->price) * floatval($request->ammount));
                     DB::table('trays')
                         ->where('user_id','=', $user->id)
                         ->where('product','=', $item->name)
                         ->update(['ammount' => $trayItem->ammount += $request->ammount]);
+
+                    DB::table('trays')
+                        ->where('user_id','=', $user->id)
+                        ->where('product','=', $item->name)
+                        ->update(['value' => $value]);
 
                     $exist = true;
                 }
@@ -92,9 +99,16 @@ class TrayController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $item = Tray::find($id);
-        $item->ammount = $request->ammount;
-        $item->save();
+        $tray = Tray::find($id);
+
+        if ($request->ammount != 0){
+            $item = Product::find($tray->product_id);
+            $tray->value = floatval($request->ammount) * floatval($item->price);
+            $tray->ammount = $request->ammount;
+            $tray->save();
+        }else{
+            $tray->delete();
+        }
 
         return redirect()->back();
     }

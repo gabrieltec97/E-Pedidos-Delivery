@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('user_id');
             $table->string('product');
+            $table->string('product_id');
             $table->string('value');
             $table->string('ammount');
             $table->string('comments')->nullable();

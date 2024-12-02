@@ -76,6 +76,7 @@
                                                                 <div class="form-group">
                                                                     <label for="example-text-input" class="form-control-label">{{ $item->product }}</label>
                                                                     <input class="form-control" type="number" name="ammount" value="{{ $item->ammount }}" required>
+                                                                    <input class="form-control" type="text" name="product" value="{{ $item->product }}" >
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -89,6 +90,8 @@
                                         </div>
                                     </div>
                             @endforeach
+
+                                 <p style="margin-bottom: 0px;">Total do pedido: R$ {{ $total }}</p>
                             </div>
                         </div>
                     </div>
