@@ -76,7 +76,6 @@
                                                                 <div class="form-group">
                                                                     <label for="example-text-input" class="form-control-label">{{ $item->product }}</label>
                                                                     <input class="form-control" type="number" name="ammount" value="{{ $item->ammount }}" required>
-                                                                    <input class="form-control" type="text" name="product" value="{{ $item->product }}" >
                                                                 </div>
                                                             </div>
                                                         </div>

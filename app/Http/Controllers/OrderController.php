@@ -80,12 +80,18 @@ class OrderController extends Controller
            $total += $item->value;
        }
 
-        return view('Orders.Review', [
-            'user' => $user,
-            'items' => $items,
-            'neighborhoods' => $neighborhoods,
-            'total' => $total
-        ]);
+       if ($total != 0){
+
+           return view('Orders.Review', [
+               'user' => $user,
+               'items' => $items,
+               'neighborhoods' => $neighborhoods,
+               'total' => $total
+           ]);
+       }else{
+           return redirect(route('cardapio.index'));
+       }
+
     }
 
     /**
