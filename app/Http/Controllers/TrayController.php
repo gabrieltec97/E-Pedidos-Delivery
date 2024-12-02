@@ -66,14 +66,6 @@ class TrayController extends Controller
                     $exist = true;
                 }
             }
-        if ($exist == false){
-            $addTray = new Tray();
-            $addTray->user_id = $user->id;
-            $addTray->product = $item->name;
-            $addTray->value = $item->price;
-            $addTray->ammount = $request->ammount;
-            $addTray->save();
-        }
         }
         return redirect()->back();
     }
