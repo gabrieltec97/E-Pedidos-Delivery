@@ -178,7 +178,10 @@
                                     </div>
 
                                 <div class="col-12 text-end">
-                                    <a href="{{ route('review') }}" type="button" class="btn btn-primary" style="margin-bottom: 0px;">Finalizar pedido</a>
+                                    <form action="{{ route('pedidos.store') }}" method="post">
+                                        @csrf
+                                        <button type="submit" class="btn btn-primary mb-0">Confirmar pedido</button>
+                                    </form>
                                 </div>
                                 </div>
                             </div>

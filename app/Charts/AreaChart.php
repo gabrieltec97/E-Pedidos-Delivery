@@ -107,7 +107,7 @@ class AreaChart
         return $this->chart->areaChart()
             ->setTitle('Comparativo ao longo dos meses.')
             ->setSubtitle('Total de vendas em cada mês.')
-            ->addData('Total de vendas', [$janeiro, $fevereiro, $março, $abril, $maio, $junho, $julho, $agosto, $setembro, $outubro])
+            ->addData('Total de vendas', [$janeiro, $fevereiro, $março, $abril, $maio, $junho, $julho, $agosto, $setembro, $outubro, $novembro, $dezembro])
 //            ->addData('Digital sales', [70, 29, 77, 28, 55, 45])
             ->setXAxis($meses);
     }

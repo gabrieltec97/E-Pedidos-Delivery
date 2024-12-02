@@ -52,7 +52,6 @@ class TrayController extends Controller
             $exist = false;
             foreach ($hasTray as $trayItem){
                 if ($trayItem->product == $item->name){
-                    $value = floatval($trayItem->value) + (floatval($item->price) * floatval($request->ammount));
                     DB::table('trays')
                         ->where('user_id','=', $user->id)
                         ->where('product','=', $item->name)
@@ -61,11 +60,20 @@ class TrayController extends Controller
                     DB::table('trays')
                         ->where('user_id','=', $user->id)
                         ->where('product','=', $item->name)
-                        ->update(['value' => $value]);
+                        ->update(['value' => floatval($trayItem->value) + (floatval($item->price) * floatval($request->ammount))]);
 
                     $exist = true;
                 }
             }
+        if ($exist == false){
+            $addTray = new Tray();
+            $addTray->user_id = $user->id;
+            $addTray->product = $item->name;
+            $addTray->value = $item->price;
+            $addTray->ammount = $request->ammount;
+            $addTray->product_id = $item->id;
+            $addTray->save();
+        }
         }
         return redirect()->back();
     }

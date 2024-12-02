@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
-
     public function index()
     {
         $orders = DB::table('orders')
@@ -155,7 +154,7 @@ class OrderController extends Controller
             $order->status = 'Novo Pedido';
             $order->value = $value;
             $order->month = $this->monthConverter();
-            $order->day = date("j");
+            $order->day = date('d');
             $order->year = date("Y");
             $order->userAdress = $user->address;
             $order->neighborhood = $user->neighbourhood;
