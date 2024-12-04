@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
 
         $administrador = Role::create(['name' => 'Administrador']);
         $operador = Role::create(['name' => 'Operador']);
-        $motoboy = Role::create(['name' => 'Cliente']);
+        $entregador = Role::create(['name' => 'Entregador']);
 
         //Permissões do sistema.
         Permission::create(['name' => 'dashboard']);
@@ -40,6 +40,6 @@ class DatabaseSeeder extends Seeder
         //Permissões de administrador.
         $administrador->givePermissionTo(['dashboard', 'gerenciar pedidos', 'gerenciar itens', 'gerenciar bairros', 'gerenciar usuários']);
         $operador->givePermissionTo(['gerenciar pedidos', 'gerenciar itens', 'gerenciar bairros']);
-        $motoboy->givePermissionTo(['entregar pedidos']);
+        $entregador->givePermissionTo(['entregar pedidos']);
     }
 }

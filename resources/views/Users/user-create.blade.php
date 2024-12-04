@@ -19,8 +19,14 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="example-text-input" class="form-control-label">Login Rápido</label>
-                                        <input class="form-control" type="text" name="username" placeholder="Ex: joaotec">
+                                        <label for="example-text-input" class="form-control-label">Nome</label>
+                                        <input class="form-control" type="text" name="name" placeholder="Apenas o primeiro nome">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="example-text-input" class="form-control-label">Sobrenome</label>
+                                        <input class="form-control" type="text" name="surname" placeholder="Apenas um sobrenome">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -29,20 +35,7 @@
                                         <input class="form-control" name="email" type="email" placeholder="Ex: joao@gmail.com">
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="example-text-input" class="form-control-label">Nome</label>
-                                        <input class="form-control" type="text" name="name" placeholder="Apenas o primeiro nome">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="example-text-input" class="form-control-label">Sobrenome</label>
-                                        <input class="form-control" type="text" name="surname" placeholder="Apenas um sobrenome">
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="example-text-input" class="form-control-label">Senha</label>
                                         <input class="form-control" type="password" name="password" placeholder="Apenas um sobrenome">
@@ -58,6 +51,12 @@
                                         <input class="form-control" type="text" name="address" placeholder="Ex: Rua do Carmo, 20">
                                     </div>
                                 </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="example-text-input" class="form-control-label">Cep</label>
+                                        <input class="form-control" name="city" type="text">
+                                    </div>
+                                </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="example-text-input" class="form-control-label">Cidade</label>
@@ -67,7 +66,12 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="example-text-input" class="form-control-label">Bairro</label>
-                                        <input class="form-control" name="neighboorhood" type="text">
+                                        <select class="form-control" name="neighbourhood">
+                                            <option style="cursor: none;" selected disabled>Selecione</option>
+                                            @foreach($neighborhoods as $neighborhood)
+                                                <option value="{{ $neighborhood->name }}">{{ $neighborhood->name }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-md-4">

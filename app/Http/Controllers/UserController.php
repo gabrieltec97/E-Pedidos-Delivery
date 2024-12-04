@@ -15,6 +15,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
+
         return view('Users.users', [
             'users' => $users
         ]);
@@ -25,7 +26,10 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('Users.user-create');
+        $neighborhoods = Neighbourhood::all();
+        return view('Users.user-create', [
+            'neighborhoods' => $neighborhoods
+        ]);
     }
 
     /**
@@ -34,14 +38,13 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $user = new User();
-        $user->username = $request->username;
         $user->email = $request->email;
         $user->firstname = ucfirst($request->name);
         $user->lastname = ucfirst($request->surname);
         $user->password = bcrypt($request->password);
         $user->address = $request->address;
         $user->city = $request->city;
-        $user->neighbourhood = $request->neighboorhood;
+        $user->neighbourhood = $request->neighbourhood;
 
         if ($request->user_type == 'Administrador'){
             $user->user_type = $request->user_type;
@@ -86,7 +89,6 @@ class UserController extends Controller
     public function update(Request $request, string $id)
     {
         $user = User::find($id);
-        $user->username = $request->username;
         $user->email = $request->email;
         $user->firstname = ucfirst($request->name);
         $user->lastname = ucfirst($request->surname);
