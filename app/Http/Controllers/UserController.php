@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Neighbourhood;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -40,8 +41,18 @@ class UserController extends Controller
         $user->password = bcrypt($request->password);
         $user->address = $request->address;
         $user->city = $request->city;
-        $user->user_type = $request->user_type;
         $user->neighbourhood = $request->neighboorhood;
+
+        if ($request->user_type == 'Administrador'){
+            $user->user_type = $request->user_type;
+            $user->assignRole('Administrador');
+        }elseif ($request->user_type == 'Operador'){
+            $user->user_type = $request->user_type;
+            $user->assignRole('Operador');
+        }else{
+            $user->user_type = $request->user_type;
+            $user->assignRole('Entregador');
+        }
 
         $user->save();
 
@@ -82,7 +93,17 @@ class UserController extends Controller
         $user->password = bcrypt($request->password);
         $user->address = $request->address;
         $user->city = $request->city;
-        $user->user_type = $request->user_type;
+
+        if ($request->user_type == 'Administrador'){
+            $user->user_type = $request->user_type;
+            $user->assignRole('Administrador');
+        }elseif ($request->user_type == 'Operador'){
+            $user->user_type = $request->user_type;
+            $user->assignRole('Operador');
+        }else{
+            $user->user_type = $request->user_type;
+            $user->assignRole('Entregador');
+        }
 
         $user->save();
 
