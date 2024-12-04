@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 
@@ -24,12 +25,21 @@ class DatabaseSeeder extends Seeder
 //            'password' => bcrypt('secret')
 //        ]);
 
-        Role::create(['name' => 'Administrador']);
-        Role::create(['name' => 'Operador']);
-        Role::create(['name' => 'Cliente']);
-        Role::create(['name' => 'Motoboy']);
+        $administrador = Role::create(['name' => 'Administrador']);
+        $operador = Role::create(['name' => 'Operador']);
+        $motoboy = Role::create(['name' => 'Cliente']);
 
-        //Permissões de admin
+        //Permissões do sistema.
+        Permission::create(['name' => 'dashboard']);
+        Permission::create(['name' => 'gerenciar pedidos']);
+        Permission::create(['name' => 'entregar pedidos']);
+        Permission::create(['name' => 'gerenciar itens']);
+        Permission::create(['name' => 'gerenciar bairros']);
+        Permission::create(['name' => 'gerenciar usuários']);
 
+        //Permissões de administrador.
+        $administrador->givePermissionTo(['dashboard', 'gerenciar pedidos', 'gerenciar itens', 'gerenciar bairros', 'gerenciar usuários']);
+        $operador->givePermissionTo(['gerenciar pedidos', 'gerenciar itens', 'gerenciar bairros']);
+        $motoboy->givePermissionTo(['entregar pedidos']);
     }
 }

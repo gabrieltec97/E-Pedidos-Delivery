@@ -30,38 +30,27 @@ use App\Http\Controllers\ChangePassword;
 |
 */
 
-Route::get('/usuarios', [UserController::class, 'index'])->name('users');
-
-Route::resource('/produtos', ProductController::class);
-
-Route::resource('/cupons', CouponController::class);
-
-Route::resource('/bairros', NeighbourhoodController::class);
-
-Route::resource('/adicionais', AdditionalController::class);
-
 Route::resource('/cardapio', TrayController::class);
-
 Route::get('revisar-pedido', [OrderController::class, 'review'])->name('review');
 
-Route::post('/aplicar-cupom', [CouponController::class, 'apply'])->name('aplicar-cupom');
-
-Route::get('remover-cupom', [CouponController::class, 'remove'])->name('remover-cupom');
-
-Route::resource('/pedidos', OrderController::class);
-
-Route::view('/historicoDePedidos', 'Orders.Historic')->name('pedidos.historico');
-
-Route::resource('/usuarios', UserController::class);
-
-
 Route::get('log', function (){
-    Auth::loginUsingId(2);
+    Auth::loginUsingId(4);
 });
-
 
 Route::middleware(['role:Administrador'])->group(function () {
     Route::get('/dashboard', [HomeController::class, 'index'])->name('home')->middleware('auth');
+    Route::resource('/usuarios', UserController::class);
+});
+
+Route::middleware(['role:Administrador|Operador'])->group(function () {
+    Route::post('/aplicar-cupom', [CouponController::class, 'apply'])->name('aplicar-cupom');
+    Route::get('remover-cupom', [CouponController::class, 'remove'])->name('remover-cupom');
+    Route::resource('/pedidos', OrderController::class);
+    Route::view('/historicoDePedidos', 'Orders.Historic')->name('pedidos.historico');
+    Route::resource('/produtos', ProductController::class);
+    Route::resource('/cupons', CouponController::class);
+    Route::resource('/bairros', NeighbourhoodController::class);
+    Route::resource('/adicionais', AdditionalController::class);
 });
 
 
