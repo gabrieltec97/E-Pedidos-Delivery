@@ -17,6 +17,11 @@ class OrderController extends Controller
 {
     public function index()
     {
+        return view('Orders.live-orders');
+    }
+
+    public function getPedidosJson()
+    {
         $data = DB::table('orders')
             ->where('status', '!=', 'Cancelado')
             ->where('status', '!=', 'Pedido Entregue')
@@ -42,21 +47,9 @@ class OrderController extends Controller
                 'address' => $order->userAdress, 'neighborhood' => $order->neighborhood,
                 'client' => $order->user_name, 'date' => $order->created_at, 'status' => $order->status]);
         }
-//        return response()->json($orders);
 
-        return view('Orders.live-orders', [
-            'orders' => $orders
-        ]);
-    }
-
-    public function getPedidosJson()
-    {
-        $orders = DB::table('orders')
-            ->where('status', 'Novo Pedido')
-            ->get();
         return response()->json($orders);
     }
-
 
     public function monthConverter()
     {
