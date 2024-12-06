@@ -17,14 +17,14 @@ class OrderController extends Controller
 {
     public function index()
     {
-        $orders = DB::table('orders')
+        $data = DB::table('orders')
             ->where('status', '!=', 'Cancelado')
             ->where('status', '!=', 'Pedido Entregue')
             ->get()->toArray();
 
-        $info = [];
+        $orders = [];
 
-        foreach ($orders as $order){
+        foreach ($data as $order){
             $items = DB::table('order_items')
                 ->where('order_id', $order->id)
                 ->get()->toArray();
@@ -38,15 +38,25 @@ class OrderController extends Controller
                     $product = $product . ',' . $item->product . ' - ' . $item->ammount . ' item(s)';
                 }
             }
-            array_push($info, ['id' => $order->id, 'items' => $product, 'value' => $order->value,
+            array_push($orders, ['id' => $order->id, 'items' => $product, 'value' => $order->value,
                 'address' => $order->userAdress, 'neighborhood' => $order->neighborhood,
                 'client' => $order->user_name, 'date' => $order->created_at, 'status' => $order->status]);
         }
+//        return response()->json($orders);
 
         return view('Orders.live-orders', [
-            'info' => $info
+            'orders' => $orders
         ]);
     }
+
+    public function getPedidosJson()
+    {
+        $orders = DB::table('orders')
+            ->where('status', 'Novo Pedido')
+            ->get();
+        return response()->json($orders);
+    }
+
 
     public function monthConverter()
     {

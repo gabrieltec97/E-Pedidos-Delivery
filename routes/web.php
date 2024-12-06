@@ -53,6 +53,9 @@ Route::middleware(['role:Administrador|Operador'])->group(function () {
     Route::resource('/adicionais', AdditionalController::class);
 });
 
+Route::get('/api/pedidos', [OrderController::class, 'getPedidosJson'])->name('pedidos.json');
+
+
 
 
 
