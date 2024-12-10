@@ -39,6 +39,53 @@
             </div>
         </div>
     </div>
+
+    @if(session('msg-error'))
+        <script>
+            $.toast({
+                heading: '<b>Oopsss, algo errado aconteceu!</b>',
+                showHideTransition : 'slide',  // It can be plain, fade or slide
+                bgColor : 'red',
+                text: '<b>{{ session('msg') }}</b>', // A mensagem que foi passada via session
+                hideAfter : 8000,
+                position: 'top-right',
+                textColor: 'white',
+                icon: 'error'
+                // stack: false
+            });
+        </script>
+    @endif
+
+    @if(session('msg-error'))
+        <script>
+            $.toast({
+                heading: '<b>Oopsss, algo errado aconteceu!</b>',
+                showHideTransition : 'slide',  // It can be plain, fade or slide
+                bgColor : 'red',
+                text: '<b>{{ session('msg') }}</b>', // A mensagem que foi passada via session
+                hideAfter : 8000,
+                position: 'top-right',
+                textColor: 'white',
+                icon: 'error'
+                // stack: false
+            });
+        </script>
+    @endif
+
+    @if(session('msg-success'))
+        <script>
+            $.toast({
+                heading: '<b>Que legal!</b>',
+                showHideTransition : 'slide',  // It can be plain, fade or slide
+                bgColor : '#2ecc71',
+                text: '<b>{{ session('msg-success') }}</b>',
+                hideAfter : 8000,
+                position: 'top-right',
+                textColor: '#ecf0f1',
+                icon: 'success'
+            });
+        </script>
+    @endif
 @endsection
 
 {{--@extends('layouts.app', ['class' => 'g-sidenav-show bg-gray-100'])--}}

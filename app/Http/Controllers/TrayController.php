@@ -48,13 +48,13 @@ class TrayController extends Controller
     public function store(Request $request)
     {
         $item = Product::find($request->productId);
+
+        //Verificação de estoque baixo.
         if ($item->stock != null){
             if ($request->ammount > $item->stock){
-                return redirect()->route('cardapio.index');
+                return redirect()->route('cardapio.index')->with('msg-error', 'Não é possível adicionar '. $request->ammount . ' unidades de ' . $item->name. ' na bandeja.');
             }
         }
-
-        die();
         $user = Auth::user();
 
         //Verificação se o novo item adicionado existe na tabela.
@@ -95,7 +95,7 @@ class TrayController extends Controller
             $addTray->save();
         }
         }
-        return redirect()->back();
+        return redirect()->route('cardapio.index')->with('msg-success', 'Item adicionado à sua bandeja. Temos várias outras comidas deliciosas para você!');
     }
 
     /**
