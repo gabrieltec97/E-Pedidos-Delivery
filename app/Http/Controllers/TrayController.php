@@ -16,6 +16,19 @@ class TrayController extends Controller
     public function index()
     {
         $products = Product::all();
+
+        //Verificação se o item tem em estoque.
+        foreach ($products as $key => $product){
+            if ($product->type != 'Comida'){
+               if ($product->stock <= 0 && $product->is_available){
+                  $updateProduct = Product::find($product->id);
+                  $updateProduct->is_available = false;
+                  $updateProduct->save();
+               }elseif ($product->stock <= 0){
+                    unset($products[$key]);
+                }
+            }
+        }
         return view('Orders.Menu', [
             'products' => $products
         ]);
@@ -35,6 +48,13 @@ class TrayController extends Controller
     public function store(Request $request)
     {
         $item = Product::find($request->productId);
+        if ($item->stock != null){
+            if ($request->ammount > $item->stock){
+                return redirect()->route('cardapio.index');
+            }
+        }
+
+        die();
         $user = Auth::user();
 
         //Verificação se o novo item adicionado existe na tabela.
