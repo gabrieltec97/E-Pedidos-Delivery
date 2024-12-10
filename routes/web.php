@@ -34,7 +34,7 @@ Route::resource('/cardapio', TrayController::class);
 Route::get('revisar-pedido', [OrderController::class, 'review'])->name('review');
 
 Route::get('log', function (){
-    Auth::loginUsingId(6);
+    Auth::loginUsingId(5);
 });
 
 Route::middleware(['role:Administrador'])->group(function () {
@@ -51,9 +51,11 @@ Route::middleware(['role:Administrador|Operador'])->group(function () {
     Route::resource('/cupons', CouponController::class);
     Route::resource('/bairros', NeighbourhoodController::class);
     Route::resource('/adicionais', AdditionalController::class);
+    Route::get('/api/pedidos', [OrderController::class, 'getPedidosJson'])->name('pedidos.json');
+    Route::get('/atualizar/{id}', [OrderController::class, 'updateStatus'])->name('update.status');
 });
 
-Route::get('/api/pedidos', [OrderController::class, 'getPedidosJson'])->name('pedidos.json');
+
 
 
 

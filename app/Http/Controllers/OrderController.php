@@ -241,26 +241,35 @@ class OrderController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        //
-    }
-
-//    /**
-//     * Show the form for editing the specified resource.
-//     */
-//    public function edit(string $id)
+//    public function show(string $id)
 //    {
 //        //
 //    }
 //
-//    /**
-//     * Update the specified resource in storage.
+////    /**
+////     * Show the form for editing the specified resource.
+////     */
+////    public function edit(string $id)
+////    {
+////        //
+////    }
+////
+////    /**
+////     * Update the specified resource in storage.
 //     */
 //    public function update(Request $request, string $id)
 //    {
-//        //
+//        echo $id;
 //    }
+
+    public function updateStatus(Request $request, string $id)
+    {
+        $order = Order::find($id);
+        $order->status = $request->status;
+        $order->save();
+
+        return redirect()->route('pedidos.index');
+    }
 
     /**
      * Remove the specified resource from storage.

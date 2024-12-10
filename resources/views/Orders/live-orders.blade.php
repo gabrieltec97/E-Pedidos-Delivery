@@ -18,7 +18,7 @@
                                     <th>ID do Pedido</th>
                                     <th>Status</th>
                                     <th>Data</th>
-                                    <th>Ações</th>
+                                    <th>Alterar Status</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -63,39 +63,48 @@
                                 badgeClass = 'bg-gradient-success';
                             } else if (order.status === 'Em Preparação') {
                                 badgeClass = 'bg-gradient-warning';
-                            } else if (order.status === 'Saiu para entrega') {
+                            } else if (order.status === 'Em rota de entrega') {
                                 badgeClass = 'bg-gradient-primary';
                             } else if (order.status === 'Cancelado') {
                                 badgeClass = 'bg-gradient-danger';
                             }
 
                             tableRows += `
-                    <tr>
-                        <td>
-                            <div class="d-flex px-2 py-1">
-                                <div class="d-flex flex-column justify-content-center">
-                                    <h6 class="mb-0 text-sm">${order.client}</h6>
-                                    <p class="text-xs text-secondary mb-0">${order.neighborhood}</p>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <h5 class="text-xs font-weight-bold mb-0">#${order.id}</h5>
-                        </td>
-                        <td class="align-middle text-center text-sm">
-                            <span class="badge badge-sm ${badgeClass}">${order.status}</span>
-                        </td>
-                        <td class="align-middle text-center">
-                            <span class="text-secondary text-xs font-weight-bold">${order.date}</span>
-                        </td>
-                        <td class="align-middle">
-                            <a href="javascript:;" class="text-secondary font-weight-bold text-xs"
-                               data-bs-toggle="modal" data-bs-target="#pedido${order.id}">
-                                Detalhes
-                            </a>
-                        </td>
-                    </tr>
-                `;
+    <tr>
+        <td>
+            <div class="d-flex px-2 py-1">
+                <div class="d-flex flex-column justify-content-center">
+                    <h6 class="mb-0 text-sm" style="color: black; cursor: pointer;"
+                        data-bs-toggle="modal" data-bs-target="#pedido${order.id}">
+                        ${order.client}
+                    </h6>
+                    <p class="text-xs text-secondary mb-0">${order.neighborhood}</p>
+                </div>
+            </div>
+        </td>
+        <td>
+            <h5 class="text-xs font-weight-bold mb-0" style="color: black; cursor: pointer;"
+                data-bs-toggle="modal" data-bs-target="#pedido${order.id}">
+                #${order.id}
+            </h5>
+        </td>
+        <td class="align-middle text-center text-sm">
+            <span class="badge badge-sm ${badgeClass}">${order.status}</span>
+        </td>
+        <td class="align-middle text-center">
+            <span class="text-secondary text-xs font-weight-bold">${order.date}</span>
+        </td>
+        <td class="align-middle">
+            <select class="form-select form-select-sm" aria-label="Alterar status do pedido">
+                <option value="Novo Pedido" ${order.status === 'Novo Pedido' ? 'selected' : ''}>Novo Pedido</option>
+                <option value="Em Preparação" ${order.status === 'Em Preparação' ? 'selected' : ''}>Em Preparação</option>
+                <option value="Em rota de entrega" ${order.status === 'Em rota de entrega' ? 'selected' : ''}>Em rota de entrega</option>
+                <option value="Cancelado" ${order.status === 'Cancelado' ? 'selected' : ''}>Cancelado</option>
+                <option value="Pedido Entregue" ${order.status === 'Pedido Entregue' ? 'selected' : ''}>Pedido Entregue</option>
+            </select>
+        </td>
+    </tr>
+`;
 
                             let items = order.items.split(',');
                             let itemsList = items.map(item => `<li>${item}</li>`).join('');
@@ -177,5 +186,63 @@
             fetchPedidos();
         });
 
+        //Alteração de status do pedido.
+        $(document).on('change', '.form-select', function () {
+            const newStatus = $(this).val(); // Novo status selecionado
+            const row = $(this).closest('tr'); // Linha atual
+            const orderId = row.find('h5').text().trim().replace('#', ''); // ID do pedido sem "#"
+            const currentStatus = row.find('.badge').text().trim(); // Status atual do pedido
+
+            // Exibe o modal apenas se o novo status for diferente do atual
+            if (newStatus !== currentStatus) {
+                const modalHtml = `
+            <div class="modal fade" id="confirmStatusChange" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <form action="/atualizar/${orderId}" method="get">
+                        <input type="hidden" name="_token" value="${$('meta[name="csrf-token"]').attr('content')}">
+                        <input type="hidden" name="_method" value="PUT">
+                        <input type="hidden" name="status" value="${newStatus}">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="confirmModalLabel">Alteração de Status</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Você está prestes a alterar o status do pedido <strong>#${orderId}</strong> de <strong>${currentStatus}</strong> para <strong>${newStatus}</strong>. Deseja continuar?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                <button type="submit" class="btn btn-primary">Confirmar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        `;
+
+                // Adiciona o modal ao container de modais e exibe
+                $('#modals-container').html(modalHtml);
+                $('#confirmStatusChange').modal('show');
+            }
+        });
+
+
+        // Função para obter a classe do badge com base no novo status
+        function getBadgeClass(status) {
+            switch (status) {
+                case 'Novo Pedido':
+                    return 'bg-gradient-success';
+                case 'Em Preparação':
+                    return 'bg-gradient-warning';
+                case 'Em rota de entrega':
+                    return 'bg-gradient-primary';
+                case 'Cancelado':
+                    return 'bg-gradient-danger';
+                case 'Pedido Entregue':
+                    return 'bg-gradient-info';
+                default:
+                    return '';
+            }
+        }
     </script>
 @endsection
