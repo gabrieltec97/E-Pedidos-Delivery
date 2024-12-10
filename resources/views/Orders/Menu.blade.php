@@ -46,7 +46,7 @@
                 heading: '<b>Oopsss, algo errado aconteceu!</b>',
                 showHideTransition : 'slide',  // It can be plain, fade or slide
                 bgColor : 'red',
-                text: '<b>{{ session('msg') }}</b>', // A mensagem que foi passada via session
+                text: '<b>{{ session('msg-error') }}</b>', // A mensagem que foi passada via session
                 hideAfter : 8000,
                 position: 'top-right',
                 textColor: 'white',
@@ -56,13 +56,13 @@
         </script>
     @endif
 
-    @if(session('msg-error'))
+    @if(session('error-no-stock'))
         <script>
             $.toast({
                 heading: '<b>Oopsss, algo errado aconteceu!</b>',
                 showHideTransition : 'slide',  // It can be plain, fade or slide
                 bgColor : 'red',
-                text: '<b>{{ session('msg') }}</b>', // A mensagem que foi passada via session
+                text: '<b>{{ session('error-no-stock') }}</b>', // A mensagem que foi passada via session
                 hideAfter : 8000,
                 position: 'top-right',
                 textColor: 'white',

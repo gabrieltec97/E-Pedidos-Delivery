@@ -215,4 +215,20 @@
             </div>
         </div>
     </div>
+
+    @if(session('ammount-error'))
+        <script>
+            $.toast({
+                heading: '<b>Oopsss, algo errado aconteceu!</b>',
+                showHideTransition : 'slide',  // It can be plain, fade or slide
+                bgColor : 'red',
+                text: '<b>{{ session('ammount-error') }}</b>', // A mensagem que foi passada via session
+                hideAfter : 12000,
+                position: 'top-right',
+                textColor: 'white',
+                icon: 'error'
+                // stack: false
+            });
+        </script>
+    @endif
 @endsection

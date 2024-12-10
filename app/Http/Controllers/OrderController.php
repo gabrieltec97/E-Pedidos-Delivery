@@ -141,6 +141,30 @@ class OrderController extends Controller
         $tray = DB::table('trays')->where('user_id', $user->id)->get();
         $neighborhoods = Neighbourhood::all();
 
+        //Verificação se o produto tem em estoque.
+        foreach ($tray as $Titem){
+            $item = DB::table('products')->where('name', $Titem->product)->get();
+
+            if ($item[0]->type != 'Comida'){
+                if ($Titem->ammount > $item[0]->stock){
+                    $disableItem = Product::find($item[0]->id);
+                    $disableItem->is_available = false;
+                    $disableItem->save();
+
+                    $deleteItem = Tray::find($Titem->id);
+                    $deleteItem->delete();
+
+                    $refreshTray = DB::table('trays')->where('user_id', $user->id)->count();
+
+                    if ($refreshTray != 0){
+                        return redirect()->back()->with('ammount-error', 'Não é possível adicionar '.$Titem->ammount.' unidades de '. $item[0]->name. '. Com isso, excluímos este item de sua bandeja.');
+                    }else{
+                        return redirect()->route('cardapio.index')->with('error-no-stock', 'Não é possível adicionar '.$Titem->ammount.' unidades de '. $item[0]->name. '. Escolha outro produto do cardápio.');
+                    }
+                }
+            }
+        }
+
         //Cálculo de taxa.
         foreach ($neighborhoods as $neighborhood){
             if ($neighborhood->name == $user->neighbourhood){

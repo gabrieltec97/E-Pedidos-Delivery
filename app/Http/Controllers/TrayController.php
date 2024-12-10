@@ -24,9 +24,9 @@ class TrayController extends Controller
                   $updateProduct = Product::find($product->id);
                   $updateProduct->is_available = false;
                   $updateProduct->save();
-               }elseif ($product->stock <= 0){
+               }elseif ($product->stock <= 0 or !$product->is_available){
                     unset($products[$key]);
-                }
+               }
             }
         }
         return view('Orders.Menu', [
