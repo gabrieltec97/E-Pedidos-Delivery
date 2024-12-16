@@ -78,6 +78,10 @@ class OrderController extends Controller
         $user = Auth::user();
         $neighborhoods = Neighbourhood::all();
         $items = DB::table('trays')->where('user_id', $user->id)->get();
+
+        if (count($items) == 0){
+            return redirect(route('cardapio.index'))->with('msg-add', 'Sua bandeja está vazia. Adicione itens do cardápio!');
+        }
         $total = 0;
 
         foreach ($neighborhoods as $neighborhood){
@@ -141,9 +145,6 @@ class OrderController extends Controller
        }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store()
     {
         $user = Auth::user();
@@ -205,7 +206,7 @@ class OrderController extends Controller
                 $item->order_id = $id;
                 $item->product = $t->product;
                 $item->ammount = $t->ammount;
-                $item->value = $t->value * $t->ammount;
+                $item->value = $t->value;
                 $item->address = $user->address;
                 $item->neighbourhood = $user->neighbourhood;
                 $item->user_name = $user->firstname . " " . $user->lastname;
@@ -240,6 +241,8 @@ class OrderController extends Controller
                 if ($coupon[0]->type == 'Porcentagem'){
                     $percent = floatval('0.'. floatval($coupon[0]->discount));
                     $value -= $value * $percent;
+                }elseif ($coupon[0]->type == 'Frete grátis'){
+                    $value -= $taxe;
                 }else{
                     $value -= floatval($coupon[0]->discount);
                 }
@@ -270,31 +273,6 @@ class OrderController extends Controller
             return redirect()->route('cardapio.index');
         }
     }
-
-    /**
-     * Display the specified resource.
-     */
-//    public function show(string $id)
-//    {
-//        //
-//    }
-//
-////    /**
-////     * Show the form for editing the specified resource.
-////     */
-////    public function edit(string $id)
-////    {
-////        //
-////    }
-////
-////    /**
-////     * Update the specified resource in storage.
-//     */
-//    public function update(Request $request, string $id)
-//    {
-//        echo $id;
-//    }
-
     public function updateStatus(Request $request, string $id)
     {
         $order = Order::find($id);
@@ -305,13 +283,5 @@ class OrderController extends Controller
         $order->save();
 
         return redirect()->route('pedidos.index');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 }

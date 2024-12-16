@@ -10,14 +10,10 @@ use Illuminate\Support\Facades\DB;
 
 class TrayController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $user = Auth::user();
         $products = Product::all();
-        $items = DB::table('trays')->where('user_id', $user->id)->count();
 
         //Verificação se o item tem em estoque.
         foreach ($products as $key => $product){
@@ -33,29 +29,20 @@ class TrayController extends Controller
         }
         return view('Orders.Menu', [
             'products' => $products,
-            'items' => $items
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        $item = Product::find($request->productId);
+        $item = Product::find($request->input('productId'));
 
         //Verificação de estoque baixo.
         if ($item->stock != null){
             if ($request->ammount > $item->stock){
-                return redirect()->route('cardapio.index')->with('msg-error', 'Não é possível adicionar '. $request->ammount . ' unidades de ' . $item->name. ' na bandeja.');
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Não é possível adicionar ' . $request->ammount . ' unidades de ' . $item->name . ' na bandeja.'
+                ], 400);
             }
         }
         $user = Auth::user();
@@ -83,7 +70,7 @@ class TrayController extends Controller
                     DB::table('trays')
                         ->where('user_id','=', $user->id)
                         ->where('product','=', $item->name)
-                        ->update(['value' => floatval($trayItem->value) + (floatval($item->price) * floatval($request->ammount))]);
+                        ->update(['value' => floatval($item->price)]);
 
                     $exist = true;
                 }
@@ -98,47 +85,23 @@ class TrayController extends Controller
             $addTray->save();
         }
         }
-        return redirect()->route('cardapio.index')->with('msg-success', 'Item adicionado à sua bandeja. Temos várias outras comidas deliciosas para você!');
+        return response()->json(['message' => 'Produto adicionado ao carrinho com sucesso!']);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         $tray = Tray::find($id);
-
         if ($request->ammount != 0){
             $item = Product::find($tray->product_id);
-            $tray->value = floatval($request->ammount) * floatval($item->price);
+            $tray->value = floatval($item->price);
             $tray->ammount = $request->ammount;
             $tray->save();
         }else{
             $tray->delete();
         }
-
         return redirect()->back();
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         $user = Auth::user();

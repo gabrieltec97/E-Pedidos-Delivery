@@ -90,7 +90,6 @@
                                     </div>
                             @endforeach
 
-
                                  @if($taxe != 0)
                                      @if($type != 'Frete grátis')
                                          <p style="margin-bottom: 0px;">Taxa de entrega: R$ {{ $taxe }}</p>

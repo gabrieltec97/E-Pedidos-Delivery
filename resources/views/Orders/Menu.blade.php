@@ -13,26 +13,25 @@
                         <div class="container-fluid mt-lg-3">
                            <div class="row">
                                @foreach($products as $product)
-                                       <div class="col-4">
-                                           <form action="{{ route('cardapio.store') }}" method="post">
-                                               @csrf
+                                   <div class="col-4">
+                                       <form class="product-form" data-product-id="{{ $product->id }}" method="post">
+                                           @csrf
                                            <div>
-                                               <img src="/img/team-2.jpg" class="avatar avatar-lg"
-                                                    alt="user1">
-
+                                               <img src="/img/team-2.jpg" class="avatar avatar-lg" alt="user1">
                                                <label for="Name" style="font-size: 20px;">{{ $product->name }}</label><br>
                                                <label for="Name" style="font-size: 15px;">R$ <span class="text-success">{{ $product->price }}</span></label>
+                                               <input type="hidden" name="productId" value="{{ $product->id }}">
                                                <input type="number" class="form-control" name="ammount" style="width: 90px" value="1">
-                                               <button type="submit" class="btn btn-success" name="productId" value="{{ $product->id }}"><i class="fa-solid fa-cart-shopping"></i></button>
+                                               <button type="submit" class="btn btn-success"><i class="fa-solid fa-cart-shopping"></i></button>
                                            </div>
-                                           </form>
-                                       </div>
+                                       </form>
+                                   </div>
                                @endforeach
 
+
+
                                <div class="col-12 text-end">
-                                   @if($items > 0)
-                                       <a href="{{ route('review') }}" type="button" class="btn btn-primary">Finalizar pedido</a>
-                                   @endif
+                                   <a href="{{ route('review') }}" type="button" class="btn btn-primary">Finalizar pedido</a>
                                </div>
                            </div>
                         </div>
@@ -58,6 +57,21 @@
         </script>
     @endif
 
+    @if(session('msg-add'))
+        <script>
+            $.toast({
+                heading: '<b>Oopsss, bandeja vazia!</b>',
+                showHideTransition : 'slide',  // It can be plain, fade or slide
+                bgColor : 'red',
+                text: '<b>{{ session('msg-add') }}</b>', // A mensagem que foi passada via session
+                hideAfter : 8000,
+                position: 'top-right',
+                textColor: 'white',
+                icon: 'error'
+            });
+        </script>
+    @endif
+
     @if(session('error-no-stock'))
         <script>
             $.toast({
@@ -74,20 +88,48 @@
         </script>
     @endif
 
-    @if(session('msg-success'))
-        <script>
-            $.toast({
-                heading: '<b>Que legal!</b>',
-                showHideTransition : 'slide',  // It can be plain, fade or slide
-                bgColor : '#2ecc71',
-                text: '<b>{{ session('msg-success') }}</b>',
-                hideAfter : 8000,
-                position: 'top-right',
-                textColor: '#ecf0f1',
-                icon: 'success'
+    <script>
+        $(document).ready(function () {
+            $('.product-form').on('submit', function (e) {
+                e.preventDefault(); // Impede o envio padrão do formulário
+
+                const form = $(this);
+                const url = "{{ route('cardapio.store') }}"; // URL do backend
+                const formData = form.serialize(); // Serializa os dados do formulário, incluindo o `productId`
+
+                $.ajax({
+                    url: url,
+                    method: "POST",
+                    data: formData,
+                    success: function (response) {
+                        // Exibe uma mensagem de sucesso ou atualiza algo na página
+                        $.toast({
+                            heading: '<b>Que legal!</b>',
+                            showHideTransition : 'slide',  // It can be plain, fade or slide
+                            bgColor : '#2ecc71',
+                            text: 'Item adicionado à sua bandeja.',
+                            hideAfter : 8000,
+                            position: 'top-right',
+                            textColor: '#ecf0f1',
+                            icon: 'success'
+                        });
+                    },
+                    error: function (xhr, status, error) {
+                        $.toast({
+                            heading: '<b>Oopsss, algo errado aconteceu!</b>',
+                            showHideTransition : 'slide',  // It can be plain, fade or slide
+                            bgColor : 'red',
+                            text: 'Não foi possível adicionar este item à sua bandeja.', // A mensagem que foi passada via session
+                            hideAfter : 8000,
+                            position: 'top-right',
+                            textColor: 'white',
+                            icon: 'error'
+                        });
+                    }
+                });
             });
-        </script>
-    @endif
+        });
+    </script>
 @endsection
 
 {{--@extends('layouts.app', ['class' => 'g-sidenav-show bg-gray-100'])--}}
