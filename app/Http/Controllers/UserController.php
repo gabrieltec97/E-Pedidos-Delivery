@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Neighbourhood;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
@@ -81,6 +82,15 @@ class UserController extends Controller
     public function edit(string $id)
     {
         //
+    }
+
+    public function motoboys()
+    {
+        $entregadores = DB::table('users')
+            ->select('firstname', 'lastname')
+            ->where('user_type', 'Entregador')
+            ->get();
+        return response()->json($entregadores);
     }
 
     /**

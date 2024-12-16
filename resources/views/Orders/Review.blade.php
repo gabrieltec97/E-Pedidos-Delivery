@@ -227,7 +227,6 @@
                 position: 'top-right',
                 textColor: 'white',
                 icon: 'error'
-                // stack: false
             });
         </script>
     @endif

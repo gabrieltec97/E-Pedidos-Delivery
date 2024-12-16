@@ -164,7 +164,16 @@
                         lastOrderCount = data.length;
                     },
                     error: function (xhr, status, error) {
-                        console.error("Erro ao buscar pedidos:", error);
+                        $.toast({
+                            heading: '<b>Oopsss, algo errado aconteceu!</b>',
+                            showHideTransition : 'slide',  // It can be plain, fade or slide
+                            bgColor : 'red',
+                            text: '<b>Tivemos um erro ao buscar os pedidos. Entre em contato com o suporte para a verificação deste erro.</b>', // A mensagem que foi passada via session
+                            hideAfter : 12000,
+                            position: 'top-right',
+                            textColor: 'white',
+                            icon: 'error'
+                        });
                     }
                 });
             }
@@ -194,7 +203,7 @@
             const currentStatus = row.find('.badge').text().trim(); // Status atual do pedido
 
             // Exibe o modal apenas se o novo status for diferente do atual
-            if (newStatus !== currentStatus) {
+            if (newStatus === 'Novo Pedido' || newStatus === 'Cancelado' || newStatus === 'Em Preparação' || newStatus === 'Pedido Entregue') {
                 const modalHtml = `
             <div class="modal fade" id="confirmStatusChange" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
@@ -223,9 +232,59 @@
                 // Adiciona o modal ao container de modais e exibe
                 $('#modals-container').html(modalHtml);
                 $('#confirmStatusChange').modal('show');
+
+        }else if (newStatus === 'Em rota de entrega') {
+                // Fazendo uma chamada AJAX para obter os entregadores
+                $.ajax({
+                    url: '/entregadores',
+                    method: 'GET',
+                    success: function (entregadores) {
+                        let entregadoresOptions = entregadores.map(entregador =>
+                            `<option value="${entregador.firstname} ${entregador.lastname}">${entregador.firstname} ${entregador.lastname}</option>`
+                        ).join('');
+
+                        const modalHtml = `
+                <div class="modal fade" id="confirmStatusChange" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <form action="/atualizar/${orderId}" method="get">
+                            <input type="hidden" name="_token" value="${$('meta[name="csrf-token"]').attr('content')}">
+                            <input type="hidden" name="_method" value="PUT">
+                            <input type="hidden" name="status" value="${newStatus}">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="confirmModalLabel">Alteração de Status</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Você está prestes a alterar o status do pedido <strong>#${orderId}</strong> de <strong>${currentStatus}</strong> para <strong>${newStatus}</strong>.</p>
+                                    <div class="form-group">
+                                        <label for="entregadorSelect">Selecione o entregador:</label>
+                                        <select class="form-select" id="entregadorSelect" name="entregador_name" required>
+                                            <option value="" disabled selected>Selecione um entregador</option>
+                                            ${entregadoresOptions}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                    <button type="submit" class="btn btn-primary">Confirmar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            `;
+
+                        // Adiciona o modal ao container de modais e exibe
+                        $('#modals-container').html(modalHtml);
+                        $('#confirmStatusChange').modal('show');
+                    },
+                    error: function () {
+                        alert('Erro ao carregar a lista de entregadores. Por favor, tente novamente.');
+                    }
+                });
             }
         });
-
 
         // Função para obter a classe do badge com base no novo status
         function getBadgeClass(status) {

@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('user_name');
             $table->string('userAdress');
             $table->string('neighborhood');
+            $table->string('delivery_man');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();

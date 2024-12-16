@@ -289,6 +289,9 @@ class OrderController extends Controller
     public function updateStatus(Request $request, string $id)
     {
         $order = Order::find($id);
+        if ($request->status == 'Em rota de entrega'){
+           $order->delivery_man = $request->entregador_name;
+        }
         $order->status = $request->status;
         $order->save();
 
