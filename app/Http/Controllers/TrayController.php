@@ -15,7 +15,9 @@ class TrayController extends Controller
      */
     public function index()
     {
+        $user = Auth::user();
         $products = Product::all();
+        $items = DB::table('trays')->where('user_id', $user->id)->count();
 
         //Verificação se o item tem em estoque.
         foreach ($products as $key => $product){
@@ -30,7 +32,8 @@ class TrayController extends Controller
             }
         }
         return view('Orders.Menu', [
-            'products' => $products
+            'products' => $products,
+            'items' => $items
         ]);
     }
 

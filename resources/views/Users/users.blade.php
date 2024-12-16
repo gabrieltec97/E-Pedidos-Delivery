@@ -65,5 +65,19 @@
             </div>
         </div>
     </div>
+
+    @if(session('msg-success'))
+        <script>
+            $.toast({
+                heading: '<b>Cadastro realizado com sucesso!</b>',
+                showHideTransition : 'slide',  // It can be plain, fade or slide
+                bgColor : '#2ecc71',
+                hideAfter : 5000,
+                position: 'top-right',
+                textColor: 'white',
+                icon: 'success'
+            });
+        </script>
+    @endif
 @endsection
 

@@ -60,7 +60,7 @@ class UserController extends Controller
 
         $user->save();
 
-        return redirect()->route('usuarios.index');
+        return redirect()->route('usuarios.index')->with('msg-success', 'Usuário cadastrado com sucesso!');
     }
 
     /**

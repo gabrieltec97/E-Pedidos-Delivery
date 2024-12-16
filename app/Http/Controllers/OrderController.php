@@ -88,10 +88,10 @@ class OrderController extends Controller
         }
 
        foreach ($items as $item){
-           $total += $item->value;
+           $total += $item->value * $item->ammount;
        }
 
-       if ($taxe != 0 ){
+       if ($taxe != 0){
            $total += $taxe;
        }
 
@@ -108,6 +108,8 @@ class OrderController extends Controller
             if ($coupon[0]->type == 'Porcentagem'){
                 $percent = floatval('0.'. floatval($coupon[0]->discount));
                 $total -= $total * $percent;
+            }elseif ($coupon[0]->type == 'Frete grátis'){
+                $total -= $taxe;
             }else{
                 $total -= floatval($coupon[0]->discount);
             }
@@ -115,6 +117,13 @@ class OrderController extends Controller
 
         $total = number_format($total, 2, ',', '');
         $apllyied = $firstTray->coupon_apply;
+
+        //Verificação de tipo de cupom.
+        if (isset($coupon)){
+            $couponType = $coupon[0]->type;
+        }else{
+            $couponType = null;
+        }
 
        if ($total != 0){
 
@@ -124,12 +133,12 @@ class OrderController extends Controller
                'neighborhoods' => $neighborhoods,
                'total' => $total,
                'taxe' => $taxe,
-               'coupon' => $apllyied
+               'coupon' => $apllyied,
+               'type' => $couponType
            ]);
        }else{
            return redirect(route('cardapio.index'));
        }
-
     }
 
     /**
@@ -189,14 +198,14 @@ class OrderController extends Controller
             $value = 0;
 
             foreach ($tray as $t){
-                $value += $t->value;
+                $value += $t->value * $t->ammount;
 
                 $item = new OrderItems();
                 $item->user_id = $user->id;
                 $item->order_id = $id;
                 $item->product = $t->product;
                 $item->ammount = $t->ammount;
-                $item->value = $t->value;
+                $item->value = $t->value * $t->ammount;
                 $item->address = $user->address;
                 $item->neighbourhood = $user->neighbourhood;
                 $item->user_name = $user->firstname . " " . $user->lastname;

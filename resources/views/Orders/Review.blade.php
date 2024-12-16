@@ -92,10 +92,11 @@
 
 
                                  @if($taxe != 0)
-                                     <p style="margin-bottom: 0px;">Taxa de entrega: R$ {{ $taxe }}</p>
+                                     @if($type != 'Frete grátis')
+                                         <p style="margin-bottom: 0px;">Taxa de entrega: R$ {{ $taxe }}</p>
+                                     @endif
                                      <p style="margin-bottom: 0px;">Total do pedido: R$ {{ $total}}</p>
                                      @if($coupon)
-                                         {{ $coupon }}
                                          <p class="text-success">{{ $coupon }} - <a href="{{ route('remover-cupom') }}" style="font-size: 15px; text-decoration: none; color: grey;">Remover cupom</a></p>
                                      @endif
 
@@ -227,6 +228,50 @@
                 position: 'top-right',
                 textColor: 'white',
                 icon: 'error'
+            });
+        </script>
+    @endif
+
+    @if(session('msg-coupon-notApplyed'))
+        <script>
+            $.toast({
+                heading: '<b>Oopsss, algo errado aconteceu!</b>',
+                showHideTransition : 'slide',  // It can be plain, fade or slide
+                bgColor : 'red',
+                text: '<b>{{ session('msg-coupon-notApplyed') }}</b>', // A mensagem que foi passada via session
+                hideAfter : 12000,
+                position: 'top-right',
+                textColor: 'white',
+                icon: 'error'
+            });
+        </script>
+    @endif
+
+    @if(session('msg-coupon-applyed'))
+        <script>
+            $.toast({
+                heading: '<b>Cupom aplicado com sucesso!</b>',
+                showHideTransition : 'slide',  // It can be plain, fade or slide
+                bgColor : '#2ecc71',
+                hideAfter : 5000,
+                position: 'top-right',
+                textColor: 'white',
+                icon: 'success'
+            });
+        </script>
+    @endif
+
+    @if(session('msg-coupon-removed'))
+        <script>
+            $.toast({
+                heading: '<b>Cupom removido com sucesso!</b>',
+                showHideTransition : 'slide',  // It can be plain, fade or slide
+                bgColor : '#2D2D2D',
+                hideAfter : 5000,
+                position: 'top-right',
+                textColor: 'white',
+                icon: 'warning',
+                showHideTransition: 'plain'
             });
         </script>
     @endif

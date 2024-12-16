@@ -66,7 +66,7 @@ class CouponController extends Controller
             ->get();
 
         foreach ($trays as $tray){
-            $total += $tray->value;
+            $total += $tray->value * $tray->ammount;
         }
 
         if ($total > $coupon[0]->role){
@@ -74,9 +74,9 @@ class CouponController extends Controller
             $update->coupon_apply = $coupon[0]->name;
             $update->save();
 
-            return redirect()->back();
+            return redirect()->route('review')->with('msg-coupon-applyed', '.');
         }else{
-            return redirect()->back();
+            return redirect()->route('review')->with('msg-coupon-notApplyed', 'Falha ao aplicar o cupom '.$coupon[0]->name.'. Verifique as condições de uso.');
         }
     }
 
@@ -90,7 +90,7 @@ class CouponController extends Controller
         $update->coupon_apply = null;
         $update->save();
 
-        return redirect()->back();
+        return redirect()->route('review')->with('msg-coupon-removed', '.');
     }
 
     /**

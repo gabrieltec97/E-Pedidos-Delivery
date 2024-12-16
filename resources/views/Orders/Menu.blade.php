@@ -30,7 +30,9 @@
                                @endforeach
 
                                <div class="col-12 text-end">
-                                   <a href="{{ route('review') }}" type="button" class="btn btn-primary">Finalizar pedido</a>
+                                   @if($items > 0)
+                                       <a href="{{ route('review') }}" type="button" class="btn btn-primary">Finalizar pedido</a>
+                                   @endif
                                </div>
                            </div>
                         </div>
