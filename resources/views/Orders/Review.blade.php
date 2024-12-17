@@ -1,5 +1,9 @@
 @extends('layouts.app', ['class' => 'g-sidenav-show bg-gray-100'])
 
+@section('title')
+    Revise seu pedido
+@endsection
+
 @section('content')
     @include('layouts.navbars.auth.topnav', ['title' => 'Tables'])
     <div class="container-fluid py-4">

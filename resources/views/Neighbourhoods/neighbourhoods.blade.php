@@ -1,5 +1,9 @@
 @extends('layouts.app', ['class' => 'g-sidenav-show bg-gray-100'])
 
+@section('title')
+    Gerenciamento de bairros
+@endsection
+
 @section('content')
     @include('layouts.navbars.auth.topnav', ['title' => 'Tables'])
     <div class="container-fluid py-4">
@@ -70,4 +74,64 @@
             </div>
         </div>
     </div>
+
+    @if(session('msg-error'))
+        <script>
+            $.toast({
+                heading: '<b>Não foi possível cadastrar!</b>',
+                showHideTransition : 'slide',  // It can be plain, fade or slide
+                bgColor : 'red',
+                text: '<b>{{ session('msg-error') }}</b>', // A mensagem que foi passada via session
+                hideAfter : 12000,
+                position: 'top-right',
+                textColor: 'white',
+                icon: 'error'
+            });
+        </script>
+    @endif
+
+    @if(session('msg'))
+        <script>
+            $.toast({
+                heading: '<b>Bairro cadastrado com sucesso!</b>',
+                showHideTransition : 'slide',  // It can be plain, fade or slide
+                bgColor : '#2ecc71',
+                text: '<b>{{ session('msg') }}</b>',
+                hideAfter : 10000,
+                position: 'top-right',
+                textColor: 'white',
+                icon: 'success'
+            });
+        </script>
+    @endif
+
+    @if(session('msg-neig-removed'))
+        <script>
+            $.toast({
+                heading: '<b>Bairro removido com sucesso!</b>',
+                showHideTransition : 'slide',  // It can be plain, fade or slide
+                bgColor : '#2D2D2D',
+                hideAfter : 5000,
+                position: 'top-right',
+                textColor: 'white',
+                icon: 'warning',
+                showHideTransition: 'plain'
+            });
+        </script>
+    @endif
+
+    @if(session('msg-updated'))
+        <script>
+            $.toast({
+                heading: '<b>Alterações realizadas!</b>',
+                showHideTransition : 'slide',  // It can be plain, fade or slide
+                bgColor : '#2ecc71',
+                hideAfter : 10000,
+                text: '<b>{{ session('msg-updated') }}</b>',
+                position: 'top-right',
+                textColor: 'white',
+                icon: 'success'
+            });
+        </script>
+    @endif
 @endsection

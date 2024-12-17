@@ -36,7 +36,7 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="example-text-input" class="form-control-label">Tempo médio de entrega</label>
-                                        <select class="form-control" name="time">
+                                        <select class="form-control" name="time" required>
                                             <option selected disabled>Selecione</option>
                                             <option value="20min a 40min">20min a 40min</option>
                                             <option value="40min a 60min">40min a 60min</option>

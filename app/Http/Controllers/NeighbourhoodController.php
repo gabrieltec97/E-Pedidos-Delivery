@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Neighbourhood;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class NeighbourhoodController extends Controller
 {
@@ -31,19 +32,28 @@ class NeighbourhoodController extends Controller
      */
     public function store(Request $request)
     {
-        $neighbourhood = new Neighbourhood();
-        $neighbourhood->name = $request->name;
-        $neighbourhood->taxe = $request->taxe;
-        $neighbourhood->time = $request->time;
+        $check = DB::table('neighbourhoods')
+            ->select('id')
+            ->where('name', 'like', '%'.$request->name.'%')
+            ->count();
 
-        if ($request->is_available == 'on'){
-            $neighbourhood->is_available = true;
+        if ($check == 0){
+            $neighbourhood = new Neighbourhood();
+            $neighbourhood->name = $request->name;
+            $neighbourhood->taxe = $request->taxe;
+            $neighbourhood->time = $request->time;
+
+            if ($request->is_available == 'on'){
+                $neighbourhood->is_available = true;
+            }else{
+                $neighbourhood->is_available = false;
+            }
+            $neighbourhood->save();
+
+            return redirect()->route('bairros.index')->with('msg', $request->name.' foi cadastrado com sucesso!');
         }else{
-            $neighbourhood->is_available = false;
+            return redirect()->route('bairros.index')->with('msg-error', 'O bairro '.$request->name.' já está cadastrado!');
         }
-
-        $neighbourhood->save();
-        return redirect()->route('bairros.index');
     }
 
     /**
@@ -74,7 +84,7 @@ class NeighbourhoodController extends Controller
         }
 
         $neighbourhood->save();
-        return redirect()->back();
+        return redirect()->route('bairros.index')->with('msg-updated', 'Alterações no bairro '.$request->name. ' realizadas com sucesso!');
     }
 
     /**
@@ -85,6 +95,6 @@ class NeighbourhoodController extends Controller
         $neighbourhood = Neighbourhood::find($id);
         $neighbourhood->delete();
 
-        return redirect()->route('bairros.index');
+        return redirect()->route('bairros.index')->with('msg-neig-removed', '.');
     }
 }
