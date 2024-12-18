@@ -47,8 +47,14 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('pedidos.historico') }}">
-                                <i class="fa-solid fa-circle-plus text-primary ml-0"></i>
+                                <i class="fa-solid fa-clock-rotate-left text-primary ml-0"></i>
                                 <span class="nav-link-text ms-1">Histórico de Pedidos</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('cardapio.index') }}">
+                                <i class="fa-solid fa-circle-plus text-primary ml-0"></i>
+                                <span class="nav-link-text ms-1">Nova venda</span>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -75,7 +81,7 @@
                 <div class="collapse" id="submenuProducts">
                     <ul class="navbar-nav ms-4">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="{{ route('adicionais.index') }}">
                                 <i class="fa-solid fa-circle-plus text-primary ml-0"></i>
                                 <span class="nav-link-text ms-1">Adicionais</span>
                             </a>

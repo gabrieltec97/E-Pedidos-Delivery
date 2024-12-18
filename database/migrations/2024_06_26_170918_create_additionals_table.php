@@ -14,10 +14,9 @@ return new class extends Migration
         Schema::create('additionals', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('benefitedProduct');
+            $table->string('type');
             $table->double('price');
             $table->boolean('is_available');
-//            $table->string('products')->nullable();
             $table->timestamps();
         });
     }

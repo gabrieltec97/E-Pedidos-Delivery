@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Additional;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AdditionalController extends Controller
 {
@@ -13,7 +14,16 @@ class AdditionalController extends Controller
     public function index()
     {
         $registereds = Additional::all();
-        return view('Products.Additionals.newAdditional', ['registereds' => $registereds]);
+        $foods = DB::table('products')->select('name')->where('type', 'Comida')->get();
+        $drinks = DB::table('products')->select('name')->where('type', 'Bebida')->get();
+        $desserts = DB::table('products')->select('name')->where('type', 'Sobremesa')->get();
+
+        return view('Products.Additionals.newAdditional', [
+            'registereds' => $registereds,
+            'foods' => $foods,
+            'drinks' => $drinks,
+            'desserts' => $desserts
+        ]);
     }
 
     /**
@@ -31,7 +41,7 @@ class AdditionalController extends Controller
     {
         $additional = new Additional();
         $additional->name = $request->name;
-        $additional->benefitedProduct = $request->product;
+        $additional->type = $request->type;
         $additional->price = $request->price;
 
         if ($request->is_available == "on"){
