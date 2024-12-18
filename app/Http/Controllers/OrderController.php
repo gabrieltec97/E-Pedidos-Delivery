@@ -91,8 +91,10 @@ class OrderController extends Controller
             }
         }
 
+
+
        foreach ($items as $item){
-           $total += $item->value * $item->ammount;
+           $total += floatval($item->value) * floatval($item->ammount);
        }
 
        if ($taxe != 0){
@@ -199,7 +201,7 @@ class OrderController extends Controller
             $value = 0;
 
             foreach ($tray as $t){
-                $value += $t->value * $t->ammount;
+                $value += floatval($t->value) * floatval($t->ammount);
 
                 $item = new OrderItems();
                 $item->user_id = $user->id;

@@ -66,7 +66,7 @@ class CouponController extends Controller
             ->get();
 
         foreach ($trays as $tray){
-            $total += $tray->value * $tray->ammount;
+            $total += floatval($tray->value) * floatval($tray->ammount);
         }
 
         if ($total > $coupon[0]->role){
