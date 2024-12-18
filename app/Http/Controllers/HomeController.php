@@ -102,8 +102,9 @@ class HomeController extends Controller
         function calcPercent($metDay, $metMonth){
             $salesDate = DB::table('orders')
                 ->select('value')
-                ->where('day', $metDay)
+                ->where('day', $metDay -1)
                 ->where('month', $metMonth)
+                ->where('status', 'Pedido Entregue')
                 ->get();
 
             $valueYesterday = 0;
@@ -115,6 +116,7 @@ class HomeController extends Controller
                 ->select('value')
                 ->where('day', date('d'))
                 ->where('month', $metMonth)
+                ->where('status', 'Pedido Entregue')
                 ->get();
 
             $valueToday = 0;
@@ -123,13 +125,14 @@ class HomeController extends Controller
             }
 
             if ($valueYesterday != 0){
-                $percent = (($valueToday - $valueYesterday) / $valueYesterday) * 100;
+                $yesterday = $valueYesterday / 100;
+                $today = $valueToday / 100;
+                $percent = ($today - $yesterday) * 100;
                 return round($percent, 2);
             }
         }
 
         if (date('d') > 1){
-            $metDay -= 1;
             $moneyMetrics = calcPercent($metDay, $metMonth);
         }
 

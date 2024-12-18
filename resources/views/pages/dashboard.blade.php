@@ -1,5 +1,9 @@
 @extends('layouts.app', ['class' => 'g-sidenav-show bg-gray-100'])
 
+@section('title')
+    Dashboard - Aqui você encontra todas as informações!
+@endsection
+
 @section('content')
     @include('layouts.navbars.auth.topnav', ['title' => 'Dashboard'])
     <div class="container-fluid py-4">
@@ -14,12 +18,6 @@
                                     <h5 class="font-weight-bolder">
                                         R$ {{ $ammount }}
                                     </h5>
-                                    @if($moneyMetrics > 0)
-                                        <p class="mb-0">
-                                            <span class="text-success text-sm font-weight-bolder">+{{$moneyMetrics}}%</span>
-                                            superior a ontem!
-                                        </p>
-                                    @endif
                                 </div>
                             </div>
                             <div class="col-4 text-end">
@@ -40,12 +38,23 @@
                                     <p class="text-sm mb-0 text-uppercase font-weight-bold">Estoque</p>
                                     <h5 class="font-weight-bolder">
                                         @if($lowStock != 0)
-                                            <span style="color: #efef4b">Verificar estoque</span>
-                                            <p class="mb-0">
-                                                <span class="text-danger text-sm font-weight-bolder">{{ $lowStock }} <?= $lowStock > 1 ? 'Itens' : 'Item' ?> com estoque baixo</span>
-                                            </p>
+                                            <a href="{{ route('produtos.index') }}" class="text-danger" style="text-decoration: none;">Verificar estoque</a>
+
+                                            <script>
+                                                $.toast({
+                                                    heading: '<b>Alerta de estoque!</b>',
+                                                    showHideTransition : 'slide',
+                                                    bgColor : '#2D2D2D',
+                                                    text: '<?= $lowStock > 1 ? 'Temos '. $lowStock . ' itens' : 'Temos '.$lowStock.' item' ?> com baixa quantidade em estoque. Reponha-os antes que eles fiquem indisponíveis no cardápio.',
+                                                    hideAfter : 15000,
+                                                    position: 'top-right',
+                                                    textColor: 'white',
+                                                    icon: 'warning',
+                                                    showHideTransition: 'plain'
+                                                });
+                                            </script>
                                         @else
-                                            <span style="color: lawngreen">Estoque abastecido</span>
+                                            <span style="color: lawngreen">Abastecido</span>
                                         @endif
                                     </h5>
 
@@ -76,9 +85,6 @@
                                             Nenhum pedido até o momento.
                                         @endif
                                     </h5>
-                                    <p class="mb-0">
-                                        <span class="text-success text-sm font-weight-bolder">+5%</span> superior a ontem
-                                    </p>
                                 </div>
                             </div>
                             <div class="col-4 text-end">
@@ -95,11 +101,27 @@
             <div class="col-lg-12 mb-lg-0 mb-4">
                 <div class="card z-index-2 h-100">
                     <div class="card-header pb-0 pt-3 bg-transparent">
-                        <h6 class="text-capitalize">Vendas este ano</h6>
+                        <h6 class="text-capitalize">Métricas de venda</h6>
                         <p class="text-sm mb-0">
-                            <i class="fa fa-arrow-up text-success"></i>
-                            <span class="font-weight-bold">4% a mais</span> em relação a 2021
-                        </p>
+                        @if($moneyMetrics > 0)
+                            <p class="mb-0">
+                                <span class="text-success text-sm font-weight-bolder">+{{$moneyMetrics}}%</span>
+                                de lucro superior a ontem!
+                            </p>
+
+                            <script>
+                                $.toast({
+                                    heading: '<b>Parabéns!</b>',
+                                    showHideTransition : 'slide',  // It can be plain, fade or slide
+                                    bgColor : '#2ecc71',
+                                    text: 'Temos {{$moneyMetrics}}% de lucro superior a ontem!',
+                                    hideAfter : 10000,
+                                    position: 'top-right',
+                                    textColor: 'white',
+                                    icon: 'success'
+                                });
+                            </script>
+                        @endif
                     </div>
                     <div class="card-body p-3">
                         {{--                        <div class="chart">--}}
