@@ -134,4 +134,35 @@
             </div>
         </div>
     </div>
+
+
+    @if(session('msg'))
+        <script>
+            $.toast({
+                heading: '<b>Item cadastrado com sucesso!</b>',
+                showHideTransition : 'slide',  // It can be plain, fade or slide
+                bgColor : '#2ecc71',
+                text: '<b>{{ session('msg') }}</b>',
+                hideAfter : 10000,
+                position: 'top-right',
+                textColor: 'white',
+                icon: 'success'
+            });
+        </script>
+    @endif
+
+    @if(session('msg-removed'))
+        <script>
+            $.toast({
+                heading: '<b>Item removido com sucesso!</b>',
+                showHideTransition : 'slide',  // It can be plain, fade or slide
+                bgColor : '#2D2D2D',
+                hideAfter : 5000,
+                position: 'top-right',
+                textColor: 'white',
+                icon: 'warning',
+                showHideTransition: 'plain'
+            });
+        </script>
+    @endif
 @endsection

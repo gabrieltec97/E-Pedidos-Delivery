@@ -45,6 +45,14 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        $check = DB::table('products')
+            ->where('name', 'like', '%'.$request->name.'%')
+            ->count();
+
+        if ($check >= 1){
+            return redirect()->back()->with('msg-error','Já temos um produto cadastrado com o nome '.$request->name.'.');
+        }
+
         $product = new Product();
         $product->name = $request->name;
         $product->type = $request->type;
@@ -68,7 +76,7 @@ class ProductController extends Controller
 
         $product->save();
 
-        return redirect()->back();
+        return redirect()->route('produtos.index')->with('msg', $request->name.' foi cadastrado com sucesso!');
     }
 
     /**
@@ -149,7 +157,7 @@ class ProductController extends Controller
         }
 
         $product->save();
-        return redirect()->back();
+        return redirect()->back()->with('msg-updated', '.');
     }
 
     /**
@@ -160,6 +168,6 @@ class ProductController extends Controller
         $product = Product::find($id);
         $product->delete();
 
-        return redirect()->route('produtos.index');
+        return redirect()->route('produtos.index')->with('msg-removed', '.');
     }
 }

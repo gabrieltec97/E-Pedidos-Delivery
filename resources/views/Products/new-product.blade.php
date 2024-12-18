@@ -73,4 +73,19 @@
             </form>
         </div>
     </div>
+
+    @if(session('msg-error'))
+    <script>
+        $.toast({
+            heading: '<b>Não foi possível cadastrar!</b>',
+            showHideTransition : 'slide',  // It can be plain, fade or slide
+            bgColor : 'red',
+            text: '<b>{{ session('msg-error') }}</b>', // A mensagem que foi passada via session
+            hideAfter : 12000,
+            position: 'top-right',
+            textColor: 'white',
+            icon: 'error'
+        });
+    </script>
+    @endif
 @endsection

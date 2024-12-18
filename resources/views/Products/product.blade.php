@@ -103,4 +103,19 @@
         </div>
     </div>
 </div>
+
+    @if(session('msg-updated'))
+        <script>
+            $.toast({
+                heading: '<b>Alterações realizadas com sucesso!</b>',
+                showHideTransition : 'slide',  // It can be plain, fade or slide
+                bgColor : '#2D2D2D',
+                hideAfter : 5000,
+                position: 'top-right',
+                textColor: 'white',
+                icon: 'warning',
+                showHideTransition: 'plain'
+            });
+        </script>
+    @endif
 @endsection
