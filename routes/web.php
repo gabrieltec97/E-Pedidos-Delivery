@@ -34,7 +34,7 @@ Route::resource('/cardapio', TrayController::class);
 Route::get('revisar-pedido', [OrderController::class, 'review'])->name('review');
 
 Route::get('log', function (){
-    Auth::loginUsingId(3);
+    Auth::loginUsingId(5);
 });
 
 Route::middleware(['role:Administrador'])->group(function () {
