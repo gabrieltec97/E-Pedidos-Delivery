@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Charts\AreaChart;
+use Illuminate\Http\Request;
 
-class TesteController extends Controller
+class testeController extends Controller
 {
-    public function teste(AreaChart $chart)
+    public function teste()
     {
-        return view('teste', ['chart' => $chart->build()]);
+      echo 'teste';
     }
 }
