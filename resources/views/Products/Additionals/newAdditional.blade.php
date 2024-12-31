@@ -1,6 +1,6 @@
 @extends('layouts.app', ['class' => 'g-sidenav-show bg-gray-100'])
 
-@section('title', 'Cupons')
+@section('title', 'Adicionais')
 
 @section('content')
     @include('layouts.navbars.auth.topnav', ['title' => 'Tables'])
@@ -9,7 +9,7 @@
             <div class="col-12">
                 <div class="card mb-4">
                     <div class="card-header pb-0 d-flex">
-                        <h4>Cupons Cadastrados</h4>
+                        <h4>Adicionais Cadastrados</h4>
 
                         <button class="btn btn-primary ms-auto" data-bs-toggle="modal" data-bs-target="#modalCadastro"><i class="fa-solid fa-plus"></i> Novo Adicional</button>
 
@@ -34,11 +34,24 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
                                         @foreach($registereds as $registered)
-                                            <td>{{ $registered->name }}</td>
+                                            <tr>
+                                            <td class="align-middle text-center text-sm">
+                                                <div class="d-flex px-2 py-1">
+                                                    <div class="d-flex flex-column justify-content-center">
+                                                        <p class="mb-0 text-sm font-weight-bold"  style="color: black; text-decoration: none;">{{ $registered->name }}</p>
+                                                    </div>
+                                                </div>
+                                            </td>
+
                                             <td>{{ $registered->price }}</td>
-                                            <td>{{ $registered->type }}</td>
+                                            <td>
+                                                <div class="d-flex px-2 py-1">
+                                                    <div class="d-flex flex-column justify-content-center">
+                                                        <p class="mb-0 text-sm font-weight-bold"  style="color: black; text-decoration: none;">{{ $registered->type }}</p>
+                                                    </div>
+                                                </div>
+                                            </td>
                                             <td>
                                                 @if($registered->is_available == true)
                                                     <span class="badge badge-sm bg-gradient-success" style="cursor: pointer;" title="Entregas disponíveis para este bairro">Disponível</span>
@@ -46,8 +59,8 @@
                                                     <span class="badge badge-sm bg-gradient-danger" style="cursor: pointer;" title="Bairro não atendido hoje">Indisponível</span>
                                                 @endif
                                             </td>
+                                            </tr>
                                         @endforeach
-                                    </tr>
                                 </tbody>
                             </table>
                         </div>
