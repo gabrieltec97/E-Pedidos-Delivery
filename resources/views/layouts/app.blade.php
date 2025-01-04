@@ -77,6 +77,12 @@
         {{ $chart->script() }}
     @endif
 
+@if(isset($chart2))
+    <script src="{{ $chart2->cdn() }}"></script>
+
+    {{ $chart2->script() }}
+@endif
+
     @stack('js');
     @livewireScripts
 </body>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Charts\AreaChart;
+use App\Charts\MonthChart;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -30,7 +31,7 @@ class HomeController extends Controller
 
         return $mes_extenso["$mes"];
     }
-    public function index(AreaChart $chart)
+    public function index(AreaChart $chart, MonthChart $chart2)
     {
         $lowstock = DB::table('products')->where('stock', '<', 15)->count();
         $todayOrders = DB::table('orders')
@@ -139,6 +140,7 @@ class HomeController extends Controller
         return view('pages.dashboard', [
             'lowStock' => $lowstock,
             'chart' => $chart->build(),
+            'chart2' => $chart2->build(),
             'totalOrders' => $totalOrders,
             'totalItems' => $totalItems,
             'ammount' =>  number_format($ammount, 2, ',', '.'),

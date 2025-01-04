@@ -103,7 +103,6 @@ class AreaChart
             ->count();
 
 
-
         return $this->chart->areaChart()
             ->setTitle('Comparativo ao longo dos meses.')
             ->setSubtitle('Total de vendas em cada mês.')
