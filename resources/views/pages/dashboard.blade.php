@@ -136,10 +136,25 @@
             </div>
             <div class="col-lg-12 mt-4 mb-lg-0 mb-4">
                 <div class="card z-index-2 h-100">
-                    <div class="card-header pb-0 pt-3 bg-transparent">
-                        <h6 class="text-capitalize">Métricas por mês</h6>
-                        <p class="text-sm mb-0">
+                    <div class="card-header pb-0 pt-3 bg-transparent d-flex justify-content-between align-items-center">
+                        <h4 class="text-capitalize mb-0">Métricas por mês</h4>
+                        <select name="month" class="form-control w-25 mb-3">
+                            <option value="" selected disabled>Selecione</option>
+                            <option value="Janeiro">Janeiro</option>
+                            <option value="Fevereiro">Fevereiro</option>
+                            <option value="Março">Março</option>
+                            <option value="Abril">Abril</option>
+                            <option value="Maio">Maio</option>
+                            <option value="Junho">Junho</option>
+                            <option value="Julho">Julho</option>
+                            <option value="Agosto">Agosto</option>
+                            <option value="Setembro">Setembro</option>
+                            <option value="Outubro">Outubro</option>
+                            <option value="Novembro">Novembro</option>
+                            <option value="Dezembro">Dezembro</option>
+                        </select>
                     </div>
+
                     <div class="card-body p-3">
                         <div class="p-6 m-20 bg-white rounded shadow">
                             {!! $chart2->container() !!}

@@ -31,7 +31,7 @@ class HomeController extends Controller
 
         return $mes_extenso["$mes"];
     }
-    public function index(AreaChart $chart, MonthChart $chart2)
+    public function index(AreaChart $chart, MonthChart $chart2, Request $request)
     {
         $lowstock = DB::table('products')->where('stock', '<', 15)->count();
         $todayOrders = DB::table('orders')
