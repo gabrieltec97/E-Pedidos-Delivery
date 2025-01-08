@@ -138,7 +138,8 @@
                 <div class="card z-index-2 h-100">
                     <div class="card-header pb-0 pt-3 bg-transparent d-flex justify-content-between align-items-center">
                         <h4 class="text-capitalize mb-0">Métricas por mês</h4>
-                        <select name="month" class="form-control w-25 mb-3">
+                        <!-- Menu Select -->
+                        <select name="month" class="form-control w-25 mb-3" onchange="exibirModal()">
                             <option value="" selected disabled>Selecione</option>
                             <option value="Janeiro">Janeiro</option>
                             <option value="Fevereiro">Fevereiro</option>
@@ -244,6 +245,42 @@
         </div>
     </div>
 @endsection
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" hidden="true" id="clickhere" data-bs-toggle="modal" data-bs-target="#exampleModal">
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myModalLabel">Mês Selecionado</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Deseja recuperar dados sobre o mês de: <span id="mesSelecionado"></span>?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function exibirModal() {
+        var select = document.querySelector("select[name='month']");
+        var mesSelecionado = select.value; // Obtém o valor do mês selecionado
+
+        // Atualiza o conteúdo do modal
+        document.getElementById("mesSelecionado").textContent = mesSelecionado;
+
+        document.getElementById('clickhere').click();
+    }
+
+</script>
 
 @push('js')
     <script src="./assets/js/plugins/chartjs.min.js"></script>
