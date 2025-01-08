@@ -259,11 +259,17 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                Deseja recuperar dados sobre o mês de: <span id="mesSelecionado"></span>?
+                Deseja recuperar dados sobre o mês de <span id="mesSelecionado"></span>?
+
+                <form action="{{ route('home') }}" method="get">
+                    @csrf
+                <input type="text" hidden="hidden" name="month" id="inputmonth">
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-primary">Buscar</button>
             </div>
+            </form>
         </div>
     </div>
 </div>
@@ -276,6 +282,7 @@
 
         // Atualiza o conteúdo do modal
         document.getElementById("mesSelecionado").textContent = mesSelecionado;
+        document.getElementById("inputmonth").value = mesSelecionado;
 
         document.getElementById('clickhere').click();
     }

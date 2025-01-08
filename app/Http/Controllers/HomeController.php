@@ -33,6 +33,11 @@ class HomeController extends Controller
     }
     public function index(AreaChart $chart, MonthChart $chart2, Request $request)
     {
+
+        if ($request->month){
+            dd($request->month);
+        }
+
         $lowstock = DB::table('products')->where('stock', '<', 15)->count();
         $todayOrders = DB::table('orders')
             ->where('status', 'Pedido Entregue')
