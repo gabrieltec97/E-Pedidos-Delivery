@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Charts\AreaChart;
 use App\Charts\MonthChart;
 use App\Models\Product;
+use ConsoleTVs\Charts\Classes\Chartjs\Chart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -34,9 +35,12 @@ class HomeController extends Controller
     public function index(AreaChart $chart, MonthChart $chart2, Request $request)
     {
 
-        if ($request->month){
-            dd($request->month);
-        }
+       $chart3 = new Chart();
+        $chart3->labels(['January', 'February', 'March', 'April', 'May', 'June']);
+        $chart3->dataset('My dataset', 'bar', [10, 20, 30, 40, 50, 60])
+            ->backgroundColor('rgba(255, 99, 132, 0.2)');
+//            ->borderColor('rgba(255, 99, 132, 1)')
+//            ->borderWidth(1);
 
         $lowstock = DB::table('products')->where('stock', '<', 15)->count();
         $todayOrders = DB::table('orders')
@@ -145,7 +149,8 @@ class HomeController extends Controller
         return view('pages.dashboard', [
             'lowStock' => $lowstock,
             'chart' => $chart->build(),
-            'chart2' => $chart2->build(),
+            'chart3' => $chart3,
+//            'chart2' => $chart2->build(),
             'totalOrders' => $totalOrders,
             'totalItems' => $totalItems,
             'ammount' =>  number_format($ammount, 2, ',', '.'),

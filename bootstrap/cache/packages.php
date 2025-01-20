@@ -10,6 +10,13 @@
       'LarapexChart' => 'ArielMejiaDev\\LarapexCharts\\Facades\\LarapexChart',
     ),
   ),
+  'consoletvs/charts' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'ConsoleTVs\\Charts\\ChartsServiceProvider',
+    ),
+  ),
   'laravel-frontend-presets/argon' => 
   array (
     'providers' => 

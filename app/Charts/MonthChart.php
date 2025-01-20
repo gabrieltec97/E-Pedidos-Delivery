@@ -3,10 +3,14 @@
 namespace App\Charts;
 
 use ArielMejiaDev\LarapexCharts\LarapexChart;
+use Illuminate\Http\Request;
+use app\Controllers\HomeController;
 
 class MonthChart
 {
     protected $chart2;
+
+    public $month;
 
     public function __construct(LarapexChart $chart2)
     {

@@ -158,7 +158,7 @@
 
                     <div class="card-body p-3">
                         <div class="p-6 m-20 bg-white rounded shadow">
-                            {!! $chart2->container() !!}
+                            {!! $chart3->container() !!}
                         </div>
                     </div>
                 </div>

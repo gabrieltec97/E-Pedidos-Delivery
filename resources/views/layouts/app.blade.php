@@ -77,11 +77,17 @@
         {{ $chart->script() }}
     @endif
 
-@if(isset($chart2))
-    <script src="{{ $chart2->cdn() }}"></script>
+@if(isset($chart3))
+{{--    <script src="{{ $chart->cdn() }}"></script>--}}
 
-    {{ $chart2->script() }}
+    {{ $chart3->script() }}
 @endif
+
+{{--@if(isset($chart2))--}}
+{{--    <script src="{{ $chart2->cdn() }}"></script>--}}
+
+{{--    {{ $chart2->script() }}--}}
+{{--@endif--}}
 
     @stack('js');
     @livewireScripts
