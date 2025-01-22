@@ -83,7 +83,15 @@ class HomeController extends Controller
            $dia = 1;
            $dia2 = 2;
            $chart3 = new Chart();
-           $chart3->labels([$dia, $dia2]);
+           if ($daysInMonth == 31){
+               $chart3->labels([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31]);
+           }elseif($daysInMonth == 30){
+               $chart3->labels([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30]);
+           }elseif($daysInMonth == 29){
+               $chart3->labels([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29]);
+           }elseif ($daysInMonth == 28){
+               $chart3->labels([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28]);
+           }
            $chart3->dataset('Vendas este mês', 'line', [10, 30, 0,3, 120,120,12,44,3])
                ->backgroundColor('rgba(255, 99, 132, 0.2)');
        }
