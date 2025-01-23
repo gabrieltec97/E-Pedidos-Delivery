@@ -35,36 +35,34 @@ class HomeController extends Controller
     public function index(AreaChart $chart, MonthChart $chart2, Request $request)
     {
 
+       //Filtro de vendas por mês.
        if (isset($request->month)){
+           $monthName = $request->month;  // Nome do mês em português
+           $year = 2025;            // O ano desejado
 
-            $monthName = $request->month;  // Nome do mês em português
-            $year = 2025;            // O ano desejado
+           // Array de meses em português
+           $months = [
+               'Janeiro' => 1,
+               'Fevereiro' => 2,
+               'Março' => 3,
+               'Abril' => 4,
+               'Maio' => 5,
+               'Junho' => 6,
+               'Julho' => 7,
+               'Agosto' => 8,
+               'Setembro' => 9,
+               'Outubro' => 10,
+               'Novembro' => 11,
+               'Dezembro' => 12
+           ];
 
-            // Array de meses em português
-            $months = [
-                'Janeiro' => 1,
-                'Fevereiro' => 2,
-                'Março' => 3,
-                'Abril' => 4,
-                'Maio' => 5,
-                'Junho' => 6,
-                'Julho' => 7,
-                'Agosto' => 8,
-                'Setembro' => 9,
-                'Outubro' => 10,
-                'Novembro' => 11,
-                'Dezembro' => 12
-            ];
+           // Verifica se o nome do mês é válido e recupera o número do mês
+           $month = isset($months[$monthName]) ? $months[$monthName] : null;
 
-            // Verifica se o nome do mês é válido e recupera o número do mês
-            $month = isset($months[$monthName]) ? $months[$monthName] : null;
-
-            if ($month) {
-                // Usando cal_days_in_month para obter o número de dias do mês
-                $daysInMonth = cal_days_in_month(CAL_GREGORIAN, $month, $year);
-
-            }
-
+           if ($month) {
+               // Usando cal_days_in_month para obter o número de dias do mês
+               $daysInMonth = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+           }
 
            $chart3 = new Chart();
            if ($daysInMonth == 31){
@@ -80,24 +78,23 @@ class HomeController extends Controller
                ->backgroundColor('rgba(255, 99, 132, 0.2)');
 
        }else{
-           $dia = 1;
-           $dia2 = 2;
+
+           //Capturando o mês atual.
+           $numeroDeDias = cal_days_in_month(CAL_GREGORIAN, date('m'), date('Y')); // CAL_GREGORIAN é o calendário padrão
+
            $chart3 = new Chart();
-           if ($daysInMonth == 31){
+           if ($numeroDeDias == 31){
                $chart3->labels([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31]);
-           }elseif($daysInMonth == 30){
+           }elseif($numeroDeDias == 30){
                $chart3->labels([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30]);
-           }elseif($daysInMonth == 29){
+           }elseif($numeroDeDias == 29){
                $chart3->labels([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29]);
-           }elseif ($daysInMonth == 28){
+           }elseif ($numeroDeDias == 28){
                $chart3->labels([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28]);
            }
            $chart3->dataset('Vendas este mês', 'line', [10, 30, 0,3, 120,120,12,44,3])
                ->backgroundColor('rgba(255, 99, 132, 0.2)');
        }
-
-
-
 
 
         $lowstock = DB::table('products')->where('stock', '<', 15)->count();
