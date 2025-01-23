@@ -64,35 +64,63 @@ class HomeController extends Controller
                $daysInMonth = cal_days_in_month(CAL_GREGORIAN, $month, $year);
            }
 
-           $chart3 = new Chart();
-           if ($daysInMonth == 31){
-               $chart3->labels([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31]);
-           }elseif($daysInMonth == 30){
-               $chart3->labels([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30]);
-           }elseif($daysInMonth == 29){
-               $chart3->labels([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29]);
-           }elseif ($daysInMonth == 28){
-               $chart3->labels([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28]);
+           $diasDoMes = [];
+
+           for ($dia = 1; $dia <= $daysInMonth; $dia++) {
+               $diasDoMes[] = $dia;
            }
-           $chart3->dataset('Vendas em '. $request->month, 'line', [10, 30, 0,3, 120,120,12,44,3])
+
+           $totalSalesInThisDay = [];
+           foreach ($diasDoMes as $dia) {
+               $sales = DB::table('orders')
+                   ->where('month', $request->month)
+                   ->where('day', $dia)
+                   ->where('status', 'Pedido Entregue')
+                   ->count();
+
+               $totalSalesInThisDay[] = $sales;
+           }
+
+           $day = [];
+           for ($i = 1; $i <= $daysInMonth; $i++) {
+               $day[] = $i;
+           }
+
+           $chart3 = new Chart();
+           $chart3->labels($day);
+           $chart3->dataset('Vendas em '. $request->month, 'line', $totalSalesInThisDay)
                ->backgroundColor('rgba(255, 99, 132, 0.2)');
 
        }else{
 
            //Capturando o mês atual.
            $numeroDeDias = cal_days_in_month(CAL_GREGORIAN, date('m'), date('Y')); // CAL_GREGORIAN é o calendário padrão
+           $diasDoMes = [];
+
+           for ($dia = 1; $dia <= $numeroDeDias; $dia++) {
+               $diasDoMes[] = $dia;
+           }
+
+           $totalSalesInThisDay = [];
+
+          foreach ($diasDoMes as $dia) {
+              $sales = DB::table('orders')
+                  ->where('month', $this->monthConverter())
+                  ->where('day', $dia)
+                  ->where('status', 'Pedido Entregue')
+                  ->count();
+
+              $totalSalesInThisDay[] = $sales;
+          }
+
+           $day = [];
+           for ($i = 1; $i <= $numeroDeDias; $i++) {
+               $day[] = $i;
+           }
 
            $chart3 = new Chart();
-           if ($numeroDeDias == 31){
-               $chart3->labels([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31]);
-           }elseif($numeroDeDias == 30){
-               $chart3->labels([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30]);
-           }elseif($numeroDeDias == 29){
-               $chart3->labels([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29]);
-           }elseif ($numeroDeDias == 28){
-               $chart3->labels([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28]);
-           }
-           $chart3->dataset('Vendas este mês', 'line', [10, 30, 0,3, 120,120,12,44,3])
+           $chart3->labels($day);
+           $chart3->dataset('Vendas este mês', 'line', $totalSalesInThisDay)
                ->backgroundColor('rgba(255, 99, 132, 0.2)');
        }
 
@@ -205,7 +233,6 @@ class HomeController extends Controller
             'lowStock' => $lowstock,
             'chart' => $chart->build(),
             'chart3' => $chart3,
-//            'chart2' => $chart2->build(),
             'totalOrders' => $totalOrders,
             'totalItems' => $totalItems,
             'ammount' =>  number_format($ammount, 2, ',', '.'),
