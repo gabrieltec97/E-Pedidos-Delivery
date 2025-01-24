@@ -82,7 +82,7 @@
                                         @elseif($orders == 1)
                                             {{ $orders }} pedido
                                         @else
-                                            Nenhum pedido até o momento.
+                                            Nenhum pedido.
                                         @endif
                                     </h5>
                                 </div>
@@ -134,7 +134,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-12 mt-4 mb-lg-0 mb-4">
+            <div id="metricsDiv" class="col-lg-12 mt-4 mb-lg-0 mb-4">
                 <div class="card z-index-2 h-100">
                     <div class="card-header pb-0 pt-3 bg-transparent d-flex justify-content-between align-items-center">
                         <h4 class="text-capitalize mb-0">Métricas por mês</h4>
@@ -252,11 +252,18 @@
                 showHideTransition : 'slide',  // It can be plain, fade or slide
                 bgColor : '#3b8cde',
                 text: '<b>Veja os dados sobre vendas do mês de {{ request('month') }}!</b>', // A mensagem que foi passada via session
-                hideAfter : 12000,
+                hideAfter : 8000,
                 position: 'top-right',
                 textColor: 'white',
                 icon: 'success'
             });
+
+            //Rola até a div de métricas do mês.
+            window.onload = function() {
+                // Rola suavemente até a div com o id 'metricsDiv'
+                document.getElementById('metricsDiv').scrollIntoView({ behavior: 'smooth' });
+            }
+
         </script>
     @endif
 
