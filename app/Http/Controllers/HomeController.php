@@ -35,96 +35,6 @@ class HomeController extends Controller
     public function index(AreaChart $chart, MonthChart $chart2, Request $request)
     {
 
-       //Filtro de vendas por mês.
-       if (isset($request->month)){
-           $monthName = $request->month;  // Nome do mês em português
-           $year = 2025;            // O ano desejado
-
-           // Array de meses em português
-           $months = [
-               'Janeiro' => 1,
-               'Fevereiro' => 2,
-               'Março' => 3,
-               'Abril' => 4,
-               'Maio' => 5,
-               'Junho' => 6,
-               'Julho' => 7,
-               'Agosto' => 8,
-               'Setembro' => 9,
-               'Outubro' => 10,
-               'Novembro' => 11,
-               'Dezembro' => 12
-           ];
-
-           // Verifica se o nome do mês é válido e recupera o número do mês
-           $month = isset($months[$monthName]) ? $months[$monthName] : null;
-
-           if ($month) {
-               // Usando cal_days_in_month para obter o número de dias do mês
-               $daysInMonth = cal_days_in_month(CAL_GREGORIAN, $month, $year);
-           }
-
-           $diasDoMes = [];
-
-           for ($dia = 1; $dia <= $daysInMonth; $dia++) {
-               $diasDoMes[] = $dia;
-           }
-
-           $totalSalesInThisDay = [];
-           foreach ($diasDoMes as $dia) {
-               $sales = DB::table('orders')
-                   ->where('month', $request->month)
-                   ->where('day', $dia)
-                   ->where('status', 'Pedido Entregue')
-                   ->count();
-
-               $totalSalesInThisDay[] = $sales;
-           }
-
-           $day = [];
-           for ($i = 1; $i <= $daysInMonth; $i++) {
-               $day[] = $i;
-           }
-
-           $chart3 = new Chart();
-           $chart3->labels($day);
-           $chart3->dataset('Vendas em '. $request->month, 'line', $totalSalesInThisDay)
-               ->backgroundColor('rgba(255, 99, 132, 0.2)');
-
-       }else{
-
-           //Capturando o mês atual.
-           $numeroDeDias = cal_days_in_month(CAL_GREGORIAN, date('m'), date('Y')); // CAL_GREGORIAN é o calendário padrão
-           $diasDoMes = [];
-
-           for ($dia = 1; $dia <= $numeroDeDias; $dia++) {
-               $diasDoMes[] = $dia;
-           }
-
-           $totalSalesInThisDay = [];
-
-          foreach ($diasDoMes as $dia) {
-              $sales = DB::table('orders')
-                  ->where('month', $this->monthConverter())
-                  ->where('day', $dia)
-                  ->where('status', 'Pedido Entregue')
-                  ->count();
-
-              $totalSalesInThisDay[] = $sales;
-          }
-
-           $day = [];
-           for ($i = 1; $i <= $numeroDeDias; $i++) {
-               $day[] = $i;
-           }
-
-           $chart3 = new Chart();
-           $chart3->labels($day);
-           $chart3->dataset('Vendas este mês', 'line', $totalSalesInThisDay)
-               ->backgroundColor('rgba(255, 99, 132, 0.2)');
-       }
-
-
         $lowstock = DB::table('products')->where('stock', '<', 15)->count();
         $todayOrders = DB::table('orders')
             ->where('status', 'Pedido Entregue')
@@ -227,6 +137,86 @@ class HomeController extends Controller
 
         if (date('d') > 1){
             $moneyMetrics = calcPercent($metDay, $metMonth);
+        }
+
+        //Filtro de vendas por mês.
+        if (isset($request->month)){
+            $monthName = $request->month;  // Nome do mês em português
+            $year = 2025;            // O ano desejado
+
+            // Array de meses em português
+            $months = [
+                'Janeiro' => 1,
+                'Fevereiro' => 2,
+                'Março' => 3,
+                'Abril' => 4,
+                'Maio' => 5,
+                'Junho' => 6,
+                'Julho' => 7,
+                'Agosto' => 8,
+                'Setembro' => 9,
+                'Outubro' => 10,
+                'Novembro' => 11,
+                'Dezembro' => 12
+            ];
+
+            // Verifica se o nome do mês é válido e recupera o número do mês
+            $month = isset($months[$monthName]) ? $months[$monthName] : null;
+
+            if ($month) {
+                // Usando cal_days_in_month para obter o número de dias do mês
+                $daysInMonth = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+            }
+
+            $diasDoMes = [];
+            for ($dia = 1; $dia <= $daysInMonth; $dia++) {
+                $diasDoMes[] = $dia;
+            }
+
+            $totalSalesInThisDay = [];
+            foreach ($diasDoMes as $dia) {
+                $sales = DB::table('orders')
+                    ->where('month', $request->month)
+                    ->where('day', $dia)
+                    ->where('status', 'Pedido Entregue')
+                    ->count();
+
+                $totalSalesInThisDay[] = $sales;
+            }
+
+            $chart3 = new Chart();
+            $chart3->labels($diasDoMes);
+            $chart3->dataset('Vendas em '. $request->month, 'line', $totalSalesInThisDay)
+                ->backgroundColor('rgba(255, 99, 132, 0.2)');
+
+        }else{
+
+            //Capturando o mês atual.
+            $numeroDeDias = cal_days_in_month(CAL_GREGORIAN, date('m'), date('Y')); // CAL_GREGORIAN é o calendário padrão
+            $diasDoMes = [];
+
+            //Capturando quantidade de dias.
+            for ($dia = 1; $dia <= $numeroDeDias; $dia++) {
+                $diasDoMes[] = $dia;
+            }
+
+            //Quantidade de vendas em cada dia do mês.
+            $totalSalesInThisDay = [];
+
+            foreach ($diasDoMes as $dia) {
+                $sales = DB::table('orders')
+                    ->where('month', $this->monthConverter())
+                    ->where('day', $dia)
+                    ->where('status', 'Pedido Entregue')
+                    ->count();
+
+                $totalSalesInThisDay[] = $sales;
+            }
+
+            $chart3 = new Chart();
+            $chart3->labels($diasDoMes);
+            $chart3->dataset('Vendas este mês', 'line', $totalSalesInThisDay)
+                ->backgroundColor('rgba(255, 99, 132, 0.2)');
         }
 
         return view('pages.dashboard', [
