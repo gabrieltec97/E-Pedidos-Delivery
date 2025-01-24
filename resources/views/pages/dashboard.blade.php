@@ -141,18 +141,18 @@
                         <!-- Menu Select -->
                         <select name="month" class="form-control w-25 mb-3" onchange="exibirModal()">
                             <option value="" selected disabled>Selecione</option>
-                            <option value="Janeiro">Janeiro</option>
-                            <option value="Fevereiro">Fevereiro</option>
-                            <option value="Março">Março</option>
-                            <option value="Abril">Abril</option>
-                            <option value="Maio">Maio</option>
-                            <option value="Junho">Junho</option>
-                            <option value="Julho">Julho</option>
-                            <option value="Agosto">Agosto</option>
-                            <option value="Setembro">Setembro</option>
-                            <option value="Outubro">Outubro</option>
-                            <option value="Novembro">Novembro</option>
-                            <option value="Dezembro">Dezembro</option>
+                            <option value="Janeiro"  @if(request('month') == 'Janeiro') selected @endif>Janeiro</option>
+                            <option value="Fevereiro" @if(request('month') == 'Fevereiro') selected @endif>Fevereiro</option>
+                            <option value="Março" @if(request('month') == 'Março') selected @endif>Março</option>
+                            <option value="Abril" @if(request('month') == 'Abril') selected @endif>Abril</option>
+                            <option value="Maio" @if(request('month') == 'Maio') selected @endif>Maio</option>
+                            <option value="Junho" @if(request('month') == 'Junho') selected @endif>Junho</option>
+                            <option value="Julho" @if(request('month') == 'Julho') selected @endif>Julho</option>
+                            <option value="Agosto" @if(request('month') == 'Agosto') selected @endif>Agosto</option>
+                            <option value="Setembro" @if(request('month') == 'Setembro') selected @endif>Setembro</option>
+                            <option value="Outubro" @if(request('mont') == 'Outubro') selected @endif>Outubro</option>
+                            <option value="Novembro" @if(request('mont') == 'Novembro') selected @endif>Novembro</option>
+                            <option value="Dezembro" @if(request('mont') == 'Dezembro') selected @endif>Dezembro</option>
                         </select>
                     </div>
 
@@ -244,6 +244,22 @@
             </div>
         </div>
     </div>
+
+    @if(request('month'))
+        <script>
+            $.toast({
+                heading: '<b>Dados filtrados com sucesso!</b>',
+                showHideTransition : 'slide',  // It can be plain, fade or slide
+                bgColor : '#3b8cde',
+                text: '<b>Veja os dados sobre vendas do mês de {{ request('month') }}!</b>', // A mensagem que foi passada via session
+                hideAfter : 12000,
+                position: 'top-right',
+                textColor: 'white',
+                icon: 'success'
+            });
+        </script>
+    @endif
+
 @endsection
 
 <!-- Button trigger modal -->
@@ -287,7 +303,13 @@
         document.getElementById('clickhere').click();
     }
 
+
+{{--    @if(request('month'))--}}
+{{--         --}}
+{{--    @endif--}}
+
 </script>
+
 
 @push('js')
     <script src="./assets/js/plugins/chartjs.min.js"></script>

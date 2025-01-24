@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Charts\AreaChart;
 use App\Charts\MonthChart;
-use App\Models\Product;
 use ConsoleTVs\Charts\Classes\Chartjs\Chart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;

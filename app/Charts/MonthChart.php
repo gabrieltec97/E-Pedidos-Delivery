@@ -19,10 +19,6 @@ class MonthChart
 
     public function build(): \ArielMejiaDev\LarapexCharts\AreaChart
     {
-
-
-
-
         return $this->chart2->areaChart()
             ->setTitle('Sales during 2021.')
             ->setSubtitle('Physical sales vs Digital sales.')
