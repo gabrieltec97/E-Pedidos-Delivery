@@ -99,7 +99,52 @@
     </section>
 
     <section class="services">
+        <div class="background-services"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center mb-5">
+                    <span class="hint-title"><b>Serviços</b></span>
+                    <h1 class="title">
+                        <b>Qual é o nosso diferencial?</b>
+                    </h1>
+                </div>
+                <div class="col-4 mb-5">
+                    <div class="card-icon text-center">
+                        <img src="{{ asset('assets/img/icone-pedido.svg') }}" width="150">
+                        <div class="card-text text-center mt-3">
+                            <p><b>Fácil de pedir</b></p>
+                            <span>
+                                Você só precisa de alguns cliques para pedir sua comida!
+                            </span>
+                        </div>
+                    </div>
+                </div>
 
+                <div class="col-4 mb-5">
+                    <div class="card-icon text-center">
+                        <img src="{{ asset('assets/img/icone-delivery.svg') }}" width="250">
+                        <div class="card-text text-center mt-3">
+                            <p><b>Entrega rápida</b></p>
+                            <span>
+                                Nossa entrega é sempre pontual, rápida e segura!
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-4 mb-5">
+                    <div class="card-icon text-center">
+                        <img src="{{ asset('assets/img/icone-qualidade.svg') }}" width="250">
+                        <div class="card-text text-center mt-3">
+                            <p><b>Melhor qualidade</b></p>
+                            <span>
+                                Não só a rapidez na entrega, a qualidade também é o nosso forte!
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
     <section class="menu">
