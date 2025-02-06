@@ -27,7 +27,7 @@ class TrayController extends Controller
                }
             }
         }
-        return view('Orders.Menu', [
+        return view('Orders.draftMenu', [
             'products' => $products,
         ]);
     }
