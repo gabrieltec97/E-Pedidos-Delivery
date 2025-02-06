@@ -11,9 +11,39 @@
     <title>Cardápio - Seja bem vindo!</title>
 </head>
 <body>
-
     <section class="header">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg pl-0 pr-0">
+                <a href="#" class="navbar-brand"></a>
+                <img class="img.logo" src="{{ asset('assets/img/logo.png') }}" width="140px">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown">
+                    <span class="navbar-toggler-icon">
+                        <i class="fas fa-bars"></i>
+                    </span>
+                </button>
 
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar navbar-nav ml-auto mr-auto">
+                        <li class="nav-item">
+                            <a href="#reservas" class="nav-link"><b>Reservas</b></a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#serviços" class="nav-link"><b>Serviços</b></a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#cardápio" class="nav-link"><b>Cardápio</b></a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#depoimentos" class="nav-link"><b>Depoimentos</b></a>
+                        </li>
+                    </ul>
+
+                    <a class="btn btn-white btn-icon">
+                        Minha bandeja <span class="icon"><i class="fa fa-shopping-bag"></i></span>
+                    </a>
+                </div>
+            </nav>
+        </div>
     </section>
 
     <section class="banner">
