@@ -47,7 +47,55 @@
     </section>
 
     <section class="banner">
+        <div class="container">
+            <div class="row">
+                <div class="col-6">
+                    <div class="d-flex text-banner">
+                        <h1><b>Escolha sua comida <b class="color-primary">favorita!</b></b></h1>
+                        <p>Aproveite nosso cardápio. Escolha o que desejar e receba no conforto do seu lar de forma rápida e segura!</p>
 
+                        <div>
+                            <a class="btn btn-yellow mt-4 mr-3">
+                                Ver cardápio
+                            </a>
+                            <a href="" class="btn btn-white btn-icon-left mt-4 contact">
+                                <span class="icon-left">
+                                    <i class="fa fa-phone"></i>
+                                </span>
+                                (21) 99746-7377
+                            </a>
+                        </div>
+                    </div>
+
+                    <a class="btn btn-sm btn-white btn-social mt-4 mr-3">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+
+                    <a class="btn btn-sm btn-white btn-social mt-4 mr-3">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+
+                    <a class="btn btn-sm btn-white btn-social mt-4">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                </div>
+
+                <div class="col-6">
+                    <div class="card-banner"></div>
+                    <div class="d-flex img-banner">
+                        <img src="{{ asset('assets/img/burguer.png') }}"">
+                    </div>
+                    <div class="card card-case">
+                       <b> "Entrega rápida e lanches deliciosos!
+                           <br>A comida chegou quente e<br>
+                           muito saborosa!"</b>
+                        <span class="card-case-name">
+                            <b>Joaquim Domingos</b>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
     <section class="services">

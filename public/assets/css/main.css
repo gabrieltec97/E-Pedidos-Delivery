@@ -31,6 +31,13 @@ b {
     font-family: 'PoppinsMedium', 'Rubik', sans-serif;
 }
 
+.color-primary {
+    color: var(--color-primary);
+}
+
+a.navbar-brand {
+    margin-left: -25px;
+}
 .nav-link {
     color: var(--color-black);
     padding-left: 35px !important;
@@ -44,6 +51,19 @@ b {
     padding: 15px 20px;
     font-size: 19px;
     box-shadow: 0px 12px 15px -3px rgba(0,0,0,0.1);
+}
+
+.btn-white.active, .btn-white:hover {
+    background-color: var(--color-primary);
+}
+
+.btn-yellow {
+    background-color: var(--color-primary);
+    color: var(--color-white) !important;
+    border-radius: 15px;
+    padding: 8px 25px;
+    font-size: 20px;
+    box-shadow: 0px 10px 15px -3px rgb(0,0,0,0.1);
 }
 
 .btn-icon {
@@ -64,8 +84,100 @@ b {
     padding-top: 8px;
 }
 
+.banner {
+    padding-top: 110px;
+    padding-bottom: 200px;
+}
 
+.text-banner {
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 60px;
+}
 
+.text-banner h1{
+    color: var(--color-black);
+    font-size: 53px;
+}
+
+.text-banner p{
+    margin-top: 15px;
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+.btn-icon-left {
+    padding-left: 70px;
+}
+
+.contact {
+    font-size: 15px;
+}
+.btn-icon-left span.icon-left {
+    display: inline-block;
+    color: var(--color-white);
+    background-color: var(--color-primary);
+    width: 45px;
+    height: 40px;
+    position: absolute;
+    margin-left: -60px;
+    margin-top: -8px;
+    border-radius: 15px;
+    text-align: center;
+    padding-top: 10px;
+    font-size: 14px;
+}
+
+.btn-sm {
+    padding: 5px 15px; !important;
+    border-radius: 15px !important;
+    font-size: 18px !important;
+}
+
+.btn-social {
+    width: 50px;
+}
+
+.card-banner {
+    height: 450px;
+    width: 450px;
+    border-radius: 170px;
+    background-color: #f4c949;
+    position: absolute;
+    right: 0;
+    top: -30px;
+}
+
+.img-banner img {
+    position: absolute;
+    width: 570px;
+    top: 30px;
+    right: 15px;
+}
+
+.card {
+    border-radius: 20px;
+    padding: 15px 20px;
+    font-size: 20px;
+    box-shadow: 0px 10px 15px -3px rgb(0,0,0,0.1) !important;
+    border: none;
+}
+
+.card-case {
+    width: 350px;
+    font-size: 14px;
+    position: absolute;
+    right: 0;
+    bottom: -75px;
+}
+
+.card-case-name {
+    position: absolute;
+    font-size: 12px;
+    color: var(--color-primary);
+    right: 20px;
+    bottom: 10px;
+}
 
 
 
