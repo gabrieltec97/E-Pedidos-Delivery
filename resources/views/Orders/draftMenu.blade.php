@@ -148,7 +148,63 @@
     </section>
 
     <section class="menu">
+        <div class="background-menu"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center mb-5">
+                    <span class="hint-title"><b>Cardápio</b></span>
+                    <h1 class="title">
+                        <b>Conheça o nosso cardápio</b>
+                    </h1>
+                </div>
 
+                <div class="col-12 container-menu">
+                    <a class="btn btn-white btn-sm mr-3 active">
+                        <i class="fas fa-hamburger"></i>&nbsp; Burgers
+                    </a>
+
+                    <a class="btn btn-white btn-sm mr-3">
+                        <i class="fas fa-hamburger"></i>&nbsp; Artesanais
+                    </a>
+
+                    <a class="btn btn-white btn-sm mr-3">
+                        <i class="fas fa-wine-bottle"></i>&nbsp; Bebidas
+                    </a>
+
+                    <a class="btn btn-white btn-sm mr-3">
+                        <i class="fas fa-cookie-bite"></i>&nbsp; Sobremesas
+                    </a>
+                </div>
+
+                <div class="col-12">
+                    <div class="row" id="menuItems">
+                        <div class="col-3">
+                            <div class="card card-item">
+                                <div class="product-img">
+                                    <img src="{{ asset('assets/img/cardapio/burguers/burger-au-poivre-kit-4-pack.3ca0e39b02db753304cd185638dad518.jpg') }}" />
+                                </div>
+                                <p class="product-title text-center mt-4">
+                                    <b>X-Bacon</b>
+                                </p>
+                                <p class="product-price text-center">
+                                    <b>R$ 150,00</b>
+                                </p>
+                                <div class="add-tray">
+                                    <span class="btn-less"><i class="fas fa-minus"></i></span>
+                                    <span class="add-number-items">0</span>
+                                    <span class="btn-plus"><i class="fas fa-plus"></i></span>
+                                    <span class="btn btn-add"><i class="fas fa-shopping-bag"></i></span>
+                                </div>
+                            </div>    
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 text-center">
+                   <a class="btn btn-white btn-sm"><b>Ver mais</b></a>     
+                </div>
+            </div>
+        </div>
     </section>
 
     <section class="testimonials">
