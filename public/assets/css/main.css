@@ -365,3 +365,28 @@ a.navbar-brand {
 .reserve .img-banner img{
     width: 100%;
 }
+
+footer {
+    background-color: var(--color-secondary);
+}
+
+.logo-footer {
+    width: 80px;
+}
+
+.container-logo-footer, .container-footer-text, .container-media-footer {
+   display: flex;
+   align-items: center; 
+}
+
+.container-logo-footer {
+    justify-content: start;
+}
+
+.container-footer-text {
+    justify-content: center;
+}
+
+.container-media-footer {
+    justify-content: end;
+}

@@ -247,7 +247,31 @@
     </section>
 
     <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-3 container-logo-footer">
+                   <img class="logo-footer" src="{{ asset('assets/img/logo.png') }}" /> 
+                </div>
+                <div class="col-6 container-footer-text">
+                    <p class="mb-0">
+                        <b>E-Pedidos Delivery</b> &copy; Todos os direitos reservados.
+                    </p>
+                </div>
+                <div class="col-3 container-media-footer">
+                   <a class="btn btn-sm btn-white btn-social mr-3">
+                        <i class="fab fa-instagram"></i>
+                    </a>
 
+                    <a class="btn btn-sm btn-white btn-social mr-3">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+
+                    <a class="btn btn-sm btn-white btn-social">
+                        <i class="fab fa-whatsapp"></i>
+                    </a> 
+                </div>
+            </div>
+        </div>
     </footer>
 
     <script type="text/javascript" src="{{ asset('assets/js/jquery-1.12.4.js') }}"></script>
