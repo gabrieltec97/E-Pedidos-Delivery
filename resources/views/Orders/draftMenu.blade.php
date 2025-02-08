@@ -212,7 +212,38 @@
     </section>
 
     <section class="reserve">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card-secondary">
+                        <div class="row">
+                            <div class="col-7">
+                               <span class="hint-title"><b>Reservas</b></span>
+                                <h1 class="title">
+                                <b>Quer reservar um horário?</b>
+                                </h1> 
+                                <p class="pr-5">
+                                    Mande uma mensagem clicando no botão abaixo!
+                                    <br>
+                                    Reserve sua data e horário de forma simples e rápida.
+                                </p>
 
+                                <a class="btn btn-yellow mt-4">
+                                    <b>Fazer reserva</b>
+                                </a>    
+                            </div>
+
+                            <div class="col-5">
+                                <div class="card-reserve"></div>
+                                <div class="d-flex img-banner">
+                                    <img src="{{ asset('assets/img/icone-reserva.svg') }}" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
     <footer>

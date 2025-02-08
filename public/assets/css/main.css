@@ -15,7 +15,7 @@
     --color-text: #4f4f4f;
     --color-text-out: #90908e;
     --color-primary: #ffbf00;
-    --color-secondary: #ffbf00;
+    --color-secondary: #fff2cc;
     --color-white: #ffffff;
     --color-red: #e74c3c;
     --color-green: #2zcc71;
@@ -335,3 +335,33 @@ a.navbar-brand {
 
 
 
+
+
+
+
+
+
+.reserve {
+    padding-bottom: 150px;
+}
+
+.card-secondary {
+    background-color: var(--color-secondary);
+    border-radius: 70px;
+    padding: 90px;
+}
+
+.card-reserve {
+    height: 320px;
+    width: 320px;
+    border-radius: 120px;
+    background-color: var(--color-white);
+    position: absolute;
+    right: 0;
+    top: -25px;
+
+}
+
+.reserve .img-banner img{
+    width: 100%;
+}
