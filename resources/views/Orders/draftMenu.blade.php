@@ -178,25 +178,32 @@
 
                 <div class="col-12">
                     <div class="row" id="menuItems">
-                        <div class="col-3">
-                            <div class="card card-item">
-                                <div class="product-img">
-                                    <img src="{{ asset('assets/img/cardapio/burguers/burger-au-poivre-kit-4-pack.3ca0e39b02db753304cd185638dad518.jpg') }}" />
-                                </div>
-                                <p class="product-title text-center mt-4">
-                                    <b>X-Bacon</b>
-                                </p>
-                                <p class="product-price text-center">
-                                    <b>R$ 150,00</b>
-                                </p>
-                                <div class="add-tray">
-                                    <span class="btn-less"><i class="fas fa-minus"></i></span>
-                                    <span class="add-number-items">0</span>
-                                    <span class="btn-plus"><i class="fas fa-plus"></i></span>
-                                    <span class="btn btn-add"><i class="fas fa-shopping-bag"></i></span>
-                                </div>
+                        @foreach($products as $product)
+                            <div class="col-3 mt-4">
+                                <form class="product-form" data-product-id="{{ $product->id }}" method="post">
+                                    @csrf
+                                    <div class="card card-item">
+                                        <div class="product-img">
+                                            <img src="{{ asset('assets/img/cardapio/burguers/burger-au-poivre-kit-4-pack.3ca0e39b02db753304cd185638dad518.jpg') }}" />
+                                        </div>
+                                        <p class="product-title text-center mt-4">
+                                            <b>{{ $product->name }}</b>
+                                        </p>
+                                        <p class="product-price text-center">
+                                            <b>R$ {{ $product->price }}</b>
+                                        </p>
+                                        <input type="hidden" name="productId" value="{{ $product->id }}">
+                                        <input type="number" class="form-control" name="ammount" style="width: 90px" value="1" hidden="">
+                                        <div class="add-tray">
+                                            <span class="btn-less"><i class="fas fa-minus"></i></span>
+                                            <span class="add-number-items">0</span>
+                                            <span class="btn-plus"><i class="fas fa-plus"></i></span>
+                                            <button type="submit" class="btn btn-add"><i class="fas fa-shopping-bag"></i></button>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
 
@@ -274,7 +281,7 @@
         </div>
     </footer>
 
-    <div class="modal-full" id="modalTray">
+    <div class="modal-full" hidden="hidden" id="modalTray">
         <div class="m-header">
             <div class="container">
                 <a class="btn btn-white btn-sm float-right">Fechar</a>
@@ -483,5 +490,50 @@
     <script type="text/javascript" src="{{ asset('assets/js/modernizr-3.5.0.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/js/popper.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/dados.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/app.js') }}"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('.product-form').on('submit', function (e) {
+                e.preventDefault(); // Impede o envio padrão do formulário
+
+                const form = $(this);
+                const url = "{{ route('cardapio.store') }}"; // URL do backend
+                const formData = form.serialize(); // Serializa os dados do formulário, incluindo o `productId`
+
+                $.ajax({
+                    url: url,
+                    method: "POST",
+                    data: formData,
+                    success: function (response) {
+                        // Exibe uma mensagem de sucesso ou atualiza algo na página
+                        $.toast({
+                            heading: '<b>Que legal!</b>',
+                            showHideTransition : 'slide',  // It can be plain, fade or slide
+                            bgColor : '#2ecc71',
+                            text: 'Item adicionado à sua bandeja.',
+                            hideAfter : 8000,
+                            position: 'top-right',
+                            textColor: '#ecf0f1',
+                            icon: 'success'
+                        });
+                    },
+                    error: function (xhr, status, error) {
+                        $.toast({
+                            heading: '<b>Oopsss, algo errado aconteceu!</b>',
+                            showHideTransition : 'slide',  // It can be plain, fade or slide
+                            bgColor : 'red',
+                            text: 'Não foi possível adicionar este item à sua bandeja.', // A mensagem que foi passada via session
+                            hideAfter : 8000,
+                            position: 'top-right',
+                            textColor: 'white',
+                            icon: 'error'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
