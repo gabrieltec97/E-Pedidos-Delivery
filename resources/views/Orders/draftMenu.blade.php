@@ -311,7 +311,7 @@
                     </div>
                 </div>
 
-                <div id="deliveryPlace" class="row mx-0">
+                <div id="deliveryPlace" class="row mx-0" hidden="">
                     <div class="col-4">
                         <div class="form-group container-cep">
                             <label for="txtCEP"><b>Cep:</b></label>
@@ -394,8 +394,61 @@
                     </div>
                 </div>
 
-                <div id="trayResume" class="row mx-0 hidden">
+                <div id="trayResume" class="row mx-0">
+                    <div class="col-12">
+                        <p class="tray-tittle mt-4">
+                            <b>Itens do pedido:</b>
+                        </p>
+                    </div>
 
+                    <div class="col-12">
+                        <div class="row" id="resumeItemsList">
+
+                            <div class="col-12 tray-item">
+                                <div class="img-product">
+                                    <img class="product-img" src="{{ asset('assets/img/cardapio/burguers/burger-au-poivre-kit-4-pack.3ca0e39b02db753304cd185638dad518.jpg') }}" />
+                                </div>
+
+                                <div class="product-data">
+                                    <p class="resume-product-title">
+                                        <b>Nome produto</b>
+                                    </p>
+
+                                    <p class="resume-product-price">
+                                        <b>R$ 30,00</b>
+                                    </p>
+                                </div>
+
+                                <p class="resume-product-quantity">
+                                    x <b>3</b>
+                                </p>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <p class="tray-tittle mt-4">
+                            <b>Local da entrega:</b>
+                        </p>
+                    </div>
+
+                    <div class="col-12 tray-item resume">
+                        <div class="img-map">
+                            <i class="fas fa-map-marked-alt"></i>
+                        </div>
+
+                        <div class="product-data">
+                            <p class="address-text">
+                                <b id="addressResume">Rua de teste, 100, bairro teste</b>
+                            </p>
+
+                            <p class="cityAddress" id="cityAddress">
+                                Cidade-RJ / 14711-000
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

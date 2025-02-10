@@ -571,8 +571,57 @@ footer {
     top: 45px;
 }
 
+.img-product-resume img {
+    width: 50px;
+    border-radius: 11px;
+}
 
+.tray-item .resume {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
 
+.resume-product-title {
+    color: var(--color-black);
+    font-size: 18px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    margin-bottom: 0;
+}
+
+.resume-product-price {
+    color: var(--color-primary);
+    font-size: 16px;
+    margin-bottom: 0;
+}
+
+.resume-product-quantity {
+    color: var(--color-black);
+    font-size: 10px;
+    margin-bottom: 0;
+}
+
+.img-map {
+    width: 50px;
+    height: 50px;
+    background-color: var(--color-secondary);
+    color: var(--color-black);
+    font-size: 22px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 11px;
+}
+
+.address-text {
+    margin-bottom: 0;
+    color: var(--color-black);
+}
+
+.cityAddress {
+    margin-bottom: 0;
+}
 
 
 
