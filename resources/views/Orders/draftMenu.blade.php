@@ -195,13 +195,13 @@
                                     <span class="btn-plus"><i class="fas fa-plus"></i></span>
                                     <span class="btn btn-add"><i class="fas fa-shopping-bag"></i></span>
                                 </div>
-                            </div>    
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-12 text-center">
-                   <a class="btn btn-white btn-sm"><b>Ver mais</b></a>     
+                   <a class="btn btn-white btn-sm"><b>Ver mais</b></a>
                 </div>
             </div>
         </div>
@@ -221,7 +221,7 @@
                                <span class="hint-title"><b>Reservas</b></span>
                                 <h1 class="title">
                                 <b>Quer reservar um horário?</b>
-                                </h1> 
+                                </h1>
                                 <p class="pr-5">
                                     Mande uma mensagem clicando no botão abaixo!
                                     <br>
@@ -230,7 +230,7 @@
 
                                 <a class="btn btn-yellow mt-4">
                                     <b>Fazer reserva</b>
-                                </a>    
+                                </a>
                             </div>
 
                             <div class="col-5">
@@ -250,7 +250,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-3 container-logo-footer">
-                   <img class="logo-footer" src="{{ asset('assets/img/logo.png') }}" /> 
+                   <img class="logo-footer" src="{{ asset('assets/img/logo.png') }}" />
                 </div>
                 <div class="col-6 container-footer-text">
                     <p class="mb-0">
@@ -268,11 +268,138 @@
 
                     <a class="btn btn-sm btn-white btn-social">
                         <i class="fab fa-whatsapp"></i>
-                    </a> 
+                    </a>
                 </div>
             </div>
         </div>
     </footer>
+
+    <div class="modal-full" id="modalTray">
+        <div class="m-header">
+            <div class="container">
+                <a class="btn btn-white btn-sm float-right">Fechar</a>
+
+                <div class="steps">
+                    <div class="step step1 active">1</div>
+                    <div class="step step2">2</div>
+                    <div class="step step3">3</div>
+                </div>
+                <p class="tray-title mt-4">
+                    <b id="lbl-stepTitle">Sua bandeja:</b>
+                </p>
+            </div>
+        </div>
+        <div class="m-body">
+            <div class="container">
+                <div id="trayItems" class="row mx-0">
+                    <div class="col-12 tray-item">
+                        <div class="img-product">
+                            <img class="product-img" src="{{ asset('assets/img/cardapio/burguers/burger-au-poivre-kit-4-pack.3ca0e39b02db753304cd185638dad518.jpg') }}" />
+                        </div>
+
+                        <div class="product-data">
+                            <p class="product-title"><b>Nome do produto</b></p>
+                            <p class="product-price"><b>R$ 23,90</b></p>
+                        </div>
+
+                        <div class="add-tray">
+                            <span class="btn-less"><i class="fas fa-minus"></i></span>
+                            <span class="add-number-items">0</span>
+                            <span class="btn-plus"><i class="fas fa-plus"></i></span>
+                            <span class="btn btn-remove"><i class="fas fa-times"></i></span>
+                        </div>
+                    </div>
+
+                    <div class="col-12 tray-item">
+                        <div class="img-product">
+                            <img class="product-img" src="{{ asset('assets/img/cardapio/burguers/burger-au-poivre-kit-4-pack.3ca0e39b02db753304cd185638dad518.jpg') }}" />
+                        </div>
+
+                        <div class="product-data">
+                            <p class="product-title"><b>Nome do produto</b></p>
+                            <p class="product-price"><b>R$ 23,90</b></p>
+                        </div>
+
+                        <div class="add-tray">
+                            <span class="btn-less"><i class="fas fa-minus"></i></span>
+                            <span class="add-number-items">0</span>
+                            <span class="btn-plus"><i class="fas fa-plus"></i></span>
+                            <span class="btn btn-remove"><i class="fas fa-times"></i></span>
+                        </div>
+                    </div>
+
+                    <div class="col-12 tray-item">
+                        <div class="img-product">
+                            <img class="product-img" src="{{ asset('assets/img/cardapio/burguers/burger-au-poivre-kit-4-pack.3ca0e39b02db753304cd185638dad518.jpg') }}" />
+                        </div>
+
+                        <div class="product-data">
+                            <p class="product-title"><b>Nome do produto</b></p>
+                            <p class="product-price"><b>R$ 23,90</b></p>
+                        </div>
+
+                        <div class="add-tray">
+                            <span class="btn-less"><i class="fas fa-minus"></i></span>
+                            <span class="add-number-items">0</span>
+                            <span class="btn-plus"><i class="fas fa-plus"></i></span>
+                            <span class="btn btn-remove"><i class="fas fa-times"></i></span>
+                        </div>
+                    </div>
+
+                    <div class="col-12 tray-item">
+                        <div class="img-product">
+                            <img class="product-img" src="{{ asset('assets/img/cardapio/burguers/burger-au-poivre-kit-4-pack.3ca0e39b02db753304cd185638dad518.jpg') }}" />
+                        </div>
+
+                        <div class="product-data">
+                            <p class="product-title"><b>Nome do produto</b></p>
+                            <p class="product-price"><b>R$ 23,90</b></p>
+                        </div>
+
+                        <div class="add-tray">
+                            <span class="btn-less"><i class="fas fa-minus"></i></span>
+                            <span class="add-number-items">0</span>
+                            <span class="btn-plus"><i class="fas fa-plus"></i></span>
+                            <span class="btn btn-remove"><i class="fas fa-times"></i></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="deliveryPlace" class="row mx-0 hidden">
+
+                </div>
+
+                <div id="trayResume" class="row mx-0 hidden">
+
+                </div>
+            </div>
+        </div>
+        <div class="m-footer">
+            <div class="cotainer">
+                <div class="container-total text-right mb-4">
+                    <p class="mb-0">
+                        <span>Subtotal</span>
+                        <span id="lbl-subtotal">R$ 95,00</span>
+                    </p>
+
+                    <p class="mb-0 delivery-text">
+                        <span><i class="fas fa-motorcycle"></i> Entrega: </span>
+                        <span id="lbl-deliveryValue">+ R$ 5,00</span>
+                    </p>
+
+                    <p class="mb-0 total-text">
+                        <span><b>Total</b></span>
+                        <span class="totalValue" id="lbl-totalValue"><b>R$ 100,00</b></span>
+                    </p>
+                </div>
+
+                <a class="btn btn-yellow float-right" id="btnOrderStep">Continuar</a>
+                <a class="btn btn-yellow float-right" id="btnAddressStep" hidden>Revisar pedido</a>
+                <a class="btn btn-yellow float-right" id="btnResumeStep" hidden>Enviar pedido</a>
+                <a class="btn btn-white float-right mr-3" hidden id="btnBack">Voltar</a>
+            </div>
+        </div>
+    </div>
 
     <script type="text/javascript" src="{{ asset('assets/js/jquery-1.12.4.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/js/modernizr-3.5.0.min.js') }}"></script>
