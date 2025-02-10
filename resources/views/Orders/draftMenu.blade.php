@@ -292,61 +292,7 @@
         <div class="m-body">
             <div class="container">
                 <div id="trayItems" class="row mx-0">
-                    <div class="col-12 tray-item">
-                        <div class="img-product">
-                            <img class="product-img" src="{{ asset('assets/img/cardapio/burguers/burger-au-poivre-kit-4-pack.3ca0e39b02db753304cd185638dad518.jpg') }}" />
-                        </div>
-
-                        <div class="product-data">
-                            <p class="product-title"><b>Nome do produto</b></p>
-                            <p class="product-price"><b>R$ 23,90</b></p>
-                        </div>
-
-                        <div class="add-tray">
-                            <span class="btn-less"><i class="fas fa-minus"></i></span>
-                            <span class="add-number-items">0</span>
-                            <span class="btn-plus"><i class="fas fa-plus"></i></span>
-                            <span class="btn btn-remove"><i class="fas fa-times"></i></span>
-                        </div>
-                    </div>
-
-                    <div class="col-12 tray-item">
-                        <div class="img-product">
-                            <img class="product-img" src="{{ asset('assets/img/cardapio/burguers/burger-au-poivre-kit-4-pack.3ca0e39b02db753304cd185638dad518.jpg') }}" />
-                        </div>
-
-                        <div class="product-data">
-                            <p class="product-title"><b>Nome do produto</b></p>
-                            <p class="product-price"><b>R$ 23,90</b></p>
-                        </div>
-
-                        <div class="add-tray">
-                            <span class="btn-less"><i class="fas fa-minus"></i></span>
-                            <span class="add-number-items">0</span>
-                            <span class="btn-plus"><i class="fas fa-plus"></i></span>
-                            <span class="btn btn-remove"><i class="fas fa-times"></i></span>
-                        </div>
-                    </div>
-
-                    <div class="col-12 tray-item">
-                        <div class="img-product">
-                            <img class="product-img" src="{{ asset('assets/img/cardapio/burguers/burger-au-poivre-kit-4-pack.3ca0e39b02db753304cd185638dad518.jpg') }}" />
-                        </div>
-
-                        <div class="product-data">
-                            <p class="product-title"><b>Nome do produto</b></p>
-                            <p class="product-price"><b>R$ 23,90</b></p>
-                        </div>
-
-                        <div class="add-tray">
-                            <span class="btn-less"><i class="fas fa-minus"></i></span>
-                            <span class="add-number-items">0</span>
-                            <span class="btn-plus"><i class="fas fa-plus"></i></span>
-                            <span class="btn btn-remove"><i class="fas fa-times"></i></span>
-                        </div>
-                    </div>
-
-                    <div class="col-12 tray-item">
+                    <div class="col-12 tray-item" hidden="">
                         <div class="img-product">
                             <img class="product-img" src="{{ asset('assets/img/cardapio/burguers/burger-au-poivre-kit-4-pack.3ca0e39b02db753304cd185638dad518.jpg') }}" />
                         </div>
@@ -365,8 +311,87 @@
                     </div>
                 </div>
 
-                <div id="deliveryPlace" class="row mx-0 hidden">
+                <div id="deliveryPlace" class="row mx-0">
+                    <div class="col-4">
+                        <div class="form-group container-cep">
+                            <label for="txtCEP"><b>Cep:</b></label>
+                            <input type="text" id="txtCEP" class="form-control">
+                            <a class="btn btn-yellow btn-sm"><i class="fa fa-search"></i></a>
+                        </div>
+                    </div>
 
+                    <div class="col-8"></div>
+
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="txtEndereco"><b>Endereço</b></label>
+                            <input type="text" id="txtEndereco" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="txtBairro"><b>Bairro:</b></label>
+                            <input type="text" id="txtBairro" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="col-2">
+                        <div class="form-group">
+                            <label for="txtBairro"><b>Número:</b></label>
+                            <input type="text" id="txtBairro" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="txtCity"><b>Cidade</b></label>
+                            <input type="text" id="txtCity" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="txtComplement"><b>Complemento:</b></label>
+                            <input type="text" id="txtComplement" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="col-2 mb-5">
+                        <div class="form-group">
+                            <label for="txtUf"><b>UF:</b></label>
+                            <select name="" id="ddlUf" class="form-control">
+                                <option value="-1..."></option>
+                                <option value="AC">AC</option>
+                                <option value="AL">AL</option>
+                                <option value="AP">AP</option>
+                                <option value="AM">AM</option>
+                                <option value="BA">BA</option>
+                                <option value="CE">CE</option>
+                                <option value="DF">DF</option>
+                                <option value="ES">ES</option>
+                                <option value="GO">GO</option>
+                                <option value="MA">MA</option>
+                                <option value="MT">MT</option>
+                                <option value="MS">MS</option>
+                                <option value="MG">MG</option>
+                                <option value="PA">PA</option>
+                                <option value="PB">PB</option>
+                                <option value="PR">PR</option>
+                                <option value="PE">PE</option>
+                                <option value="PI">PI</option>
+                                <option value="RJ">RJ</option>
+                                <option value="RN">RN</option>
+                                <option value="RS">RS</option>
+                                <option value="RO">RO</option>
+                                <option value="RR">RR</option>
+                                <option value="SC">SC</option>
+                                <option value="SP">SP</option>
+                                <option value="SE">SE</option>
+                                <option value="TO">TO</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
 
                 <div id="trayResume" class="row mx-0 hidden">
