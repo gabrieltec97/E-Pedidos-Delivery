@@ -13,6 +13,11 @@
     <title>Cardápio - Seja bem vindo!</title>
 </head>
 <body>
+
+    <a class="btn-tray-side">
+        <div class="badge-total-tray cart-count">0</div>
+        <i class="fa fa-shopping-bag"></i>
+    </a>
     <section class="header">
         <div class="container">
             <nav class="navbar navbar-expand-lg pl-0 pr-0">
@@ -40,7 +45,7 @@
                         </li>
                     </ul>
 
-                    <a class="btn btn-white btn-icon">
+                    <a class="btn btn-white btn-icon btn-tray">
                         Minha bandeja <span class="icon"><i class="fa fa-shopping-bag"></i></span>
                     </a>
                 </div>
@@ -288,7 +293,7 @@
         </div>
     </footer>
 
-    <div class="modal-full" id="modalTray">
+    <div class="modal-full" hidden>
         <div class="m-header">
             <div class="container">
                 <a class="btn btn-white btn-sm float-right fechar-modal">Fechar</a>
@@ -515,11 +520,27 @@
 
     <script>
         $(document).ready(function () {
+            function atualizarContagemBandeja() {
+                const countUrl = "{{ route('cardapio.count') }}";
+                $.ajax({
+                    url: countUrl,
+                    method: "GET",
+                    success: function (response) {
+                        // Atualiza o contador no HTML (exemplo: um <span id="cart-count">)
+                        $(".cart-count").text(response.count);
+                        console.log(response.count)
+                    },
+                    error: function () {
+                        console.error("Erro ao buscar a contagem dos itens na bandeja.");
+                    }
+                });
+            }
+
             $('.product-form').on('submit', function (e) {
                 e.preventDefault(); // Impede o envio padrão do formulário
 
                 const form = $(this);
-                const url = "{{ route('cardapio.store') }}"; // URL do backend
+                const url = "{{ route('cardapio.store') }}"; // URL do backend para adicionar item
                 const formData = form.serialize(); // Serializa os dados do formulário, incluindo o `productId`
 
                 $.ajax({
@@ -527,25 +548,28 @@
                     method: "POST",
                     data: formData,
                     success: function (response) {
-                        // Exibe uma mensagem de sucesso ou atualiza algo na página
+                        // Exibe uma mensagem de sucesso
                         $.toast({
                             heading: '<b>Que legal!</b>',
-                            showHideTransition : 'slide',  // It can be plain, fade or slide
-                            bgColor : '#2ecc71',
+                            showHideTransition: 'slide',  // It can be plain, fade or slide
+                            bgColor: '#2ecc71',
                             text: 'Item adicionado à sua bandeja.',
-                            hideAfter : 8000,
+                            hideAfter: 8000,
                             position: 'top-right',
                             textColor: '#ecf0f1',
                             icon: 'success'
                         });
+
+                        // Após adicionar, faz uma nova requisição para contar os itens
+                        atualizarContagemBandeja();
                     },
                     error: function (xhr, status, error) {
                         $.toast({
                             heading: '<b>Oopsss, algo errado aconteceu!</b>',
-                            showHideTransition : 'slide',  // It can be plain, fade or slide
-                            bgColor : 'red',
-                            text: 'Não foi possível adicionar este item à sua bandeja.', // A mensagem que foi passada via session
-                            hideAfter : 8000,
+                            showHideTransition: 'slide',
+                            bgColor: 'red',
+                            text: 'Não foi possível adicionar este item à sua bandeja.',
+                            hideAfter: 8000,
                             position: 'top-right',
                             textColor: 'white',
                             icon: 'error'

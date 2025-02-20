@@ -93,6 +93,22 @@ class TrayController extends Controller
         return response()->json(['message' => 'Produto adicionado ao carrinho com sucesso!']);
     }
 
+    public function count()
+    {
+        $user = Auth::user();
+        $total = DB::table('trays')
+            ->select('ammount')
+            ->where('user_id', $user->id)
+            ->get(); // Conta o total de "ammount"
+
+        $totalItems = 0;
+        foreach ($total as $count){
+            $totalItems += intVal($count->ammount);
+        }
+        return response()->json(['count' => $totalItems]);
+    }
+
+
     public function update(Request $request, string $id)
     {
         $tray = Tray::find($id);

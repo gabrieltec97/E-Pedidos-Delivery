@@ -29,6 +29,7 @@ use App\Http\Controllers\ChangePassword;
 */
 
 Route::resource('/cardapio', TrayController::class);
+Route::get('/count', [TrayController::class, 'count'])->name('cardapio.count');
 Route::get('revisar-pedido', [OrderController::class, 'review'])->name('review');
 
 Route::get('log', function (){

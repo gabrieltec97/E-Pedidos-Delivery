@@ -1,6 +1,10 @@
 $(document).ready(function (){
+    $('.btn-tray').on('click', function (){
+       $('.modal-full').removeAttr('hidden');
+    });
+
     $('.fechar-modal').on('click', function (){
-        $('#modalTray').fadeOut();
+        $('.modal-full').fadeOut();
     });
 
     $('#btnOrderStep').on('click', function (){
@@ -39,24 +43,23 @@ $(document).ready(function (){
         $('.step1').addClass('active')
     });
 
-    $('.btn-plus').on('click', function (){
-        let ammount = parseInt($(".add-number-items").html());
-        ammount = ammount + 1
-        $(".add-number-items").html(ammount)
-        $(".ammount").val(ammount)
+    $(".btn-plus").on("click", function() {
+        var card = $(this).closest(".card-item");
+        var numberItems = card.find(".add-number-items");
+
+        var currentValue = parseInt(numberItems.text());
+        numberItems.text(currentValue + 1);
+        $(".ammount").val(currentValue + 1)
     });
 
-    $('.btn-less').on('click', function (){
-        let ammount = parseInt($(".add-number-items").html());
+    $(".btn-less").on("click", function() {
+        var card = $(this).closest(".card-item");
+        var numberItems = card.find(".add-number-items");
+        var currentValue = parseInt(numberItems.text());
 
-        ammount = ammount - 1;
-
-        if (ammount > 0){
-            $(".add-number-items").html(ammount)
-            $(".ammount").val(ammount)
-        }else{
-            $(".add-number-items").html(0)
-            $(".ammount").val(0)
+        if (currentValue > 0) {
+            numberItems.text(currentValue - 1);
+            $(".ammount").val(currentValue - 1)
         }
     });
 
@@ -94,4 +97,21 @@ $(document).ready(function (){
     $('.buscar-cep').on('click', function (){
         buscarCep();
     });
+
+    function atualizarContagemBandeja() {
+        const countUrl = "{{ route('cardapio.count') }}";
+
+        $.ajax({
+            url: countUrl,
+            method: "GET",
+            success: function (response) {
+                // Atualiza o contador no HTML (exemplo: um <span id="cart-count">)
+                $(".cart-count").text(response.count);
+                console.log(response.count)
+            },
+            error: function () {
+                console.error("Erro ao buscar a contagem dos itens na bandeja.");
+            }
+        });
+    }
 });
