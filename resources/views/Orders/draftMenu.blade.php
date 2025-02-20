@@ -304,7 +304,7 @@
         </div>
         <div class="m-body">
             <div class="container">
-                <div id="trayItems" class="row mx-0">
+                <div id="trayItems" class="row">
                         @foreach($tray as $item)
                         <div class="col-12 tray-item">
                             <div class="img-product">
@@ -326,12 +326,14 @@
                         @endforeach
                 </div>
 
-                <div id="deliveryPlace" class="row mx-0" hidden="">
+                <div id="deliveryPlace" class="row" hidden="">
                     <div class="col-4">
                         <div class="form-group container-cep">
                             <label for="txtCEP"><b>Cep:</b></label>
                             <input type="text" id="txtCEP" class="form-control">
-                            <a class="btn btn-yellow btn-sm"><i class="fa fa-search"></i></a>
+                            <a class="btn btn-yellow btn-sm buscar-cep">
+                                <i class="fa fa-search"></i>
+                            </a>
                         </div>
                     </div>
 
@@ -353,8 +355,8 @@
 
                     <div class="col-2">
                         <div class="form-group">
-                            <label for="txtBairro"><b>Número:</b></label>
-                            <input type="text" id="txtBairro" class="form-control">
+                            <label for="txtNumero"><b>Número:</b></label>
+                            <input type="text" id="txtNumero" class="form-control">
                         </div>
                     </div>
 
@@ -468,12 +470,18 @@
                 </div>
             </div>
         </div>
+        @php
+        $total = 0;
+        foreach ($tray as $item){
+            $total += $item->value * $item->ammount;
+        }
+        @endphp
         <div class="m-footer">
             <div class="cotainer">
                 <div class="container-total text-right mb-4">
                     <p class="mb-0">
-                        <span>Subtotal</span>
-                        <span id="lbl-subtotal">R$ 95,00</span>
+                        <span>Subtotal: </span>
+                        <span id="lbl-subtotal">R$ {{ $total }}</span>
                     </p>
 
                     <p class="mb-0 delivery-text">
@@ -482,8 +490,8 @@
                     </p>
 
                     <p class="mb-0 total-text">
-                        <span><b>Total</b></span>
-                        <span class="totalValue" id="lbl-totalValue"><b>R$ 100,00</b></span>
+                        <span><b>Total: </b></span>
+                        <span class="totalValue" id="lbl-totalValue"><b>R$ {{ $total }}</b></span>
                     </p>
                 </div>
 

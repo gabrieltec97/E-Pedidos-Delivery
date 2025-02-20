@@ -623,8 +623,12 @@ footer {
     margin-bottom: 0;
 }
 
-#btnAddressStep, #btnResumeStep, #btnBack, #btnLastBack{
+#btnAddressStep, #btnResumeStep, #btnBack, #btnLastBack, .delivery-text{
     display: none;
+}
+
+#trayItems {
+    margin-top: -15px;
 }
 
 
