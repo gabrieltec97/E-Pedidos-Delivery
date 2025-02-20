@@ -201,6 +201,7 @@
                                             <span class="add-number-items">0</span>
                                             <span class="btn-plus"><i class="fas fa-plus"></i></span>
                                             <button type="submit" class="btn btn-add"><i class="fas fa-shopping-bag"></i></button>
+                                            <input type="number" hidden class="ammount" name="ammount">
                                         </div>
                                     </div>
                                 </form>

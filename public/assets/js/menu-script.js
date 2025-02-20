@@ -39,6 +39,28 @@ $(document).ready(function (){
         $('.step1').addClass('active')
     });
 
+    $('.btn-plus').on('click', function (){
+        let ammount = parseInt($(".add-number-items").html());
+        ammount = ammount + 1
+        $(".add-number-items").html(ammount)
+        $(".ammount").val(ammount)
+    });
+
+    $('.btn-less').on('click', function (){
+        let ammount = parseInt($(".add-number-items").html());
+
+        ammount = ammount - 1;
+
+        if (ammount > 0){
+            $(".add-number-items").html(ammount)
+            $(".ammount").val(ammount)
+        }else{
+            $(".add-number-items").html(0)
+            $(".ammount").val(0)
+        }
+    });
+
+    //API de busca de cep.
     function buscarCep(){
         var cep = $('#txtCEP').val().trim().replace(/\D/g,'');
 
