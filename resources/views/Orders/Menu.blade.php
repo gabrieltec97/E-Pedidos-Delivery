@@ -28,6 +28,8 @@
                                    </div>
                                @endforeach
 
+
+
                                <div class="col-12 text-end">
                                    <a href="{{ route('review') }}" type="button" class="btn btn-primary">Finalizar pedido</a>
                                </div>

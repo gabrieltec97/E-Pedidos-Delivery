@@ -208,7 +208,7 @@
                 </div>
 
                 <div class="col-12 text-center">
-                   <a class="btn btn-white btn-sm"><b>Ver mais</b></a>
+                   <a class="btn btn-white btn-sm mt-5"><b>Ver mais</b></a>
                 </div>
             </div>
         </div>
@@ -253,6 +253,10 @@
         </div>
     </section>
 
+    <section class="tray">
+
+    </section>
+
     <footer>
         <div class="container">
             <div class="row">
@@ -281,7 +285,7 @@
         </div>
     </footer>
 
-    <div class="modal-full" hidden="hidden" id="modalTray">
+    <div class="modal-full"  id="modalTray">
         <div class="m-header">
             <div class="container">
                 <a class="btn btn-white btn-sm float-right">Fechar</a>
@@ -411,27 +415,28 @@
                     <div class="col-12">
                         <div class="row" id="resumeItemsList">
 
-                            <div class="col-12 tray-item">
-                                <div class="img-product">
-                                    <img class="product-img" src="{{ asset('assets/img/cardapio/burguers/burger-au-poivre-kit-4-pack.3ca0e39b02db753304cd185638dad518.jpg') }}" />
-                                </div>
+                            @foreach($tray as $items)
+                                <div class="col-12 tray-item">
+                                    <div class="img-product">
+                                        <img class="product-img" src="{{ asset('assets/img/cardapio/burguers/burger-au-poivre-kit-4-pack.3ca0e39b02db753304cd185638dad518.jpg') }}" />
+                                    </div>
 
-                                <div class="product-data">
-                                    <p class="resume-product-title">
-                                        <b>Nome produto</b>
+                                    <div class="product-data">
+                                        <p class="resume-product-title">
+                                            <b>{{ $items->product }}</b>
+                                        </p>
+
+                                        <p class="resume-product-price">
+                                            <b>R$ {{ $items->value }}</b>
+                                        </p>
+                                    </div>
+
+                                    <p class="resume-product-quantity">
+                                        x <b>{{ $items->ammount }}</b>
                                     </p>
 
-                                    <p class="resume-product-price">
-                                        <b>R$ 30,00</b>
-                                    </p>
                                 </div>
-
-                                <p class="resume-product-quantity">
-                                    x <b>3</b>
-                                </p>
-
-                            </div>
-
+                            @endforeach
                         </div>
                     </div>
 
@@ -492,6 +497,7 @@
     <script type="text/javascript" src="{{ asset('assets/js/popper.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/js/dados.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/js/app.js') }}"></script>
+    <script src="{{ asset('assets/js/jquerytoast.js') }}"></script>
 
     <script>
         $(document).ready(function () {

@@ -14,6 +14,9 @@ class TrayController extends Controller
     {
         $user = Auth::user();
         $products = Product::all();
+        $tray = DB::table('trays')
+            ->where('user_id', $user->id)
+            ->get();
 
         //Verificação se o item tem em estoque.
         foreach ($products as $key => $product){
@@ -27,8 +30,10 @@ class TrayController extends Controller
                }
             }
         }
+
         return view('Orders.draftMenu', [
             'products' => $products,
+            'tray' => $tray
         ]);
     }
 
