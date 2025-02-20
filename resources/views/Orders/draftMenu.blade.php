@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/fontawesome.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
+    <script src="{{ asset('assets/js/jquery-3.7.1.min.js') }}"></script>
+    <script src="{{ asset('assets/js/menu-script.js') }}"></script>
     <title>Cardápio - Seja bem vindo!</title>
 </head>
 <body>
@@ -285,10 +287,10 @@
         </div>
     </footer>
 
-    <div class="modal-full"  id="modalTray">
+    <div class="modal-full" id="modalTray">
         <div class="m-header">
             <div class="container">
-                <a class="btn btn-white btn-sm float-right">Fechar</a>
+                <a class="btn btn-white btn-sm float-right fechar-modal">Fechar</a>
 
                 <div class="steps">
                     <div class="step step1 active">1</div>
@@ -303,23 +305,25 @@
         <div class="m-body">
             <div class="container">
                 <div id="trayItems" class="row mx-0">
-                    <div class="col-12 tray-item" hidden="">
-                        <div class="img-product">
-                            <img class="product-img" src="{{ asset('assets/img/cardapio/burguers/burger-au-poivre-kit-4-pack.3ca0e39b02db753304cd185638dad518.jpg') }}" />
-                        </div>
+                        @foreach($tray as $item)
+                        <div class="col-12 tray-item">
+                            <div class="img-product">
+                                <img class="product-img" src="{{ asset('assets/img/cardapio/burguers/burger-au-poivre-kit-4-pack.3ca0e39b02db753304cd185638dad518.jpg') }}" />
+                            </div>
 
-                        <div class="product-data">
-                            <p class="product-title"><b>Nome do produto</b></p>
-                            <p class="product-price"><b>R$ 23,90</b></p>
-                        </div>
+                            <div class="product-data">
+                                <p class="product-title"><b>{{ $item->product }}</b></p>
+                                <p class="product-price"><b>R$ {{ $item->value }}</b></p>
+                            </div>
 
-                        <div class="add-tray">
-                            <span class="btn-less"><i class="fas fa-minus"></i></span>
-                            <span class="add-number-items">0</span>
-                            <span class="btn-plus"><i class="fas fa-plus"></i></span>
-                            <span class="btn btn-remove"><i class="fas fa-times"></i></span>
+                            <div class="add-tray">
+                                <span class="btn-less"><i class="fas fa-minus"></i></span>
+                                <span class="add-number-items">{{ $item->ammount }}</span>
+                                <span class="btn-plus"><i class="fas fa-plus"></i></span>
+                                <span class="btn btn-remove"><i class="fas fa-times"></i></span>
+                            </div>
                         </div>
-                    </div>
+                        @endforeach
                 </div>
 
                 <div id="deliveryPlace" class="row mx-0" hidden="">
@@ -405,7 +409,7 @@
                     </div>
                 </div>
 
-                <div id="trayResume" class="row mx-0">
+                <div id="trayResume" hidden class="row mx-0">
                     <div class="col-12">
                         <p class="tray-tittle mt-4">
                             <b>Itens do pedido:</b>
@@ -484,9 +488,9 @@
                 </div>
 
                 <a class="btn btn-yellow float-right" id="btnOrderStep">Continuar</a>
-                <a class="btn btn-yellow float-right" id="btnAddressStep" hidden>Revisar pedido</a>
-                <a class="btn btn-yellow float-right" id="btnResumeStep" hidden>Enviar pedido</a>
-                <a class="btn btn-white float-right mr-3" hidden id="btnBack">Voltar</a>
+                <a class="btn btn-yellow float-right" id="btnAddressStep">Revisar pedido</a>
+                <a class="btn btn-yellow float-right" id="btnResumeStep">Enviar pedido</a>
+                <a class="btn btn-white float-right mr-3" id="btnBack">Voltar</a>
             </div>
         </div>
     </div>

@@ -623,6 +623,10 @@ footer {
     margin-bottom: 0;
 }
 
+#btnAddressStep, #btnResumeStep, #btnBack{
+    display: none;
+}
+
 
 
 
