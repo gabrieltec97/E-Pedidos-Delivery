@@ -8,14 +8,14 @@
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/fontawesome.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/jquerytoast.css') }}">
     <script src="{{ asset('assets/js/jquery-3.7.1.min.js') }}"></script>
     <script src="{{ asset('assets/js/menu-script.js') }}"></script>
     <title>Cardápio - Seja bem vindo!</title>
 </head>
 <body>
-
-    <a class="btn-tray-side">
-        <div class="badge-total-tray cart-count">0</div>
+    <a class="btn-tray-side" style="display: none">
+        <div class="badge-total-tray cart-count">{{ $totalItems }}</div>
         <i class="fa fa-shopping-bag"></i>
     </a>
     <section class="header">
@@ -203,7 +203,7 @@
                                         <input type="number" class="form-control" name="ammount" style="width: 90px" value="1" hidden="">
                                         <div class="add-tray">
                                             <span class="btn-less"><i class="fas fa-minus"></i></span>
-                                            <span class="add-number-items">0</span>
+                                            <span class="add-number-items">1</span>
                                             <span class="btn-plus"><i class="fas fa-plus"></i></span>
                                             <button type="submit" class="btn btn-add"><i class="fas fa-shopping-bag"></i></button>
                                             <input type="number" hidden class="ammount" name="ammount">
@@ -479,7 +479,7 @@
         @php
         $total = 0;
         foreach ($tray as $item){
-            $total += $item->value * $item->ammount;
+            $total += intVal($item->value) * intVal($item->ammount);
         }
         @endphp
         <div class="m-footer">
@@ -528,6 +528,7 @@
                     success: function (response) {
                         // Atualiza o contador no HTML (exemplo: um <span id="cart-count">)
                         $(".cart-count").text(response.count);
+                        $('.btn-tray-side').fadeIn();
                         console.log(response.count)
                     },
                     error: function () {

@@ -57,7 +57,7 @@ $(document).ready(function (){
         var numberItems = card.find(".add-number-items");
         var currentValue = parseInt(numberItems.text());
 
-        if (currentValue > 0) {
+        if (currentValue > 1) {
             numberItems.text(currentValue - 1);
             $(".ammount").val(currentValue - 1)
         }
@@ -97,21 +97,4 @@ $(document).ready(function (){
     $('.buscar-cep').on('click', function (){
         buscarCep();
     });
-
-    function atualizarContagemBandeja() {
-        const countUrl = "{{ route('cardapio.count') }}";
-
-        $.ajax({
-            url: countUrl,
-            method: "GET",
-            success: function (response) {
-                // Atualiza o contador no HTML (exemplo: um <span id="cart-count">)
-                $(".cart-count").text(response.count);
-                console.log(response.count)
-            },
-            error: function () {
-                console.error("Erro ao buscar a contagem dos itens na bandeja.");
-            }
-        });
-    }
 });

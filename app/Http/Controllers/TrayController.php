@@ -31,9 +31,20 @@ class TrayController extends Controller
             }
         }
 
+        $total = DB::table('trays')
+            ->select('ammount')
+            ->where('user_id', $user->id)
+            ->get(); // Conta o total de "ammount"
+
+        $totalItems = 0;
+        foreach ($total as $count){
+            $totalItems += intVal($count->ammount);
+        }
+
         return view('Orders.draftMenu', [
             'products' => $products,
-            'tray' => $tray
+            'tray' => $tray,
+            'totalItems' => $totalItems
         ]);
     }
 
