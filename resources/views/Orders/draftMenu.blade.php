@@ -491,6 +491,7 @@
                 <a class="btn btn-yellow float-right" id="btnAddressStep">Revisar pedido</a>
                 <a class="btn btn-yellow float-right" id="btnResumeStep">Enviar pedido</a>
                 <a class="btn btn-white float-right mr-3" id="btnBack">Voltar</a>
+                <a class="btn btn-white float-right mr-3" id="btnLastBack">Voltar</a>
             </div>
         </div>
     </div>

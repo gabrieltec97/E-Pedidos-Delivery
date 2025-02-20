@@ -49,7 +49,7 @@ a.navbar-brand {
     background-color: var(--color-white);
     color: var(--color-black) !important;
     border-radius: 20px;
-    padding: 15px 20px;
+    padding: 9px 20px;
     font-size: 19px;
     box-shadow: 0px 12px 15px -3px rgba(0,0,0,0.1);
 }
@@ -623,7 +623,7 @@ footer {
     margin-bottom: 0;
 }
 
-#btnAddressStep, #btnResumeStep, #btnBack{
+#btnAddressStep, #btnResumeStep, #btnBack, #btnLastBack{
     display: none;
 }
 
