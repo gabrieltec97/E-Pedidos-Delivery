@@ -187,7 +187,7 @@
                     <div class="row" id="menuItems">
                         @foreach($products as $product)
                             <div class="col-3 mt-4">
-                                <form class="product-form" data-product-id="{{ $product->id }}" method="post">
+                                <form class="product-form" data-product-id="{{ $product->id }}" action="{{ route('cardapio.store')}}" method="post">
                                     @csrf
                                     <div class="card card-item">
                                         <div class="product-img">

@@ -99,7 +99,9 @@ $(document).ready(function (){
     });
 
     $('.btn-add').on('click', function(){
-        $('.ammount').val(1);
-        $('.add-number-items').text(1);
+        setTimeout(function(){
+            $('.ammount').val(1);
+            $('.add-number-items').text(1);
+        }, 1000);
     });
 });

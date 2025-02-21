@@ -59,7 +59,6 @@ class TrayController extends Controller
             $ammount = $request->ammount;
         }
 
-    
         //Verificação de estoque baixo.
         if ($item->stock != null){
             if ($request->ammount > $item->stock){
