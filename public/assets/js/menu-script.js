@@ -1,10 +1,11 @@
 $(document).ready(function (){
-    $('.btn-tray').on('click', function (){
-       $('.modal-full').removeAttr('hidden');
+    $('.btn-tray, .btn-tray-side').on('click', function (){
+       $('.modal-full').removeAttr('hidden').fadeIn();
     });
 
     $('.fechar-modal').on('click', function (){
-        $('.modal-full').fadeOut();
+        $('.modal-full, .tray-container').fadeOut();
+        $('.tray-container').html('');
     });
 
     $('#btnOrderStep').on('click', function (){

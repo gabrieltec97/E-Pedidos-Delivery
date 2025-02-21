@@ -48,6 +48,16 @@ class TrayController extends Controller
         ]);
     }
 
+    public function refreshTray(){
+        
+        $user = auth()->user(); // Supondo que você esteja usando autenticação
+        $tray = DB::table('trays')
+              ->where('user_id', $user->id)
+              ->get();
+    
+    return response()->json($tray);
+    }
+
     public function store(Request $request)
     {
         $item = Product::find($request->input('productId'));

@@ -14,7 +14,7 @@
     <title>Cardápio - Seja bem vindo!</title>
 </head>
 <body>
-    <a class="btn-tray-side" style="display: none">
+    <a class="btn-tray-side">
         <div class="badge-total-tray cart-count">{{ $totalItems }}</div>
         <i class="fa fa-shopping-bag"></i>
     </a>
@@ -310,26 +310,8 @@
         </div>
         <div class="m-body">
             <div class="container">
-                <div id="trayItems" class="row">
-                        @foreach($tray as $item)
-                        <div class="col-12 tray-item">
-                            <div class="img-product">
-                                <img class="product-img" src="{{ asset('assets/img/cardapio/burguers/burger-au-poivre-kit-4-pack.3ca0e39b02db753304cd185638dad518.jpg') }}" />
-                            </div>
-
-                            <div class="product-data">
-                                <p class="product-title"><b>{{ $item->product }}</b></p>
-                                <p class="product-price"><b>R$ {{ $item->value }}</b></p>
-                            </div>
-
-                            <div class="add-tray">
-                                <span class="btn-less"><i class="fas fa-minus"></i></span>
-                                <span class="add-number-items">{{ $item->ammount }}</span>
-                                <span class="btn-plus"><i class="fas fa-plus"></i></span>
-                                <span class="btn btn-remove"><i class="fas fa-times"></i></span>
-                            </div>
-                        </div>
-                        @endforeach
+                <div id="trayItems" class="row tray-container">
+                       
                 </div>
 
                 <div id="deliveryPlace" class="row" hidden="">
@@ -529,7 +511,6 @@
                         // Atualiza o contador no HTML (exemplo: um <span id="cart-count">)
                         $(".cart-count").text(response.count);
                         $('.btn-tray-side').fadeIn();
-                        console.log(response.count)
                     },
                     error: function () {
                         console.error("Erro ao buscar a contagem dos itens na bandeja.");
@@ -578,7 +559,63 @@
                     }
                 });
             });
-        });
+
+            function atualizarBandeja(){
+            
+                $.ajax({
+                url: '{{ route('tray.data') }}', 
+                method: 'GET',
+                success: function(response) {
+            
+                response.forEach(function(item) {
+                var produtoHTML = `
+                    <div class="col-12 tray-item">
+                        <div class="img-product">
+                             <img class="product-img" src="{{ asset('assets/img/cardapio/burguers/burger-au-poivre-kit-4-pack.3ca0e39b02db753304cd185638dad518.jpg') }}" />
+                        </div>
+
+                        <div class="product-data">
+                            <p class="product-title"><b>${item.product}</b></p>
+                            <p class="product-price"><b>R$ ${item.value}</b></p>
+                        </div>
+
+                        <div class="add-tray">
+                            <span class="btn-less"><i class="fas fa-minus"></i></span>
+                            <span class="add-number-items">${item.ammount}</span>
+                            <span class="btn-plus"><i class="fas fa-plus"></i></span>
+                            <span class="btn btn-remove"><i class="fas fa-times"></i></span>
+                        </div>
+                    </div>
+                `;
+
+                $('.tray-container').append(produtoHTML);
+            });
+        },
+            error: function() {
+                $.toast({
+                    heading: '<b>Oopsss, algo errado aconteceu!</b>',
+                    showHideTransition: 'slide',
+                    bgColor: 'red',
+                    text: 'Não foi possível carregar os itens da sua bandeja. Entre em contato com o restaurante!',
+                    hideAfter: 10000,
+                    position: 'top-right',
+                    textColor: 'white',
+                    icon: 'error'
+                });
+            }
+    });
+            }
+
+            $('.btn-tray, .btn-tray-side').on('click', function (){
+                atualizarBandeja();
+                setTimeout(() => {
+                    $('.tray-container').fadeIn();
+                }, 700);
+            });     
+    });
+
+
+    
     </script>
 </body>
 </html>

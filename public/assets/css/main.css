@@ -623,7 +623,7 @@ footer {
     margin-bottom: 0;
 }
 
-#btnAddressStep, #btnResumeStep, #btnBack, #btnLastBack, .delivery-text{
+#btnAddressStep, #btnResumeStep, #btnBack, #btnLastBack, .delivery-text, .tray-container{
     display: none;
 }
 
