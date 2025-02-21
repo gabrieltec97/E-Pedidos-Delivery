@@ -52,6 +52,14 @@ class TrayController extends Controller
     {
         $item = Product::find($request->input('productId'));
 
+        //Correção de item vindo nulo do frontend.
+        if($request->ammount == null){
+            $ammount = 1;
+        }else{
+            $ammount = $request->ammount;
+        }
+
+    
         //Verificação de estoque baixo.
         if ($item->stock != null){
             if ($request->ammount > $item->stock){
@@ -71,7 +79,7 @@ class TrayController extends Controller
             $addTray->user_id = $user->id;
             $addTray->product = $item->name;
             $addTray->value = $item->price;
-            $addTray->ammount = $request->ammount;
+            $addTray->ammount = $ammount;
             $addTray->product_id = $item->id;
             $addTray->save();
         } else {
@@ -81,7 +89,7 @@ class TrayController extends Controller
                     DB::table('trays')
                         ->where('user_id','=', $user->id)
                         ->where('product','=', $item->name)
-                        ->update(['ammount' => $trayItem->ammount += $request->ammount]);
+                        ->update(['ammount' => $trayItem->ammount += $ammount]);
 
                     DB::table('trays')
                         ->where('user_id','=', $user->id)
@@ -96,7 +104,7 @@ class TrayController extends Controller
             $addTray->user_id = $user->id;
             $addTray->product = $item->name;
             $addTray->value = $item->price;
-            $addTray->ammount = $request->ammount;
+            $addTray->ammount = $ammount;
             $addTray->product_id = $item->id;
             $addTray->save();
         }
