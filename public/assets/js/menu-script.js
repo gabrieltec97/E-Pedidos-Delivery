@@ -97,4 +97,9 @@ $(document).ready(function (){
     $('.buscar-cep').on('click', function (){
         buscarCep();
     });
+
+    $('.btn-add').on('click', function(){
+        $('.ammount').val(1);
+        $('.add-number-items').text(1);
+    });
 });
