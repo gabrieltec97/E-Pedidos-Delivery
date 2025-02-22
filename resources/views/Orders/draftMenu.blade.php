@@ -374,63 +374,64 @@
                        
                 </div>
 
-                <div id="deliveryPlace" class="row" hidden="">
-                    <div class="col-4">
-                        <div class="form-group container-cep">
-                            <label for="txtCEP"><b>Cep:</b></label>
-                            <input type="text" id="txtCEP" class="form-control">
-                            <a class="btn btn-yellow btn-sm buscar-cep">
-                                <i class="fa fa-search"></i>
-                            </a>
+                <form id="formAddress" method="post">
+                    @csrf
+                    <div id="deliveryPlace" class="row" hidden="">
+                        <div class="col-4">
+                            <div class="form-group container-cep">
+                                <label for="txtCEP"><b>Cep:</b></label>
+                                <input type="text" id="txtCEP" class="form-control">
+                                <a class="btn btn-yellow btn-sm buscar-cep">
+                                    <i class="fa fa-search"></i>
+                                </a>
+                            </div>
+                        </div>
+    
+                        <div class="col-8"></div>
+    
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="txtEndereco"><b>Endereço:</b></label>
+                                <input type="text" id="txtEndereco" name="address" class="form-control">
+                            </div>
+                        </div>
+    
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label for="txtBairro"><b>Bairro:</b></label>
+                                <input type="text" id="txtBairro" name="neighbourhood" class="form-control">
+                            </div>
+                        </div>
+    
+                        <div class="col-2">
+                            <div class="form-group">
+                                <label for="txtNumero"><b>Número:</b></label>
+                                <input type="text" id="txtNumero" name="number" class="form-control">
+                            </div>
+                        </div>
+    
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label for="txtCity"><b>Cidade:</b></label>
+                                <input type="text" id="txtCity" name="city" class="form-control" required>
+                            </div>
+                        </div>
+    
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label for="txtComplement"><b>Complemento:</b></label>
+                                <input type="text" id="txtComplement" name="complement" class="form-control">
+                            </div>
+                        </div>
+    
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label for="txtContato"><b>Contato:</b></label>
+                                <input type="number" id="txtContato" name="contact" class="form-control" required>
+                            </div>
                         </div>
                     </div>
-
-                    <div class="col-8"></div>
-
-                    <div class="col-6">
-                        <div class="form-group">
-                            <label for="txtEndereco"><b>Endereço:</b></label>
-                            <input type="text" id="txtEndereco" class="form-control">
-                        </div>
-                    </div>
-
-                    <div class="col-4">
-                        <div class="form-group">
-                            <label for="txtBairro"><b>Bairro:</b></label>
-                            <input type="text" id="txtBairro" class="form-control">
-                        </div>
-                    </div>
-
-                    <div class="col-2">
-                        <div class="form-group">
-                            <label for="txtNumero"><b>Número:</b></label>
-                            <input type="text" id="txtNumero" class="form-control">
-                        </div>
-                    </div>
-
-                    <div class="col-4">
-                        <div class="form-group">
-                            <label for="txtCity"><b>Cidade:</b></label>
-                            <input type="text" id="txtCity" class="form-control" required>
-                        </div>
-                    </div>
-
-                    <div class="col-4">
-                        <div class="form-group">
-                            <label for="txtComplement"><b>Complemento:</b></label>
-                            <input type="text" id="txtComplement" class="form-control">
-                        </div>
-                    </div>
-
-                    <div class="col-4">
-                        <div class="form-group">
-                            <label for="txtContato"><b>Contato:</b></label>
-                            <input type="number" id="txtContato" class="form-control" required>
-                        </div>
-                    </div>
-
-                    
-                </div>
+                </form>
 
                 <div id="trayResume" hidden class="row mx-0" >
                     <div class="col-12">
@@ -645,6 +646,81 @@
                     $('.tray-container').fadeIn();
                 }, 700);
             });     
+
+
+    
+    // Quando o botão de enviar (btnAddressStep) for clicado
+    $('#btnAddressStep').on('click', function(e) {
+        e.preventDefault(); // Previne o comportamento padrão do botão (não recarregar a página)
+
+        function cadastrarEndereço (){
+            var form = $('#formAddress'); // Seleciona o formulário com ID 'formAddress'
+
+        var formData = new FormData(form[0]); // Cria o objeto FormData com os dados do formulário
+
+        $.ajax({
+            url: '{{ route('capturar-endereco') }}',  // Rota para onde os dados serão enviados no backend
+            type: 'POST',  // Método HTTP
+            data: formData,  // Dados do formulário
+            processData: false,  // Impede que o jQuery processe os dados (necessário para enviar arquivos)
+            contentType: false,  // Impede que o jQuery defina o content-type (necessário para FormData)
+            success: function(response) {
+                
+                $.toast({
+                            heading: '<b>Endereço salvo com sucesso!</b>',
+                            showHideTransition: 'slide',  // It can be plain, fade or slide
+                            bgColor: '#2ecc71',
+                            text: 'Item adicionado à sua bandeja.',
+                            hideAfter: 8000,
+                            position: 'top-right',
+                            textColor: '#ecf0f1',
+                            icon: 'success'
+                        });
+            },
+            error: function(xhr, status, error) {
+                $.toast({
+                    heading: '<b>Oopsss, tivemos um erro!</b>',
+                    showHideTransition: 'slide',
+                    bgColor: 'red',
+                    text: 'Não foi possível registrar seu endereço. Entre em contato com o restaurante para fazer seu pedido.',
+                    hideAfter: 10000,
+                    position: 'top-right',
+                    textColor: 'white',
+                    icon: 'error'
+                });
+            }
+        });
+        }
+
+       let endereco = $("#txtEndereco").val();
+       let bairro = $("#txtBairro").val();
+       let numero = $("#txtNumero").val();
+       let cidade = $("#txtCity").val();
+       let contato = $("#txtContato").val();
+
+       if(endereco === ''){
+        console.log('assa')
+
+       }else if(bairro === ''){
+        console.log('bairro')
+       }else if(numero === ''){
+        console.log('numero')
+       }else if(cidade === ''){
+        console.log('cidade')
+       }else if(contato === ''){
+        console.log('contato')
+       }else{
+            $('#deliveryPlace').fadeOut();
+            $('#btnBack, #btnAddressStep').fadeOut();
+            $('#trayResume').removeAttr('hidden');
+            $('#btnResumeStep, #btnLastBack, #trayResume').fadeIn();
+            $('.step2').removeClass('active');
+            $('.step3').addClass('active');
+
+            cadastrarEndereço();
+       }
+
+    });
     });
 
 

@@ -20,15 +20,6 @@ $(document).ready(function (){
         $('.step2').addClass('active')
     });
 
-    $('#btnAddressStep').on('click', function (){
-        $('#deliveryPlace').fadeOut();
-        $('#btnBack, #btnAddressStep').fadeOut();
-        $('#trayResume').removeAttr('hidden')
-        $('#btnResumeStep, #btnLastBack, #trayResume').fadeIn();
-        $('.step2').removeClass('active')
-        $('.step3').addClass('active')
-    });
-
     $('#btnLastBack').on('click', function (){
         $(this).fadeOut();
         $('#deliveryPlace').fadeIn();

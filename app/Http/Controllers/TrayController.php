@@ -72,6 +72,28 @@ class TrayController extends Controller
     return response()->json($tray);
     }
 
+
+    public function trackAddress(Request $request){
+        $user = auth()->user(); // Supondo que você esteja usando autenticação
+        $tray = DB::table('trays')
+              ->select('id')
+              ->where('user_id', $user->id)
+              ->get();
+
+        $update = DB::table('trays')
+        ->where('user_id', $user->id)  // Condição para selecionar o registro com user_id = 5
+        ->update([
+            'address' => $request->address,  // Atualizando o campo1
+            'neighbourhood' => $request->neighbourhood,  // Atualizando o campo2
+            'city' => $request->city,
+            'complement' => $request->complement,
+            'contact' => $request->contact,
+            'number' => $request->number,  // Atualizando o campo3
+        ]);      
+
+        return response()->json(['message' => 'Produto adicionado ao carrinho com sucesso!']);
+    }
+
     public function store(Request $request)
     {
         $item = Product::find($request->input('productId'));
