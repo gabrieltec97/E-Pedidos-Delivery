@@ -679,12 +679,34 @@
                 console.error("Erro ao buscar produtos:", error);
             }
         });
+
+        }
+
+        function buscarEndereco(){
+            
+        $.ajax({
+            url: '{{ route('recuperar-endereco')}}',
+            method: 'GET',
+            success: function(response) {
+                $("#addressResume").text(response.address + ', '+ response.number + ' - ' + response.neighbourhood);
+
+                if($("#txtCEP").val() == ''){
+                    $("#cityAddress").text(response.city);
+                }else{
+                    $("#cityAddress").text(response.city + ' / ' + $("#txtCEP").val()); 
+                }
+               
+            },
+            error: function(xhr, status, error) {
+                alert("Erro ao buscar o endereço:", error);
+            }
+        });
         }
 
         function cadastrarEndereço (){
             var form = $('#formAddress'); // Seleciona o formulário com ID 'formAddress'
 
-        var formData = new FormData(form[0]); // Cria o objeto FormData com os dados do formulário
+            var formData = new FormData(form[0]); // Cria o objeto FormData com os dados do formulário
 
         $.ajax({
             url: '{{ route('capturar-endereco') }}',  // Rota para onde os dados serão enviados no backend
@@ -747,6 +769,7 @@
 
             cadastrarEndereço();
             verificarPedido();
+            buscarEndereco();
        }
 
     });

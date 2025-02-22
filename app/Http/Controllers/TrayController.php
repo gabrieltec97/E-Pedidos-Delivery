@@ -69,7 +69,17 @@ class TrayController extends Controller
               ->where('user_id', $user->id)
               ->get();
     
-    return response()->json($tray);
+        return response()->json($tray);
+    }
+
+    public function findAddress(){
+        $user = auth()->user(); // Supondo que você esteja usando autenticação
+        $tray = DB::table('trays')
+              ->select('address', 'number', 'city', 'neighbourhood')
+              ->where('user_id', $user->id)
+              ->get()->first();
+        
+              return response()->json($tray);
     }
 
 
