@@ -1,10 +1,12 @@
 $(document).ready(function (){
     $('.btn-tray, .btn-tray-side').on('click', function (){
-       $('.modal-full').removeAttr('hidden').fadeIn();
+       $('.modal-full, #btnOrderStep').removeAttr('hidden').fadeIn();
+       $('.step1').addClass('active')
     });
 
     $('.fechar-modal').on('click', function (){
-        $('.modal-full, .tray-container').fadeOut();
+        $('.modal-full, .tray-container, #trayResume, #deliveryPlace, #btnBack, #btnLastBack, #btnAddressStep, #btnResumeStep').fadeOut();
+        $('.step2, .step3').removeClass('active')
         $('.tray-container').html('');
     });
 
