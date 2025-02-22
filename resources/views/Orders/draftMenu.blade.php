@@ -443,28 +443,7 @@
                     <div class="col-12">
                         <div class="row" id="resumeItemsList">
 
-                            @foreach($tray as $items)
-                                <div class="col-12 tray-item">
-                                    <div class="img-product">
-                                        <img class="product-img" src="{{ asset('assets/img/cardapio/burguers/burger-au-poivre-kit-4-pack.3ca0e39b02db753304cd185638dad518.jpg') }}" />
-                                    </div>
-
-                                    <div class="product-data">
-                                        <p class="resume-product-title">
-                                            <b>{{ $items->product }}</b>
-                                        </p>
-
-                                        <p class="resume-product-price">
-                                            <b>R$ {{ $items->value }}</b>
-                                        </p>
-                                    </div>
-
-                                    <p class="resume-product-quantity">
-                                        x <b>{{ $items->ammount }}</b>
-                                    </p>
-
-                                </div>
-                            @endforeach
+                            
                         </div>
                     </div>
 
@@ -649,9 +628,58 @@
 
 
     
+
+
+    
     // Quando o botão de enviar (btnAddressStep) for clicado
     $('#btnAddressStep').on('click', function(e) {
         e.preventDefault(); // Previne o comportamento padrão do botão (não recarregar a página)
+
+        function verificarPedido(){
+            $.ajax({
+            url: '{{ route('tray.data') }}', // Alterar para a rota que retorna os produtos
+            method: 'GET',
+            success: function(response) {
+                if (response.length > 0) {
+                    // Limpar o contêiner de produtos antes de adicionar novos
+                    $('#resumeItemsList').empty();
+
+                    // Loop para criar os campos para cada produto
+                    response.forEach(function(tray) {
+                        var produtoHTML = `
+                            <div class="col-12 tray-item">
+                                <div class="img-product">
+                                    <img class="product-img" src="{{ asset('assets/img/cardapio/burguers/burger-au-poivre-kit-4-pack.3ca0e39b02db753304cd185638dad518.jpg') }}" />
+                                </div>
+                                
+                                <div class="product-data">
+                                    <p class="resume-product-title">
+                                        <b>${tray.product}</b>
+                                    </p>
+
+                                    <p class="resume-product-price">
+                                        <b>R$ ${tray.value}</b>
+                                    </p>
+                                </div>
+
+                                <p class="resume-product-quantity">
+                                    x <b>${tray.ammount}</b>
+                                </p>
+                            </div>
+                        `;
+                        
+                        // Adiciona o HTML do produto no contêiner
+                        $('#resumeItemsList').append(produtoHTML);
+                    });
+                } else {
+                    alert('Nenhum produto encontrado');
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error("Erro ao buscar produtos:", error);
+            }
+        });
+        }
 
         function cadastrarEndereço (){
             var form = $('#formAddress'); // Seleciona o formulário com ID 'formAddress'
@@ -718,13 +746,11 @@
             $('.step3').addClass('active');
 
             cadastrarEndereço();
+            verificarPedido();
        }
 
     });
-    });
-
-
-    
+});    
     </script>
 </body>
 </html>
