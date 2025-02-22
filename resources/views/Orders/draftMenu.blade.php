@@ -329,7 +329,7 @@
 
                     <div class="col-6">
                         <div class="form-group">
-                            <label for="txtEndereco"><b>Endereço</b></label>
+                            <label for="txtEndereco"><b>Endereço:</b></label>
                             <input type="text" id="txtEndereco" class="form-control">
                         </div>
                     </div>
@@ -348,10 +348,10 @@
                         </div>
                     </div>
 
-                    <div class="col-6">
+                    <div class="col-4">
                         <div class="form-group">
-                            <label for="txtCity"><b>Cidade</b></label>
-                            <input type="text" id="txtCity" class="form-control">
+                            <label for="txtCity"><b>Cidade:</b></label>
+                            <input type="text" id="txtCity" class="form-control" required>
                         </div>
                     </div>
 
@@ -362,46 +362,19 @@
                         </div>
                     </div>
 
-                    <div class="col-2 mb-5">
+                    <div class="col-4">
                         <div class="form-group">
-                            <label for="txtUf"><b>UF:</b></label>
-                            <select name="" id="ddlUf" class="form-control">
-                                <option value="-1..."></option>
-                                <option value="AC">AC</option>
-                                <option value="AL">AL</option>
-                                <option value="AP">AP</option>
-                                <option value="AM">AM</option>
-                                <option value="BA">BA</option>
-                                <option value="CE">CE</option>
-                                <option value="DF">DF</option>
-                                <option value="ES">ES</option>
-                                <option value="GO">GO</option>
-                                <option value="MA">MA</option>
-                                <option value="MT">MT</option>
-                                <option value="MS">MS</option>
-                                <option value="MG">MG</option>
-                                <option value="PA">PA</option>
-                                <option value="PB">PB</option>
-                                <option value="PR">PR</option>
-                                <option value="PE">PE</option>
-                                <option value="PI">PI</option>
-                                <option value="RJ">RJ</option>
-                                <option value="RN">RN</option>
-                                <option value="RS">RS</option>
-                                <option value="RO">RO</option>
-                                <option value="RR">RR</option>
-                                <option value="SC">SC</option>
-                                <option value="SP">SP</option>
-                                <option value="SE">SE</option>
-                                <option value="TO">TO</option>
-                            </select>
+                            <label for="txtContato"><b>Contato:</b></label>
+                            <input type="number" id="txtContato" class="form-control" required>
                         </div>
                     </div>
+
+                    
                 </div>
 
-                <div id="trayResume" hidden class="row mx-0">
+                <div id="trayResume" hidden class="row mx-0" >
                     <div class="col-12">
-                        <p class="tray-tittle mt-4">
+                        <p class="tray-tittle">
                             <b>Itens do pedido:</b>
                         </p>
                     </div>

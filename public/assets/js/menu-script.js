@@ -78,7 +78,6 @@ $(document).ready(function (){
                         $('#txtEndereco').val(data.logradouro);
                         $('#txtBairro').val(data.bairro);
                         $('#txtCity').val(data.localidade);
-                        $('#txtUf').val(data.uf);
                         $('#txtNumero').focus();
 
                     }else{

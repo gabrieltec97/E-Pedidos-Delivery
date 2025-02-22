@@ -19,6 +19,12 @@ return new class extends Migration
             $table->string('value');
             $table->string('ammount');
             $table->string('coupon_apply');
+            $table->string('address')->nullable();
+            $table->string('neighbourhood ')->nullable();
+            $table->string('city')->nullable();
+            $table->string('complement')->nullable();
+            $table->bigInteger('contact')->nullable();
+            $table->int('number')->nullable();
             $table->string('comments')->nullable();
             $table->timestamps();
         });
