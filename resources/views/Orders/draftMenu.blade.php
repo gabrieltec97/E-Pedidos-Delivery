@@ -166,7 +166,7 @@
                 </div>
 
                 <div class="col-12 container-menu">
-                    <a class="btn btn-white btn-sm mr-3 active">
+                    <a class="btn btn-white btn-sm burguersBtn mr-3 active">
                         <i class="fas fa-hamburger"></i>&nbsp; Burgers
                     </a>
 
@@ -174,32 +174,92 @@
                         <i class="fas fa-hamburger"></i>&nbsp; Artesanais
                     </a>
 
-                    <a class="btn btn-white btn-sm mr-3">
+                    <a class="btn btn-white btn-sm mr-3 drinksBtn">
                         <i class="fas fa-wine-bottle"></i>&nbsp; Bebidas
                     </a>
 
-                    <a class="btn btn-white btn-sm mr-3">
+                    <a class="btn btn-white btn-sm dessertsBtn mr-3">
                         <i class="fas fa-cookie-bite"></i>&nbsp; Sobremesas
                     </a>
                 </div>
 
                 <div class="col-12">
-                    <div class="row" id="menuItems">
-                        @foreach($products as $product)
+                    <div class="row burguersDiv">
+                        @foreach($burguers as $burguer)
                             <div class="col-3 mt-4">
-                                <form class="product-form" data-product-id="{{ $product->id }}" action="{{ route('cardapio.store')}}" method="post">
+                                <form class="product-form" data-product-id="{{ $burguer->id }}" action="{{ route('cardapio.store')}}" method="post">
                                     @csrf
                                     <div class="card card-item">
                                         <div class="product-img">
                                             <img src="{{ asset('assets/img/cardapio/burguers/burger-au-poivre-kit-4-pack.3ca0e39b02db753304cd185638dad518.jpg') }}" />
                                         </div>
                                         <p class="product-title text-center mt-4">
-                                            <b>{{ $product->name }}</b>
+                                            <b>{{ $burguer->name }}</b>
                                         </p>
                                         <p class="product-price text-center">
-                                            <b>R$ {{ $product->price }}</b>
+                                            <b>R$ {{ $burguer->price }}</b>
                                         </p>
-                                        <input type="hidden" name="productId" value="{{ $product->id }}">
+                                        <input type="hidden" name="productId" value="{{ $burguer->id }}">
+                                        <input type="number" class="form-control" name="ammount" style="width: 90px" value="1" hidden="">
+                                        <div class="add-tray">
+                                            <span class="btn-less"><i class="fas fa-minus"></i></span>
+                                            <span class="add-number-items">1</span>
+                                            <span class="btn-plus"><i class="fas fa-plus"></i></span>
+                                            <button type="submit" class="btn btn-add"><i class="fas fa-shopping-bag"></i></button>
+                                            <input type="number" hidden class="ammount" name="ammount">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        @endforeach
+                    </div>
+
+                    <div class="row drinksDiv" hidden>
+                        @foreach($drinks as $drink)
+                            <div class="col-3 mt-4">
+                                <form class="product-form" data-product-id="{{ $drink->id }}" action="{{ route('cardapio.store')}}" method="post">
+                                    @csrf
+                                    <div class="card card-item">
+                                        <div class="product-img">
+                                            <img src="{{ asset('assets/img/cardapio/burguers/burger-au-poivre-kit-4-pack.3ca0e39b02db753304cd185638dad518.jpg') }}" />
+                                        </div>
+                                        <p class="product-title text-center mt-4">
+                                            <b>{{ $drink->name }}</b>
+                                        </p>
+                                        <p class="product-price text-center">
+                                            <b>R$ {{ $drink->price }}</b>
+                                        </p>
+                                        <input type="hidden" name="productId" value="{{ $drink->id }}">
+                                        <input type="number" class="form-control" name="ammount" style="width: 90px" value="1" hidden="">
+                                        <div class="add-tray">
+                                            <span class="btn-less"><i class="fas fa-minus"></i></span>
+                                            <span class="add-number-items">1</span>
+                                            <span class="btn-plus"><i class="fas fa-plus"></i></span>
+                                            <button type="submit" class="btn btn-add"><i class="fas fa-shopping-bag"></i></button>
+                                            <input type="number" hidden class="ammount" name="ammount">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        @endforeach
+                    </div>
+
+                    <div class="row dessertsDiv" hidden>
+                        @foreach($desserts as $dessert)
+                            <div class="col-3 mt-4">
+                                <form class="product-form" data-product-id="{{ $dessert->id }}" action="{{ route('cardapio.store')}}" method="post">
+                                    @csrf
+                                    <div class="card card-item">
+                                        <div class="product-img">
+                                            <img src="{{ asset('assets/img/cardapio/burguers/burger-au-poivre-kit-4-pack.3ca0e39b02db753304cd185638dad518.jpg') }}" />
+                                        </div>
+                                        <p class="product-title text-center mt-4">
+                                            <b>{{ $dessert->name }}</b>
+                                        </p>
+                                        <p class="product-price text-center">
+                                            <b>R$ {{ $dessert->price }}</b>
+                                        </p>
+                                        <input type="hidden" name="productId" value="{{ $dessert->id }}">
                                         <input type="number" class="form-control" name="ammount" style="width: 90px" value="1" hidden="">
                                         <div class="add-tray">
                                             <span class="btn-less"><i class="fas fa-minus"></i></span>

@@ -13,7 +13,19 @@ class TrayController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $products = Product::all();
+        $products = Product::all(); 
+        $burguers = DB::table('products')
+            ->where('type', 'Comida')
+            ->get();
+
+        $drinks = DB::table('products')
+            ->where('type', 'Bebida')
+            ->get();   
+        
+        $desserts = DB::table('products')
+            ->where('type', 'Sobremesa')
+            ->get();    
+
         $tray = DB::table('trays')
             ->where('user_id', $user->id)
             ->get();
@@ -42,7 +54,9 @@ class TrayController extends Controller
         }
 
         return view('Orders.draftMenu', [
-            'products' => $products,
+            'burguers' => $burguers,
+            'drinks' => $drinks,
+            'desserts' => $desserts,
             'tray' => $tray,
             'totalItems' => $totalItems
         ]);

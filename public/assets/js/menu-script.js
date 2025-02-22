@@ -106,4 +106,25 @@ $(document).ready(function (){
             $('.add-number-items').text(1);
         }, 1000);
     });
+
+    $('.drinksBtn').on('click', function(){
+        $('.burguersDiv, .dessertsDiv').fadeOut(800);
+        $('.drinksDiv').removeAttr('hidden').fadeIn(300);
+        $('.burguersBtn, .dessertsBtn').removeClass('active');
+        $(this).addClass('active');
+    });
+
+    $('.dessertsBtn').on('click', function(){
+        $('.burguersDiv, .drinksDiv').fadeOut(800);
+        $('.dessertsDiv').removeAttr('hidden').fadeIn(600);
+        $('.burguersBtn, .drinksBtn').removeClass('active');
+        $(this).addClass('active');
+    });
+
+    $('.burguersBtn').on('click', function(){
+        $('.dessertsDiv, .drinksDiv').fadeOut(800);
+        $('.burguersDiv').removeAttr('hidden').fadeIn(600);
+        $('.dessertsBtn, .drinksBtn').removeClass('active');
+        $(this).addClass('active');
+    });
 });
