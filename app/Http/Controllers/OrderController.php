@@ -11,6 +11,7 @@ use App\Models\Tray;
 use Faker\Provider\DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
@@ -73,25 +74,46 @@ class OrderController extends Controller
         return $mes_extenso["$mes"];
     }
 
-    public function review()
+    public function review(Request $userID)
     {
-        $user = Auth::user();
+        if (Auth::user() == null){
+            if (!$userID->cookie('user_identifier')) {
+                // Gera um identificador único
+                $identifier = uniqid('user_', true);
+
+                // Cria o cookie por 30 dias
+                Cookie::queue('user_identifier', $identifier, 43200); // 30 dias
+
+                // Redireciona para a mesma página para que o cookie seja lido corretamente
+                return redirect()->back();
+            }
+
+            // Obtém o cookie e exibe
+            $user = $userID->cookie('user_identifier');
+        }else{
+            $user = Auth::user()->id;
+        }
+
         $neighborhoods = Neighbourhood::all();
-        $items = DB::table('trays')->where('user_id', $user->id)->get();
+        $items = DB::table('trays')->where('user_id', $user)->get();
 
         if (count($items) == 0){
             return redirect(route('cardapio.index'))->with('msg-add', 'Sua bandeja está vazia. Adicione itens do cardápio!');
         }
         $total = 0;
 
+        //Verificando desconto.
+        $firstTray = Tray::where('user_id', $user)
+            ->first();
+
         foreach ($neighborhoods as $neighborhood){
-            if ($neighborhood->name == $user->neighbourhood){
+            if ($neighborhood->name == $firstTray->neighbourhood){
                 $taxe = floatval($neighborhood->taxe);
                 $taxe = number_format($taxe, 2, '.', '');
+            }else{
+                $taxe = 0;
             }
         }
-
-
 
        foreach ($items as $item){
            $total += floatval($item->value) * floatval($item->ammount);
@@ -100,10 +122,6 @@ class OrderController extends Controller
        if ($taxe != 0){
            $total += $taxe;
        }
-
-       //Verificando desconto.
-        $firstTray = Tray::where('user_id', $user->id)
-            ->first();
 
         if ($firstTray->coupon_apply != null){
             $coupon = DB::table('coupons')
@@ -147,10 +165,27 @@ class OrderController extends Controller
        }
     }
 
-    public function store()
+    public function store(Request $userID)
     {
-        $user = Auth::user();
-        $tray = DB::table('trays')->where('user_id', $user->id)->get();
+        if (Auth::user() == null){
+            if (!$userID->cookie('user_identifier')) {
+                // Gera um identificador único
+                $identifier = uniqid('user_', true);
+
+                // Cria o cookie por 30 dias
+                Cookie::queue('user_identifier', $identifier, 43200); // 30 dias
+
+                // Redireciona para a mesma página para que o cookie seja lido corretamente
+                return redirect()->back();
+            }
+
+            // Obtém o cookie e exibe
+            $user = $userID->cookie('user_identifier');
+        }else{
+            $user = Auth::user()->id;
+        }
+
+        $tray = DB::table('trays')->where('user_id', $user)->get();
         $neighborhoods = Neighbourhood::all();
 
         //Verificação se o produto tem em estoque.
@@ -166,7 +201,7 @@ class OrderController extends Controller
                     $deleteItem = Tray::find($Titem->id);
                     $deleteItem->delete();
 
-                    $refreshTray = DB::table('trays')->where('user_id', $user->id)->count();
+                    $refreshTray = DB::table('trays')->where('user_id', $user)->count();
 
                     if ($refreshTray != 0){
                         return redirect()->back()->with('ammount-error', 'Não é possível adicionar '.$Titem->ammount.' unidades de '. $item[0]->name. '. Com isso, excluímos este item de sua bandeja.');
@@ -177,10 +212,16 @@ class OrderController extends Controller
             }
         }
 
+        //Verificando desconto.
+        $firstTray = Tray::where('user_id', $user)
+            ->first();
+
         //Cálculo de taxa.
         foreach ($neighborhoods as $neighborhood){
-            if ($neighborhood->name == $user->neighbourhood){
+            if ($neighborhood->name == $firstTray->neighbourhood){
                 $taxe = $neighborhood->taxe;
+            }else{
+                $taxe = 0;
             }
         }
         //Evitando bug de criação de pedido errôneo.
@@ -204,14 +245,14 @@ class OrderController extends Controller
                 $value += floatval($t->value) * floatval($t->ammount);
 
                 $item = new OrderItems();
-                $item->user_id = $user->id;
+                $item->user_id = $user;
                 $item->order_id = $id;
                 $item->product = $t->product;
                 $item->ammount = $t->ammount;
                 $item->value = $t->value;
-                $item->address = $user->address;
-                $item->neighbourhood = $user->neighbourhood;
-                $item->user_name = $user->firstname . " " . $user->lastname;
+                $item->address = $firstTray->address;
+                $item->neighbourhood = $firstTray->neighbourhood;
+                $item->user_name = $firstTray->name;
                 $item->month = $this->monthConverter();
                 $item->save();
 
@@ -229,10 +270,6 @@ class OrderController extends Controller
                         ->update(['stock' => $updStock]);
                 }
             }
-
-            //Verificando desconto.
-            $firstTray = Tray::where('user_id', $user->id)
-                ->first();
 
             if ($firstTray->coupon_apply != null){
                 $coupon = DB::table('coupons')
@@ -258,21 +295,21 @@ class OrderController extends Controller
 
             $order = new Order();
             $order->id = $id;
-            $order->user_id = $user->id;
+            $order->user_id = $user;
             $order->status = 'Novo Pedido';
             $order->value = $value + $taxe;
             $order->month = $this->monthConverter();
             $order->day = date('d');
             $order->year = date("Y");
-            $order->userAdress = $user->address;
-            $order->neighborhood = $user->neighbourhood;
-            $order->user_name = $user->firstname . " " . $user->lastname;
+            $order->userAdress = $firstTray->address;
+            $order->neighborhood = $firstTray->neighbourhood;
+            $order->user_name = $firstTray->name;
             $order->save();
 
             //Limpando bandeja.
-            DB::table('trays')->where('user_id', $user->id)->delete();
+            DB::table('trays')->where('user_id', $user)->delete();
 
-            return redirect()->route('cardapio.index');
+            return redirect()->route('teste');
         }
     }
     public function updateStatus(Request $request, string $id)

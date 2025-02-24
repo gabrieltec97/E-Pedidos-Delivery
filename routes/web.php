@@ -30,6 +30,9 @@ use Illuminate\Support\Str;
 |
 */
 
+Route::get('/teste', function (){
+    echo 'feito';
+})->name('teste');
 Route::resource('/cardapio', TrayController::class);
 Route::get('/count', [TrayController::class, 'count'])->name('cardapio.count');
 Route::get('/atualizar-bandeja', [TrayController::class, 'refreshTray'])->name('tray.data');
@@ -37,6 +40,7 @@ Route::get('/recuperar-preco', [TrayController::class, 'findPrice'])->name('pric
 Route::post('/capturar-endereco', [TrayController::class, 'trackAddress'])->name('capturar-endereco');
 Route::get('/recuperar-endereco', [TrayController::class, 'findAddress'])->name('recuperar-endereco');
 Route::get('revisar-pedido', [OrderController::class, 'review'])->name('review');
+Route::resource('/pedidos', OrderController::class);
 
 Route::get('log', function (){
     Auth::loginUsingId(5);
@@ -50,7 +54,6 @@ Route::middleware(['role:Administrador'])->group(function () {
 Route::middleware(['role:Administrador|Operador'])->group(function () {
     Route::post('/aplicar-cupom', [CouponController::class, 'apply'])->name('aplicar-cupom');
     Route::get('remover-cupom', [CouponController::class, 'remove'])->name('remover-cupom');
-    Route::resource('/pedidos', OrderController::class);
     Route::view('/historicoDePedidos', 'Orders.Historic')->name('pedidos.historico');
     Route::resource('/produtos', ProductController::class);
     Route::resource('/cupons', CouponController::class);

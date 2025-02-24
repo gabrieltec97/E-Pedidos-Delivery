@@ -16,7 +16,7 @@ class TrayController extends Controller
         if (Auth::user() == null){
             if (!$request->cookie('user_identifier')) {
                 // Gera um identificador único
-                $identifier = uniqid('user_', true);
+                $identifier = uniqid(true);
 
                 // Cria o cookie por 30 dias
                 Cookie::queue('user_identifier', $identifier, 43200); // 30 dias
@@ -91,7 +91,7 @@ class TrayController extends Controller
         if (Auth::user() == null){
             if (!$userID->cookie('user_identifier')) {
                 // Gera um identificador único
-                $identifier = uniqid('user_', true);
+                $identifier = uniqid(true);
 
                 // Cria o cookie por 30 dias
                 Cookie::queue('user_identifier', $identifier, 43200); // 30 dias
@@ -124,7 +124,7 @@ class TrayController extends Controller
         if (Auth::user() == null){
             if (!$userID->cookie('user_identifier')) {
                 // Gera um identificador único
-                $identifier = uniqid('user_', true);
+                $identifier = uniqid(true);
 
                 // Cria o cookie por 30 dias
                 Cookie::queue('user_identifier', $identifier, 43200); // 30 dias
@@ -151,7 +151,7 @@ class TrayController extends Controller
         if (Auth::user() == null){
             if (!$userID->cookie('user_identifier')) {
                 // Gera um identificador único
-                $identifier = uniqid('user_', true);
+                $identifier = uniqid(true);
 
                 // Cria o cookie por 30 dias
                 Cookie::queue('user_identifier', $identifier, 43200); // 30 dias
@@ -180,7 +180,7 @@ class TrayController extends Controller
         if (Auth::user() == null){
             if (!$request->cookie('user_identifier')) {
                 // Gera um identificador único
-                $identifier = uniqid('user_', true);
+                $identifier = uniqid( true);
 
                 // Cria o cookie por 30 dias
                 Cookie::queue('user_identifier', $identifier, 43200); // 30 dias
@@ -203,6 +203,7 @@ class TrayController extends Controller
         $update = DB::table('trays')
         ->where('user_id', $user)  // Condição para selecionar o registro com user_id = 5
         ->update([
+            'name' => $request->name,  // Atualizando o campo1
             'address' => $request->address,  // Atualizando o campo1
             'neighbourhood' => $request->neighbourhood,  // Atualizando o campo2
             'city' => $request->city,
@@ -238,7 +239,7 @@ class TrayController extends Controller
         if (Auth::user() == null){
             if (!$request->cookie('user_identifier')) {
                 // Gera um identificador único
-                $identifier = uniqid('user_', true);
+                $identifier = uniqid( true);
 
                 // Cria o cookie por 30 dias
                 Cookie::queue('user_identifier', $identifier, 43200); // 30 dias

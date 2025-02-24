@@ -157,47 +157,47 @@
                     <div class="card-header pb-3">
                         <h6>Dados de entrega</h6>
                     </div>
-                    <div class="card-body px-0 pt-0 pb-2">
-                        <div class="container-fluid mt-lg-3">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="example-text-input" class="form-control-label">Endereço</label>
-                                        <input class="form-control" type="text" name="address" value="{{ $user->address }}">
-                                    </div>
-                                </div>
+{{--                    <div class="card-body px-0 pt-0 pb-2">--}}
+{{--                        <div class="container-fluid mt-lg-3">--}}
+{{--                            <div class="row">--}}
+{{--                                <div class="col-md-6">--}}
+{{--                                    <div class="form-group">--}}
+{{--                                        <label for="example-text-input" class="form-control-label">Endereço</label>--}}
+{{--                                        <input class="form-control" type="text" name="address" value="{{ $user->address }}">--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
 
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="example-text-input" class="form-control-label">Bairro</label>
-                                        <select class="form-control" name="type">
-                                            @foreach($neighborhoods as $neighborhood)
-                                                <option value="{{ $neighborhood->name }}" @selected($neighborhood->name ==  $user->$neighborhood )>{{ $neighborhood->name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
+{{--                                <div class="col-md-6">--}}
+{{--                                    <div class="form-group">--}}
+{{--                                        <label for="example-text-input" class="form-control-label">Bairro</label>--}}
+{{--                                        <select class="form-control" name="type">--}}
+{{--                                            @foreach($neighborhoods as $neighborhood)--}}
+{{--                                                <option value="{{ $neighborhood->name }}" @selected($neighborhood->name ==  $user->$neighborhood )>{{ $neighborhood->name }}</option>--}}
+{{--                                            @endforeach--}}
+{{--                                        </select>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
 
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="example-text-input" class="form-control-label">Nome</label>
-                                        <input class="form-control" type="text" name="name" value="{{ $user->firstname }} {{ $user->lastname }}" readonly style="cursor: not-allowed">
-                                    </div>
-                                </div>
+{{--                                <div class="col-md-6">--}}
+{{--                                    <div class="form-group">--}}
+{{--                                        <label for="example-text-input" class="form-control-label">Nome</label>--}}
+{{--                                        <input class="form-control" type="text" name="name" value="{{ $user->firstname }} {{ $user->lastname }}" readonly style="cursor: not-allowed">--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
 
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="example-text-input" class="form-control-label">Contato</label>
-                                        <input class="form-control" type="text" name="name" value="(21) 99798-8577">
-                                    </div>
-                                </div>
+{{--                                <div class="col-md-6">--}}
+{{--                                    <div class="form-group">--}}
+{{--                                        <label for="example-text-input" class="form-control-label">Contato</label>--}}
+{{--                                        <input class="form-control" type="text" name="name" value="(21) 99798-8577">--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
 
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="example-text-input" class="form-control-label">Telefone adicional</label>
-                                        <input class="form-control" type="text" name="name" value="">
-                                    </div>
-                                </div>
+{{--                                <div class="col-md-6">--}}
+{{--                                    <div class="form-group">--}}
+{{--                                        <label for="example-text-input" class="form-control-label">Telefone adicional</label>--}}
+{{--                                        <input class="form-control" type="text" name="name" value="">--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
 
                                 <div class="col-md-12">
                                     <div class="form-group">

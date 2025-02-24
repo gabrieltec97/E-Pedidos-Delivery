@@ -14,17 +14,18 @@ return new class extends Migration
         Schema::create('trays', function (Blueprint $table) {
             $table->id();
             $table->string('user_id');
+            $table->string('name');
             $table->string('product');
             $table->string('product_id');
             $table->string('value');
             $table->string('ammount');
             $table->string('coupon_apply');
             $table->string('address')->nullable();
-            $table->string('neighbourhood ')->nullable();
+            $table->string('neighbourhood')->nullable();
             $table->string('city')->nullable();
             $table->string('complement')->nullable();
             $table->bigInteger('contact')->nullable();
-            $table->int('number')->nullable();
+            $table->integer('number')->nullable();
             $table->string('comments')->nullable();
             $table->timestamps();
         });

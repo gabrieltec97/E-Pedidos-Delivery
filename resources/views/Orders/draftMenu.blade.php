@@ -379,6 +379,7 @@
                 <form id="formAddress" method="post">
                     @csrf
                     <div id="deliveryPlace" class="row" hidden="">
+
                         <div class="col-4">
                             <div class="form-group container-cep">
                                 <label for="txtCEP"><b>Cep:</b></label>
@@ -389,7 +390,19 @@
                             </div>
                         </div>
 
-                        <div class="col-8"></div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label for="txtNome"><b>Nome:</b></label>
+                                <input type="text" id="txtNome" name="name" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label for="txtContato"><b>Contato:</b></label>
+                                <input type="number" id="txtContato" name="contact" class="form-control" required>
+                            </div>
+                        </div>
 
                         <div class="col-6">
                             <div class="form-group">
@@ -419,17 +432,10 @@
                             </div>
                         </div>
 
-                        <div class="col-4">
+                        <div class="col-8">
                             <div class="form-group">
                                 <label for="txtComplement"><b>Complemento:</b></label>
                                 <input type="text" id="txtComplement" name="complement" class="form-control">
-                            </div>
-                        </div>
-
-                        <div class="col-4">
-                            <div class="form-group">
-                                <label for="txtContato"><b>Contato:</b></label>
-                                <input type="number" id="txtContato" name="contact" class="form-control" required>
                             </div>
                         </div>
                     </div>
@@ -581,7 +587,7 @@
                     method: "GET",
                     success: function (response) {
                         // Atualiza o contador no HTML (exemplo: um <span id="cart-count">)
-                        $("#lbl-subtotal, #lbl-totalValue").text(response);
+                        $("#lbl-subtotal, #lbl-totalValue").text('R$ ' + response);
                     },
                     error: function () {
                         console.error("Erro ao buscar valor total");
@@ -644,17 +650,12 @@
             });
 
 
-
-
-
-
-    // Quando o botão de enviar (btnAddressStep) for clicado
     $('#btnAddressStep').on('click', function(e) {
-        e.preventDefault(); // Previne o comportamento padrão do botão (não recarregar a página)
+        e.preventDefault();
 
         function verificarPedido(){
             $.ajax({
-            url: '{{ route('tray.data') }}', // Alterar para a rota que retorna os produtos
+            url: '{{ route('tray.data') }}',
             method: 'GET',
             success: function(response) {
                 if (response.length > 0) {
