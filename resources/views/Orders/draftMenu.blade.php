@@ -480,11 +480,11 @@
         }
         @endphp
         <div class="m-footer">
-            <div class="cotainer">
+            <div class="container">
                 <div class="container-total text-right mb-4">
                     <p class="mb-0">
                         <span>Subtotal: </span>
-                        <span id="lbl-subtotal">R$ {{ $total }}</span>
+                        <span id="lbl-subtotal"></span>
                     </p>
 
                     <p class="mb-0 delivery-text">
@@ -494,7 +494,7 @@
 
                     <p class="mb-0 total-text">
                         <span><b>Total: </b></span>
-                        <span class="totalValue" id="lbl-totalValue"><b>R$ {{ $total }}</b></span>
+                        <span class="totalValue" id="lbl-totalValue"><b></b></span>
                     </p>
                 </div>
 
@@ -575,6 +575,20 @@
                 });
             });
 
+            function atualizarPreco(){
+                $.ajax({
+                    url: "{{ route('price.data') }}",
+                    method: "GET",
+                    success: function (response) {
+                        // Atualiza o contador no HTML (exemplo: um <span id="cart-count">)
+                        $("#lbl-subtotal, #lbl-totalValue").text(response);
+                    },
+                    error: function () {
+                        console.error("Erro ao buscar valor total");
+                    }
+                });
+            }
+
             function atualizarBandeja(){
 
                 $.ajax({
@@ -623,6 +637,7 @@
 
             $('.btn-tray, .btn-tray-side').on('click', function (){
                 atualizarBandeja();
+                atualizarPreco();
                 setTimeout(() => {
                     $('.tray-container').fadeIn();
                 }, 700);

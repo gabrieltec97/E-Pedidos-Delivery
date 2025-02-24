@@ -85,6 +85,40 @@ class TrayController extends Controller
         ]);
     }
 
+
+    public function findPrice(Request $userID)
+    {
+        if (Auth::user() == null){
+            if (!$userID->cookie('user_identifier')) {
+                // Gera um identificador único
+                $identifier = uniqid('user_', true);
+
+                // Cria o cookie por 30 dias
+                Cookie::queue('user_identifier', $identifier, 43200); // 30 dias
+
+                // Redireciona para a mesma página para que o cookie seja lido corretamente
+                return redirect()->back();
+            }
+
+            // Obtém o cookie e exibe
+            $user = $userID->cookie('user_identifier');
+        }else{
+            $user = Auth::user()->id;
+        }
+
+        $values = DB::table('trays')
+            ->select('value')
+            ->where('user_id', $user)
+            ->get();
+
+        $total = 0;
+        foreach ($values as $one){
+            $total += floatval($one->value);
+        }
+
+        return response()->json($total);
+    }
+
     public function refreshTray(Request $userID){
 
         if (Auth::user() == null){

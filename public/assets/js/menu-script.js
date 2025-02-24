@@ -1,7 +1,7 @@
 $(document).ready(function (){
     $('.btn-tray, .btn-tray-side').on('click', function (){
        $('.modal-full, #btnOrderStep').removeAttr('hidden').fadeIn();
-       $('.step1').addClass('active')
+       $('.step1').addClass('active');
     });
 
     $('.fechar-modal').on('click', function (){
