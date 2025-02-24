@@ -91,6 +91,8 @@ $(document).ready(function (){
         buscarCep();
     });
 
+    $('#txtCEP').mask('00000-000');
+
     $('.btn-add').on('click', function(){
         setTimeout(function(){
             $('.ammount').val(1);

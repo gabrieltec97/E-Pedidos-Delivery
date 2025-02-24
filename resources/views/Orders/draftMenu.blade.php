@@ -11,6 +11,8 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/jquerytoast.css') }}">
     <script src="{{ asset('assets/js/jquery-3.7.1.min.js') }}"></script>
     <script src="{{ asset('assets/js/menu-script.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
     <title>Cardápio - Seja bem vindo!</title>
 </head>
 <body>
@@ -371,7 +373,7 @@
         <div class="m-body">
             <div class="container">
                 <div id="trayItems" class="row tray-container">
-                       
+
                 </div>
 
                 <form id="formAddress" method="post">
@@ -386,44 +388,44 @@
                                 </a>
                             </div>
                         </div>
-    
+
                         <div class="col-8"></div>
-    
+
                         <div class="col-6">
                             <div class="form-group">
                                 <label for="txtEndereco"><b>Endereço:</b></label>
                                 <input type="text" id="txtEndereco" name="address" class="form-control">
                             </div>
                         </div>
-    
+
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="txtBairro"><b>Bairro:</b></label>
                                 <input type="text" id="txtBairro" name="neighbourhood" class="form-control">
                             </div>
                         </div>
-    
+
                         <div class="col-2">
                             <div class="form-group">
                                 <label for="txtNumero"><b>Número:</b></label>
                                 <input type="text" id="txtNumero" name="number" class="form-control">
                             </div>
                         </div>
-    
+
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="txtCity"><b>Cidade:</b></label>
                                 <input type="text" id="txtCity" name="city" class="form-control" required>
                             </div>
                         </div>
-    
+
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="txtComplement"><b>Complemento:</b></label>
                                 <input type="text" id="txtComplement" name="complement" class="form-control">
                             </div>
                         </div>
-    
+
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="txtContato"><b>Contato:</b></label>
@@ -443,7 +445,7 @@
                     <div class="col-12">
                         <div class="row" id="resumeItemsList">
 
-                            
+
                         </div>
                     </div>
 
@@ -574,12 +576,12 @@
             });
 
             function atualizarBandeja(){
-            
+
                 $.ajax({
-                url: '{{ route('tray.data') }}', 
+                url: '{{ route('tray.data') }}',
                 method: 'GET',
                 success: function(response) {
-            
+
                 response.forEach(function(item) {
                 var produtoHTML = `
                     <div class="col-12 tray-item">
@@ -624,13 +626,13 @@
                 setTimeout(() => {
                     $('.tray-container').fadeIn();
                 }, 700);
-            });     
+            });
 
 
-    
 
 
-    
+
+
     // Quando o botão de enviar (btnAddressStep) for clicado
     $('#btnAddressStep').on('click', function(e) {
         e.preventDefault(); // Previne o comportamento padrão do botão (não recarregar a página)
@@ -651,7 +653,7 @@
                                 <div class="img-product">
                                     <img class="product-img" src="{{ asset('assets/img/cardapio/burguers/burger-au-poivre-kit-4-pack.3ca0e39b02db753304cd185638dad518.jpg') }}" />
                                 </div>
-                                
+
                                 <div class="product-data">
                                     <p class="resume-product-title">
                                         <b>${tray.product}</b>
@@ -667,7 +669,7 @@
                                 </p>
                             </div>
                         `;
-                        
+
                         // Adiciona o HTML do produto no contêiner
                         $('#resumeItemsList').append(produtoHTML);
                     });
@@ -683,7 +685,7 @@
         }
 
         function buscarEndereco(){
-            
+
         $.ajax({
             url: '{{ route('recuperar-endereco')}}',
             method: 'GET',
@@ -693,9 +695,9 @@
                 if($("#txtCEP").val() == ''){
                     $("#cityAddress").text(response.city);
                 }else{
-                    $("#cityAddress").text(response.city + ' / ' + $("#txtCEP").val()); 
+                    $("#cityAddress").text(response.city + ' / ' + $("#txtCEP").val());
                 }
-               
+
             },
             error: function(xhr, status, error) {
                 alert("Erro ao buscar o endereço:", error);
@@ -715,7 +717,7 @@
             processData: false,  // Impede que o jQuery processe os dados (necessário para enviar arquivos)
             contentType: false,  // Impede que o jQuery defina o content-type (necessário para FormData)
             success: function(response) {
-                
+
                 $.toast({
                             heading: '<b>Endereço salvo com sucesso!</b>',
                             showHideTransition: 'slide',  // It can be plain, fade or slide
@@ -773,7 +775,7 @@
        }
 
     });
-});    
+});
     </script>
 </body>
 </html>
