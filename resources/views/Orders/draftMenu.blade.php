@@ -479,12 +479,6 @@
                 </div>
             </div>
         </div>
-        @php
-        $total = 0;
-        foreach ($tray as $item){
-            $total += intVal($item->value) * intVal($item->ammount);
-        }
-        @endphp
         <div class="m-footer">
             <div class="container">
                 <div class="container-total text-right mb-4">
@@ -512,6 +506,8 @@
             </div>
         </div>
     </div>
+
+    <form id="confirmarPedido" action="{{ route('pedidos.store') }}" method="post">@csrf</form>
 
     <script type="text/javascript" src="{{ asset('assets/js/jquery-1.12.4.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/js/modernizr-3.5.0.min.js') }}"></script>
@@ -789,6 +785,10 @@
             verificarPedido();
             buscarEndereco();
        }
+
+       $("#btnResumeStep").on('click', function (){
+            $("#confirmarPedido").submit();
+       });
 
     });
 });
