@@ -6,13 +6,31 @@ use App\Models\Product;
 use App\Models\Tray;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
 
 class TrayController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $user = Auth::user();
+        if (Auth::user() == null){
+            if (!$request->cookie('user_identifier')) {
+                // Gera um identificador único
+                $identifier = uniqid('user_', true);
+
+                // Cria o cookie por 30 dias
+                Cookie::queue('user_identifier', $identifier, 43200); // 30 dias
+
+                // Redireciona para a mesma página para que o cookie seja lido corretamente
+                return redirect()->back();
+            }
+
+            // Obtém o cookie e exibe
+            $user = $request->cookie('user_identifier');
+        }else{
+            $user = Auth::user()->id;
+        }
+
         $products = Product::all();
         $burguers = DB::table('products')
             ->where('type', 'Comida')
@@ -41,12 +59,12 @@ class TrayController extends Controller
 
         if ($user != null){
             $tray = DB::table('trays')
-                ->where('user_id', $user->id)
+                ->where('user_id', $user)
                 ->get();
 
             $total = DB::table('trays')
                 ->select('ammount')
-                ->where('user_id', $user->id)
+                ->where('user_id', $user)
                 ->get(); // Conta o total de "ammount"
 
             $totalItems = 0;
@@ -67,21 +85,56 @@ class TrayController extends Controller
         ]);
     }
 
-    public function refreshTray(){
+    public function refreshTray(Request $userID){
 
-        $user = auth()->user(); // Supondo que você esteja usando autenticação
+        if (Auth::user() == null){
+            if (!$userID->cookie('user_identifier')) {
+                // Gera um identificador único
+                $identifier = uniqid('user_', true);
+
+                // Cria o cookie por 30 dias
+                Cookie::queue('user_identifier', $identifier, 43200); // 30 dias
+
+                // Redireciona para a mesma página para que o cookie seja lido corretamente
+                return redirect()->back();
+            }
+
+            // Obtém o cookie e exibe
+            $user = $userID->cookie('user_identifier');
+        }else{
+            $user = Auth::user()->id;
+        }
+
         $tray = DB::table('trays')
-              ->where('user_id', $user->id)
+              ->where('user_id', $user)
               ->get();
 
         return response()->json($tray);
     }
 
-    public function findAddress(){
-        $user = auth()->user(); // Supondo que você esteja usando autenticação
+    public function findAddress(Request $userID){
+
+        if (Auth::user() == null){
+            if (!$userID->cookie('user_identifier')) {
+                // Gera um identificador único
+                $identifier = uniqid('user_', true);
+
+                // Cria o cookie por 30 dias
+                Cookie::queue('user_identifier', $identifier, 43200); // 30 dias
+
+                // Redireciona para a mesma página para que o cookie seja lido corretamente
+                return redirect()->back();
+            }
+
+            // Obtém o cookie e exibe
+            $user = $userID->cookie('user_identifier');
+        }else{
+            $user = Auth::user()->id;
+        }
+
         $tray = DB::table('trays')
               ->select('address', 'number', 'city', 'neighbourhood')
-              ->where('user_id', $user->id)
+              ->where('user_id', $user)
               ->get()->first();
 
               return response()->json($tray);
@@ -89,14 +142,32 @@ class TrayController extends Controller
 
 
     public function trackAddress(Request $request){
-        $user = auth()->user(); // Supondo que você esteja usando autenticação
+
+        if (Auth::user() == null){
+            if (!$request->cookie('user_identifier')) {
+                // Gera um identificador único
+                $identifier = uniqid('user_', true);
+
+                // Cria o cookie por 30 dias
+                Cookie::queue('user_identifier', $identifier, 43200); // 30 dias
+
+                // Redireciona para a mesma página para que o cookie seja lido corretamente
+                return redirect()->back();
+            }
+
+            // Obtém o cookie e exibe
+            $user = $request->cookie('user_identifier');
+        }else{
+            $user = Auth::user()->id;
+        }
+
         $tray = DB::table('trays')
               ->select('id')
-              ->where('user_id', $user->id)
+              ->where('user_id', $user)
               ->get();
 
         $update = DB::table('trays')
-        ->where('user_id', $user->id)  // Condição para selecionar o registro com user_id = 5
+        ->where('user_id', $user)  // Condição para selecionar o registro com user_id = 5
         ->update([
             'address' => $request->address,  // Atualizando o campo1
             'neighbourhood' => $request->neighbourhood,  // Atualizando o campo2
@@ -106,7 +177,7 @@ class TrayController extends Controller
             'number' => $request->number,  // Atualizando o campo3
         ]);
 
-        return response()->json(['message' => 'Produto adicionado ao carrinho com sucesso!']);
+        return response()->json(['message' => 'sucesso!']);
     }
 
     public function store(Request $request)
@@ -129,30 +200,48 @@ class TrayController extends Controller
                 ], 400);
             }
         }
-        $user = Auth::user();
+
+        if (Auth::user() == null){
+            if (!$request->cookie('user_identifier')) {
+                // Gera um identificador único
+                $identifier = uniqid('user_', true);
+
+                // Cria o cookie por 30 dias
+                Cookie::queue('user_identifier', $identifier, 43200); // 30 dias
+
+                // Redireciona para a mesma página para que o cookie seja lido corretamente
+                return redirect()->back();
+            }
+
+            // Obtém o cookie e exibe
+            $user = $request->cookie('user_identifier');
+        }else{
+            $user = Auth::user()->id;
+        }
 
         //Verificação se o novo item adicionado existe na tabela.
-        $hasTray = DB::table('trays')->where('user_id','=', $user->id)->get();
+        $hasTray = DB::table('trays')->where('user_id','=', $user)->get();
 
         if (count($hasTray) == 0){
             $addTray = new Tray();
-            $addTray->user_id = $user->id;
+            $addTray->user_id = $user;
             $addTray->product = $item->name;
             $addTray->value = $item->price;
             $addTray->ammount = $ammount;
             $addTray->product_id = $item->id;
             $addTray->save();
+
         } else {
             $exist = false;
             foreach ($hasTray as $trayItem){
                 if ($trayItem->product == $item->name){
                     DB::table('trays')
-                        ->where('user_id','=', $user->id)
+                        ->where('user_id','=', $user)
                         ->where('product','=', $item->name)
                         ->update(['ammount' => $trayItem->ammount += $ammount]);
 
                     DB::table('trays')
-                        ->where('user_id','=', $user->id)
+                        ->where('user_id','=', $user)
                         ->where('product','=', $item->name)
                         ->update(['value' => floatval($item->price)]);
 
@@ -161,7 +250,7 @@ class TrayController extends Controller
             }
         if ($exist == false){
             $addTray = new Tray();
-            $addTray->user_id = $user->id;
+            $addTray->user_id = $user;
             $addTray->product = $item->name;
             $addTray->value = $item->price;
             $addTray->ammount = $ammount;
@@ -172,12 +261,29 @@ class TrayController extends Controller
         return response()->json(['message' => 'Produto adicionado ao carrinho com sucesso!']);
     }
 
-    public function count()
+    public function count(Request $userID)
     {
-        $user = Auth::user();
+        if (Auth::user() == null){
+            if (!$userID->cookie('user_identifier')) {
+                // Gera um identificador único
+                $identifier = uniqid('user_', true);
+
+                // Cria o cookie por 30 dias
+                Cookie::queue('user_identifier', $identifier, 43200); // 30 dias
+
+                // Redireciona para a mesma página para que o cookie seja lido corretamente
+                return redirect()->back();
+            }
+
+            // Obtém o cookie e exibe
+            $user = $userID->cookie('user_identifier');
+        }else{
+            $user = Auth::user()->id;
+        }
+
         $total = DB::table('trays')
             ->select('ammount')
-            ->where('user_id', $user->id)
+            ->where('user_id', $user)
             ->get(); // Conta o total de "ammount"
 
         $totalItems = 0;
