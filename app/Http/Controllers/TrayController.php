@@ -13,21 +13,17 @@ class TrayController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $products = Product::all(); 
+        $products = Product::all();
         $burguers = DB::table('products')
             ->where('type', 'Comida')
             ->get();
 
         $drinks = DB::table('products')
             ->where('type', 'Bebida')
-            ->get();   
-        
+            ->get();
+
         $desserts = DB::table('products')
             ->where('type', 'Sobremesa')
-            ->get();    
-
-        $tray = DB::table('trays')
-            ->where('user_id', $user->id)
             ->get();
 
         //Verificação se o item tem em estoque.
@@ -43,14 +39,23 @@ class TrayController extends Controller
             }
         }
 
-        $total = DB::table('trays')
-            ->select('ammount')
-            ->where('user_id', $user->id)
-            ->get(); // Conta o total de "ammount"
+        if ($user != null){
+            $tray = DB::table('trays')
+                ->where('user_id', $user->id)
+                ->get();
 
-        $totalItems = 0;
-        foreach ($total as $count){
-            $totalItems += intVal($count->ammount);
+            $total = DB::table('trays')
+                ->select('ammount')
+                ->where('user_id', $user->id)
+                ->get(); // Conta o total de "ammount"
+
+            $totalItems = 0;
+            foreach ($total as $count){
+                $totalItems += intVal($count->ammount);
+            }
+        }else{
+            $tray = [];
+            $totalItems = 0;
         }
 
         return view('Orders.draftMenu', [
@@ -63,12 +68,12 @@ class TrayController extends Controller
     }
 
     public function refreshTray(){
-        
+
         $user = auth()->user(); // Supondo que você esteja usando autenticação
         $tray = DB::table('trays')
               ->where('user_id', $user->id)
               ->get();
-    
+
         return response()->json($tray);
     }
 
@@ -78,7 +83,7 @@ class TrayController extends Controller
               ->select('address', 'number', 'city', 'neighbourhood')
               ->where('user_id', $user->id)
               ->get()->first();
-        
+
               return response()->json($tray);
     }
 
@@ -99,7 +104,7 @@ class TrayController extends Controller
             'complement' => $request->complement,
             'contact' => $request->contact,
             'number' => $request->number,  // Atualizando o campo3
-        ]);      
+        ]);
 
         return response()->json(['message' => 'Produto adicionado ao carrinho com sucesso!']);
     }
