@@ -136,13 +136,22 @@ class TrayController extends Controller
         }
 
         $values = DB::table('trays')
-            ->select('value', 'ammount')
+            ->select('value', 'ammount', 'neighbourhood')
             ->where('user_id', $user)
             ->get();
 
         $total = 0;
         foreach ($values as $one){
-            $total += floatval($one->value) * $one->ammount;
+            if ($one->neighbourhood != null){
+                $neighbourhood = DB::table('neighbourhoods')
+                    ->select('taxe', 'name')
+                    ->where('name', $one->neighbourhood)
+                    ->get();
+
+                $total += (floatval($one->value) * $one->ammount) + floatval($neighbourhood[0]->taxe);
+            }else{
+                $total += floatval($one->value) * $one->ammount;
+            }
         }
 
         return response()->json($total);

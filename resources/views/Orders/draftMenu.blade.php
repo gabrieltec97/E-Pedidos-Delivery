@@ -582,7 +582,6 @@
                     url: "{{ route('price.data') }}",
                     method: "GET",
                     success: function (response) {
-                        // Atualiza o contador no HTML (exemplo: um <span id="cart-count">)
                         $("#lbl-subtotal, #lbl-totalValue").text('R$ ' + response);
                     },
                     error: function () {
@@ -787,8 +786,15 @@
             data: { local: local },
             success: function(response) {
 
-                console.log(response)
                 if(response != 'no'){
+
+                    atualizarPreco();
+                    $(".delivery-text").fadeIn();
+                    if (response != 0){
+                        $("#lbl-deliveryValue").text("+ R$:" + response);
+                    }else{
+                        $("#lbl-deliveryValue").text("Frete grátis");
+                    }
 
                     let endereco = $("#txtEndereco").val();
                     let bairro = $("#txtBairro").val();
