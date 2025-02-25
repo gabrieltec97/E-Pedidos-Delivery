@@ -65,7 +65,7 @@ $(document).ready(function (){
                     if (!("erro" in data)){
                         $('#txtEndereco').val(data.logradouro);
                         $('#txtBairro').val(data.bairro);
-                        $('#txtCity').val(data.localidade + '-' + data.uf);
+                        $('#txtCity').val(data.localidade);
                         $('#txtNumero').focus();
 
                     }else{

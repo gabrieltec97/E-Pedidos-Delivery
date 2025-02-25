@@ -669,27 +669,44 @@
                         alert("Erro ao buscar o endereço:", error);
                     }
                 });
-
-
-
             });
 
 
     $('#btnAddressStep').on('click', function(e) {
         e.preventDefault();
 
+        function buscarEndereco(){
+            $.ajax({
+                url: '{{ route('recuperar-endereco')}}',
+                method: 'GET',
+                success: function(response) {
+                    $("#addressResume").text(response.address + ', '+ response.number + ' - ' + response.neighbourhood);
+
+                    if($("#txtCEP").val() == ''){
+                        $("#cityAddress").text(response.city);
+                    }else{
+                        $("#cityAddress").text(response.city + ' / ' + $("#txtCEP").val());
+                    }
+
+                },
+                error: function(xhr, status, error) {
+                    alert("Erro ao buscar o endereço:", error);
+                }
+            });
+        }
+
         function verificarPedido(){
             $.ajax({
-            url: '{{ route('tray.data') }}',
-            method: 'GET',
-            success: function(response) {
-                if (response.length > 0) {
-                    // Limpar o contêiner de produtos antes de adicionar novos
-                    $('#resumeItemsList').empty();
+                url: '{{ route('tray.data') }}',
+                method: 'GET',
+                success: function(response) {
+                    if (response.length > 0) {
+                        // Limpar o contêiner de produtos antes de adicionar novos
+                        $('#resumeItemsList').empty();
 
-                    // Loop para criar os campos para cada produto
-                    response.forEach(function(tray) {
-                        var produtoHTML = `
+                        // Loop para criar os campos para cada produto
+                        response.forEach(function(tray) {
+                            var produtoHTML = `
                             <div class="col-12 tray-item">
                                 <div class="img-product">
                                     <img class="product-img" src="{{ asset('assets/img/cardapio/burguers/burger-au-poivre-kit-4-pack.3ca0e39b02db753304cd185638dad518.jpg') }}" />
@@ -711,39 +728,17 @@
                             </div>
                         `;
 
-                        // Adiciona o HTML do produto no contêiner
-                        $('#resumeItemsList').append(produtoHTML);
-                    });
-                } else {
-                    alert('Nenhum produto encontrado');
+                            // Adiciona o HTML do produto no contêiner
+                            $('#resumeItemsList').append(produtoHTML);
+                        });
+                    } else {
+                        alert('Nenhum produto encontrado');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error("Erro ao buscar produtos:", error);
                 }
-            },
-            error: function(xhr, status, error) {
-                console.error("Erro ao buscar produtos:", error);
-            }
-        });
-
-        }
-
-        function buscarEndereco(){
-
-        $.ajax({
-            url: '{{ route('recuperar-endereco')}}',
-            method: 'GET',
-            success: function(response) {
-                $("#addressResume").text(response.address + ', '+ response.number + ' - ' + response.neighbourhood);
-
-                if($("#txtCEP").val() == ''){
-                    $("#cityAddress").text(response.city);
-                }else{
-                    $("#cityAddress").text(response.city + ' / ' + $("#txtCEP").val());
-                }
-
-            },
-            error: function(xhr, status, error) {
-                alert("Erro ao buscar o endereço:", error);
-            }
-        });
+            });
         }
 
         function cadastrarEndereço (){
@@ -751,74 +746,99 @@
 
             var formData = new FormData(form[0]); // Cria o objeto FormData com os dados do formulário
 
-        $.ajax({
-            url: '{{ route('capturar-endereco') }}',  // Rota para onde os dados serão enviados no backend
-            type: 'POST',  // Método HTTP
-            data: formData,  // Dados do formulário
-            processData: false,  // Impede que o jQuery processe os dados (necessário para enviar arquivos)
-            contentType: false,  // Impede que o jQuery defina o content-type (necessário para FormData)
-            success: function(response) {
+            $.ajax({
+                url: '{{ route('capturar-endereco') }}',  // Rota para onde os dados serão enviados no backend
+                type: 'POST',  // Método HTTP
+                data: formData,  // Dados do formulário
+                processData: false,  // Impede que o jQuery processe os dados (necessário para enviar arquivos)
+                contentType: false,  // Impede que o jQuery defina o content-type (necessário para FormData)
+                success: function(response) {
 
-                $.toast({
-                            heading: '<b>Endereço salvo com sucesso!</b>',
-                            showHideTransition: 'slide',  // It can be plain, fade or slide
-                            bgColor: '#2ecc71',
-                            text: 'Item adicionado à sua bandeja.',
-                            hideAfter: 8000,
-                            position: 'top-right',
-                            textColor: '#ecf0f1',
-                            icon: 'success'
-                        });
-            },
-            error: function(xhr, status, error) {
-                $.toast({
-                    heading: '<b>Oopsss, tivemos um erro!</b>',
-                    showHideTransition: 'slide',
-                    bgColor: 'red',
-                    text: 'Não foi possível registrar seu endereço. Entre em contato com o restaurante para fazer seu pedido.',
-                    hideAfter: 10000,
-                    position: 'top-right',
-                    textColor: 'white',
-                    icon: 'error'
-                });
-            }
-        });
+                    $.toast({
+                        heading: '<b>Endereço salvo com sucesso!</b>',
+                        showHideTransition: 'slide',  // It can be plain, fade or slide
+                        bgColor: '#2ecc71',
+                        text: 'Item adicionado à sua bandeja.',
+                        hideAfter: 8000,
+                        position: 'top-right',
+                        textColor: '#ecf0f1',
+                        icon: 'success'
+                    });
+                },
+                error: function(xhr, status, error) {
+                    $.toast({
+                        heading: '<b>Oopsss, tivemos um erro!</b>',
+                        showHideTransition: 'slide',
+                        bgColor: 'red',
+                        text: 'Não foi possível registrar seu endereço. Entre em contato com o restaurante para fazer seu pedido.',
+                        hideAfter: 10000,
+                        position: 'top-right',
+                        textColor: 'white',
+                        icon: 'error'
+                    });
+                }
+            });
         }
 
-       let endereco = $("#txtEndereco").val();
-       let bairro = $("#txtBairro").val();
-       let numero = $("#txtNumero").val();
-       let cidade = $("#txtCity").val();
-       let contato = $("#txtContato").val();
+        var local = $('#txtBairro').val();
+        $.ajax({
+            url: '{{ route('calcular-frete')}}',
+            method: 'GET',
+            data: { local: local },
+            success: function(response) {
 
-       if(endereco === ''){
-        console.log('assa')
+                console.log(response)
+                if(response != 'no'){
 
-       }else if(bairro === ''){
-        console.log('bairro')
-       }else if(numero === ''){
-        console.log('numero')
-       }else if(cidade === ''){
-        console.log('cidade')
-       }else if(contato === ''){
-        console.log('contato')
-       }else{
-            $('#deliveryPlace').fadeOut();
-            $('#btnBack, #btnAddressStep').fadeOut();
-            $('#trayResume').removeAttr('hidden');
-            $('#btnResumeStep, #btnLastBack, #trayResume').fadeIn();
-            $('.step2').removeClass('active');
-            $('.step3').addClass('active');
+                    let endereco = $("#txtEndereco").val();
+                    let bairro = $("#txtBairro").val();
+                    let numero = $("#txtNumero").val();
+                    let cidade = $("#txtCity").val();
+                    let contato = $("#txtContato").val();
 
-            cadastrarEndereço();
-            verificarPedido();
-            buscarEndereco();
-       }
+                    if(endereco === ''){
+                        console.log('assa')
 
-       $("#btnResumeStep").on('click', function (){
-            $("#confirmarPedido").submit();
-       });
+                    }else if(bairro === ''){
+                        console.log('bairro')
+                    }else if(numero === ''){
+                        console.log('numero')
+                    }else if(cidade === ''){
+                        console.log('cidade')
+                    }else if(contato === ''){
+                        console.log('contato')
+                    }else{
+                        $('#deliveryPlace').fadeOut();
+                        $('#btnBack, #btnAddressStep').fadeOut();
+                        $('#trayResume').removeAttr('hidden');
+                        $('#btnResumeStep, #btnLastBack, #trayResume').fadeIn();
+                        $('.step2').removeClass('active');
+                        $('.step3').addClass('active');
 
+                        cadastrarEndereço();
+                        verificarPedido();
+                        buscarEndereco();
+                    }
+                }else{
+                    alert('não entregamos nesta localidade!');
+                }
+
+            },
+            error: function(xhr, status, error) {
+                alert("Falha ao calcular frete", error);
+            }
+        });
+
+
+
+
+
+
+
+
+    });
+    $("#btnResumeStep").on('click', function (){
+        $("#confirmarPedido").submit();
     });
 });
     </script>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Neighbourhood;
 use App\Models\Product;
 use App\Models\Tray;
 use Illuminate\Http\Request;
@@ -145,6 +146,40 @@ class TrayController extends Controller
         }
 
         return response()->json($total);
+    }
+    public function taxeCalculator(Request $request)
+    {
+        if (Auth::user() == null){
+            if (!$request->cookie('user_identifier')) {
+                // Gera um identificador único
+                $identifier = uniqid(true);
+
+                // Cria o cookie por 30 dias
+                Cookie::queue('user_identifier', $identifier, 43200); // 30 dias
+
+                // Redireciona para a mesma página para que o cookie seja lido corretamente
+                return redirect()->back();
+            }
+
+            // Obtém o cookie e exibe
+            $user = $request->cookie('user_identifier');
+        }else{
+            $user = Auth::user()->id;
+        }
+
+        $local = $request->input('local');
+
+        $neighborhoods = Neighbourhood::all();
+
+        //Cálculo de taxa.
+        $taxe = 'no';
+        foreach ($neighborhoods as $neighborhood){
+            if ($neighborhood->name == $local){
+                $taxe = $neighborhood->taxe;
+            }
+        }
+
+        return response()->json($taxe);
     }
 
     public function refreshTray(Request $userID){
