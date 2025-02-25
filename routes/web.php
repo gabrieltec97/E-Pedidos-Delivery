@@ -33,8 +33,10 @@ use Illuminate\Support\Str;
 Route::get('/teste', function (){
     echo 'feito';
 })->name('teste');
+
 Route::resource('/cardapio', TrayController::class);
 Route::get('/count', [TrayController::class, 'count'])->name('cardapio.count');
+Route::get('/verificar-bandeja', [TrayController::class, 'count'])->name('tray.check');
 Route::get('/atualizar-bandeja', [TrayController::class, 'refreshTray'])->name('tray.data');
 Route::get('/recuperar-preco', [TrayController::class, 'findPrice'])->name('price.data');
 Route::post('/capturar-endereco', [TrayController::class, 'trackAddress'])->name('capturar-endereco');

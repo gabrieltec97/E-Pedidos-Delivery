@@ -85,6 +85,34 @@ class TrayController extends Controller
         ]);
     }
 
+    public function checkTray(Request $userID)
+    {
+        if (Auth::user() == null){
+            if (!$userID->cookie('user_identifier')) {
+                // Gera um identificador único
+                $identifier = uniqid(true);
+
+                // Cria o cookie por 30 dias
+                Cookie::queue('user_identifier', $identifier, 43200); // 30 dias
+
+                // Redireciona para a mesma página para que o cookie seja lido corretamente
+                return redirect()->back();
+            }
+
+            // Obtém o cookie e exibe
+            $user = $userID->cookie('user_identifier');
+        }else{
+            $user = Auth::user()->id;
+        }
+
+        $check = DB::table('trays')
+            ->select('value')
+            ->where('user_id', $user)
+            ->count();
+
+        return response()->json($check);
+    }
+
 
     public function findPrice(Request $userID)
     {
@@ -107,13 +135,13 @@ class TrayController extends Controller
         }
 
         $values = DB::table('trays')
-            ->select('value')
+            ->select('value', 'ammount')
             ->where('user_id', $user)
             ->get();
 
         $total = 0;
         foreach ($values as $one){
-            $total += floatval($one->value);
+            $total += floatval($one->value) * $one->ammount;
         }
 
         return response()->json($total);

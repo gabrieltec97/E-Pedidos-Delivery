@@ -638,11 +638,40 @@
             }
 
             $('.btn-tray, .btn-tray-side').on('click', function (){
-                atualizarBandeja();
-                atualizarPreco();
-                setTimeout(() => {
-                    $('.tray-container').fadeIn();
-                }, 700);
+
+                $.ajax({
+                    url: '{{ route('tray.check')}}',
+                    method: 'GET',
+                    success: function(response) {
+                        if(response.count > 0){
+                            $('.modal-full, #btnOrderStep').removeAttr('hidden').fadeIn();
+                            $('.step1').addClass('active');
+                            atualizarBandeja();
+                            atualizarPreco();
+                            setTimeout(() => {
+                                $('.tray-container').fadeIn();
+                            }, 700);
+                        }else{
+                            $.toast({
+                                heading: '<b>Oopsss, bandeja vazia!</b>',
+                                showHideTransition: 'slide',
+                                bgColor: 'red',
+                                text: 'Você precisa adicionar itens à sua bandeja.',
+                                hideAfter: 7000,
+                                position: 'top-right',
+                                textColor: 'white',
+                                icon: 'error'
+                            });
+                        }
+
+                    },
+                    error: function(xhr, status, error) {
+                        alert("Erro ao buscar o endereço:", error);
+                    }
+                });
+
+
+
             });
 
 

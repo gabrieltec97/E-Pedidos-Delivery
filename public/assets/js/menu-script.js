@@ -1,9 +1,4 @@
 $(document).ready(function (){
-    $('.btn-tray, .btn-tray-side').on('click', function (){
-       $('.modal-full, #btnOrderStep').removeAttr('hidden').fadeIn();
-       $('.step1').addClass('active');
-    });
-
     $('.fechar-modal').on('click', function (){
         $('.modal-full, .tray-container, #trayResume, #deliveryPlace, #btnBack, #btnLastBack, #btnAddressStep, #btnResumeStep').fadeOut();
         $('.step2, .step3').removeClass('active')
@@ -70,7 +65,7 @@ $(document).ready(function (){
                     if (!("erro" in data)){
                         $('#txtEndereco').val(data.logradouro);
                         $('#txtBairro').val(data.bairro);
-                        $('#txtCity').val(data.localidade);
+                        $('#txtCity').val(data.localidade + '-' + data.uf);
                         $('#txtNumero').focus();
 
                     }else{
