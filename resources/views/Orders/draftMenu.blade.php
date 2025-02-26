@@ -788,7 +788,7 @@
 
                 if(response != 'no'){
 
-                    atualizarPreco();
+
                     $(".delivery-text").fadeIn();
                     if (response != 0){
                         $("#lbl-deliveryValue").text("+ R$:" + response);
@@ -824,6 +824,7 @@
                         cadastrarEndereço();
                         verificarPedido();
                         buscarEndereco();
+                        atualizarPreco();
                     }
                 }else{
                     alert('não entregamos nesta localidade!');

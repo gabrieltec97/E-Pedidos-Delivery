@@ -141,6 +141,7 @@ class TrayController extends Controller
             ->get();
 
         $total = 0;
+        $sum = false;
         foreach ($values as $one){
             if ($one->neighbourhood != null){
                 $neighbourhood = DB::table('neighbourhoods')
@@ -148,10 +149,14 @@ class TrayController extends Controller
                     ->where('name', $one->neighbourhood)
                     ->get();
 
-                $total += (floatval($one->value) * $one->ammount) + floatval($neighbourhood[0]->taxe);
+                $total += floatval($one->value) * $one->ammount;
+                $sum = true;
             }else{
                 $total += floatval($one->value) * $one->ammount;
             }
+        }
+        if ($sum){
+            $total += floatval($neighbourhood[0]->taxe);
         }
 
         return response()->json($total);
