@@ -399,7 +399,7 @@ footer {
     right: 0;
     padding: 50px;
     background: var(--color-white);
-    z-index: 9990;
+    /*z-index: 9990;*/
     overflow-x: hidden; /*Não deixando barra de rolagem em horizontal*/
     overflow-y: auto; /*Colocando barra de rolagem em vertical*/
     display: flex;
@@ -663,6 +663,9 @@ footer {
     z-index: 1;
 }
 
+.jq-toast-wrap {
+    z-index: 10000 !important;
+}
 
 
 

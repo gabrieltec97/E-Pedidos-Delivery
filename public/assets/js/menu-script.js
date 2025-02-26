@@ -3,6 +3,7 @@ $(document).ready(function (){
         $('.modal-full, .tray-container, #trayResume, #deliveryPlace, #btnBack, #btnLastBack, #btnAddressStep, #btnResumeStep').fadeOut();
         $('.step2, .step3').removeClass('active')
         $('.tray-container').html('');
+        $(".btn-tray-side").fadeIn();
     });
 
     $('#btnOrderStep').on('click', function (){
@@ -83,6 +84,10 @@ $(document).ready(function (){
     }
 
     $('.buscar-cep').on('click', function (){
+        buscarCep();
+    });
+
+    $("#txtCEP").blur(function() {
         buscarCep();
     });
 

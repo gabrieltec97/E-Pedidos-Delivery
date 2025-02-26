@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('value');
             $table->string('ammount');
             $table->string('coupon_apply');
+            $table->string('cep')->nullable();
             $table->string('address')->nullable();
             $table->string('neighbourhood')->nullable();
             $table->string('city')->nullable();

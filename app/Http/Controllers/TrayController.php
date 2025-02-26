@@ -281,6 +281,7 @@ class TrayController extends Controller
         ->where('user_id', $user)  // Condição para selecionar o registro com user_id = 5
         ->update([
             'name' => $request->name,  // Atualizando o campo1
+            'cep' => $request->cep,  // Atualizando o campo1
             'address' => $request->address,  // Atualizando o campo1
             'neighbourhood' => $request->neighbourhood,  // Atualizando o campo2
             'city' => $request->city,

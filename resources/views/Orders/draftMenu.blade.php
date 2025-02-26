@@ -383,7 +383,7 @@
                         <div class="col-4">
                             <div class="form-group container-cep">
                                 <label for="txtCEP"><b>Cep:</b></label>
-                                <input type="text" id="txtCEP" class="form-control">
+                                <input type="text" id="txtCEP" name="cep" value="{{ $tray[0]->cep }}" class="form-control">
                                 <a class="btn btn-yellow btn-sm buscar-cep">
                                     <i class="fa fa-search"></i>
                                 </a>
@@ -393,49 +393,49 @@
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="txtNome"><b>Nome:</b></label>
-                                <input type="text" id="txtNome" name="name" class="form-control">
+                                <input type="text" id="txtNome" name="name" value="{{ $tray[0]->name }}" class="form-control">
                             </div>
                         </div>
 
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="txtContato"><b>Contato:</b></label>
-                                <input type="number" id="txtContato" name="contact" class="form-control" required>
+                                <input type="number" id="txtContato" name="contact" value="{{ $tray[0]->contact }}"  class="form-control" required>
                             </div>
                         </div>
 
                         <div class="col-6">
                             <div class="form-group">
                                 <label for="txtEndereco"><b>Endereço:</b></label>
-                                <input type="text" id="txtEndereco" name="address" class="form-control">
+                                <input type="text" id="txtEndereco" name="address" value="{{ $tray[0]->address }}"  class="form-control">
                             </div>
                         </div>
 
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="txtBairro"><b>Bairro:</b></label>
-                                <input type="text" id="txtBairro" name="neighbourhood" class="form-control">
+                                <input type="text" id="txtBairro" name="neighbourhood" value="{{ $tray[0]->neighbourhood }}"  class="form-control">
                             </div>
                         </div>
 
                         <div class="col-2">
                             <div class="form-group">
                                 <label for="txtNumero"><b>Número:</b></label>
-                                <input type="text" id="txtNumero" name="number" class="form-control">
+                                <input type="text" id="txtNumero" name="number" value="{{ $tray[0]->number }}"  class="form-control">
                             </div>
                         </div>
 
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="txtCity"><b>Cidade:</b></label>
-                                <input type="text" id="txtCity" name="city" class="form-control" required>
+                                <input type="text" id="txtCity" name="city" value="{{ $tray[0]->city }}"  class="form-control" required>
                             </div>
                         </div>
 
                         <div class="col-8">
                             <div class="form-group">
                                 <label for="txtComplement"><b>Complemento:</b></label>
-                                <input type="text" id="txtComplement" name="complement" class="form-control">
+                                <input type="text" id="txtComplement" name="complement" value="{{ $tray[0]->complement }}"  class="form-control">
                             </div>
                         </div>
                     </div>
@@ -668,6 +668,8 @@
                         alert("Erro ao buscar o endereço:", error);
                     }
                 });
+
+                $(".btn-tray-side").fadeOut();
             });
 
 
@@ -757,7 +759,7 @@
                         heading: '<b>Endereço salvo com sucesso!</b>',
                         showHideTransition: 'slide',  // It can be plain, fade or slide
                         bgColor: '#2ecc71',
-                        text: 'Item adicionado à sua bandeja.',
+                        text: 'Agora vamos finalizar o pedido.',
                         hideAfter: 8000,
                         position: 'top-right',
                         textColor: '#ecf0f1',
@@ -788,31 +790,41 @@
 
                 if(response != 'no'){
 
-
-                    $(".delivery-text").fadeIn();
-                    if (response != 0){
-                        $("#lbl-deliveryValue").text("+ R$:" + response);
-                    }else{
-                        $("#lbl-deliveryValue").text("Frete grátis");
-                    }
-
                     let endereco = $("#txtEndereco").val();
                     let bairro = $("#txtBairro").val();
                     let numero = $("#txtNumero").val();
                     let cidade = $("#txtCity").val();
                     let contato = $("#txtContato").val();
 
-                    if(endereco === ''){
-                        console.log('assa')
+                    function toastTrigger(message){
+                        $.toast({
+                            heading: '<b>Preencha todos os campos!</b>',
+                            showHideTransition: 'slide',
+                            bgColor: 'red',
+                            text: `${message}`,
+                            hideAfter: 10000,
+                            position: 'top-right',
+                            textColor: 'white',
+                            icon: 'error'
+                        });
+                    }
 
+                    if(endereco === ''){
+                        let message = "o campo endereço não foi preenchido corretamente.";
+                        toastTrigger(message);
                     }else if(bairro === ''){
-                        console.log('bairro')
+                        let message = "o campo bairro não foi preenchido corretamente.";
+                        toastTrigger(message);
+                        console.log(bairro)
                     }else if(numero === ''){
-                        console.log('numero')
+                        let message = "o campo de número da residência não foi preenchido corretamente.";
+                        toastTrigger(message);
                     }else if(cidade === ''){
-                        console.log('cidade')
+                        let message = "o campo cidade não foi preenchido corretamente.";
+                        toastTrigger(message);
                     }else if(contato === ''){
-                        console.log('contato')
+                        let message = "o campo contato não foi preenchido corretamente.";
+                        toastTrigger(message);
                     }else{
                         $('#deliveryPlace').fadeOut();
                         $('#btnBack, #btnAddressStep').fadeOut();
@@ -821,13 +833,29 @@
                         $('.step2').removeClass('active');
                         $('.step3').addClass('active');
 
+                        $(".delivery-text").fadeIn();
+                        if (response != 0){
+                            $("#lbl-deliveryValue").text("+ R$ " + response);
+                        }else{
+                            $("#lbl-deliveryValue").text("Frete grátis");
+                        }
+
                         cadastrarEndereço();
                         verificarPedido();
                         buscarEndereco();
                         atualizarPreco();
                     }
                 }else{
-                    alert('não entregamos nesta localidade!');
+                    $.toast({
+                        heading: '<b>Endereço fora da área de entregas!</b>',
+                        showHideTransition: 'slide',
+                        bgColor: 'red',
+                        text: 'Infelizmente não entregamos nesta localidade.',
+                        hideAfter: 10000,
+                        position: 'top-right',
+                        textColor: 'white',
+                        icon: 'error'
+                    });
                 }
 
             },
