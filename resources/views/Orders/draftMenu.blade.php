@@ -438,6 +438,32 @@
                                 <input type="text" id="txtComplement" name="complement" value="{{ $tray[0]->complement }}"  class="form-control">
                             </div>
                         </div>
+
+                        <hr>
+
+                        <div class="col-6 mb-5">
+                            <div class="form-group">
+                                <label for="pagamento"><b>Forma de pagamento:</b></label>
+                                <select name="payment" id="pagamento" class="form-control">
+                                    <option disabled selected>Selecione</option>
+                                    <option value="Dinheiro">Dinheiro</option>
+                                    <option value="Mastercard - crédito">Mastercard - crédito</option>
+                                    <option value="Mastercard - débito">Mastercard - débito</option>
+                                    <option value="Elo - crédito">Elo - crédito</option>
+                                    <option value="Elo - débito">Elo - débito</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-6 valor-entregue">
+                            <div class="form-group">
+                                <label for="valorPagamento"><b>Quanto você irá entregar:</b></label>
+                                <input type="number" id="valorPagamento" name="change" value="{{ $tray[0]->complement }}"  class="form-control mb-2">
+                                <span class="text-danger alerta-troco"><b>O valor entregue não pode ser menor que o valor total do pedido!</b></span>
+                            </div>
+                        </div>
+
+                        <div class="col-12"></div>
                     </div>
                 </form>
 
@@ -494,7 +520,7 @@
 
                     <p class="mb-0 total-text">
                         <span><b>Total: </b></span>
-                        <span class="totalValue" id="lbl-totalValue"><b></b></span>
+                        <span class="totalValue" id="lbl-totalValue">R$: <b></b></span>
                     </p>
                 </div>
 
@@ -582,7 +608,7 @@
                     url: "{{ route('price.data') }}",
                     method: "GET",
                     success: function (response) {
-                        $("#lbl-subtotal, #lbl-totalValue").text('R$ ' + response);
+                        $("#lbl-subtotal, #lbl-totalValue").text(response);
                     },
                     error: function () {
                         console.error("Erro ao buscar valor total");

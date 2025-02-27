@@ -120,4 +120,22 @@ $(document).ready(function (){
         $('.dessertsBtn, .drinksBtn').removeClass('active');
         $(this).addClass('active');
     });
+
+    $('#pagamento').on('change', function (){
+        if ($(this).val() != 'Dinheiro'){
+            $('.valor-entregue').fadeOut();
+        }else{
+            $('.valor-entregue').fadeIn();
+        }
+    });
+
+    $("#valorPagamento").keyup(function (){
+       if ($(this).val() < parseFloat($('#lbl-totalValue').text())){
+           console.log('menor')
+           $('.alerta-troco').fadeIn();
+       }else{
+           console.log('maior')
+           $('.alerta-troco').fadeOut();
+       }
+    });
 });

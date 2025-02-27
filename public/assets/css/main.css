@@ -623,7 +623,7 @@ footer {
     margin-bottom: 0;
 }
 
-#btnAddressStep, #btnResumeStep, #btnBack, #btnLastBack, .delivery-text, .tray-container{
+#btnAddressStep, #btnResumeStep, #btnBack, #btnLastBack, .delivery-text, .tray-container, .valor-entregue{
     display: none;
 }
 
@@ -663,8 +663,13 @@ footer {
     z-index: 1;
 }
 
-.jq-toast-wrap {
-    z-index: 10000 !important;
+#pagamento {
+    height: 62px;
+}
+
+.alerta-troco {
+    font-size: 15px;
+    display: none;
 }
 
 
