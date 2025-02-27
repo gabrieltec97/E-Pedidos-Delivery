@@ -443,29 +443,32 @@
                 </form>
 
                 <div id="paymentStep" hidden>
-                    <div class="col-5">
-                        <div class="form-group">
-                            <label for="pagamento"><b>Forma de pagamento:</b></label>
-                            <select name="payment" id="pagamento" class="form-control">
-                                <option disabled selected>Selecione</option>
-                                <option value="Dinheiro">Dinheiro</option>
-                                <option value="Mastercard - crédito">Mastercard - crédito</option>
-                                <option value="Mastercard - débito">Mastercard - débito</option>
-                                <option value="Elo - crédito">Elo - crédito</option>
-                                <option value="Elo - débito">Elo - débito</option>
-                            </select>
+                    <form id="formPayment" method="post">
+                        @csrf
+                        <div class="col-5">
+                            <div class="form-group">
+                                <label for="pagamento"><b>Forma de pagamento:</b></label>
+                                <select name="paymentMode" id="pagamento" class="form-control">
+                                    <option disabled selected>Selecione</option>
+                                    <option value="Dinheiro">Dinheiro</option>
+                                    <option value="Mastercard - crédito">Mastercard - crédito</option>
+                                    <option value="Mastercard - débito">Mastercard - débito</option>
+                                    <option value="Elo - crédito">Elo - crédito</option>
+                                    <option value="Elo - débito">Elo - débito</option>
+                                </select>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="col-6 valor-entregue">
-                        <div class="form-group">
-                            <label for="valorPagamento"><b>Quanto você irá entregar:</b></label>
-                            <input type="number" id="valorPagamento" name="change" value="{{ $tray[0]->complement }}"  class="form-control mb-2">
-                            <span class="text-danger alerta-troco"><b>O valor entregue não pode ser menor que o valor total do pedido!</b></span>
-                            <span class="text-success valor-troco"><b></b></span>
+                        <div class="col-6 valor-entregue">
+                            <div class="form-group">
+                                <label for="valorPagamento"><b>Quanto você irá entregar:</b></label>
+                                <input type="number" id="valorPagamento" name="change" value="{{ $tray[0]->complement }}"  class="form-control mb-2">
+                                <span class="text-danger alerta-troco"><b>O valor entregue não pode ser menor que o valor total do pedido!</b></span>
+                                <span class="text-success valor-troco"><b></b></span>
+                            </div>
                         </div>
-                    </div>
                 </div>
+                    </form>
 
                 <div id="trayResume" hidden class="row mx-0" >
 
@@ -772,29 +775,16 @@
         }
 
         function cadastrarEndereço (){
-            var form = $('#formAddress'); // Seleciona o formulário com ID 'formAddress'
+            var form = $('#formAddress');
 
-            var formData = new FormData(form[0]); // Cria o objeto FormData com os dados do formulário
+            var formData = new FormData(form[0]);
 
             $.ajax({
-                url: '{{ route('capturar-endereco') }}',  // Rota para onde os dados serão enviados no backend
-                type: 'POST',  // Método HTTP
-                data: formData,  // Dados do formulário
+                url: '{{ route('capturar-endereco') }}',
+                type: 'POST',
+                data: formData,
                 processData: false,  // Impede que o jQuery processe os dados (necessário para enviar arquivos)
                 contentType: false,  // Impede que o jQuery defina o content-type (necessário para FormData)
-                success: function(response) {
-
-                    $.toast({
-                        heading: '<b>Endereço salvo com sucesso!</b>',
-                        showHideTransition: 'slide',  // It can be plain, fade or slide
-                        bgColor: '#2ecc71',
-                        text: 'Agora vamos finalizar o pedido.',
-                        hideAfter: 8000,
-                        position: 'top-right',
-                        textColor: '#ecf0f1',
-                        icon: 'success'
-                    });
-                },
                 error: function(xhr, status, error) {
                     $.toast({
                         heading: '<b>Oopsss, tivemos um erro!</b>',
@@ -892,15 +882,47 @@
                 alert("Falha ao calcular frete", error);
             }
         });
-
-
-
-
-
-
-
-
     });
+
+    $("#btnCheck").on('click', function (){
+        var form = $('#formPayment'); // Seleciona o formulário com ID 'formAddress'
+
+        var formData = new FormData(form[0]); // Cria o objeto FormData com os dados do formulário
+
+        $.ajax({
+            url: '{{ route('adicionar-pagamento') }}',
+            type: 'POST',
+            data: formData,  // Dados do formulário
+            processData: false,  // Impede que o jQuery processe os dados (necessário para enviar arquivos)
+            contentType: false,  // Impede que o jQuery defina o content-type (necessário para FormData)
+            success: function(response) {
+
+                $.toast({
+                    heading: '<b>Tudo certo!</b>',
+                    showHideTransition: 'slide',  // It can be plain, fade or slide
+                    bgColor: '#2ecc71',
+                    text: 'Revise o pedido antes de enviar ao restaurante.',
+                    hideAfter: 8000,
+                    position: 'top-right',
+                    textColor: '#ecf0f1',
+                    icon: 'success'
+                });
+            },
+            error: function(xhr, status, error) {
+                $.toast({
+                    heading: '<b>Oopsss, tivemos um erro!</b>',
+                    showHideTransition: 'slide',
+                    bgColor: 'red',
+                    text: 'Não foi possível registrar seu meio de pagamento. Entre em contato com o restaurante para fazer seu pedido.',
+                    hideAfter: 10000,
+                    position: 'top-right',
+                    textColor: 'white',
+                    icon: 'error'
+                });
+            }
+        });
+    });
+
     $("#btnResumeStep").on('click', function (){
         $("#confirmarPedido").submit();
     });
