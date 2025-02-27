@@ -364,6 +364,7 @@
                     <div class="step step1 active">1</div>
                     <div class="step step2">2</div>
                     <div class="step step3">3</div>
+                    <div class="step step4">4</div>
                 </div>
                 <p class="tray-title mt-4">
                     <b id="lbl-stepTitle">Sua bandeja:</b>
@@ -438,36 +439,36 @@
                                 <input type="text" id="txtComplement" name="complement" value="{{ $tray[0]->complement }}"  class="form-control">
                             </div>
                         </div>
-
-                        <hr>
-
-                        <div class="col-6 mb-5">
-                            <div class="form-group">
-                                <label for="pagamento"><b>Forma de pagamento:</b></label>
-                                <select name="payment" id="pagamento" class="form-control">
-                                    <option disabled selected>Selecione</option>
-                                    <option value="Dinheiro">Dinheiro</option>
-                                    <option value="Mastercard - crédito">Mastercard - crédito</option>
-                                    <option value="Mastercard - débito">Mastercard - débito</option>
-                                    <option value="Elo - crédito">Elo - crédito</option>
-                                    <option value="Elo - débito">Elo - débito</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="col-6 valor-entregue">
-                            <div class="form-group">
-                                <label for="valorPagamento"><b>Quanto você irá entregar:</b></label>
-                                <input type="number" id="valorPagamento" name="change" value="{{ $tray[0]->complement }}"  class="form-control mb-2">
-                                <span class="text-danger alerta-troco"><b>O valor entregue não pode ser menor que o valor total do pedido!</b></span>
-                            </div>
-                        </div>
-
-                        <div class="col-12"></div>
                     </div>
                 </form>
 
+                <div id="paymentStep" hidden>
+                    <div class="col-5">
+                        <div class="form-group">
+                            <label for="pagamento"><b>Forma de pagamento:</b></label>
+                            <select name="payment" id="pagamento" class="form-control">
+                                <option disabled selected>Selecione</option>
+                                <option value="Dinheiro">Dinheiro</option>
+                                <option value="Mastercard - crédito">Mastercard - crédito</option>
+                                <option value="Mastercard - débito">Mastercard - débito</option>
+                                <option value="Elo - crédito">Elo - crédito</option>
+                                <option value="Elo - débito">Elo - débito</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-6 valor-entregue">
+                        <div class="form-group">
+                            <label for="valorPagamento"><b>Quanto você irá entregar:</b></label>
+                            <input type="number" id="valorPagamento" name="change" value="{{ $tray[0]->complement }}"  class="form-control mb-2">
+                            <span class="text-danger alerta-troco"><b>O valor entregue não pode ser menor que o valor total do pedido!</b></span>
+                            <span class="text-success valor-troco"><b></b></span>
+                        </div>
+                    </div>
+                </div>
+
                 <div id="trayResume" hidden class="row mx-0" >
+
                     <div class="col-12">
                         <p class="tray-tittle">
                             <b>Itens do pedido:</b>
@@ -525,9 +526,11 @@
                 </div>
 
                 <a class="btn btn-yellow float-right" id="btnOrderStep">Continuar</a>
-                <a class="btn btn-yellow float-right" id="btnAddressStep">Revisar pedido</a>
+                <a class="btn btn-yellow float-right" id="btnAddressStep">Continuar</a>
+                <a class="btn btn-yellow float-right" id="btnCheck">Revisar pedido</a>
                 <a class="btn btn-yellow float-right" id="btnResumeStep">Enviar pedido</a>
                 <a class="btn btn-white float-right mr-3" id="btnBack">Voltar</a>
+                <a class="btn btn-white float-right mr-3" id="btnSecondBack">Voltar</a>
                 <a class="btn btn-white float-right mr-3" id="btnLastBack">Voltar</a>
             </div>
         </div>
@@ -854,10 +857,10 @@
                     }else{
                         $('#deliveryPlace').fadeOut();
                         $('#btnBack, #btnAddressStep').fadeOut();
-                        $('#trayResume').removeAttr('hidden');
-                        $('#btnResumeStep, #btnLastBack, #trayResume').fadeIn();
+                        $('#paymentStep').removeAttr('hidden');
                         $('.step2').removeClass('active');
                         $('.step3').addClass('active');
+                        $('#btnCheck, #btnSecondBack, #paymentStep').fadeIn();
 
                         $(".delivery-text").fadeIn();
                         if (response != 0){

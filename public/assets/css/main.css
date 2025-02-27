@@ -623,7 +623,8 @@ footer {
     margin-bottom: 0;
 }
 
-#btnAddressStep, #btnResumeStep, #btnBack, #btnLastBack, .delivery-text, .tray-container, .valor-entregue{
+#btnAddressStep, #btnResumeStep, #btnBack, #btnLastBack, .delivery-text, .tray-container, .valor-entregue, .valor-troco, #btnCheck,
+#btnSecondBack{
     display: none;
 }
 

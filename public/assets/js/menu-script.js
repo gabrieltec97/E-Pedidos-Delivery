@@ -18,12 +18,11 @@ $(document).ready(function (){
 
     $('#btnLastBack').on('click', function (){
         $(this).fadeOut();
-        $('#deliveryPlace').fadeIn();
-        $('#btnAddressStep, #btnBack').fadeIn();
-        $('.step3').removeClass('active')
-        $('.step2').addClass('active')
-        $('#trayResume').fadeOut();
-        $('#btnResumeStep').fadeOut();
+        $('#paymentStep').fadeIn();
+        $('#btnCheck, #btnSecondBack').fadeIn();
+        $('.step4').removeClass('active')
+        $('.step3').addClass('active')
+        $('#trayResume, #btnResumeStep').fadeOut();
     });
 
     $('#btnBack').on('click', function (){
@@ -31,6 +30,23 @@ $(document).ready(function (){
         $('#deliveryPlace, #btnBack, #btnAddressStep').fadeOut();
         $('.step2').removeClass('active')
         $('.step1').addClass('active')
+    });
+
+    $('#btnSecondBack').on('click', function (){
+        $('#deliveryPlace').fadeIn();
+        $('#btnBack, #btnAddressStep').fadeIn();
+        $('#paymentStep').fadeOut();
+        $('.step3').removeClass('active');
+        $('.step2').addClass('active');
+        $('#btnCheck, #btnSecondBack').fadeOut();
+    });
+
+    $('#btnCheck').on('click', function (){
+        $('.step3').removeClass('active');
+        $('.step4').addClass('active');
+        $('#btnSecondBack, #paymentStep, #btnCheck').fadeOut();
+        $('#trayResume').removeAttr('hidden')
+        $('#btnLastBack, #btnResumeStep, #trayResume').fadeIn();
     });
 
     $(".btn-plus").on("click", function() {
@@ -131,11 +147,13 @@ $(document).ready(function (){
 
     $("#valorPagamento").keyup(function (){
        if ($(this).val() < parseFloat($('#lbl-totalValue').text())){
-           console.log('menor')
            $('.alerta-troco').fadeIn();
+           $('.valor-troco').fadeOut();
        }else{
-           console.log('maior')
+           let troco = $(this).val() - parseFloat($('#lbl-totalValue').text());
            $('.alerta-troco').fadeOut();
+           $('.valor-troco').fadeIn();
+           $('.valor-troco').html(`<b>Você receberá R$: ${troco} de troco</b>`)
        }
     });
 });

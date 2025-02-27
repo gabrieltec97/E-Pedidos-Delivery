@@ -28,6 +28,8 @@ return new class extends Migration
             $table->bigInteger('contact')->nullable();
             $table->integer('number')->nullable();
             $table->string('comments')->nullable();
+            $table->string('paymentMode')->nullable();
+            $table->string('change')->nullable();
             $table->timestamps();
         });
     }
