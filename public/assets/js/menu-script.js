@@ -42,14 +42,6 @@ $(document).ready(function (){
         $('#btnCheck, #btnSecondBack').fadeOut();
     });
 
-    $('#btnCheck').on('click', function (){
-        $('.step3').removeClass('active');
-        $('.step4').addClass('active');
-        $('#btnSecondBack, #paymentStep, #btnCheck').fadeOut();
-        $('#trayResume').removeAttr('hidden')
-        $('#btnLastBack, #btnResumeStep, #trayResume').fadeIn();
-    });
-
     $(".btn-plus").on("click", function() {
         var card = $(this).closest(".card-item");
         var numberItems = card.find(".add-number-items");

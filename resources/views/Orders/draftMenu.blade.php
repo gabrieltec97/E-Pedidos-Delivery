@@ -487,7 +487,7 @@
 
                     <div class="col-12">
                         <p class="tray-tittle mt-4">
-                            <b>Local da entrega:</b>
+                            <b>Dados da entrega:</b>
                         </p>
                     </div>
 
@@ -498,12 +498,22 @@
 
                         <div class="product-data">
                             <p class="address-text">
-                                <b id="addressResume">Rua de teste, 100, bairro teste</b>
+                                <b id="addressResume">0</b>
                             </p>
+                            <p class="cityAddress" id="cityAddress">0</p>
+                        </div>
+                    </div>
 
-                            <p class="cityAddress" id="cityAddress">
-                                Cidade-RJ / 14711-000
+                    <div class="col-12 tray-item resumeUser">
+                        <div class="img-user">
+                            <i class="fas fa-user"></i>
+                        </div>
+
+                        <div class="product-data">
+                            <p class="address-text">
+                                <b id="userResume">0</b>
                             </p>
+                            <p class="userData" id="userData">0</p>
                         </div>
                     </div>
                 </div>
@@ -708,26 +718,6 @@
     $('#btnAddressStep').on('click', function(e) {
         e.preventDefault();
 
-        function buscarEndereco(){
-            $.ajax({
-                url: '{{ route('recuperar-endereco')}}',
-                method: 'GET',
-                success: function(response) {
-                    $("#addressResume").text(response.address + ', '+ response.number + ' - ' + response.neighbourhood);
-
-                    if($("#txtCEP").val() == ''){
-                        $("#cityAddress").text(response.city);
-                    }else{
-                        $("#cityAddress").text(response.city + ' / ' + $("#txtCEP").val());
-                    }
-
-                },
-                error: function(xhr, status, error) {
-                    alert("Erro ao buscar o endereço:", error);
-                }
-            });
-        }
-
         function verificarPedido(){
             $.ajax({
                 url: '{{ route('tray.data') }}',
@@ -861,7 +851,6 @@
 
                         cadastrarEndereço();
                         verificarPedido();
-                        buscarEndereco();
                         atualizarPreco();
                     }
                 }else{
@@ -885,42 +874,115 @@
     });
 
     $("#btnCheck").on('click', function (){
-        var form = $('#formPayment'); // Seleciona o formulário com ID 'formAddress'
 
-        var formData = new FormData(form[0]); // Cria o objeto FormData com os dados do formulário
+        function buscarEndereco(){
+            $.ajax({
+                url: '{{ route('recuperar-endereco')}}',
+                method: 'GET',
+                success: function(response) {
+                    $("#addressResume").text(response.address + ', '+ response.number + ' - ' + response.neighbourhood);
+                    $("#userResume").text(response.name);
 
-        $.ajax({
-            url: '{{ route('adicionar-pagamento') }}',
-            type: 'POST',
-            data: formData,  // Dados do formulário
-            processData: false,  // Impede que o jQuery processe os dados (necessário para enviar arquivos)
-            contentType: false,  // Impede que o jQuery defina o content-type (necessário para FormData)
-            success: function(response) {
+                    if(response.paymentMode == 'Dinheiro'){
+                        $("#userData").text(`Troco para R$: ${response.change}`);
+                    }else{
+                        $("#userData").text(response.paymentMode);
+                    }
 
-                $.toast({
-                    heading: '<b>Tudo certo!</b>',
-                    showHideTransition: 'slide',  // It can be plain, fade or slide
-                    bgColor: '#2ecc71',
-                    text: 'Revise o pedido antes de enviar ao restaurante.',
-                    hideAfter: 8000,
-                    position: 'top-right',
-                    textColor: '#ecf0f1',
-                    icon: 'success'
-                });
-            },
-            error: function(xhr, status, error) {
-                $.toast({
-                    heading: '<b>Oopsss, tivemos um erro!</b>',
-                    showHideTransition: 'slide',
-                    bgColor: 'red',
-                    text: 'Não foi possível registrar seu meio de pagamento. Entre em contato com o restaurante para fazer seu pedido.',
-                    hideAfter: 10000,
-                    position: 'top-right',
-                    textColor: 'white',
-                    icon: 'error'
-                });
+                    if($("#txtCEP").val() == ''){
+                        $("#cityAddress").text(response.city);
+                    }else{
+                        $("#cityAddress").text(response.city + ' / ' + $("#txtCEP").val());
+                    }
+
+                },
+                error: function(xhr, status, error) {
+                    alert("Erro ao buscar o endereço:", error);
+                }
+            });
+        }
+
+        function armazenarMetodoPagamento(){
+            var form = $('#formPayment'); // Seleciona o formulário com ID 'formAddress'
+
+            var formData = new FormData(form[0]); // Cria o objeto FormData com os dados do formulário
+
+            $.ajax({
+                url: '{{ route('adicionar-pagamento') }}',
+                type: 'POST',
+                data: formData,  // Dados do formulário
+                processData: false,  // Impede que o jQuery processe os dados (necessário para enviar arquivos)
+                contentType: false,  // Impede que o jQuery defina o content-type (necessário para FormData)
+                success: function(response) {
+
+                    $.toast({
+                        heading: '<b>Tudo certo!</b>',
+                        showHideTransition: 'slide',  // It can be plain, fade or slide
+                        bgColor: '#2ecc71',
+                        text: 'Revise o pedido antes de enviar ao restaurante.',
+                        hideAfter: 8000,
+                        position: 'top-right',
+                        textColor: '#ecf0f1',
+                        icon: 'success'
+                    });
+                },
+                error: function(xhr, status, error) {
+                    $.toast({
+                        heading: '<b>Oopsss, tivemos um erro!</b>',
+                        showHideTransition: 'slide',
+                        bgColor: 'red',
+                        text: 'Não foi possível registrar seu meio de pagamento. Entre em contato com o restaurante para fazer seu pedido.',
+                        hideAfter: 10000,
+                        position: 'top-right',
+                        textColor: 'white',
+                        icon: 'error'
+                    });
+                }
+            });
+        }
+
+        function avancarSt4(){
+            $('.step3').removeClass('active');
+            $('.step4').addClass('active');
+            $('#btnSecondBack, #paymentStep, #btnCheck').fadeOut();
+            $('#trayResume').removeAttr('hidden')
+            $('#btnLastBack, #btnResumeStep, #trayResume').fadeIn();
+            armazenarMetodoPagamento();
+            buscarEndereco();
+        }
+
+        if ($("#pagamento").val() != null){
+
+            if ($("#pagamento").val() == 'Dinheiro'){
+                if ($("#valorPagamento").val() == '' || $("#valorPagamento").val() < parseFloat($('#lbl-totalValue').text())){
+                    $.toast({
+                        heading: '<b>Verifique valor a ser entregue!</b>',
+                        showHideTransition: 'slide',
+                        bgColor: 'red',
+                        text: 'O valor a ser entregue não pode ser vazio ou menor que o valor total do pedido.',
+                        hideAfter: 10000,
+                        position: 'top-right',
+                        textColor: 'white',
+                        icon: 'error'
+                    });
+                }else{
+                    avancarSt4();
+                }
+            }else{
+                avancarSt4();
             }
-        });
+        }else{
+            $.toast({
+                heading: '<b>Preencha os campos de pagamento!</b>',
+                showHideTransition: 'slide',
+                bgColor: 'red',
+                text: 'É necessário que você escolha um método de pagamento.',
+                hideAfter: 10000,
+                position: 'top-right',
+                textColor: 'white',
+                icon: 'error'
+            });
+        }
     });
 
     $("#btnResumeStep").on('click', function (){

@@ -223,7 +223,7 @@ class TrayController extends Controller
         return response()->json($tray);
     }
 
-    public function findAddress(Request $userID){
+    public function findData(Request $userID){
 
         if (Auth::user() == null){
             if (!$userID->cookie('user_identifier')) {
@@ -244,7 +244,7 @@ class TrayController extends Controller
         }
 
         $tray = DB::table('trays')
-              ->select('address', 'number', 'city', 'neighbourhood')
+              ->select('address', 'number', 'city', 'neighbourhood', 'name', 'contact', 'paymentMode', 'change')
               ->where('user_id', $user)
               ->get()->first();
 

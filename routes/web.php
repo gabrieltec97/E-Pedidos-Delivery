@@ -42,7 +42,7 @@ Route::get('/atualizar-bandeja', [TrayController::class, 'refreshTray'])->name('
 Route::post('/adicionar-pagamento', [TrayController::class, 'addPaymentMode'])->name('adicionar-pagamento');
 Route::get('/recuperar-preco', [TrayController::class, 'findPrice'])->name('price.data');
 Route::post('/capturar-endereco', [TrayController::class, 'trackAddress'])->name('capturar-endereco');
-Route::get('/recuperar-endereco', [TrayController::class, 'findAddress'])->name('recuperar-endereco');
+Route::get('/recuperar-endereco', [TrayController::class, 'findData'])->name('recuperar-endereco');
 Route::get('revisar-pedido', [OrderController::class, 'review'])->name('review');
 Route::resource('/pedidos', OrderController::class);
 
