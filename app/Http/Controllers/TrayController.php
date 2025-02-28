@@ -35,14 +35,17 @@ class TrayController extends Controller
         $products = Product::all();
         $burguers = DB::table('products')
             ->where('type', 'Comida')
+            ->where('is_available', true)
             ->get();
 
         $drinks = DB::table('products')
             ->where('type', 'Bebida')
+            ->where('is_available', true)
             ->get();
 
         $desserts = DB::table('products')
             ->where('type', 'Sobremesa')
+            ->where('is_available', true)
             ->get();
 
         //Verificação se o item tem em estoque.
