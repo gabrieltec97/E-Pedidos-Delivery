@@ -46,7 +46,8 @@ class OrderController extends Controller
             }
             array_push($orders, ['id' => $order->id, 'items' => $product, 'value' => $order->value,
                 'address' => $order->userAdress, 'neighborhood' => $order->neighborhood,
-                'client' => $order->user_name, 'date' => $order->created_at, 'status' => $order->status]);
+                'client' => $order->user_name, 'date' => $order->created_at, 'status' => $order->status,
+            'contact' => $order->contact, 'paymentMode' => $order->paymentMode,  'change' => $order->change]);
         }
 
         return response()->json($orders);
@@ -301,9 +302,14 @@ class OrderController extends Controller
             $order->month = $this->monthConverter();
             $order->day = date('d');
             $order->year = date("Y");
-            $order->userAdress = $firstTray->address;
+            $order->userAdress = $firstTray->address . ', '. $firstTray->number;
             $order->neighborhood = $firstTray->neighbourhood;
             $order->user_name = $firstTray->name;
+            $order->city = $firstTray->city;
+            $order->complement = $firstTray->complement;
+            $order->contact = $firstTray->contact;
+            $order->paymentMode = $firstTray->paymentMode;
+            $order->change = $firstTray->change;
             $order->save();
 
             //Limpando bandeja.

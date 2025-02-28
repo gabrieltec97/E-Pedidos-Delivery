@@ -451,12 +451,13 @@
                                 <label for="pagamento"><b>Forma de pagamento:</b></label>
                                 <select name="paymentMode" id="pagamento" class="form-control">
                                     <option disabled selected>Selecione</option>
-                                    <option value="Dinheiro" @selected($tray[0]->paymentMode == 'Dinheiro')>Dinheiro</option>
-                                    <option value="Mastercard - crédito" @selected($tray[0]->paymentMode == 'Mastercard - crédito')>Mastercard - crédito</option>
-                                    <option value="Mastercard - débito" @selected($tray[0]->paymentMode == 'Mastercard - débito')>Mastercard - débito</option>
-                                    <option value="Elo - crédito" @selected($tray[0]->paymentMode == 'Elo - crédito')>Elo - crédito</option>
-                                    <option value="Elo - débito" @selected($tray[0]->paymentMode == 'Elo - débito')>Elo - débito</option>
-                                </select> 
+                                    <option value="Dinheiro" @selected(isset($tray[0]) && $tray[0]->paymentMode == 'Dinheiro')>Dinheiro</option>
+                                    <option value="Mastercard - crédito" @selected(isset($tray[0]) && $tray[0]->paymentMode == 'Mastercard - crédito')>Mastercard - crédito</option>
+                                    <option value="Mastercard - débito" @selected(isset($tray[0]) && $tray[0]->paymentMode == 'Mastercard - débito')>Mastercard - débito</option>
+                                    <option value="Elo - crédito" @selected(isset($tray[0]) && $tray[0]->paymentMode == 'Elo - crédito')>Elo - crédito</option>
+                                    <option value="Elo - débito" @selected(isset($tray[0]) && $tray[0]->paymentMode == 'Elo - débito')>Elo - débito</option>
+                                </select>
+                                
                             </div>
                         </div>
 

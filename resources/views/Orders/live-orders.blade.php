@@ -109,6 +109,14 @@
                         let items = order.items.split(',');
                         let itemsList = items.map(item => `<li>${item}</li>`).join('');
 
+                        
+
+                        if(order.paymentMode == "Dinheiro"){
+                           var pagamento = "Dinheiro - Troco para R$: " + order.change;    
+                        }else{
+                           var pagamento = "Cartão - " + order.paymentMode;
+                        }
+
                         modals += `
                             <div class="modal fade" id="pedido${order.id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
@@ -119,21 +127,23 @@
                                         </div>
                                         <div class="modal-body">
                                             <div class="d-flex flex-column justify-content-center">
+                                                <p class="text-xs text-secondary mb-0">Pedido: #${order.id}</p>
                                                 <p class="text-xs text-secondary mb-0">${order.date}</p>
-                                                <p class="text-xs text-secondary mb-0">#${order.id}</p>
+                                                
                                                 <hr>
                                                 <ul>
                                                     ${itemsList}
                                                 </ul>
                                                 <hr>
-                                                <h5 class="mb-0 text-sm">${order.address}</h5>
-                                                <p class="text-xs text-secondary mb-0">${order.neighborhood}</p>
-                                                <p class="text-xs text-success mb-0">${order.client}</p>
+                                                <h6 class="text-xs text-success mb-0">${order.client}</h6>
+                                                <p class="text-xs text-secondary mb-0">${order.neighborhood} - ${order.contact}</p>
+                                                <p class="mb-0 text-sm">${order.address}</p>
+                                                <p class="mb-0 text-sm">${pagamento}</p>
+                                                
                                             </div>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary">Save changes</button>
+                                            <button type="button" class="btn btn-success" data-bs-dismiss="modal">Fechar</button>
                                         </div>
                                     </div>
                                 </div>

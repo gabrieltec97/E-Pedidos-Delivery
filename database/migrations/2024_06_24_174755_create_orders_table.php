@@ -22,6 +22,11 @@ return new class extends Migration
             $table->string('user_name');
             $table->string('userAdress');
             $table->string('neighborhood');
+            $table->string('city');
+            $table->string('complement');
+            $table->string('contact');
+            $table->string('paymentMode');
+            $table->string('change');
             $table->string('delivery_man');
             $table->timestamps();
 
