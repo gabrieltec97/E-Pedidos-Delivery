@@ -531,14 +531,15 @@
                         <span id="lbl-subtotal"></span>
                     </p>
 
-                    <p class="mb-0 delivery-text">
+                    <p class="mb-0 delivery-text text-success">
                         <span><i class="fas fa-motorcycle"></i> Entrega: </span>
                         <span id="lbl-deliveryValue">+ R$ 5,00</span>
                     </p>
 
                     <p class="mb-0 total-text">
                         <span><b>Total: </b></span>
-                        <span class="totalValue" id="lbl-totalValue">R$: <b></b></span>
+                        <span class="totalValue" id="lbl-totalValue" hidden><b></b></span>
+                        <span class="totalValue" id="lbl-totalValueFront"><b></b></span>
                     </p>
                 </div>
 
@@ -628,7 +629,8 @@
                     url: "{{ route('price.data') }}",
                     method: "GET",
                     success: function (response) {
-                        $("#lbl-subtotal, #lbl-totalValue").text(response);
+                        $("#lbl-totalValue").text(response);
+                        $("#lbl-subtotal, #lbl-totalValueFront").text("R$ " + response);
                     },
                     error: function () {
                         console.error("Erro ao buscar valor total");
@@ -717,6 +719,20 @@
 
                 $(".btn-tray-side").fadeOut();
             });
+
+            function manterSubtotal(){
+                $.ajax({
+                    url: "{{ route('price.data') }}",
+                    method: "GET",
+                    success: function (response) {
+                        $("#lbl-totalValue").text(response);
+                        $("#lbl-totalValueFront").text("R$ " + response);
+                    },
+                    error: function () {
+                        console.error("Erro ao buscar valor total");
+                    }
+                });
+            }
 
 
     $('#btnAddressStep').on('click', function(e) {
@@ -855,7 +871,7 @@
 
                         cadastrarEndereço();
                         verificarPedido();
-                        atualizarPreco();
+                        manterSubtotal();
                     }
                 }else{
                     $.toast({
