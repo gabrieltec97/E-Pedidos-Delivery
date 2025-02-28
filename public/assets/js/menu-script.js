@@ -1,7 +1,7 @@
 $(document).ready(function (){
     $('.fechar-modal').on('click', function (){
         $('.modal-full, .tray-container, #trayResume, #deliveryPlace, #paymentStep, #btnBack, #btnLastBack, #btnAddressStep, #btnResumeStep, ' +
-            '#btnSecondBack, #btnCheck').fadeOut();
+            '#btnSecondBack, #btnCheck, .alerta-troco, .valor-troco').fadeOut();
         $('.step2, .step3, .step4').removeClass('active')
         $('.tray-container').html('');
         $(".btn-tray-side").fadeIn();
