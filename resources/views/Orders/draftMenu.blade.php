@@ -384,7 +384,7 @@
                         <div class="col-4">
                             <div class="form-group container-cep">
                                 <label for="txtCEP"><b>Cep:</b></label>
-                                <input type="text" id="txtCEP" name="cep" value="{{ $tray[0]->cep }}" class="form-control">
+                                <input type="text" id="txtCEP" name="cep" value="{{ $tray[0]->cep ?? '' }}" class="form-control">
                                 <a class="btn btn-yellow btn-sm buscar-cep">
                                     <i class="fa fa-search"></i>
                                 </a>
@@ -394,49 +394,49 @@
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="txtNome"><b>Nome:</b></label>
-                                <input type="text" id="txtNome" name="name" value="{{ $tray[0]->name }}" class="form-control">
+                                <input type="text" id="txtNome" name="name" value="{{ $tray[0]->name ?? '' }}" class="form-control">
                             </div>
                         </div>
 
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="txtContato"><b>Contato:</b></label>
-                                <input type="number" id="txtContato" name="contact" value="{{ $tray[0]->contact }}"  class="form-control" required>
+                                <input type="number" id="txtContato" name="contact" value="{{ $tray[0]->contact ?? '' }}"  class="form-control" required>
                             </div>
                         </div>
 
                         <div class="col-6">
                             <div class="form-group">
                                 <label for="txtEndereco"><b>Endereço:</b></label>
-                                <input type="text" id="txtEndereco" name="address" value="{{ $tray[0]->address }}"  class="form-control">
+                                <input type="text" id="txtEndereco" name="address" value="{{ $tray[0]->address ?? '' }}"  class="form-control">
                             </div>
                         </div>
 
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="txtBairro"><b>Bairro:</b></label>
-                                <input type="text" id="txtBairro" name="neighbourhood" value="{{ $tray[0]->neighbourhood }}"  class="form-control">
+                                <input type="text" id="txtBairro" name="neighbourhood" value="{{ $tray[0]->neighbourhood ?? '' }}"  class="form-control">
                             </div>
                         </div>
 
                         <div class="col-2">
                             <div class="form-group">
                                 <label for="txtNumero"><b>Número:</b></label>
-                                <input type="text" id="txtNumero" name="number" value="{{ $tray[0]->number }}"  class="form-control">
+                                <input type="text" id="txtNumero" name="number" value="{{ $tray[0]->number ?? '' }}" class="form-control">
                             </div>
                         </div>
 
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="txtCity"><b>Cidade:</b></label>
-                                <input type="text" id="txtCity" name="city" value="{{ $tray[0]->city }}"  class="form-control" required>
+                                <input type="text" id="txtCity" name="city" value="{{ $tray[0]->city ?? '' }}"  class="form-control" required>
                             </div>
                         </div>
 
                         <div class="col-8">
                             <div class="form-group">
                                 <label for="txtComplement"><b>Complemento:</b></label>
-                                <input type="text" id="txtComplement" name="complement" value="{{ $tray[0]->complement }}"  class="form-control">
+                                <input type="text" id="txtComplement" name="complement" value="{{ $tray[0]->complement ?? '' }}" class="form-control">
                             </div>
                         </div>
                     </div>
@@ -462,7 +462,7 @@
                         <div class="col-6 valor-entregue">
                             <div class="form-group">
                                 <label for="valorPagamento"><b>Quanto você irá entregar:</b></label>
-                                <input type="number" id="valorPagamento" name="change" value="{{ $tray[0]->complement }}"  class="form-control mb-2">
+                                <input type="number" id="valorPagamento" name="change" value="{{ $tray[0]->change ?? '' }}"  class="form-control mb-2">
                                 <span class="text-danger alerta-troco"><b>O valor entregue não pode ser menor que o valor total do pedido!</b></span>
                                 <span class="text-success valor-troco"><b></b></span>
                             </div>
