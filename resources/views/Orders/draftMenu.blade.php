@@ -444,18 +444,19 @@
 
                 <div id="paymentStep" hidden>
                     <form id="formPayment" method="post">
+                        <div class="row">
                         @csrf
-                        <div class="col-5">
+                        <div class="col-6">
                             <div class="form-group">
                                 <label for="pagamento"><b>Forma de pagamento:</b></label>
                                 <select name="paymentMode" id="pagamento" class="form-control">
                                     <option disabled selected>Selecione</option>
-                                    <option value="Dinheiro">Dinheiro</option>
-                                    <option value="Mastercard - crédito">Mastercard - crédito</option>
-                                    <option value="Mastercard - débito">Mastercard - débito</option>
-                                    <option value="Elo - crédito">Elo - crédito</option>
-                                    <option value="Elo - débito">Elo - débito</option>
-                                </select>
+                                    <option value="Dinheiro" @selected($tray[0]->paymentMode == 'Dinheiro')>Dinheiro</option>
+                                    <option value="Mastercard - crédito" @selected($tray[0]->paymentMode == 'Mastercard - crédito')>Mastercard - crédito</option>
+                                    <option value="Mastercard - débito" @selected($tray[0]->paymentMode == 'Mastercard - débito')>Mastercard - débito</option>
+                                    <option value="Elo - crédito" @selected($tray[0]->paymentMode == 'Elo - crédito')>Elo - crédito</option>
+                                    <option value="Elo - débito" @selected($tray[0]->paymentMode == 'Elo - débito')>Elo - débito</option>
+                                </select> 
                             </div>
                         </div>
 
@@ -466,9 +467,11 @@
                                 <span class="text-danger alerta-troco"><b>O valor entregue não pode ser menor que o valor total do pedido!</b></span>
                                 <span class="text-success valor-troco"><b></b></span>
                             </div>
+                        </div> 
                         </div>
-                </div>
                     </form>
+                </div>
+                    
 
                 <div id="trayResume" hidden class="row mx-0" >
 
@@ -498,9 +501,9 @@
 
                         <div class="product-data">
                             <p class="address-text">
-                                <b id="addressResume">0</b>
+                                <b id="addressResume">Carregando...</b>
                             </p>
-                            <p class="cityAddress" id="cityAddress">0</p>
+                            <p class="cityAddress" id="cityAddress">Carregando...</p>
                         </div>
                     </div>
 
@@ -511,9 +514,10 @@
 
                         <div class="product-data">
                             <p class="address-text">
-                                <b id="userResume">0</b>
+                                <b id="userResume">Carregando...</b>
                             </p>
-                            <p class="userData" id="userData">0</p>
+                            <p class="userData" id="userData">Carregando...</p>
+
                         </div>
                     </div>
                 </div>
@@ -948,7 +952,10 @@
             $('#trayResume').removeAttr('hidden')
             $('#btnLastBack, #btnResumeStep, #trayResume').fadeIn();
             armazenarMetodoPagamento();
-            buscarEndereco();
+
+            setTimeout(function(){
+                buscarEndereco();
+            }, 1000);
         }
 
         if ($("#pagamento").val() != null){
