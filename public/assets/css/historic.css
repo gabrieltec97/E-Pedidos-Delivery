@@ -1,0 +1,25 @@
+.product-data{
+    flex: 1;
+    margin-left: -200px;
+
+    }
+
+    .resume-product-quantity {
+    color: var(--color-black);
+    font-size: 10px;
+    margin-bottom: 0;
+}
+
+.tray-item{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--color-separate);
+}
+
+.product-img{
+    width: 25%;
+    border-radius: 11px;
+}
