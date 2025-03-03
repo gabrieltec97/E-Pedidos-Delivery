@@ -337,6 +337,38 @@ class TrayController extends Controller
         return response()->json(['message' => 'sucesso!']);
     }
 
+    public function couponApply(Request $request){
+
+        if (Auth::user() == null){
+            if (!$request->cookie('user_identifier')) {
+                // Gera um identificador único
+                $identifier = uniqid( true);
+
+                // Cria o cookie por 30 dias
+                Cookie::queue('user_identifier', $identifier, 43200); // 30 dias
+
+                // Redireciona para a mesma página para que o cookie seja lido corretamente
+                return redirect()->back();
+            }
+
+            // Obtém o cookie e exibe
+            $user = $request->cookie('user_identifier');
+        }else{
+            $user = Auth::user()->id;
+        }
+
+        $tray = DB::table('trays')
+              ->select('id')
+              ->where('user_id', $user)
+              ->get();
+
+        $coupon = DB::table('coupons')
+              ->where('user_id', $request->coupon)
+              ->get();
+              
+        dd($coupon);      
+    }
+
     public function store(Request $request)
     {
         $item = Product::find($request->input('productId'));

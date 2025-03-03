@@ -443,6 +443,25 @@
                 </form>
 
                 <div id="paymentStep" hidden>
+
+                    <form id="cupomForm" method="post" action="{{ route('aplicar-cupom')}}">
+                        @csrf
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="coupon"><b>Cupom:</b></label>
+                                    <input type="text" id="cupom" name="coupon" value="{{ $tray[0]->coupon_apply ?? '' }}"  class="form-control mb-2">
+                                </div>
+                            </div>
+    
+                            <div class="col-6 mt-5">
+                                <div class="form-group">
+                                    <button class="btn btn-primary" id="aplicarCupom">Aplicar cupom</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
                     <form id="formPayment" method="post">
                         <div class="row">
                         @csrf
@@ -734,6 +753,34 @@
                     }
                 });
             }
+
+    $('#aplicarCupom').on('click', function(){
+        function cadastrarEndereço (){
+            var form = $('#cupomForm');
+
+            var formData = new FormData(form[0]);
+
+            $.ajax({
+                url: '{{ route('aplicar-cupom') }}',
+                type: 'POST',
+                data: formData,
+                processData: false,  // Impede que o jQuery processe os dados (necessário para enviar arquivos)
+                contentType: false,  // Impede que o jQuery defina o content-type (necessário para FormData)
+                error: function(xhr, status, error) {
+                    $.toast({
+                        heading: '<b>Oopsss, tivemos um erro!</b>',
+                        showHideTransition: 'slide',
+                        bgColor: 'red',
+                        text: 'Não foi possível registrar seu endereço. Entre em contato com o restaurante para fazer seu pedido.',
+                        hideAfter: 10000,
+                        position: 'top-right',
+                        textColor: 'white',
+                        icon: 'error'
+                    });
+                }
+            });
+        }
+    });        
 
 
     $('#btnAddressStep').on('click', function(e) {
