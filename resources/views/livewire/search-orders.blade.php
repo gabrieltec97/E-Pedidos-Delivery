@@ -45,7 +45,7 @@
                                                 bg-gradient-info
                                             @elseif($order->status == 'Em Preparação')
                                                 bg-gradient-warning
-                                            @elseif($order->status == 'Saiu para entrega')
+                                            @elseif($order->status == 'Em rota de entrega')
                                                 bg-gradient-primary
                                             @elseif($order->status == 'Cancelado')
                                                 bg-gradient-danger
@@ -65,50 +65,72 @@
                         </td>
                     </tr>
 
-                    <!-- Modal -->
-                    <div class="modal fade" id="order{{ $order->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLongTitle">Pedido {{ $order->id }}</h5>
-                                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="container-fluid">
-                                        <div class="row">
-                                            <div class="col-6">
-                                                @foreach($items as $item)
-                                                    <ul>
-                                                        @if($item->order_id == $order->id)
-                                                            <li style="margin-top: -10px">{{ $item->product }} -
+                    <div class="modal fade bd-example-modal-lg" id="order{{ $order->id }}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Pedido {{ $order->id }}</h5>
+                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
 
-                                                                @if($item->ammount > 1)
-                                                                    <p>{{ $item->ammount }} unidades.</p>
-                                                                @else
-                                                                    <p>{{ $item->ammount }} unidade.</p>
-                                                                @endif
+                            <div class="modal-body">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <p>{{$order->created_at}}</p>
+                                            <p>{{$order->user_name}}</p>
+                                            <p>{{ $order->userAdress }}</p>
+                                            @if($order->paymentMode != 'Dinheiro')
+                                                <p>{{$order->paymentMode}}</p>
+                                            @else
+                                                <p>Dinheiro, troco para: {{$order->change}}</p>    
+                                            @endif
 
+                                            @if($order->status == 'Em rota de entrega')
+                                                <p>Em rota de entrega com o entregador {{$order->delivery_man}}</p>
+                                            @elseif($order->status == 'Pedido Entregue')
+                                                <p>Pedido entregue por {{$order->delivery_man}}</p>   
+                                            @endif
+                                            
+
+                                            <p>R$ {{ $order->value }}</p>
+                                        </div>
+                                        <hr>
+                                        <div class="col-12">
+                                            @foreach($items as $item)
+
+                                            @if($item->order_id == $order->id)
+                                                        <div class="col-12 tray-item">
+                                                            <div class="img-product">
+                                                                <img class="product-img" src="{{ asset('assets/img/cardapio/burguers/burger-au-poivre-kit-4-pack.3ca0e39b02db753304cd185638dad518.jpg') }}" />
+                                                            </div>
+                            
+                                                            <div class="product-data">
+                                                                <p class="resume-product-title">
+                                                                    <b>{{ $item->product }}</b>
+                                                                </p>
+                                                            </div>
+                            
+                                                            <p class="resume-product-quantity">
+                                                                x <b>{{ $item->ammount }}</b>
+                                                            </p>
+                                                        </div>
                                                             </li>
                                                         @endif
-                                                    </ul>
-                                                @endforeach
-                                            </div>
-                                            <div class="col-6 d-flex justify-content-end">
-                                                <p>{{ $order->userAdress }}</p>
-                                                <p>R$ {{ $order->value }}</p>
-                                            </div>
+                                            @endforeach
                                         </div>
                                     </div>
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Save changes</button>
-                                </div>
                             </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
+                          </div>
                         </div>
-                    </div>
+                      </div>
                 @endforeach
                 </tbody>
             </table>
