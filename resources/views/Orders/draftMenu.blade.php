@@ -645,10 +645,15 @@
                     method: "GET",
                     success: function (response) {
                         $("#lbl-totalValue, #lbl-totalValueFront").text(response.total);
-                        $("#lbl-subtotal").text("R$ " + response.subtotal);
+                        $("#lbl-subtotal").text("R$: " + response.subtotal);
+                        console.log(response.discount);
+
+                        if(response.sendingValue != null){
+                            $(".delivery-text").fadeIn();
+                            $("#lbl-deliveryValue").text("+ R$ss: " + response.sendingValue);
+                        }
 
                         if(response.discount == 'Frete grátis'){
-
                             $(".delivery-text").fadeIn();
                             $("#lbl-deliveryValue").text("Frete grátis");
                         }

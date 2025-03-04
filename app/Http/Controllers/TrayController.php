@@ -139,7 +139,7 @@ class TrayController extends Controller
         }
 
         $values = DB::table('trays')
-            ->select('value', 'ammount', 'neighbourhood', 'coupon_apply')
+            ->select('value', 'ammount', 'neighbourhood', 'coupon_apply', 'sendingValue')
             ->where('user_id', $user)
             ->get();
 
@@ -184,7 +184,13 @@ class TrayController extends Controller
             $discount = $coupon[0]->type;
         }
 
-        return response()->json(['total' => $total, 'subtotal' => $subtotal, 'discount' => $discount]);
+        if ($values[0]->sendingValue != null){
+            $sendingValue = $values[0]->sendingValue;
+        }else{
+            $sendingValue = null;
+        }
+
+        return response()->json(['total' => $total, 'subtotal' => $subtotal, 'discount' => $discount, 'sendingValue' => $sendingValue]);
     }
     public function taxeCalculator(Request $request)
     {
@@ -405,14 +411,14 @@ class TrayController extends Controller
         }
 
         $tray = DB::table('trays')
-            ->select('id', 'value', 'sendingValue')
+            ->select('id', 'value', 'sendingValue', 'ammount')
             ->where('user_id', $user)
             ->get();
 
         $trayValue = 0;
 
             foreach($tray as $item){
-                $trayValue += floatval( $item->value);
+                $trayValue += floatval( $item->value) * $item->ammount;
             }
 
             $coupon = DB::table('coupons')
