@@ -139,7 +139,7 @@ class TrayController extends Controller
         }
 
         $values = DB::table('trays')
-            ->select('value', 'ammount', 'neighbourhood')
+            ->select('value', 'ammount', 'neighbourhood', 'coupon_apply')
             ->where('user_id', $user)
             ->get();
 
@@ -158,11 +158,31 @@ class TrayController extends Controller
                 $total += floatval($one->value) * $one->ammount;
             }
         }
+
+        $subtotal = $total;
         if ($sum){
             $total += floatval($neighbourhood[0]->taxe);
         }
 
-        return response()->json($total);
+        //Verificando se tem cupom ativo.
+        if($values[0]->coupon_apply != null){
+            $coupon = DB::table('coupons')
+            ->select('type', 'discount')
+            ->where('name', $values[0]->coupon_apply)
+            ->get();
+
+    
+
+            if($coupon[0]->type == 'Dinheiro'){
+                $total -= $coupon[0]->discount;
+            }elseif($coupon[0]->type == 'Porcentagem'){
+                $total - ($total / $coupon[0]->discount);
+            }else{
+                $total -= $neighbourhood[0]->taxe;
+            }
+        }
+
+        return response()->json(['total' => $total, 'subtotal' => $subtotal, 'discount' => $coupon[0]->type]);
     }
     public function taxeCalculator(Request $request)
     {
@@ -280,6 +300,11 @@ class TrayController extends Controller
               ->where('user_id', $user)
               ->get();
 
+        $neighbourhood = DB::table('neighbourhoods')    
+            ->select('taxe')
+            ->where('name', $request->neighbourhood)
+            ->get();  
+
         $update = DB::table('trays')
         ->where('user_id', $user)  // Condição para selecionar o registro com user_id = 5
         ->update([
@@ -290,7 +315,8 @@ class TrayController extends Controller
             'city' => $request->city,
             'complement' => $request->complement,
             'contact' => $request->contact,
-            'number' => $request->number,  // Atualizando o campo3
+            'number' => $request->number,
+            'sendingValue' => $neighbourhood[0]->taxe,  // Atualizando o campo3
         ]);
 
         return response()->json(['message' => 'sucesso!']);
@@ -358,7 +384,7 @@ class TrayController extends Controller
         }
 
         $tray = DB::table('trays')
-            ->select('id', 'value')
+            ->select('id', 'value', 'sendingValue')
             ->where('user_id', $user)
             ->get();
 
@@ -392,7 +418,10 @@ class TrayController extends Controller
                 $found = true;
             }
     
-            return response()->json(['found' => $found, 'message' => $message, 'error' => $error, 'type' => $coupon[0]->type, 'discount' => $coupon[0]->discount]);
+            return response()->json(['found' => $found, 
+            'message' => $message, 'error' => $error, 
+            'type' => $coupon[0]->type, 'discount' => $coupon[0]->discount,
+            'sendingValue' => $tray[0]->sendingValue]);
     }
 
 
@@ -417,15 +446,21 @@ class TrayController extends Controller
         }
 
         $tray = DB::table('trays')
-        ->select('id', 'value')
+        ->select('id', 'value', 'sendingValue')
         ->where('user_id', $user)
         ->get();
+
+        $trayValue = $tray[0]->sendingValue;
+        
+        foreach($tray as $item){
+            $trayValue += floatval( $item->value);
+        }
 
         DB::table('trays')
         ->where('user_id', $user)
         ->update(['coupon_apply' => null]);
 
-        return response()->json(['message' => 'Cupom removido com sucesso!']);
+        return response()->json(['message' => 'Cupom removido com sucesso!', 'value' => $trayValue, 'taxe' => $tray[0]->sendingValue]);
 
     }
 

@@ -30,6 +30,7 @@ return new class extends Migration
             $table->string('comments')->nullable();
             $table->string('paymentMode')->nullable();
             $table->string('change')->nullable();
+            $table->string('sendingValue')->nullable();
             $table->timestamps();
         });
     }

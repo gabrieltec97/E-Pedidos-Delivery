@@ -644,8 +644,17 @@
                     url: "{{ route('price.data') }}",
                     method: "GET",
                     success: function (response) {
-                        $("#lbl-totalValue").text(response);
-                        $("#lbl-subtotal, #lbl-totalValueFront").text("R$ " + response);
+                        $("#lbl-totalValue, #lbl-totalValueFront").text(response.total);
+                        $("#lbl-subtotal").text("R$ " + response.subtotal);
+
+                        console.log(response.discount)
+
+                        if(response.discount == 'Frete grátis'){
+
+                            $(".delivery-text").fadeIn();
+                            $("#lbl-deliveryValue").text("Frete grátis");
+                        }
+                        
                     },
                     error: function () {
                         console.error("Erro ao buscar valor total");
@@ -740,8 +749,8 @@
                     url: "{{ route('price.data') }}",
                     method: "GET",
                     success: function (response) {
-                        $("#lbl-totalValue").text(response);
-                        $("#lbl-totalValueFront").text("R$ " + response);
+                        $("#lbl-totalValue").text(response.total);
+                        $("#lbl-totalValueFront").text("R$ " + response.total);
                     },
                     error: function () {
                         console.error("Erro ao buscar valor total");
@@ -936,6 +945,9 @@
                     });
 
                         if(response.type == 'Frete grátis'){
+                            let valor = parseFloat($("#lbl-totalValue").text()) - response.sendingValue;
+
+                            $("#lbl-totalValueFront").text("R$ " + valor);
                             $("#lbl-deliveryValue").text("Frete grátis");
                             $("#cadastrarCupom").fadeOut();
                             $("#removerCupom").fadeIn();
@@ -989,7 +1001,7 @@
 
     $("#removerCupom").on('click', function(){
             $.ajax({
-                url: '{{ route('remover-cupom')}}',
+                url: '{{ route('removerCupom')}}',
                 method: 'GET',
                 success: function(response) {
                     $.toast({
@@ -1002,6 +1014,17 @@
                         textColor: '#ecf0f1',
                         icon: 'success'
                     });
+
+                    $("#coupon").removeAttr('disabled').css('cursor', 'inherit').val('');
+                    $("#cadastrarCupom").fadeIn();
+                    $("#removerCupom").fadeOut();
+                    $("#lbl-totalValueFront").text("R$ " + response.value);
+
+                    if(response.value == 0){
+                        $("#lbl-deliveryValue").text("Frete grátis");
+                    }else{
+                        $("#lbl-deliveryValue").text("+ R$ " + response.taxe);
+                    }
                     
                 },
                 error: function(xhr, status, error) {
