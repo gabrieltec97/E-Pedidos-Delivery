@@ -44,7 +44,7 @@ Route::get('/recuperar-preco', [TrayController::class, 'findPrice'])->name('pric
 Route::post('/capturar-endereco', [TrayController::class, 'trackAddress'])->name('capturar-endereco');
 Route::get('/recuperar-endereco', [TrayController::class, 'findData'])->name('recuperar-endereco');
 Route::get('revisar-pedido', [OrderController::class, 'review'])->name('review');
-Route::post('/aplicar-cupom', [TrayController::class, 'couponApply'])->name('aplicar-cupom');
+Route::post('/verificar-cupom', [TrayController::class, 'checkCoupon'])->name('verificar-cupom');
 Route::resource('/pedidos', OrderController::class);
 
 Route::get('log', function (){

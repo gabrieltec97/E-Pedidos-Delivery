@@ -444,24 +444,18 @@
 
                 <div id="paymentStep" hidden>
 
-                    <form id="cupomForm" method="post" action="{{ route('aplicar-cupom')}}">
+                    <form id="formCoupon" method="post">
                         @csrf
                         <div class="row">
                             <div class="col-6">
-                                <div class="form-group">
-                                    <label for="coupon"><b>Cupom:</b></label>
-                                    <input type="text" id="cupom" name="coupon" value="{{ $tray[0]->coupon_apply ?? '' }}"  class="form-control mb-2">
-                                </div>
+                                <label for="coupon"><b>Cupom:</b></label>
+                                <input type="text" id="coupon" name="coupon" value="{{ $tray[0]->coupon_apply ?? '' }}"  class="form-control mb-2">
                             </div>
-    
-                            <div class="col-6 mt-5">
-                                <div class="form-group">
-                                    <button class="btn btn-primary" id="aplicarCupom">Aplicar cupom</button>
-                                </div>
-                            </div>
-                        </div>
                     </form>
-
+                    <div class="col-6">
+                        <a class="btn btn-primary mt-5 text-white" id="cadastrarCupom">Adicionar cupom</a>
+                    </div>
+                </div>
                     <form id="formPayment" method="post">
                         <div class="row">
                         @csrf
@@ -754,33 +748,6 @@
                 });
             }
 
-    $('#aplicarCupom').on('click', function(){
-        function cadastrarEndereço (){
-            var form = $('#cupomForm');
-
-            var formData = new FormData(form[0]);
-
-            $.ajax({
-                url: '{{ route('aplicar-cupom') }}',
-                type: 'POST',
-                data: formData,
-                processData: false,  // Impede que o jQuery processe os dados (necessário para enviar arquivos)
-                contentType: false,  // Impede que o jQuery defina o content-type (necessário para FormData)
-                error: function(xhr, status, error) {
-                    $.toast({
-                        heading: '<b>Oopsss, tivemos um erro!</b>',
-                        showHideTransition: 'slide',
-                        bgColor: 'red',
-                        text: 'Não foi possível registrar seu endereço. Entre em contato com o restaurante para fazer seu pedido.',
-                        hideAfter: 10000,
-                        position: 'top-right',
-                        textColor: 'white',
-                        icon: 'error'
-                    });
-                }
-            });
-        }
-    });        
 
 
     $('#btnAddressStep').on('click', function(e) {
@@ -940,6 +907,76 @@
             }
         });
     });
+
+    $("#cadastrarCupom").on('click', function(){
+        var form = $('#formCoupon'); // Seleciona o formulário com ID 'formAddress'
+
+            var formData = new FormData(form[0]); // Cria o objeto FormData com os dados do formulário
+
+            $.ajax({
+                url: '{{ route('verificar-cupom') }}',
+                type: 'POST',
+                data: formData,  // Dados do formulário
+                processData: false,  // Impede que o jQuery processe os dados (necessário para enviar arquivos)
+                contentType: false,  // Impede que o jQuery defina o content-type (necessário para FormData)
+                success: function(response) {
+
+                   if(response.found == true){
+
+                    $.toast({
+                        heading: '<b>Tudo certo!</b>',
+                        showHideTransition: 'slide',  // It can be plain, fade or slide
+                        bgColor: '#2ecc71',
+                        text: response.message,
+                        hideAfter: 8000,
+                        position: 'top-right',
+                        textColor: '#ecf0f1',
+                        icon: 'success'
+                    });
+
+
+
+                        if(response.type == 'Frete grátis'){
+                            $("#lbl-deliveryValue").text("Frete grátis");
+
+                        }else if(response.type == 'Porcentagem'){
+                            let valor = parseFloat($("#lbl-totalValue").text()) - (parseFloat($("#lbl-totalValue").text()) / parseInt(response.discount));
+                            
+                            $("#lbl-totalValueFront").text("R$ " + valor);
+
+                        }else if(response.type == 'Dinheiro'){
+                            let valor = parseFloat($("#lbl-totalValue").text()) - parseInt(response.discount);
+                            
+                            $("#lbl-totalValueFront").text("R$ " + valor);
+                        }
+                   }else{
+                    $.toast({
+                        heading: '<b>Cupom não encontrado!</b>',
+                        showHideTransition: 'slide',
+                        bgColor: 'red',
+                        text: 'Não foi possível encontrar este cupom, ele pode ter expirado ou você digitou de forma incorreta.',
+                        hideAfter: 10000,
+                        position: 'top-right',
+                        textColor: 'white',
+                        icon: 'error'
+                    });
+                   }
+                },
+                error: function(xhr, status, error) {
+                    $.toast({
+                        heading: '<b>Oopsss, tivemos um erro!</b>',
+                        showHideTransition: 'slide',
+                        bgColor: 'red',
+                        text: 'Não foi possível registrar seu meio de pagamento. Entre em contato com o restaurante para fazer seu pedido.',
+                        hideAfter: 10000,
+                        position: 'top-right',
+                        textColor: 'white',
+                        icon: 'error'
+                    });
+                }
+            });
+    });
+
 
     $("#btnCheck").on('click', function (){
 

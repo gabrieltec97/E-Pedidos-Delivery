@@ -337,8 +337,8 @@ class TrayController extends Controller
         return response()->json(['message' => 'sucesso!']);
     }
 
-    public function couponApply(Request $request){
-
+    public function checkCoupon(Request $request)
+    {
         if (Auth::user() == null){
             if (!$request->cookie('user_identifier')) {
                 // Gera um identificador único
@@ -358,15 +358,38 @@ class TrayController extends Controller
         }
 
         $tray = DB::table('trays')
-              ->select('id')
-              ->where('user_id', $user)
-              ->get();
+            ->select('id', 'value')
+            ->where('user_id', $user)
+            ->get();
 
-        $coupon = DB::table('coupons')
-              ->where('user_id', $request->coupon)
-              ->get();
-              
-        dd($coupon);      
+        $trayValue = 0;
+        
+            foreach($tray as $item){
+                $trayValue += floatval( $item->value);
+            }
+    
+            $coupon = DB::table('coupons')
+                  ->where('name', $request->coupon)
+                  ->get();
+    
+    
+            $error = false;
+            $message = '';
+            $found = false;
+            if($coupon[0]->role < $trayValue){
+                DB::table('trays')
+                ->where('user_id', $user)
+                ->update(['coupon_apply' => $coupon[0]->name]);
+    
+                $message = 'O cupom '. $coupon[0]->name . ' foi aplicado com sucesso!';
+                $found = true;
+            }else{
+                $error = true;
+                $message =  'O cupom '. $coupon[0]->name . ' só pode ser utilizado para compras acima de '. $coupon[0]->role . ' reais.';
+                $found = true;
+            }
+    
+            return response()->json(['found' => $found, 'message' => $message, 'error' => $error, 'type' => $coupon[0]->type, 'discount' => $coupon[0]->discount]);
     }
 
     public function store(Request $request)
