@@ -219,10 +219,10 @@ class TrayController extends Controller
                 ->select('type')
                 ->where('name', $tray[0]->coupon_apply)
                 ->get();
-    
+
                 if($coupon[0]->type == 'Frete grátis'){
                     $discount = $coupon[0]->type;
-                }  
+                }
             }
 
         $local = $request->input('local');
@@ -321,10 +321,10 @@ class TrayController extends Controller
               ->where('user_id', $user)
               ->get();
 
-        $neighbourhood = DB::table('neighbourhoods')    
+        $neighbourhood = DB::table('neighbourhoods')
             ->select('taxe')
             ->where('name', $request->neighbourhood)
-            ->get();  
+            ->get();
 
         $update = DB::table('trays')
         ->where('user_id', $user)  // Condição para selecionar o registro com user_id = 5
@@ -410,27 +410,27 @@ class TrayController extends Controller
             ->get();
 
         $trayValue = 0;
-        
+
             foreach($tray as $item){
                 $trayValue += floatval( $item->value);
             }
-    
+
             $coupon = DB::table('coupons')
                   ->where('name', $request->coupon)
                   ->get();
 
-            $found = false;      
+            $found = false;
             if (count($coupon) == 0){
                 return response()->json(['found' => $found]);
-            }   
-    
+            }
+
             $error = false;
             $message = '';
             if($coupon[0]->role < $trayValue){
                 DB::table('trays')
                 ->where('user_id', $user)
                 ->update(['coupon_apply' => $coupon[0]->name]);
-    
+
                 $message = 'O cupom '. $coupon[0]->name . ' foi aplicado com sucesso!';
                 $found = true;
             }else{
@@ -438,9 +438,9 @@ class TrayController extends Controller
                 $message =  'O cupom '. $coupon[0]->name . ' só pode ser utilizado para compras acima de '. $coupon[0]->role . ' reais.';
                 $found = true;
             }
-    
-            return response()->json(['found' => $found, 
-            'message' => $message, 'error' => $error, 
+
+            return response()->json(['found' => $found,
+            'message' => $message, 'error' => $error,
             'type' => $coupon[0]->type, 'discount' => $coupon[0]->discount,
             'sendingValue' => $tray[0]->sendingValue]);
     }
@@ -467,21 +467,24 @@ class TrayController extends Controller
         }
 
         $tray = DB::table('trays')
-        ->select('id', 'value', 'sendingValue')
+        ->select('id', 'value', 'sendingValue', 'ammount')
         ->where('user_id', $user)
         ->get();
 
         $trayValue = $tray[0]->sendingValue;
-        
+        $subtotal = 0;
         foreach($tray as $item){
-            $trayValue += floatval( $item->value);
+            $subtotal += floatval($item->value) * $item->ammount;
         }
+
+        $trayValue = $tray[0]->sendingValue + $subtotal;
 
         DB::table('trays')
         ->where('user_id', $user)
         ->update(['coupon_apply' => null]);
 
-        return response()->json(['message' => 'Cupom removido com sucesso!', 'value' => $trayValue, 'taxe' => $tray[0]->sendingValue]);
+        return response()->json(['message' => 'Cupom removido com sucesso!', 'value' => $trayValue,
+            'taxe' => $tray[0]->sendingValue, 'subtotal' => $subtotal]);
 
     }
 

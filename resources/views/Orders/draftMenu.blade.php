@@ -471,7 +471,7 @@
                                     <option value="Elo - crédito" @selected(isset($tray[0]) && $tray[0]->paymentMode == 'Elo - crédito')>Elo - crédito</option>
                                     <option value="Elo - débito" @selected(isset($tray[0]) && $tray[0]->paymentMode == 'Elo - débito')>Elo - débito</option>
                                 </select>
-                                
+
                             </div>
                         </div>
 
@@ -482,11 +482,11 @@
                                 <span class="text-danger alerta-troco"><b>O valor entregue não pode ser menor que o valor total do pedido!</b></span>
                                 <span class="text-success valor-troco"><b></b></span>
                             </div>
-                        </div> 
+                        </div>
                         </div>
                     </form>
                 </div>
-                    
+
 
                 <div id="trayResume" hidden class="row mx-0" >
 
@@ -652,7 +652,7 @@
                             $(".delivery-text").fadeIn();
                             $("#lbl-deliveryValue").text("Frete grátis");
                         }
-                        
+
                     },
                     error: function () {
                         console.error("Erro ao buscar valor total");
@@ -891,7 +891,7 @@
                         }else{
                             $("#lbl-deliveryValue").text("+ R$ " + response.taxe);
                         }
-                        
+
                         cadastrarEndereço();
                         verificarPedido();
                         manterSubtotal();
@@ -953,7 +953,7 @@
 
                         }else if(response.type == 'Porcentagem'){
                             let valor = parseFloat($("#lbl-totalValue").text()) - (parseFloat($("#lbl-totalValue").text()) / parseInt(response.discount));
-                            
+
                             $("#lbl-totalValueFront").text("R$ " + valor);
                             $("#cadastrarCupom").fadeOut();
                             $("#removerCupom").fadeIn();
@@ -961,7 +961,7 @@
 
                         }else if(response.type == 'Dinheiro'){
                             let valor = parseFloat($("#lbl-totalValue").text()) - parseInt(response.discount);
-                            
+
                             $("#lbl-totalValueFront").text("R$ " + valor);
                             $("#cadastrarCupom").fadeOut();
                             $("#removerCupom").fadeIn();
@@ -1017,13 +1017,14 @@
                     $("#cadastrarCupom").fadeIn();
                     $("#removerCupom").fadeOut();
                     $("#lbl-totalValueFront").text("R$ " + response.value);
+                    $("#lbl-subtotal").text("R$ " + response.subtotal)
 
                     if(response.value == 0){
                         $("#lbl-deliveryValue").text("Frete grátis");
                     }else{
                         $("#lbl-deliveryValue").text("+ R$ " + response.taxe);
                     }
-                    
+
                 },
                 error: function(xhr, status, error) {
                     console.log(error)
