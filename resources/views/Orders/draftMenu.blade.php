@@ -647,8 +647,6 @@
                         $("#lbl-totalValue, #lbl-totalValueFront").text(response.total);
                         $("#lbl-subtotal").text("R$ " + response.subtotal);
 
-                        console.log(response.discount)
-
                         if(response.discount == 'Frete grátis'){
 
                             $(".delivery-text").fadeIn();
@@ -888,12 +886,12 @@
                         $('#btnCheck, #btnSecondBack, #paymentStep').fadeIn();
 
                         $(".delivery-text").fadeIn();
-                        if (response != 0){
-                            $("#lbl-deliveryValue").text("+ R$ " + response);
-                        }else{
+                        if(response.taxe == 0 || response.discount == 'Frete grátis'){
                             $("#lbl-deliveryValue").text("Frete grátis");
+                        }else{
+                            $("#lbl-deliveryValue").text("+ R$ " + response.taxe);
                         }
-
+                        
                         cadastrarEndereço();
                         verificarPedido();
                         manterSubtotal();

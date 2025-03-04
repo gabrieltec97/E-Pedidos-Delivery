@@ -164,14 +164,14 @@ class TrayController extends Controller
             $total += floatval($neighbourhood[0]->taxe);
         }
 
+        $discount = 0;
+
         //Verificando se tem cupom ativo.
         if($values[0]->coupon_apply != null){
             $coupon = DB::table('coupons')
             ->select('type', 'discount')
             ->where('name', $values[0]->coupon_apply)
             ->get();
-
-    
 
             if($coupon[0]->type == 'Dinheiro'){
                 $total -= $coupon[0]->discount;
@@ -180,9 +180,11 @@ class TrayController extends Controller
             }else{
                 $total -= $neighbourhood[0]->taxe;
             }
+
+            $discount = $coupon[0]->type;
         }
 
-        return response()->json(['total' => $total, 'subtotal' => $subtotal, 'discount' => $coupon[0]->type]);
+        return response()->json(['total' => $total, 'subtotal' => $subtotal, 'discount' => $discount]);
     }
     public function taxeCalculator(Request $request)
     {
@@ -204,6 +206,25 @@ class TrayController extends Controller
             $user = Auth::user()->id;
         }
 
+        $tray = DB::table('trays')
+            ->select('coupon_apply')
+            ->where('user_id', $user)
+            ->get();
+
+            $discount = null;
+
+            //Verificando se tem cupom ativo.
+            if($tray[0]->coupon_apply != null){
+                $coupon = DB::table('coupons')
+                ->select('type')
+                ->where('name', $tray[0]->coupon_apply)
+                ->get();
+    
+                if($coupon[0]->type == 'Frete grátis'){
+                    $discount = $coupon[0]->type;
+                }  
+            }
+
         $local = $request->input('local');
 
         $neighborhoods = Neighbourhood::all();
@@ -216,7 +237,7 @@ class TrayController extends Controller
             }
         }
 
-        return response()->json($taxe);
+        return response()->json(['taxe' => $taxe, 'discount' => $discount]);
     }
 
     public function refreshTray(Request $userID){
