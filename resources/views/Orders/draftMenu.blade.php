@@ -449,17 +449,18 @@
                         <div class="row">
                             <div class="col-6">
                                 <label for="coupon"><b>Cupom:</b></label>
-                                <input type="text" id="coupon" name="coupon" value="{{ $tray[0]->coupon_apply ?? '' }}"  class="form-control mb-2">
+                                <input type="text" id="coupon" name="coupon" value="{{ $tray[0]->coupon_apply ?? '' }}" class="form-control mb-2" {{ isset($tray[0]->coupon_apply) ? 'disabled' : '' }} style="{{ isset($tray[0]->coupon_apply) ? 'cursor: not-allowed;' : '' }}">
                             </div>
                     </form>
                     <div class="col-6">
-                        <a class="btn btn-primary mt-5 text-white" id="cadastrarCupom">Adicionar cupom</a>
+                        <a class="btn btn-primary mt-5 text-white" style="{{ isset($tray[0]->coupon_apply) ? 'display: none;' : '' }}" id="cadastrarCupom">Adicionar cupom</a>
+                        <a class="btn btn-danger mt-5 text-white" id="removerCupom" title="Remover cupom" style="{{ !isset($tray[0]->coupon_apply) ? 'display: none;' : '' }}"><i class="fas fa-trash"></i></a>
                     </div>
                 </div>
                     <form id="formPayment" method="post">
                         <div class="row">
                         @csrf
-                        <div class="col-6">
+                        <div class="col-6 mt-5">
                             <div class="form-group">
                                 <label for="pagamento"><b>Forma de pagamento:</b></label>
                                 <select name="paymentMode" id="pagamento" class="form-control">
@@ -474,7 +475,7 @@
                             </div>
                         </div>
 
-                        <div class="col-6 valor-entregue">
+                        <div class="col-6 valor-entregue mt-5">
                             <div class="form-group">
                                 <label for="valorPagamento"><b>Quanto você irá entregar:</b></label>
                                 <input type="number" id="valorPagamento" name="change" value="{{ $tray[0]->change ?? '' }}"  class="form-control mb-2">
@@ -934,22 +935,30 @@
                         icon: 'success'
                     });
 
-
-
                         if(response.type == 'Frete grátis'){
                             $("#lbl-deliveryValue").text("Frete grátis");
+                            $("#cadastrarCupom").fadeOut();
+                            $("#removerCupom").fadeIn();
+                            $("#coupon").prop('disabled', true).css('cursor', 'not-allowed');
 
                         }else if(response.type == 'Porcentagem'){
                             let valor = parseFloat($("#lbl-totalValue").text()) - (parseFloat($("#lbl-totalValue").text()) / parseInt(response.discount));
                             
                             $("#lbl-totalValueFront").text("R$ " + valor);
+                            $("#cadastrarCupom").fadeOut();
+                            $("#removerCupom").fadeIn();
+                            $("#coupon").prop('disabled', true).css('cursor', 'not-allowed');
 
                         }else if(response.type == 'Dinheiro'){
                             let valor = parseFloat($("#lbl-totalValue").text()) - parseInt(response.discount);
                             
                             $("#lbl-totalValueFront").text("R$ " + valor);
+                            $("#cadastrarCupom").fadeOut();
+                            $("#removerCupom").fadeIn();
+                            $("#coupon").prop('disabled', true).css('cursor', 'not-allowed');
                         }
                    }else{
+                    console.log('false');
                     $.toast({
                         heading: '<b>Cupom não encontrado!</b>',
                         showHideTransition: 'slide',
@@ -973,6 +982,31 @@
                         textColor: 'white',
                         icon: 'error'
                     });
+                }
+            });
+    });
+
+
+    $("#removerCupom").on('click', function(){
+            $.ajax({
+                url: '{{ route('remover-cupom')}}',
+                method: 'GET',
+                success: function(response) {
+                    $.toast({
+                        heading: '<b>Tudo certo!</b>',
+                        showHideTransition: 'slide',  // It can be plain, fade or slide
+                        bgColor: '#2ecc71',
+                        text: response.message,
+                        hideAfter: 8000,
+                        position: 'top-right',
+                        textColor: '#ecf0f1',
+                        icon: 'success'
+                    });
+                    
+                },
+                error: function(xhr, status, error) {
+                    console.log(error)
+                    alert("Erro ao buscar o endereço:", error);
                 }
             });
     });

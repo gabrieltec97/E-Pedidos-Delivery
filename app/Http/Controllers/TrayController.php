@@ -371,11 +371,14 @@ class TrayController extends Controller
             $coupon = DB::table('coupons')
                   ->where('name', $request->coupon)
                   ->get();
-    
+
+            $found = false;      
+            if (count($coupon) == 0){
+                return response()->json(['found' => $found]);
+            }   
     
             $error = false;
             $message = '';
-            $found = false;
             if($coupon[0]->role < $trayValue){
                 DB::table('trays')
                 ->where('user_id', $user)
@@ -390,6 +393,40 @@ class TrayController extends Controller
             }
     
             return response()->json(['found' => $found, 'message' => $message, 'error' => $error, 'type' => $coupon[0]->type, 'discount' => $coupon[0]->discount]);
+    }
+
+
+    public function removeCoupon(Request $request){
+
+        if (Auth::user() == null){
+            if (!$request->cookie('user_identifier')) {
+                // Gera um identificador único
+                $identifier = uniqid( true);
+
+                // Cria o cookie por 30 dias
+                Cookie::queue('user_identifier', $identifier, 43200); // 30 dias
+
+                // Redireciona para a mesma página para que o cookie seja lido corretamente
+                return redirect()->back();
+            }
+
+            // Obtém o cookie e exibe
+            $user = $request->cookie('user_identifier');
+        }else{
+            $user = Auth::user()->id;
+        }
+
+        $tray = DB::table('trays')
+        ->select('id', 'value')
+        ->where('user_id', $user)
+        ->get();
+
+        DB::table('trays')
+        ->where('user_id', $user)
+        ->update(['coupon_apply' => null]);
+
+        return response()->json(['message' => 'Cupom removido com sucesso!']);
+
     }
 
     public function store(Request $request)
