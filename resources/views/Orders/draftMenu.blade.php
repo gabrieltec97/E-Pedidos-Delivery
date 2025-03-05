@@ -581,6 +581,10 @@
 
     <script>
         $(document).ready(function () {
+             if($("#valorPagamento").val() != ''){
+                 $(".valor-entregue").fadeIn();
+             }
+
             function atualizarContagemBandeja() {
                 const countUrl = "{{ route('cardapio.count') }}";
                 $.ajax({
