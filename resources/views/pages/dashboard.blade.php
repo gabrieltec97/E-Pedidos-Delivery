@@ -153,7 +153,7 @@
                         </h4>
 
                         <div class="d-flex gap-2">
-                            <select name="month" class="form-control w-100" onchange="exibirModal()">
+                            <select name="month" class="form-control w-100 month" style="cursor: pointer;" onchange="exibirModal()">
                                 <option value="" selected disabled>Selecione</option>
                                 <option value="Janeiro"  @if($selectedMonth == 'Janeiro') selected @endif>Janeiro</option>
                                 <option value="Fevereiro" @if($selectedMonth == 'Fevereiro') selected @endif>Fevereiro</option>
@@ -169,12 +169,13 @@
                                 <option value="Dezembro" @if($selectedMonth == 'Dezembro') selected @endif>Dezembro</option>
                             </select>
 
-                            <select name="year" class="form-control w-auto" onchange="exibirModal()">
-                                <option value="" selected disabled>Selecione</option>
+                            <select name="year" class="form-control w-auto year" style="cursor: pointer;" onchange="exibirModal()">
                                 <option value="2023">2023</option>
                                 <option value="2024">2024</option>
-                                <option value="2025">2025</option>
+                                <option value="2025" selected>2025</option>
                             </select>
+
+                            <button class="btn btn-primary buscar" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa-solid fa-magnifying-glass"></i></button>
                         </div>
                     </div>
 
@@ -292,10 +293,6 @@
 
 @endsection
 
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" hidden="true" id="clickhere" data-bs-toggle="modal" data-bs-target="#exampleModal">
-</button>
-
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -305,7 +302,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                Deseja recuperar dados sobre o mês de <span id="mesSelecionado"></span>?
+                Deseja recuperar dados sobre <span id="dadosFiltrados"></span>?
 
                 <form action="{{ route('home') }}" method="get">
                     @csrf
@@ -322,21 +319,10 @@
 
 
 <script>
-    function exibirModal() {
-        var select = document.querySelector("select[name='month']");
-        var mesSelecionado = select.value; // Obtém o valor do mês selecionado
-
-        // Atualiza o conteúdo do modal
-        document.getElementById("mesSelecionado").textContent = mesSelecionado;
-        document.getElementById("inputmonth").value = mesSelecionado;
-
-        document.getElementById('clickhere').click();
-    }
-
-
-{{--    @if(request('month'))--}}
-{{--         --}}
-{{--    @endif--}}
+    $(".buscar").on('click', function (){
+        console.log('click');
+        $("#dadosFiltrados").text($(".month").val() + ' de ' + $(".year").val());
+    });
 
 </script>
 
