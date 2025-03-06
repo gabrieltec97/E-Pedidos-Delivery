@@ -34,6 +34,7 @@ class HomeController extends Controller
     public function index(AreaChart $chart, MonthChart $chart2, Request $request)
     {
 
+        $year = date("Y");
         $lowstock = DB::table('products')->where('stock', '<', 15)->count();
         $todayOrders = DB::table('orders')
             ->where('status', 'Pedido Entregue')
@@ -62,18 +63,35 @@ class HomeController extends Controller
             ->get();
         $totalItems = [];
 
-        foreach ($items as $item) {
-            $countItems = DB::table('order_items')
-                ->select('ammount')
-                ->where('product', $item->name)
-                ->where('month', $this->monthConverter())
-                ->get();
-            $total = 0;
-            foreach ($countItems as $countItem) {
-                $total += $countItem->ammount;
+        if (isset($request->month)){
+            foreach ($items as $item) {
+                $countItems = DB::table('order_items')
+                    ->select('ammount')
+                    ->where('product', $item->name)
+                    ->where('month', $request->month)
+//                    ->where('year', $year)
+                    ->get();
+                $total = 0;
+                foreach ($countItems as $countItem) {
+                    $total += $countItem->ammount;
+                }
+                array_push($totalItems, ['name' => $item->name, 'total' => $total]);
             }
-            array_push($totalItems, ['name' => $item->name, 'total' => $total]);
+        }else{
+            foreach ($items as $item) {
+                $countItems = DB::table('order_items')
+                    ->select('ammount')
+                    ->where('product', $item->name)
+                    ->where('month', $this->monthConverter())
+                    ->get();
+                $total = 0;
+                foreach ($countItems as $countItem) {
+                    $total += $countItem->ammount;
+                }
+                array_push($totalItems, ['name' => $item->name, 'total' => $total]);
+            }
         }
+
 
         //Ordenando o array para ordem decrecente.
         $keys = array_column($totalItems, 'total');
@@ -83,14 +101,46 @@ class HomeController extends Controller
         $countForPercent = DB::table('orders')->where('status', 'Pedido Entregue')->count();
         $totalOrders = [];
 
-        foreach ($neighborhoods as $neighborhood){
-            $count = DB::table('orders')->where('neighborhood', $neighborhood->name)->count();
-            $totalNeighborhood = DB::table('orders')->where('neighborhood', $neighborhood->name)->sum('value');
-            $percentOrders = ($count / $countForPercent) * 100;
-            array_push($totalOrders, ['name' => $neighborhood->name, 'total' => $count,
-                'porcentagem' => round($percentOrders,2), 'totalValue' => $totalNeighborhood]);
+        if(isset($request->month)){
+            foreach ($neighborhoods as $neighborhood){
+                $count = DB::table('orders')
+                    ->where('neighborhood', $neighborhood->name)
+                    ->where('status', 'Pedido Entregue')
+                    ->where('month', $request->month)
+                    ->where('year', $year)
+                    ->count();
+
+                $totalNeighborhood = DB::table('orders')
+                    ->where('neighborhood', $neighborhood->name)
+                    ->where('status', 'Pedido Entregue')
+                    ->where('month', $request->month)
+                    ->where('year', $year)
+                    ->sum('value');
+                $percentOrders = ($count / $countForPercent) * 100;
+                array_push($totalOrders, ['name' => $neighborhood->name, 'total' => $count,
+                    'porcentagem' => round($percentOrders,2), 'totalValue' => $totalNeighborhood]);
 //            $totalOrders[$neighborhood->name] = $count;
+            }
+        }else{
+            foreach ($neighborhoods as $neighborhood){
+                $count = DB::table('orders')
+                    ->where('neighborhood', $neighborhood->name)
+                    ->where('month', $this->monthConverter())
+                    ->where('year', $year)
+                    ->count();
+                $totalNeighborhood = DB::table('orders')
+                    ->where('neighborhood', $neighborhood->name)
+                    ->where('month', $this->monthConverter())
+                    ->where('year', $year)
+                    ->sum('value');
+
+                $percentOrders = ($count / $countForPercent) * 100;
+                array_push($totalOrders, ['name' => $neighborhood->name, 'total' => $count,
+                    'porcentagem' => round($percentOrders,2), 'totalValue' => $totalNeighborhood]);
+//            $totalOrders[$neighborhood->name] = $count;
+            }
         }
+
 
         //Ordenando o array para ordem decrecente.
         $keys = array_column($totalOrders, 'total');
@@ -226,7 +276,9 @@ class HomeController extends Controller
             'totalItems' => $totalItems,
             'ammount' =>  number_format($ammount, 2, ',', '.'),
             'moneyMetrics' => $moneyMetrics,
-            'orders' => $todayOrders
+            'orders' => $todayOrders,
+            'year' => $year,
+            'month' => $this->monthConverter()
         ]);
     }
 }

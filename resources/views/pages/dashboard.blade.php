@@ -134,26 +134,48 @@
                     </div>
                 </div>
             </div>
+            @php
+                if (request('month') != ''){
+                   $selectedMonth = request('month');
+                }else{
+                   $selectedMonth = $month;
+                }
+            @endphp
             <div id="metricsDiv" class="col-lg-12 mt-4 mb-lg-0 mb-4">
                 <div class="card z-index-2 h-100">
-                    <div class="card-header pb-0 pt-3 bg-transparent d-flex justify-content-between align-items-center">
-                        <h4 class="text-capitalize mb-0">Métricas por mês</h4>
-                        <!-- Menu Select -->
-                        <select name="month" class="form-control w-25 mb-3" onchange="exibirModal()">
-                            <option value="" selected disabled>Selecione</option>
-                            <option value="Janeiro"  @if(request('month') == 'Janeiro') selected @endif>Janeiro</option>
-                            <option value="Fevereiro" @if(request('month') == 'Fevereiro') selected @endif>Fevereiro</option>
-                            <option value="Março" @if(request('month') == 'Março') selected @endif>Março</option>
-                            <option value="Abril" @if(request('month') == 'Abril') selected @endif>Abril</option>
-                            <option value="Maio" @if(request('month') == 'Maio') selected @endif>Maio</option>
-                            <option value="Junho" @if(request('month') == 'Junho') selected @endif>Junho</option>
-                            <option value="Julho" @if(request('month') == 'Julho') selected @endif>Julho</option>
-                            <option value="Agosto" @if(request('month') == 'Agosto') selected @endif>Agosto</option>
-                            <option value="Setembro" @if(request('month') == 'Setembro') selected @endif>Setembro</option>
-                            <option value="Outubro" @if(request('mont') == 'Outubro') selected @endif>Outubro</option>
-                            <option value="Novembro" @if(request('mont') == 'Novembro') selected @endif>Novembro</option>
-                            <option value="Dezembro" @if(request('mont') == 'Dezembro') selected @endif>Dezembro</option>
-                        </select>
+                    <div class="card-header pb-3 pt-3 bg-transparent d-flex justify-content-between align-items-center">
+                        <h4 class="mb-0">
+                            @if(request('month') == '')
+                                Métricas deste mês
+                            @else
+                                Métricas do mês de {{ $selectedMonth }}
+                            @endif
+                        </h4>
+
+                        <div class="d-flex gap-2">
+                            <select name="month" class="form-control w-100" onchange="exibirModal()">
+                                <option value="" selected disabled>Selecione</option>
+                                <option value="Janeiro"  @if($selectedMonth == 'Janeiro') selected @endif>Janeiro</option>
+                                <option value="Fevereiro" @if($selectedMonth == 'Fevereiro') selected @endif>Fevereiro</option>
+                                <option value="Março" @if($selectedMonth == 'Marco') selected @endif>Março</option>
+                                <option value="Abril" @if($selectedMonth == 'Abril') selected @endif>Abril</option>
+                                <option value="Maio" @if($selectedMonth == 'Maio') selected @endif>Maio</option>
+                                <option value="Junho" @if($selectedMonth == 'Junho') selected @endif>Junho</option>
+                                <option value="Julho" @if($selectedMonth == 'Julho') selected @endif>Julho</option>
+                                <option value="Agosto" @if($selectedMonth == 'Agosto') selected @endif>Agosto</option>
+                                <option value="Setembro" @if($selectedMonth == 'Setembro') selected @endif>Setembro</option>
+                                <option value="Outubro" @if($selectedMonth == 'Outubro') selected @endif>Outubro</option>
+                                <option value="Novembro" @if($selectedMonth == 'Novembro') selected @endif>Novembro</option>
+                                <option value="Dezembro" @if($selectedMonth == 'Dezembro') selected @endif>Dezembro</option>
+                            </select>
+
+                            <select name="year" class="form-control w-auto" onchange="exibirModal()">
+                                <option value="" selected disabled>Selecione</option>
+                                <option value="2023">2023</option>
+                                <option value="2024">2024</option>
+                                <option value="2025">2025</option>
+                            </select>
+                        </div>
                     </div>
 
                     <div class="card-body p-3">
@@ -162,6 +184,7 @@
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
         <div class="row mt-4">
