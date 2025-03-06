@@ -636,7 +636,7 @@ footer {
 }
 
 #btnAddressStep, #btnResumeStep, #btnBack, #btnLastBack, .delivery-text, .tray-container, .valor-entregue, .valor-troco, #btnCheck,
-#btnSecondBack{
+#btnSecondBack, .cupom{
     display: none;
 }
 

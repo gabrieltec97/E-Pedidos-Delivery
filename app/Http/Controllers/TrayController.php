@@ -165,6 +165,7 @@ class TrayController extends Controller
         }
 
         $discount = 0;
+        $usedCoupon = null;
 
         //Verificando se tem cupom ativo.
         if($values[0]->coupon_apply != null){
@@ -182,6 +183,7 @@ class TrayController extends Controller
             }
 
             $discount = $coupon[0]->type;
+            $usedCoupon =$values[0]->coupon_apply;
         }
 
         if ($values[0]->sendingValue != null){
@@ -190,7 +192,9 @@ class TrayController extends Controller
             $sendingValue = null;
         }
 
-        return response()->json(['total' => $total, 'subtotal' => $subtotal, 'discount' => $discount, 'sendingValue' => $sendingValue]);
+        return response()->json(['total' => $total, 'subtotal' => $subtotal,
+            'discount' => $discount, 'sendingValue' => $sendingValue,
+            'usedCoupon' => $usedCoupon]);
     }
     public function taxeCalculator(Request $request)
     {
@@ -434,6 +438,7 @@ class TrayController extends Controller
             $error = false;
             $message = '';
             $heading = '';
+            $usedCoupon = '';
             if($coupon[0]->role < $trayValue){
                 DB::table('trays')
                 ->where('user_id', $user)
@@ -441,6 +446,7 @@ class TrayController extends Controller
 
                 $message = 'O cupom '. $coupon[0]->name . ' foi aplicado com sucesso!';
                 $found = true;
+                $usedCoupon = $coupon[0]->name;
             }else{
                 $error = true;
                 $message =  'O cupom '. $coupon[0]->name . ' só pode ser utilizado para compras acima de '. $coupon[0]->role . ' reais.';
@@ -451,7 +457,8 @@ class TrayController extends Controller
             return response()->json(['found' => $found,
             'message' => $message, 'error' => $error,
             'type' => $coupon[0]->type, 'discount' => $coupon[0]->discount,
-            'sendingValue' => $tray[0]->sendingValue, 'heading' => $heading]);
+            'sendingValue' => $tray[0]->sendingValue, 'heading' => $heading,
+            'usedCoupon' => $usedCoupon]);
     }
 
 

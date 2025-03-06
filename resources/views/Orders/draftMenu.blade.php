@@ -546,6 +546,11 @@
                         <span id="lbl-subtotal"></span>
                     </p>
 
+                    <p class="mb-0 cupom">
+                        <span><i class="fa fa-ticket-alt text-primary"></i> Cupom:</span>
+                        <span class="cupomUtilizado"></span>
+                    </p>
+
                     <p class="mb-0 delivery-text text-success">
                         <span><i class="fas fa-motorcycle"></i> Entrega: </span>
                         <span id="lbl-deliveryValue">+ R$ 5,00</span>
@@ -666,6 +671,11 @@
                         if(response.discount == 'Frete grátis'){
                             $(".delivery-text").fadeIn();
                             $("#lbl-deliveryValue").text("Frete grátis");
+                        }
+
+                        if (response.usedCoupon != null){
+                            $(".cupom").fadeIn();
+                            $(".cupomUtilizado").text(response.usedCoupon);
                         }
 
                     },
@@ -963,7 +973,8 @@
                             $("#lbl-totalValue").text(valor);
                             $("#lbl-deliveryValue").text("Frete grátis");
                             $("#cadastrarCupom").fadeOut();
-                            $("#removerCupom").fadeIn();
+                            $("#removerCupom, .cupom").fadeIn();
+                            $(".cupomUtilizado").text(response.usedCoupon);
                             $("#coupon").prop('disabled', true).css('cursor', 'not-allowed');
 
                         }else if(response.type == 'Porcentagem'){
@@ -972,7 +983,8 @@
                             $("#lbl-totalValueFront").text("R$ " + valor);
                             $("#lbl-totalValue").text(valor);
                             $("#cadastrarCupom").fadeOut();
-                            $("#removerCupom").fadeIn();
+                            $("#removerCupom, .cupom").fadeIn();
+                            $(".cupomUtilizado").text(response.usedCoupon);
                             $("#coupon").prop('disabled', true).css('cursor', 'not-allowed');
 
                         }else if(response.type == 'Dinheiro'){
@@ -981,7 +993,8 @@
                             $("#lbl-totalValueFront").text("R$ " + valor);
                             $("#lbl-totalValue").text(valor);
                             $("#cadastrarCupom").fadeOut();
-                            $("#removerCupom").fadeIn();
+                            $("#removerCupom, .cupom").fadeIn();
+                            $(".cupomUtilizado").text(response.usedCoupon);
                             $("#coupon").prop('disabled', true).css('cursor', 'not-allowed');
                         }
                    }else{
@@ -1031,7 +1044,7 @@
 
                     $("#coupon").removeAttr('disabled').css('cursor', 'inherit').val('');
                     $("#cadastrarCupom").fadeIn();
-                    $("#removerCupom").fadeOut();
+                    $("#removerCupom, .cupom").fadeOut();
                     $("#lbl-totalValueFront").text("R$ " + response.value);
                     $("#lbl-totalValue").text(response.value);
                     $("#lbl-subtotal").text("R$ " + response.subtotal);
