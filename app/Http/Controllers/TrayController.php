@@ -427,11 +427,13 @@ class TrayController extends Controller
 
             $found = false;
             if (count($coupon) == 0){
-                return response()->json(['found' => $found]);
+                return response()->json(['found' => $found, 'message' => 'Não foi possivel encontrar este cupom.',
+                    'heading' => 'Cupom não encontrado!']);
             }
 
             $error = false;
             $message = '';
+            $heading = '';
             if($coupon[0]->role < $trayValue){
                 DB::table('trays')
                 ->where('user_id', $user)
@@ -443,12 +445,13 @@ class TrayController extends Controller
                 $error = true;
                 $message =  'O cupom '. $coupon[0]->name . ' só pode ser utilizado para compras acima de '. $coupon[0]->role . ' reais.';
                 $found = true;
+                $heading = 'Não foi possível aplicar este cupom';
             }
 
             return response()->json(['found' => $found,
             'message' => $message, 'error' => $error,
             'type' => $coupon[0]->type, 'discount' => $coupon[0]->discount,
-            'sendingValue' => $tray[0]->sendingValue]);
+            'sendingValue' => $tray[0]->sendingValue, 'heading' => $heading]);
     }
 
 

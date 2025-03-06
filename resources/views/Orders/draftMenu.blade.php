@@ -453,7 +453,7 @@
                             </div>
                     </form>
                     <div class="col-6">
-                        <a class="btn btn-primary mt-5 text-white" style="{{ isset($tray[0]->coupon_apply) ? 'display: none;' : '' }}" id="cadastrarCupom">Adicionar cupom</a>
+                        <a class="btn btn-yellow mt-5 text-white" style="{{ isset($tray[0]->coupon_apply) ? 'display: none;' : '' }}" id="cadastrarCupom">Adicionar cupom</a>
                         <a class="btn btn-danger mt-5 text-white" id="removerCupom" title="Remover cupom" style="{{ !isset($tray[0]->coupon_apply) ? 'display: none;' : '' }}"><i class="fas fa-trash"></i></a>
                     </div>
                 </div>
@@ -648,13 +648,19 @@
                     url: "{{ route('price.data') }}",
                     method: "GET",
                     success: function (response) {
-                        $("#lbl-totalValue, #lbl-totalValueFront").text(response.total);
+                        $("#lbl-totalValueFront").text('R$: ' + response.total);
+                        $("#lbl-totalValue").text(response.total);
                         $("#lbl-subtotal").text("R$: " + response.subtotal);
-                        console.log(response.discount);
 
                         if(response.sendingValue != null){
-                            $(".delivery-text").fadeIn();
-                            $("#lbl-deliveryValue").text("+ R$ss: " + response.sendingValue);
+                            if(response.sendingValue == 0){
+                                $(".delivery-text").fadeIn();
+                                $("#lbl-deliveryValue").text("Frete grátis");
+                            }else{
+                              $(".delivery-text").fadeIn();
+                              $("#lbl-deliveryValue").text("+ R$: " + response.sendingValue);
+                            }
+
                         }
 
                         if(response.discount == 'Frete grátis'){
@@ -876,7 +882,6 @@
                     }else if(bairro === ''){
                         let message = "o campo bairro não foi preenchido corretamente.";
                         toastTrigger(message);
-                        console.log(bairro)
                     }else if(numero === ''){
                         let message = "o campo de número da residência não foi preenchido corretamente.";
                         toastTrigger(message);
@@ -938,7 +943,7 @@
                 contentType: false,  // Impede que o jQuery defina o content-type (necessário para FormData)
                 success: function(response) {
 
-                   if(response.found == true){
+                   if(response.found == true && response.error == false){
 
                     $.toast({
                         heading: '<b>Tudo certo!</b>',
@@ -955,6 +960,7 @@
                             let valor = parseFloat($("#lbl-totalValue").text()) - response.sendingValue;
 
                             $("#lbl-totalValueFront").text("R$ " + valor);
+                            $("#lbl-totalValue").text(valor);
                             $("#lbl-deliveryValue").text("Frete grátis");
                             $("#cadastrarCupom").fadeOut();
                             $("#removerCupom").fadeIn();
@@ -964,6 +970,7 @@
                             let valor = parseFloat($("#lbl-totalValue").text()) - (parseFloat($("#lbl-totalValue").text()) / parseInt(response.discount));
 
                             $("#lbl-totalValueFront").text("R$ " + valor);
+                            $("#lbl-totalValue").text(valor);
                             $("#cadastrarCupom").fadeOut();
                             $("#removerCupom").fadeIn();
                             $("#coupon").prop('disabled', true).css('cursor', 'not-allowed');
@@ -972,17 +979,17 @@
                             let valor = parseFloat($("#lbl-totalValue").text()) - parseInt(response.discount);
 
                             $("#lbl-totalValueFront").text("R$ " + valor);
+                            $("#lbl-totalValue").text(valor);
                             $("#cadastrarCupom").fadeOut();
                             $("#removerCupom").fadeIn();
                             $("#coupon").prop('disabled', true).css('cursor', 'not-allowed');
                         }
                    }else{
-                    console.log('false');
                     $.toast({
-                        heading: '<b>Cupom não encontrado!</b>',
+                        heading: `<b>${response.heading}</b>`,
                         showHideTransition: 'slide',
                         bgColor: 'red',
-                        text: 'Não foi possível encontrar este cupom, ele pode ter expirado ou você digitou de forma incorreta.',
+                        text: response.message,
                         hideAfter: 10000,
                         position: 'top-right',
                         textColor: 'white',
@@ -995,7 +1002,7 @@
                         heading: '<b>Oopsss, tivemos um erro!</b>',
                         showHideTransition: 'slide',
                         bgColor: 'red',
-                        text: 'Não foi possível registrar seu meio de pagamento. Entre em contato com o restaurante para fazer seu pedido.',
+                        text: 'Não foi possível inserir seu cupom!',
                         hideAfter: 10000,
                         position: 'top-right',
                         textColor: 'white',
@@ -1026,9 +1033,10 @@
                     $("#cadastrarCupom").fadeIn();
                     $("#removerCupom").fadeOut();
                     $("#lbl-totalValueFront").text("R$ " + response.value);
-                    $("#lbl-subtotal").text("R$ " + response.subtotal)
+                    $("#lbl-totalValue").text(response.value);
+                    $("#lbl-subtotal").text("R$ " + response.subtotal);
 
-                    if(response.value == 0){
+                    if(response.taxe == 0){
                         $("#lbl-deliveryValue").text("Frete grátis");
                     }else{
                         $("#lbl-deliveryValue").text("+ R$ " + response.taxe);
@@ -1036,7 +1044,6 @@
 
                 },
                 error: function(xhr, status, error) {
-                    console.log(error)
                     alert("Erro ao buscar o endereço:", error);
                 }
             });
