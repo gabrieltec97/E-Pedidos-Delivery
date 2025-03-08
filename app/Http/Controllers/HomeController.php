@@ -33,14 +33,13 @@ class HomeController extends Controller
     }
     public function index(AreaChart $chart, MonthChart $chart2, Request $request)
     {
-
         $year = date("Y");
         $lowstock = DB::table('products')->where('stock', '<', 15)->count();
         $todayOrders = DB::table('orders')
             ->where('status', 'Pedido Entregue')
             ->where('month', $this->monthConverter())
             ->where('day', date('d'))
-            ->where('year', date('Y'))
+            ->where('year', $year)
             ->count();
 
         $todayAmmount = DB::table('orders')
@@ -48,7 +47,7 @@ class HomeController extends Controller
             ->where('status', 'Pedido Entregue')
             ->where('month', $this->monthConverter())
             ->where('day', date('d'))
-            ->where('year', date('Y'))
+            ->where('year', $year)
             ->get()->toArray();
 
         $ammount = 0;
@@ -63,13 +62,14 @@ class HomeController extends Controller
             ->get();
         $totalItems = [];
 
+        //Métricas para o gráfico.
         if (isset($request->month)){
             foreach ($items as $item) {
                 $countItems = DB::table('order_items')
                     ->select('ammount')
                     ->where('product', $item->name)
                     ->where('month', $request->month)
-//                    ->where('year', $year)
+                    ->where('year', $request->year)
                     ->get();
                 $total = 0;
                 foreach ($countItems as $countItem) {
@@ -83,6 +83,7 @@ class HomeController extends Controller
                     ->select('ammount')
                     ->where('product', $item->name)
                     ->where('month', $this->monthConverter())
+                    ->where('year', $year)
                     ->get();
                 $total = 0;
                 foreach ($countItems as $countItem) {
@@ -92,11 +93,11 @@ class HomeController extends Controller
             }
         }
 
-
         //Ordenando o array para ordem decrecente.
         $keys = array_column($totalItems, 'total');
         array_multisort($keys, SORT_DESC, $totalItems);
 
+        //Métricas sobre bairros.
         $neighborhoods = DB::table('neighbourhoods')->select('name')->get();
         $countForPercent = DB::table('orders')->where('status', 'Pedido Entregue')->count();
         $totalOrders = [];
@@ -107,14 +108,14 @@ class HomeController extends Controller
                     ->where('neighborhood', $neighborhood->name)
                     ->where('status', 'Pedido Entregue')
                     ->where('month', $request->month)
-                    ->where('year', $year)
+                    ->where('year', $request->year)
                     ->count();
 
                 $totalNeighborhood = DB::table('orders')
                     ->where('neighborhood', $neighborhood->name)
                     ->where('status', 'Pedido Entregue')
                     ->where('month', $request->month)
-                    ->where('year', $year)
+                    ->where('year', $request->year)
                     ->sum('value');
                 $percentOrders = ($count / $countForPercent) * 100;
                 array_push($totalOrders, ['name' => $neighborhood->name, 'total' => $count,
@@ -140,7 +141,6 @@ class HomeController extends Controller
 //            $totalOrders[$neighborhood->name] = $count;
             }
         }
-
 
         //Ordenando o array para ordem decrecente.
         $keys = array_column($totalOrders, 'total');
@@ -191,7 +191,7 @@ class HomeController extends Controller
         //Filtro de vendas por mês.
         if (isset($request->month)){
             $monthName = $request->month;  // Nome do mês em português
-            $year = 2025;            // O ano desejado
+            $year = $request->year;            // O ano desejado
 
             // Array de meses em português
             $months = [
@@ -255,6 +255,7 @@ class HomeController extends Controller
             foreach ($diasDoMes as $dia) {
                 $sales = DB::table('orders')
                     ->where('month', $this->monthConverter())
+                    ->where('year', $year)
                     ->where('day', $dia)
                     ->where('status', 'Pedido Entregue')
                     ->count();

@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('product');
             $table->string('ammount');
             $table->string('month');
+            $table->string('year');
             $table->string('value');
             $table->string('comments')->nullable();
             $table->timestamps();

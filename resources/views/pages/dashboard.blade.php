@@ -305,6 +305,7 @@
                     <form action="{{ route('home') }}" method="get">
                         @csrf
                         <input type="text" hidden="hidden" name="month" id="inputmonth">
+                        <input type="text" hidden="hidden" name="year" id="inputyear">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -320,6 +321,7 @@
             console.log('click');
             $("#dadosFiltrados").text($(".month").val() + ' de ' + $(".year").val());
             $("#inputmonth").val($(".month").val());
+            $("#inputyear").val($(".year").val());
         });
 
     </script>

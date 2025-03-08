@@ -255,6 +255,7 @@ class OrderController extends Controller
                 $item->neighbourhood = $firstTray->neighbourhood;
                 $item->user_name = $firstTray->name;
                 $item->month = $this->monthConverter();
+                $item->year = date("Y");
                 $item->save();
 
                 //Abatendo do estoque.
