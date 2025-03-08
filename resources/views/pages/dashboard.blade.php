@@ -140,6 +140,12 @@
                 }else{
                    $selectedMonth = $month;
                 }
+
+                 if (request('year') != ''){
+                   $selectedYear = request('year');
+                }else{
+                   $selectedYear = $year;
+                }
             @endphp
             <div id="metricsDiv" class="col-lg-12 mt-4 mb-lg-0 mb-4">
                 <div class="card z-index-2 h-100">
@@ -170,9 +176,9 @@
                             </select>
 
                             <select name="year" class="form-control w-auto year" style="cursor: pointer;">
-                                <option value="2023">2023</option>
-                                <option value="2024">2024</option>
-                                <option value="2025" selected>2025</option>
+                                <option value="2023" @if($selectedYear == '2023') selected @endif>2023</option>
+                                <option value="2024" @if($selectedYear == '2024') selected @endif>2024</option>
+                                <option value="2025" @if($selectedYear == '2025') selected @endif>2025</option>
                             </select>
 
                             <button class="btn btn-primary buscar" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa-solid fa-magnifying-glass"></i></button>

@@ -33,7 +33,11 @@ class HomeController extends Controller
     }
     public function index(AreaChart $chart, MonthChart $chart2, Request $request)
     {
-        $year = date("Y");
+        if(isset($request->year)){
+            $year = $request->year;
+        }else{
+            $year = date("Y");
+        }
         $lowstock = DB::table('products')->where('stock', '<', 15)->count();
         $todayOrders = DB::table('orders')
             ->where('status', 'Pedido Entregue')
@@ -69,7 +73,7 @@ class HomeController extends Controller
                     ->select('ammount')
                     ->where('product', $item->name)
                     ->where('month', $request->month)
-                    ->where('year', $request->year)
+                    ->where('year', $year)
                     ->get();
                 $total = 0;
                 foreach ($countItems as $countItem) {
@@ -103,19 +107,26 @@ class HomeController extends Controller
         $totalOrders = [];
 
         if(isset($request->month)){
+
+            $countForPercent = DB::table('orders')
+                ->where('status', 'Pedido Entregue')
+                ->where('month', $request->month)
+                ->where('year', $year)
+                ->count();
+
             foreach ($neighborhoods as $neighborhood){
                 $count = DB::table('orders')
                     ->where('neighborhood', $neighborhood->name)
                     ->where('status', 'Pedido Entregue')
                     ->where('month', $request->month)
-                    ->where('year', $request->year)
+                    ->where('year', $year)
                     ->count();
 
                 $totalNeighborhood = DB::table('orders')
                     ->where('neighborhood', $neighborhood->name)
                     ->where('status', 'Pedido Entregue')
                     ->where('month', $request->month)
-                    ->where('year', $request->year)
+                    ->where('year', $year)
                     ->sum('value');
                 $percentOrders = ($count / $countForPercent) * 100;
                 array_push($totalOrders, ['name' => $neighborhood->name, 'total' => $count,
@@ -123,20 +134,35 @@ class HomeController extends Controller
 //            $totalOrders[$neighborhood->name] = $count;
             }
         }else{
+            $count = DB::table('orders')
+                ->where('month', $this->monthConverter())
+                ->where('status', 'Pedido Entregue')
+                ->where('year', $year)
+                ->count();
+
+//            dd($count);
+
             foreach ($neighborhoods as $neighborhood){
-                $count = DB::table('orders')
+                $countForPercent = DB::table('orders')
                     ->where('neighborhood', $neighborhood->name)
+                    ->where('status', 'Pedido Entregue')
                     ->where('month', $this->monthConverter())
                     ->where('year', $year)
                     ->count();
+
                 $totalNeighborhood = DB::table('orders')
                     ->where('neighborhood', $neighborhood->name)
                     ->where('month', $this->monthConverter())
                     ->where('year', $year)
                     ->sum('value');
 
-                $percentOrders = ($count / $countForPercent) * 100;
-                array_push($totalOrders, ['name' => $neighborhood->name, 'total' => $count,
+                if ($countForPercent != 0){
+                    $percentOrders = ($countForPercent / $count) * 100;
+                }else{
+                    $percentOrders = 0;
+                }
+
+                array_push($totalOrders, ['name' => $neighborhood->name, 'total' => $countForPercent,
                     'porcentagem' => round($percentOrders,2), 'totalValue' => $totalNeighborhood]);
 //            $totalOrders[$neighborhood->name] = $count;
             }
@@ -191,7 +217,7 @@ class HomeController extends Controller
         //Filtro de vendas por mês.
         if (isset($request->month)){
             $monthName = $request->month;  // Nome do mês em português
-            $year = $request->year;            // O ano desejado
+            $year = $year;            // O ano desejado
 
             // Array de meses em português
             $months = [
@@ -279,7 +305,8 @@ class HomeController extends Controller
             'moneyMetrics' => $moneyMetrics,
             'orders' => $todayOrders,
             'year' => $year,
-            'month' => $this->monthConverter()
+            'month' => $this->monthConverter(),
+            'year' => $year
         ]);
     }
 }
