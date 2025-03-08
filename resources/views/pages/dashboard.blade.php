@@ -281,7 +281,7 @@
                 heading: '<b>Dados filtrados com sucesso!</b>',
                 showHideTransition : 'slide',  // It can be plain, fade or slide
                 bgColor : '#3b8cde',
-                text: '<b>Veja os dados sobre vendas do mês de {{ request('month') }}!</b>', // A mensagem que foi passada via session
+                text: '<b>Veja os dados sobre vendas do mês de {{ request('month') }} de {{ request('year') }}!</b>', // A mensagem que foi passada via session
                 hideAfter : 8000,
                 position: 'top-right',
                 textColor: 'white',

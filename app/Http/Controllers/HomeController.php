@@ -38,12 +38,15 @@ class HomeController extends Controller
         }else{
             $year = date("Y");
         }
+
         $lowstock = DB::table('products')->where('stock', '<', 15)->count();
+
+        //Lógica referente ao dia de hoje.
         $todayOrders = DB::table('orders')
             ->where('status', 'Pedido Entregue')
             ->where('month', $this->monthConverter())
             ->where('day', date('d'))
-            ->where('year', $year)
+            ->where('year', date('Y'))
             ->count();
 
         $todayAmmount = DB::table('orders')
@@ -51,7 +54,7 @@ class HomeController extends Controller
             ->where('status', 'Pedido Entregue')
             ->where('month', $this->monthConverter())
             ->where('day', date('d'))
-            ->where('year', $year)
+            ->where('year', date('Y'))
             ->get()->toArray();
 
         $ammount = 0;
@@ -103,19 +106,19 @@ class HomeController extends Controller
 
         //Métricas sobre bairros.
         $neighborhoods = DB::table('neighbourhoods')->select('name')->get();
-        $countForPercent = DB::table('orders')->where('status', 'Pedido Entregue')->count();
         $totalOrders = [];
 
+        //Métricas para filtro de mês e ano.
         if(isset($request->month)){
 
-            $countForPercent = DB::table('orders')
+            $count = DB::table('orders')
                 ->where('status', 'Pedido Entregue')
                 ->where('month', $request->month)
                 ->where('year', $year)
                 ->count();
 
             foreach ($neighborhoods as $neighborhood){
-                $count = DB::table('orders')
+                $countForPercent = DB::table('orders')
                     ->where('neighborhood', $neighborhood->name)
                     ->where('status', 'Pedido Entregue')
                     ->where('month', $request->month)
@@ -128,8 +131,13 @@ class HomeController extends Controller
                     ->where('month', $request->month)
                     ->where('year', $year)
                     ->sum('value');
-                $percentOrders = ($count / $countForPercent) * 100;
-                array_push($totalOrders, ['name' => $neighborhood->name, 'total' => $count,
+
+                if ($countForPercent != 0){
+                    $percentOrders = ($countForPercent / $count) * 100;
+                }else{
+                    $percentOrders = 0;
+                }
+                array_push($totalOrders, ['name' => $neighborhood->name, 'total' => $countForPercent,
                     'porcentagem' => round($percentOrders,2), 'totalValue' => $totalNeighborhood]);
 //            $totalOrders[$neighborhood->name] = $count;
             }
@@ -139,8 +147,6 @@ class HomeController extends Controller
                 ->where('status', 'Pedido Entregue')
                 ->where('year', $year)
                 ->count();
-
-//            dd($count);
 
             foreach ($neighborhoods as $neighborhood){
                 $countForPercent = DB::table('orders')
@@ -172,11 +178,11 @@ class HomeController extends Controller
         $keys = array_column($totalOrders, 'total');
         array_multisort($keys, SORT_DESC, $totalOrders);
 
-
         //Métricas para o dia em dinheiro e pedidos.
         $metDay = intval(date('d'));
         $metMonth = $this->monthConverter();
 
+        //Métricas para comparação do dia de hoje com o dia de ontem.
         function calcPercent($metDay, $metMonth){
             $salesDate = DB::table('orders')
                 ->select('value')
@@ -265,7 +271,6 @@ class HomeController extends Controller
                 ->backgroundColor('rgba(255, 99, 132, 0.2)');
 
         }else{
-
             //Capturando o mês atual.
             $numeroDeDias = cal_days_in_month(CAL_GREGORIAN, date('m'), date('Y')); // CAL_GREGORIAN é o calendário padrão
             $diasDoMes = [];
@@ -304,7 +309,6 @@ class HomeController extends Controller
             'ammount' =>  number_format($ammount, 2, ',', '.'),
             'moneyMetrics' => $moneyMetrics,
             'orders' => $todayOrders,
-            'year' => $year,
             'month' => $this->monthConverter(),
             'year' => $year
         ]);
