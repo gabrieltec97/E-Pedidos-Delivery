@@ -153,7 +153,7 @@
                         </h4>
 
                         <div class="d-flex gap-2">
-                            <select name="month" class="form-control w-100 month" style="cursor: pointer;" onchange="exibirModal()">
+                            <select name="month" class="form-control w-100 month" style="cursor: pointer;">
                                 <option value="" selected disabled>Selecione</option>
                                 <option value="Janeiro"  @if($selectedMonth == 'Janeiro') selected @endif>Janeiro</option>
                                 <option value="Fevereiro" @if($selectedMonth == 'Fevereiro') selected @endif>Fevereiro</option>
@@ -169,7 +169,7 @@
                                 <option value="Dezembro" @if($selectedMonth == 'Dezembro') selected @endif>Dezembro</option>
                             </select>
 
-                            <select name="year" class="form-control w-auto year" style="cursor: pointer;" onchange="exibirModal()">
+                            <select name="year" class="form-control w-auto year" style="cursor: pointer;">
                                 <option value="2023">2023</option>
                                 <option value="2024">2024</option>
                                 <option value="2025" selected>2025</option>
@@ -291,40 +291,40 @@
         </script>
     @endif
 
-@endsection
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="myModalLabel">Mês Selecionado</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Deseja recuperar dados sobre <span id="dadosFiltrados"></span>?
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="myModalLabel">Mês Selecionado</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <form action="{{ route('home') }}" method="get">
+                        @csrf
+                        <input type="text" hidden="hidden" name="month" id="inputmonth">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Buscar</button>
+                </div>
+                </form>
             </div>
-            <div class="modal-body">
-                Deseja recuperar dados sobre <span id="dadosFiltrados"></span>?
-
-                <form action="{{ route('home') }}" method="get">
-                    @csrf
-                <input type="text" hidden="hidden" name="month" id="inputmonth">
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="submit" class="btn btn-primary">Buscar</button>
-            </div>
-            </form>
         </div>
     </div>
-</div>
 
+    <script>
+        $(".buscar").on('click', function (){
+            console.log('click');
+            $("#dadosFiltrados").text($(".month").val() + ' de ' + $(".year").val());
+            $("#inputmonth").val($(".month").val());
+        });
 
-<script>
-    $(".buscar").on('click', function (){
-        console.log('click');
-        $("#dadosFiltrados").text($(".month").val() + ' de ' + $(".year").val());
-    });
+    </script>
 
-</script>
+@endsection
 
 
 @push('js')
