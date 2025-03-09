@@ -487,7 +487,6 @@
                     </form>
                 </div>
 
-
                 <div id="trayResume" hidden class="row mx-0" >
 
                     <div class="col-12">
@@ -498,7 +497,6 @@
 
                     <div class="col-12">
                         <div class="row" id="resumeItemsList">
-
 
                         </div>
                     </div>
@@ -532,7 +530,6 @@
                                 <b id="userResume">Carregando...</b>
                             </p>
                             <p class="userData" id="userData">Carregando...</p>
-
                         </div>
                     </div>
                 </div>
@@ -575,7 +572,6 @@
     </div>
 
     <form id="confirmarPedido" action="{{ route('pedidos.store') }}" method="post">@csrf</form>
-
     <script type="text/javascript" src="{{ asset('assets/js/jquery-1.12.4.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/js/modernizr-3.5.0.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
@@ -589,6 +585,68 @@
              if($("#valorPagamento").val() != ''){
                  $(".valor-entregue").fadeIn();
              }
+
+            $('#btnOrderStep').on('click', function (){
+
+                var items = []; // Array para armazenar as informações dos produtos
+
+                // Loop para pegar as quantidades de todos os itens na bandeja
+                $('.tray-item').each(function() {
+                    var productName = $(this).find('.product-title b').text();  // Nome do produto
+                    var quantity = parseInt($(this).find('.add-number-items').text(), 10);  // Quantidade do produto
+
+                    // Adiciona o item ao array
+                    items.push({
+                        product_name: productName,
+                        quantity: quantity
+                    });
+                });
+
+                $.ajax({
+                    url: '{{ route('atualizar-quantidade') }}',  // Rota Laravel para armazenar as quantidades
+                    method: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',  // Token CSRF para proteção
+                        items: items  // Dados dos itens e quantidades
+                    },
+                    success: function(response) {
+                        if(response.success) {
+                            $('#btnOrderStep').fadeOut();
+                            $('#trayItems').fadeOut();
+                            $('#deliveryPlace').removeAttr('hidden');
+                            $('#btnAddressStep, #deliveryPlace').fadeIn();
+                            $('#btnBack').fadeIn(2700);
+                            $('.step1').removeClass('active');
+                            $('.step2').addClass('active');
+
+                            atualizarPreco();
+                        } else {
+                            $.toast({
+                                heading: '<b>Oopsss, algo errado aconteceu!</b>',
+                                showHideTransition: 'slide',
+                                bgColor: 'red',
+                                text: 'Ocorreu uma falha com o seu pedido. Tente novamente em alguns minutos!',
+                                hideAfter: 8000,
+                                position: 'top-right',
+                                textColor: 'white',
+                                icon: 'error'
+                            });
+                        }
+                    },
+                    error: function() {
+                        $.toast({
+                            heading: '<b>Oopsss, algo errado aconteceu!</b>',
+                            showHideTransition: 'slide',
+                            bgColor: 'red',
+                            text: 'Não foi possível se comunicar com o servidor. Entre em contato com a loja.',
+                            hideAfter: 8000,
+                            position: 'top-right',
+                            textColor: 'white',
+                            icon: 'error'
+                        });
+                    }
+                });
+            });
 
             function atualizarContagemBandeja() {
                 const countUrl = "{{ route('cardapio.count') }}";

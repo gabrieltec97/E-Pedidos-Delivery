@@ -7,16 +7,6 @@ $(document).ready(function (){
         $(".btn-tray-side").fadeIn();
     });
 
-    $('#btnOrderStep').on('click', function (){
-        $(this).fadeOut();
-        $('#trayItems').fadeOut();
-        $('#deliveryPlace').removeAttr('hidden');
-        $('#btnAddressStep, #deliveryPlace').fadeIn();
-        $('#btnBack').fadeIn(2700);
-        $('.step1').removeClass('active')
-        $('.step2').addClass('active')
-    });
-
     $('#btnLastBack').on('click', function (){
         $(this).fadeOut();
         $('#paymentStep').fadeIn();

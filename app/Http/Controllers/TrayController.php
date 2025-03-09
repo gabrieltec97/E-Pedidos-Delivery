@@ -305,6 +305,44 @@ class TrayController extends Controller
         return response()->json(['success' => $userID->input('product_name') . ' foi removido da bandeja.']);
     }
 
+    public function refreshAmmount(Request $userID)
+    {
+        if (Auth::user() == null){
+            if (!$userID->cookie('user_identifier')) {
+                // Gera um identificador único
+                $identifier = uniqid(true);
+
+                // Cria o cookie por 30 dias
+                Cookie::queue('user_identifier', $identifier, 43200); // 30 dias
+
+                // Redireciona para a mesma página para que o cookie seja lido corretamente
+                return redirect()->back();
+            }
+
+            // Obtém o cookie e exibe
+            $user = $userID->cookie('user_identifier');
+        }else{
+            $user = Auth::user()->id;
+        }
+
+        $items = $userID->input('items');
+
+        // Armazenar as quantidades no banco de dados
+        foreach ($items as $item) {
+            $productName = $item['product_name'];
+            $ammount = $item['quantity'];
+
+            // Aqui você pode armazenar as quantidades em uma tabela.
+            // Supondo que você tenha uma tabela `tray_items` com `product_name` e `quantity`.
+            DB::table('trays')
+                ->where('user_id', $user)
+                ->where('product', $productName)
+                ->update(['product' => $productName, 'ammount' => $ammount]);
+        }
+
+        return response()->json(['success' => 'sucesso']);
+    }
+
     public function findData(Request $userID){
 
         if (Auth::user() == null){

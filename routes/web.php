@@ -40,6 +40,7 @@ Route::get('/verificar-bandeja', [TrayController::class, 'count'])->name('tray.c
 Route::get('/calcular-frete', [TrayController::class, 'taxeCalculator'])->name('calcular-frete');
 Route::get('/atualizar-bandeja', [TrayController::class, 'refreshTray'])->name('tray.data');
 Route::post('/remover-item', [TrayController::class, 'removeItem'])->name('tray.remove');
+Route::post('/atualizar-quantidade', [TrayController::class, 'refreshAmmount'])->name('atualizar-quantidade');
 Route::post('/adicionar-pagamento', [TrayController::class, 'addPaymentMode'])->name('adicionar-pagamento');
 Route::get('/recuperar-preco', [TrayController::class, 'findPrice'])->name('price.data');
 Route::post('/capturar-endereco', [TrayController::class, 'trackAddress'])->name('capturar-endereco');
