@@ -685,18 +685,16 @@
                 });
             }
 
-            function atualizarBandeja(){
-
+            function atualizarBandeja() {
                 $.ajax({
-                url: '{{ route('tray.data') }}',
-                method: 'GET',
-                success: function(response) {
-
-                response.forEach(function(item) {
-                var produtoHTML = `
-                    <div class="col-12 tray-item">
+                    url: '{{ route('tray.data') }}',
+                    method: 'GET',
+                    success: function(response) {
+                        response.forEach(function(item) {
+                            var produtoHTML = `
+                    <div class="col-12 tray-item" data-id="${item.id}">
                         <div class="img-product">
-                             <img class="product-img" src="{{ asset('assets/img/cardapio/burguers/burger-au-poivre-kit-4-pack.3ca0e39b02db753304cd185638dad518.jpg') }}" />
+                            <img class="product-img" src="{{ asset('assets/img/cardapio/burguers/burger-au-poivre-kit-4-pack.3ca0e39b02db753304cd185638dad518.jpg') }}" />
                         </div>
 
                         <div class="product-data">
@@ -713,23 +711,87 @@
                     </div>
                 `;
 
-                $('.tray-container').append(produtoHTML);
-            });
-        },
-            error: function() {
-                $.toast({
-                    heading: '<b>Oopsss, algo errado aconteceu!</b>',
-                    showHideTransition: 'slide',
-                    bgColor: 'red',
-                    text: 'Não foi possível carregar os itens da sua bandeja. Entre em contato com o restaurante!',
-                    hideAfter: 10000,
-                    position: 'top-right',
-                    textColor: 'white',
-                    icon: 'error'
+                            $('.tray-container').append(produtoHTML);
+                        });
+
+                        // Aumentar a quantidade
+                        $('.btn-plus').click(function() {
+                            var itemDiv = $(this).closest('.tray-item');
+                            var quantityBox = itemDiv.find('.add-number-items');
+                            var quantity = parseInt(quantityBox.text(), 10);
+                            quantityBox.text(quantity + 1); // Aumentar a quantidade
+                        });
+
+                        // Diminuir a quantidade
+                        $('.btn-less').click(function() {
+                            var itemDiv = $(this).closest('.tray-item');
+                            var quantityBox = itemDiv.find('.add-number-items');
+                            var quantity = parseInt(quantityBox.text(), 10);
+                            if (quantity > 0) {
+                                quantityBox.text(quantity - 1); // Diminuir a quantidade, se maior que 0
+                            }
+                        });
+
+                        // Remover o item e enviar o nome para o backend
+                        $('.btn-remove').click(function() {
+                            var itemDiv = $(this).closest('.tray-item');
+                            var productName = itemDiv.find('.product-title b').text(); // Captura o nome do produto
+
+                            // Envia o nome para o backend via AJAX
+                            $.ajax({
+                                url: '{{ route('tray.remove') }}',  // Defina a rota para remover o item
+                                method: 'POST',
+                                data: {
+                                    _token: '{{ csrf_token() }}',  // Inclui o token CSRF
+                                    product_name: productName      // Envia o nome do produto
+                                },
+                                success: function(response) {
+                                    // Se a remoção for bem-sucedida no backend, remove o item da interface
+                                    if(response.success) {
+                                        $.toast({
+                                            heading: '<b>Item removido!</b>',
+                                            showHideTransition: 'slide',  // It can be plain, fade or slide
+                                            bgColor: 'red',
+                                            text: response.success,
+                                            hideAfter: 8000,
+                                            position: 'top-right',
+                                            textColor: '#ecf0f1',
+                                            icon: 'success'
+                                        });
+                                        itemDiv.fadeOut();  // Remove o item da bandeja na interface
+                                        atualizarPreco();
+                                    } else {
+                                        $.toast({
+                                            heading: '<b>Opsss, tivemos um erro!</b>',
+                                            showHideTransition: 'slide',
+                                            bgColor: 'red',
+                                            text: 'Tivemos um erro ao remover este item. Entre em contato com o restaurante.',
+                                            hideAfter: 7000,
+                                            position: 'top-right',
+                                            textColor: 'white',
+                                            icon: 'error'
+                                        });
+                                    }
+                                },
+                                error: function() {
+                                    $.toast({
+                                        heading: '<b>Opsss, tivemos um erro!</b>',
+                                        showHideTransition: 'slide',
+                                        bgColor: 'red',
+                                        text: 'Tente dentro de alguns minutos ou entre em contato com o restaurante.',
+                                        hideAfter: 7000,
+                                        position: 'top-right',
+                                        textColor: 'white',
+                                        icon: 'error'
+                                    });
+                                }
+                            });
+                        });
+                    }
                 });
             }
-    });
-            }
+
+
 
             $('.btn-tray, .btn-tray-side').on('click', function (){
 

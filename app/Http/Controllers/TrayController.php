@@ -277,6 +277,34 @@ class TrayController extends Controller
         return response()->json($tray);
     }
 
+    public function removeItem(Request $userID)
+    {
+        if (Auth::user() == null){
+            if (!$userID->cookie('user_identifier')) {
+                // Gera um identificador único
+                $identifier = uniqid(true);
+
+                // Cria o cookie por 30 dias
+                Cookie::queue('user_identifier', $identifier, 43200); // 30 dias
+
+                // Redireciona para a mesma página para que o cookie seja lido corretamente
+                return redirect()->back();
+            }
+
+            // Obtém o cookie e exibe
+            $user = $userID->cookie('user_identifier');
+        }else{
+            $user = Auth::user()->id;
+        }
+
+        DB::table('trays')
+            ->where('user_id', $user)
+            ->where('product', $userID->input('product_name'))
+            ->delete();
+
+        return response()->json(['success' => $userID->input('product_name') . ' foi removido da bandeja.']);
+    }
+
     public function findData(Request $userID){
 
         if (Auth::user() == null){
