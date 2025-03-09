@@ -865,7 +865,7 @@
             data: { local: local },
             success: function(response) {
 
-                if(response != 'no'){
+                if(response.taxe != 'no'){
 
                     let endereco = $("#txtEndereco").val();
                     let bairro = $("#txtBairro").val();
