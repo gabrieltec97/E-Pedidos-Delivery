@@ -797,10 +797,12 @@
                             var itemDiv = $(this).closest('.tray-item');
                             var quantityBox = itemDiv.find('.add-number-items');
                             var quantity = parseInt(quantityBox.text(), 10);
-                            if (quantity > 0) {
-                                quantityBox.text(quantity - 1); // Diminuir a quantidade, se maior que 0
+
+                            if (quantity > 1) { // Alterado de 0 para 1
+                                quantityBox.text(quantity - 1);
                             }
                         });
+
 
                         // Remover o item e enviar o nome para o backend
                         $('.btn-remove').click(function() {
