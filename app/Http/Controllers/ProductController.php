@@ -92,7 +92,6 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $product = Product::find($id);
         $additionals = '';
 
         if (isset($request->additionals)){

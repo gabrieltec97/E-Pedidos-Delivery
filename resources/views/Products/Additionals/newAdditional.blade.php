@@ -98,8 +98,8 @@
                                                                             <div class="col-md-6">
                                                                                 <div class="form-group">
                                                                                     <label for="example-text-input" class="form-control-label">Aplicação em</label>
-                                                                                    <label class="form-control-label typeHd" hidden>{{ $registered->type }}</label>
-                                                                                    <select class="form-control type" name="type">
+                                                                                    <label class="form-control-label typeHd{{ $registered->id }}" hidden>{{ $registered->type }}</label>
+                                                                                    <select class="form-control type{{ $registered->id }}" name="type">
                                                                                         <option value="Comida" <?= ($registered->type == "Comida") ? 'selected' : '' ?>>Comida</option>
                                                                                         <option value="Bebida" <?= ($registered->type == "Bebida") ? 'selected' : '' ?>>Bebida</option>
                                                                                         <option value="Sobremesa" <?= ($registered->type == "Sobremesa") ? 'selected' : '' ?>>Sobremesa</option>
@@ -110,8 +110,9 @@
 
                                                                             <div class="col-md-6">
                                                                                 <div class="form-group">
-                                                                                    <input type="checkbox" name="is_available" id="available" style="margin-top: 45px;" <?= ($registered->is_available == true) ? 'checked' : '' ?>>
+                                                                                    <input type="checkbox" name="is_available" id="available{{ $registered->id }}" style="margin-top: 45px;" <?= ($registered->is_available == true) ? 'checked' : '' ?>>
                                                                                     <label for="available">Disponível para uso.</label>
+                                                                                    <label class="available{{ $registered->id }}" hidden>{{ $registered->is_available }}</label>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -120,7 +121,10 @@
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-danger deleteItem" data-bs-toggle="modal" data-bs-target="#exampleModal{{ $registered->id }}">Deletar item</button>
-                                                                <button type="submit" class="btn btn-primary save" style="display: none;">Salvar alterações</button>
+                                                                <button type="submit" class="btn btn-primary save" style="display: none;">
+                                                                    <div class="spinner-border spinner-border-sm loading" role="status" style="display: none;"></div>
+                                                                     Salvar alterações
+                                                                </button>
                                                             </div>
                                                         </div>
                                                     </form>
@@ -151,12 +155,36 @@
 
                                             <script>
                                                 $(".alter{{$registered->id}}").on('keyup', function (){
-                                                    if ($(".name{{$registered->id}}").val() != $(".nameHd{{$registered->id}}").text() || $(".value{{$registered->id}}").val() != $(".valueHd{{$registered->id}}").text()){
+                                                    if ($(".name{{$registered->id}}").val() != $(".nameHd{{$registered->id}}").text() ||
+                                                        $(".value{{$registered->id}}").val() != $(".valueHd{{$registered->id}}").text() ){
                                                         $(".save").fadeIn(1000);
                                                     }else{
                                                         $(".save").fadeOut();
                                                     }
                                                 })
+
+                                                $(".type{{$registered->id}}").on('change', function (){
+                                                    if ($(".type{{$registered->id}}").val() != $(".typeHd{{$registered->id}}").text()){
+                                                        $(".save").fadeIn(1000);
+                                                    }else{
+                                                        $(".save").fadeOut();
+                                                    }
+                                                });
+
+                                                $("#available{{ $registered->id }}").on('click', function (){
+                                                    let status = $(".available{{ $registered->id }}").text();
+                                                    if ($("#available{{ $registered->id }}").prop("checked") && status != 1) {
+                                                        $(".save").fadeIn(1000);
+                                                    } else if($("#available{{ $registered->id }}").prop("checked") == false && status != 0){
+                                                        $(".save").fadeIn(1000);
+                                                    }else{
+                                                        $(".save").fadeOut();
+                                                    }
+                                                });
+
+                                                $(".save").on('click',function (){
+                                                    $(".loading").fadeIn();
+                                                });
 
                                             </script>
                                         @endforeach
@@ -254,6 +282,21 @@
                 showHideTransition: 'slide',  // It can be plain, fade or slide
                 bgColor: '#2ecc71',
                 text: 'Adicional cadastrado com sucesso!',
+                hideAfter: 8000,
+                position: 'top-right',
+                textColor: '#ecf0f1',
+                icon: 'success'
+            });
+        </script>
+    @endif
+
+    @if(session('msg-upd'))
+        <script>
+            $.toast({
+                heading: '<b>Alterações realizadas!</b>',
+                showHideTransition: 'slide',  // It can be plain, fade or slide
+                bgColor: '#2ecc71',
+                text: 'Alterações realizadas com sucesso!',
                 hideAfter: 8000,
                 position: 'top-right',
                 textColor: '#ecf0f1',

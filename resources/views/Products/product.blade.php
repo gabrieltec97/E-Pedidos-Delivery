@@ -61,12 +61,12 @@
                                     </div>
                                 </div>
 
-                                <div class="col-12">
+                                <div class="col-12 mb-4">
                                     @if(count($additionals) != 0)
                                         <hr class="horizontal dark">
                                         <p class="text-md font-weight-bold">Adicionais para este produto</p>
                                         @foreach($additionals as $additional)
-                                            @if($additional->benefitedProduct == $product->type)
+                                            @if($additional->type == $product->type)
                                                 <input type="checkbox" name="additionals[]" id="additionals{{ $additional->id }}" value="{{ $additional->id }}"
                                                     @php
                                                         $items = explode(',', $product->additionals);
@@ -77,7 +77,6 @@
                                                 <label for="additionals{{ $additional->id }}" style="margin-right: 30px;">{{ $additional->name }}</label>
                                             @endif
                                         @endforeach
-                                        <hr>
                                     @endif
                                 </div>
 

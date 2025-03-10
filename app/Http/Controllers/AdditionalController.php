@@ -69,7 +69,7 @@ class AdditionalController extends Controller
         }
         $additional->save();
 
-        return redirect()->back();
+        return redirect()->back()->with('msg-upd', 'ok');
     }
 
     /**

@@ -81,15 +81,15 @@
                 <div class="collapse" id="submenuProducts">
                     <ul class="navbar-nav ms-4">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('adicionais.index') }}">
-                                <i class="fa-solid fa-circle-plus text-primary ml-0"></i>
-                                <span class="nav-link-text ms-1">Adicionais</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link" href="{{ route('produtos.index') }}">
                                 <i class="fa-solid fa-database text-success ml-0"></i>
                                 <span class="nav-link-text ms-1">Cadastrados</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('adicionais.index') }}">
+                                <i class="fa-solid fa-circle-plus text-primary ml-0"></i>
+                                <span class="nav-link-text ms-1">Adicionais</span>
                             </a>
                         </li>
                     </ul>
