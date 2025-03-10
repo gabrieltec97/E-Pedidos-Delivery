@@ -960,7 +960,7 @@
                             var produtoHTML = `
                             <div class="col-12 tray-item">
                                 <div class="img-product">
-                                    <img class="product-img" src="{{ asset('assets/img/cardapio/burguers/burger-au-poivre-kit-4-pack.3ca0e39b02db753304cd185638dad518.jpg') }}" />
+                                    <img src="http://localhost/storage/uploads/${tray.picture}" class="product-img" alt="Imagem">
                                 </div>
 
                                 <div class="product-data">
