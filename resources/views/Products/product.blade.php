@@ -4,11 +4,19 @@
     Cadastrar produto
 @endsection
 
+<style>
+    .product-image{
+        width: 200px;
+        border-radius: 30px;
+        margin-bottom: 15px;
+    }
+</style>
+
 @section('content')
     @include('layouts.navbars.auth.topnav', ['title' => 'Profile'])
     <div class="container-fluid py-4">
         <div class="row">
-            <form action="{{ route('produtos.update', $product->id),  }}" method="post">
+            <form action="{{ route('produtos.update', $product->id),  }}" method="post" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="col-md-12">
@@ -20,6 +28,9 @@
                             </div>
                         </div>
                         <div class="card-body">
+                            <div class="col-12">
+                                <img src="{{ asset('storage/uploads/' . $product->picture) }}" class="product-image" alt="Imagem">
+                            </div>
                             <p class="text-sm">Edite os dados cadastrais deste produto</p>
                             <div class="row">
                                 <div class="col-md-3">
@@ -58,6 +69,13 @@
                                                 em estoque
                                             @endif
                                         </label>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="image">Alterar imagem do produto:</label>
+                                        <input type="file" name="image">
                                     </div>
                                 </div>
 
@@ -109,6 +127,22 @@
                 heading: '<b>Alterações realizadas com sucesso!</b>',
                 showHideTransition : 'slide',  // It can be plain, fade or slide
                 bgColor : '#2D2D2D',
+                hideAfter : 5000,
+                position: 'top-right',
+                textColor: 'white',
+                icon: 'warning',
+                showHideTransition: 'plain'
+            });
+        </script>
+    @endif
+
+    @if ($errors->any())
+        <script>
+            $.toast({
+                heading: '<b>Arquivo incompatível!</b>',
+                showHideTransition : 'slide',  // It can be plain, fade or slide
+                bgColor : 'red',
+                text: 'Formato de imagem não suportado.',
                 hideAfter : 5000,
                 position: 'top-right',
                 textColor: 'white',

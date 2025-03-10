@@ -45,13 +45,13 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $check = DB::table('products')
-            ->where('name', 'like', '%'.$request->name.'%')
-            ->count();
-
-        if ($check >= 1){
-            return redirect()->back()->with('msg-error','Já temos um produto cadastrado com o nome '.$request->name.'.');
-        }
+//        $check = DB::table('products')
+//            ->where('name', 'like', '%'.$request->name.'%')
+//            ->count();
+//
+//        if ($check >= 1){
+//            return redirect()->back()->with('msg-error','Já temos um produto cadastrado com o nome '.$request->name.'.');
+//        }
 
         $product = new Product();
         $product->name = $request->name;
@@ -74,22 +74,25 @@ class ProductController extends Controller
             }
         }
 
+        // Valida se o arquivo é uma imagem
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048'
+        ]);
+
+        // Verifica se um arquivo foi enviado
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->storeAs('public/uploads', $imageName);
+
+            $product->picture = $imageName;
+        }
+
         $product->save();
 
         return redirect()->route('produtos.index')->with('msg', $request->name.' foi cadastrado com sucesso!');
     }
 
-    /**
-     * Display the specified resource.
-     */
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         $additionals = '';
@@ -153,6 +156,19 @@ class ProductController extends Controller
             }else{
                 $product->stock = $request->stock;
             }
+        }
+
+        // Verifica se um arquivo foi enviado
+        if ($request->hasFile('image')) {
+            $request->validate([
+                'image' => 'required|image|mimes:jpeg,png,jpg|max:2048'
+            ]);
+
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->storeAs('public/uploads', $imageName);
+
+            $product->picture = $imageName;
         }
 
         $product->save();

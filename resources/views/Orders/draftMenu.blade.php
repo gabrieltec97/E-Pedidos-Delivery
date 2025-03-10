@@ -193,7 +193,7 @@
                                     @csrf
                                     <div class="card card-item">
                                         <div class="product-img">
-                                            <img src="{{ asset('assets/img/cardapio/burguers/burger-au-poivre-kit-4-pack.3ca0e39b02db753304cd185638dad518.jpg') }}" />
+                                            <img src="{{ asset('storage/uploads/' . $burguer->picture) }}" class="product-image" alt="Imagem">
                                         </div>
                                         <p class="product-title text-center mt-4">
                                             <b>{{ $burguer->name }}</b>
@@ -223,7 +223,7 @@
                                     @csrf
                                     <div class="card card-item">
                                         <div class="product-img">
-                                            <img src="{{ asset('assets/img/cardapio/burguers/burger-au-poivre-kit-4-pack.3ca0e39b02db753304cd185638dad518.jpg') }}" />
+                                            <img src="{{ asset('storage/uploads/' . $drink->picture) }}" class="product-image" alt="Imagem">
                                         </div>
                                         <p class="product-title text-center mt-4">
                                             <b>{{ $drink->name }}</b>
@@ -253,7 +253,7 @@
                                     @csrf
                                     <div class="card card-item">
                                         <div class="product-img">
-                                            <img src="{{ asset('assets/img/cardapio/burguers/burger-au-poivre-kit-4-pack.3ca0e39b02db753304cd185638dad518.jpg') }}" />
+                                            <img src="{{ asset('storage/uploads/' . $dessert->picture) }}" class="product-image" alt="Imagem">
                                         </div>
                                         <p class="product-title text-center mt-4">
                                             <b>{{ $dessert->name }}</b>
@@ -764,7 +764,7 @@
                             var produtoHTML = `
                     <div class="col-12 tray-item" data-id="${item.id}">
                         <div class="img-product">
-                            <img class="product-img" src="{{ asset('assets/img/cardapio/burguers/burger-au-poivre-kit-4-pack.3ca0e39b02db753304cd185638dad518.jpg') }}" />
+                            <img src="http://localhost/storage/uploads/${item.picture}" class="product-img" alt="Imagem">
                         </div>
 
                         <div class="product-data">
