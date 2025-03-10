@@ -82,21 +82,24 @@
                                                                             <div class="col-md-6">
                                                                                 <div class="form-group">
                                                                                     <label for="example-text-input" class="form-control-label">Nome</label>
-                                                                                    <input class="form-control" type="text" value="{{ $registered->name }}" name="name" required>
+                                                                                    <label class="form-control-label nameHd{{$registered->id}}" hidden>{{ $registered->name }}</label>
+                                                                                    <input class="form-control name{{$registered->id}} alter{{$registered->id}}" type="text" value="{{ $registered->name }}" name="name" required>
                                                                                 </div>
                                                                             </div>
 
                                                                             <div class="col-md-6">
                                                                                 <div class="form-group">
                                                                                     <label for="example-text-input" class="form-control-label">Valor</label>
-                                                                                    <input class="form-control" type="text" name="price" value="{{ $registered->price }}" required>
+                                                                                    <label class="form-control-label valueHd{{$registered->id}}" hidden>{{ $registered->price }}</label>
+                                                                                    <input class="form-control value{{$registered->id}} alter{{$registered->id}}" type="text" name="price" value="{{ $registered->price }}" required>
                                                                                 </div>
                                                                             </div>
 
                                                                             <div class="col-md-6">
                                                                                 <div class="form-group">
                                                                                     <label for="example-text-input" class="form-control-label">Aplicação em</label>
-                                                                                    <select class="form-control" name="type">
+                                                                                    <label class="form-control-label typeHd" hidden>{{ $registered->type }}</label>
+                                                                                    <select class="form-control type" name="type">
                                                                                         <option value="Comida" <?= ($registered->type == "Comida") ? 'selected' : '' ?>>Comida</option>
                                                                                         <option value="Bebida" <?= ($registered->type == "Bebida") ? 'selected' : '' ?>>Bebida</option>
                                                                                         <option value="Sobremesa" <?= ($registered->type == "Sobremesa") ? 'selected' : '' ?>>Sobremesa</option>
@@ -116,12 +119,46 @@
                                                                 </div>
                                                             </div>
                                                             <div class="modal-footer">
-                                                                <button type="submit" class="btn btn-primary">Salvar alterações</button>
+                                                                <button type="button" class="btn btn-danger deleteItem" data-bs-toggle="modal" data-bs-target="#exampleModal{{ $registered->id }}">Deletar item</button>
+                                                                <button type="submit" class="btn btn-primary save" style="display: none;">Salvar alterações</button>
                                                             </div>
                                                         </div>
                                                     </form>
                                                 </div>
                                             </div>
+
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="exampleModal{{ $registered->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Exclusão de item.</h5>
+                                                            <i class="fa-solid fa-circle-xmark" style="cursor: pointer; color: #ef4444;" data-bs-dismiss="modal" aria-label="Close"></i>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            Tem certeza que deseja excluir o item <b>{{ $registered->name }}</b>?
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <form action="{{ route('adicionais.destroy', $registered->id) }}" method="post">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i> Deletar</button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <script>
+                                                $(".alter{{$registered->id}}").on('keyup', function (){
+                                                    if ($(".name{{$registered->id}}").val() != $(".nameHd{{$registered->id}}").text() || $(".value{{$registered->id}}").val() != $(".valueHd{{$registered->id}}").text()){
+                                                        $(".save").fadeIn(1000);
+                                                    }else{
+                                                        $(".save").fadeOut();
+                                                    }
+                                                })
+
+                                            </script>
                                         @endforeach
                                 </tbody>
                             </table>
@@ -195,42 +232,33 @@
         </div>
     </div>
 
-    <!-- Inclua o jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            // Variáveis de opções em PHP
-            var foods = <?php echo json_encode($foods); ?>; // Exemplo: ["Pizza", "Hambúrguer", "Salada"]
-            var drinks = <?php echo json_encode($drinks); ?>; // Exemplo: ["Refrigerante", "Suco", "Água"]
-            var desserts = <?php echo json_encode($desserts); ?>; // Exemplo: ["Sorvete", "Bolo", "Pudim"]
-
-            // Monitorar alterações no select
-            $('#type-select').on('change', function () {
-                var selectedType = $(this).val(); // Valor selecionado
-                var container = $('#checkbox-container'); // Contêiner para os checkboxes
-                container.empty(); // Limpa o contêiner antes de adicionar novas opções
-
-                var options = []; // Array para armazenar as opções
-                if (selectedType === "Comida") {
-                    options = foods;
-                } else if (selectedType === "Bebida") {
-                    options = drinks;
-                } else if (selectedType === "Sobremesa") {
-                    options = desserts;
-                }
-
-                // Gerar checkboxes dinamicamente
-                if (options.length > 0) {
-                    options.forEach(function (item) {
-                        container.append(`
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="${selectedType.toLowerCase()}[]" value="${item}" id="${item}">
-                            <label class="form-check-label" for="${item}">${item}</label>
-                        </div>
-                    `);
-                    });
-                }
+    @if(session('msg'))
+        <script>
+            $.toast({
+                heading: '<b>Exclusão concluída!</b>',
+                showHideTransition: 'slide',  // It can be plain, fade or slide
+                bgColor: '#2ecc71',
+                text: 'Adicional excluído com sucesso!',
+                hideAfter: 8000,
+                position: 'top-right',
+                textColor: '#ecf0f1',
+                icon: 'success'
             });
-        });
-    </script>
+        </script>
+    @endif
+
+    @if(session('msg-ok'))
+        <script>
+            $.toast({
+                heading: '<b>Cadastro concluído!</b>',
+                showHideTransition: 'slide',  // It can be plain, fade or slide
+                bgColor: '#2ecc71',
+                text: 'Adicional cadastrado com sucesso!',
+                hideAfter: 8000,
+                position: 'top-right',
+                textColor: '#ecf0f1',
+                icon: 'success'
+            });
+        </script>
+    @endif
 @endsection

@@ -52,29 +52,9 @@ class AdditionalController extends Controller
 
         $additional->save();
 
-        return redirect()->back();
+        return redirect()->back()->with('msg-ok', 'ok');
 
     }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         $additional = Additional::find($id);
@@ -97,6 +77,9 @@ class AdditionalController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $item = Additional::find($id);
+        $item->delete();
+
+        return redirect()->back()->with('msg', 'ok');
     }
 }
