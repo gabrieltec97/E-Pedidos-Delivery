@@ -79,7 +79,7 @@ class AdditionalController extends Controller
     {
         $additional = Additional::find($id);
         $additional->name = $request->name;
-        $additional->benefitedProduct = $request->product;
+        $additional->type = $request->type;
         $additional->price = $request->price;
 
         if ($request->is_available == "on"){

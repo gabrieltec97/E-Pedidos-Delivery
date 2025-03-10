@@ -23,14 +23,12 @@
                                         Nome</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                         Valor</th>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Aplicação</th>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Status</th>
-                                    <th class="text-secondary opacity-7"></th>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Ação</th>
-                                    <th class="text-secondary opacity-7"></th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -59,7 +57,71 @@
                                                     <span class="badge badge-sm bg-gradient-danger" style="cursor: pointer;" title="Bairro não atendido hoje">Indisponível</span>
                                                 @endif
                                             </td>
+
+                                            <td>
+                                                <a href="#" data-bs-toggle="modal" data-bs-target="#modalItem{{$registered->id}}">Detalhes</a>
+                                            </td>
                                             </tr>
+
+                                            <!-- Modal de edição-->
+                                            <div class="modal fade" id="modalItem{{$registered->id}}" tabindex="-1" role="dialog" aria-labelledby="modalCadastro" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <form action="{{ route('adicionais.update', $registered->id )}}" method="post">
+                                                        @csrf
+                                                        @method('PUT')
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLabel">Editar adicional</h5>
+                                                                <i class="fa-solid fa-circle-xmark" style="cursor: pointer; color: #ef4444;" data-bs-dismiss="modal" aria-label="Close"></i>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div class="container-fluid">
+                                                                    <div class="row">
+                                                                        <p class="text-sm">Edite um item adicional já cadastrado para incrementar os itens do seu cardápio.</p>
+                                                                        <div class="row">
+                                                                            <div class="col-md-6">
+                                                                                <div class="form-group">
+                                                                                    <label for="example-text-input" class="form-control-label">Nome</label>
+                                                                                    <input class="form-control" type="text" value="{{ $registered->name }}" name="name" required>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="col-md-6">
+                                                                                <div class="form-group">
+                                                                                    <label for="example-text-input" class="form-control-label">Valor</label>
+                                                                                    <input class="form-control" type="text" name="price" value="{{ $registered->price }}" required>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="col-md-6">
+                                                                                <div class="form-group">
+                                                                                    <label for="example-text-input" class="form-control-label">Aplicação em</label>
+                                                                                    <select class="form-control" name="type">
+                                                                                        <option value="Comida" <?= ($registered->type == "Comida") ? 'selected' : '' ?>>Comida</option>
+                                                                                        <option value="Bebida" <?= ($registered->type == "Bebida") ? 'selected' : '' ?>>Bebida</option>
+                                                                                        <option value="Sobremesa" <?= ($registered->type == "Sobremesa") ? 'selected' : '' ?>>Sobremesa</option>
+                                                                                    </select>
+
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="col-md-6">
+                                                                                <div class="form-group">
+                                                                                    <input type="checkbox" name="is_available" id="available" style="margin-top: 45px;" <?= ($registered->is_available == true) ? 'checked' : '' ?>>
+                                                                                    <label for="available">Disponível para uso.</label>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="submit" class="btn btn-primary">Salvar alterações</button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
                                         @endforeach
                                 </tbody>
                             </table>
@@ -70,7 +132,6 @@
         </div>
     </div>
 
-    <!-- Modal de novo cupom-->
     <div class="modal fade" id="modalCadastro" tabindex="-1" role="dialog" aria-labelledby="modalCadastro" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <form action="{{ route('adicionais.store') }}" method="post">
