@@ -586,6 +586,18 @@
                  $(".valor-entregue").fadeIn();
              }
 
+             function fecharBandeja(){
+                 $('.modal-full, .tray-container, #trayResume, #deliveryPlace, #paymentStep, #btnBack, #btnLastBack, #btnAddressStep, #btnResumeStep, ' +
+                     '#btnSecondBack, #btnCheck, .alerta-troco, .valor-troco').fadeOut();
+                 $('.step2, .step3, .step4').removeClass('active')
+                 $('.tray-container').html('');
+                 $(".btn-tray-side").fadeIn();
+             }
+
+            $('.fechar-modal').on('click', function (){
+                fecharBandeja();
+            });
+
             $('#btnOrderStep').on('click', function (){
 
                 var items = []; // Array para armazenar as informações dos produtos
@@ -682,7 +694,7 @@
                             showHideTransition: 'slide',  // It can be plain, fade or slide
                             bgColor: '#2ecc71',
                             text: 'Item adicionado à sua bandeja.',
-                            hideAfter: 8000,
+                            hideAfter: 3000,
                             position: 'top-right',
                             textColor: '#ecf0f1',
                             icon: 'success'
@@ -811,13 +823,14 @@
                                             showHideTransition: 'slide',  // It can be plain, fade or slide
                                             bgColor: 'red',
                                             text: response.success,
-                                            hideAfter: 8000,
+                                            hideAfter: 3000,
                                             position: 'top-right',
                                             textColor: '#ecf0f1',
                                             icon: 'success'
                                         });
                                         itemDiv.fadeOut();  // Remove o item da bandeja na interface
                                         atualizarPreco();
+                                        recuperarBandeja();
                                     } else {
                                         $.toast({
                                             heading: '<b>Opsss, tivemos um erro!</b>',
@@ -849,7 +862,31 @@
                 });
             }
 
-
+            function recuperarBandeja(){
+                $.ajax({
+                    url: '{{ route('tray.check')}}',
+                    method: 'GET',
+                    success: function(response) {
+                        if(response.count == 0){
+                            fecharBandeja();
+                            $(".btn-tray-side").fadeOut();
+                            $.toast({
+                                heading: '<b>Oopsss, bandeja vazia!</b>',
+                                showHideTransition: 'slide',
+                                bgColor: 'red',
+                                text: 'Você precisa adicionar itens à sua bandeja.',
+                                hideAfter: 7000,
+                                position: 'top-right',
+                                textColor: 'white',
+                                icon: 'error'
+                            });
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        alert("Erro ao buscar o endereço:", error);
+                    }
+                });
+            }
 
             $('.btn-tray, .btn-tray-side').on('click', function (){
 
@@ -883,6 +920,7 @@
                         alert("Erro ao buscar o endereço:", error);
                     }
                 });
+
 
                 $(".btn-tray-side").fadeOut();
             });
