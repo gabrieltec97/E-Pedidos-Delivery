@@ -47,7 +47,7 @@
 
     .banner{
         padding-top: 15px;
-        padding-bottom: 50px;
+        padding-bottom: 10px;
     }
 
     .text-banner h1{
@@ -61,4 +61,79 @@
     .title {
         font-size: 30px;
     }
+
+    .services {
+        padding-bottom: 20px;
+    }
+
+    .menu {
+        padding-bottom: 50px;
+    }
+
+    .drinksBtn, .dessertsBtn{
+        margin-top: 10px;
+    }
+
+    .product-img {
+        position: absolute;
+        left: 15px;
+    }
+
+    .card-item {
+        height: 110px;
+        padding-left: 110px;
+        justify-content: center;
+        align-items: start;
+    }
+
+    .card-item .product-img img {
+        width: 80px;
+    }
+
+    .product-title{
+        margin-top: 0px !important;
+        height: 30px !important;
+        width: 100%;
+        text-align: left !important;
+    }
+
+    .product-price{
+        margin-bottom: 0px !important;
+        margin-top: 0px !important;
+        font-size: 18px !important;
+    }
+
+    .card-item .add-tray{
+        margin-top: 5px;
+    }
+
+    .reserve{
+        padding-bottom: 50px;
+    }
+
+    .card-secondary{
+        padding: 45px;
+        border-radius: 50px;
+    }
+
+    .container-logo-footer {
+        justify-content: center;
+    }
+
+    .container-footer-text p{
+        text-align: center;
+    }
+
+    .container-media-footer{
+        margin-top: 30px;
+        margin-bottom: 40px;
+        justify-content: center;
+    }
+
+    /*.container-menu{*/
+    /*    overflow-x: auto;*/
+    /*    overflow-y: hidden;*/
+    /*    display: flex;*/
+    /*    padding-bottom: 15px;*/
+    /*}*/
 }

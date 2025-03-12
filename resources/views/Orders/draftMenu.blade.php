@@ -152,14 +152,14 @@
         <div class="background-menu"></div>
         <div class="container">
             <div class="row">
-                <div class="col-12 text-center mb-5">
+                <div class="col-12 col-one text-center mb-5">
                     <span class="hint-title"><b>Cardápio</b></span>
                     <h1 class="title">
                         <b>Conheça o nosso cardápio</b>
                     </h1>
                 </div>
 
-                <div class="col-12 container-menu">
+                <div class="col-12 container-menu col-one">
                     <a class="btn btn-white btn-sm burguersBtn mr-3 active">
                         <i class="fas fa-hamburger"></i>&nbsp; Burgers
                     </a>
@@ -177,10 +177,10 @@
                     </a>
                 </div>
 
-                <div class="col-12">
+                <div class="col-12 col-one">
                     <div class="row burguersDiv">
                         @foreach($burguers as $burguer)
-                            <div class="col-3 mt-4">
+                            <div class="col-12 col-lg-3 col-md-3 col-sm-6 mt-4">
                                 <form class="product-form" data-product-id="{{ $burguer->id }}" action="{{ route('cardapio.store')}}" method="post">
                                     @csrf
                                     <div class="card card-item" data-toggle="modal" data-target=".modalItem{{ $burguer->id }}">
@@ -266,7 +266,7 @@
 
                     <div class="row drinksDiv" hidden>
                         @foreach($drinks as $drink)
-                            <div class="col-3 mt-4">
+                            <div class="col-12 col-lg-3 col-md-3 col-sm-6 mt-4">
                                 <form class="product-form" data-product-id="{{ $drink->id }}" action="{{ route('cardapio.store')}}" method="post">
                                     @csrf
                                     <div class="card card-item">
@@ -296,7 +296,7 @@
 
                     <div class="row dessertsDiv" hidden>
                         @foreach($desserts as $dessert)
-                            <div class="col-3 mt-4">
+                            <div class="col-12 col-lg-3 col-md-3 col-sm-6 mt-4">
                                 <form class="product-form" data-product-id="{{ $dessert->id }}" action="{{ route('cardapio.store')}}" method="post">
                                     @csrf
                                     <div class="card card-item">
@@ -332,17 +332,13 @@
         </div>
     </section>
 
-    <section class="testimonials">
-
-    </section>
-
     <section class="reserve">
         <div class="container">
             <div class="row">
-                <div class="col-12">
+                <div class="col-12 col-one">
                     <div class="card-secondary">
                         <div class="row">
-                            <div class="col-7">
+                            <div class="col-12 col-lg-7 col-md-7 col-sm-12">
                                <span class="hint-title"><b>Reservas</b></span>
                                 <h1 class="title">
                                 <b>Quer reservar um horário?</b>
@@ -358,7 +354,7 @@
                                 </a>
                             </div>
 
-                            <div class="col-5">
+                            <div class="col-5 no-mobile">
                                 <div class="card-reserve"></div>
                                 <div class="d-flex img-banner">
                                     <img src="{{ asset('assets/img/icone-reserva.svg') }}" />
@@ -378,15 +374,15 @@
     <footer>
         <div class="container">
             <div class="row">
-                <div class="col-3 container-logo-footer">
+                <div class="col-12 col-lg-3 col-md-3 col-sm-12 col-one container-logo-footer">
                    <img class="logo-footer" src="{{ asset('assets/img/logo.png') }}" />
                 </div>
-                <div class="col-6 container-footer-text">
+                <div class="col-12 col-lg-6 col-md-6 col-sm-12 container-footer-text">
                     <p class="mb-0">
                         <b>E-Pedidos Delivery</b> &copy; Todos os direitos reservados.
                     </p>
                 </div>
-                <div class="col-3 container-media-footer">
+                <div class="col-12 col-lg-3 col-md-3 col-sm-12 container-media-footer">
                    <a class="btn btn-sm btn-white btn-social mr-3">
                         <i class="fab fa-instagram"></i>
                     </a>
