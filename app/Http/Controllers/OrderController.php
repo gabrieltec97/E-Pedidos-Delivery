@@ -193,12 +193,14 @@ class OrderController extends Controller
         foreach ($tray as $calcAd){
             $additionals = explode(',', $calcAd->additionals);
             foreach ($additionals as $additional){
-                $value = DB::table('additionals')
+                $adValue = DB::table('additionals')
                     ->select('price')
                     ->where('name', ltrim($additional))
                     ->get();
 
-                $additionalsValue += $value[0]->price;
+                if (isset($adValue[0])){
+                    $additionalsValue += $adValue[0]->price;
+                }
             }
         }
 
@@ -251,6 +253,15 @@ class OrderController extends Controller
             if ($checkId != null){
                 while($id == $checkId->id){
                     $id = mt_rand(1,9000);
+                }
+            }
+
+            //Cálculo de taxa.
+            $neighborhoods = Neighbourhood::all();
+            $taxe = 0;
+            foreach ($neighborhoods as $neighborhood){
+                if ($neighborhood->name == $firstTray->neighbourhood){
+                    $taxe = $neighborhood->taxe;
                 }
             }
 
@@ -310,6 +321,7 @@ class OrderController extends Controller
                 $updateCoupons->save();
             }
 
+            
             $order = new Order();
             $order->id = $id;
             $order->user_id = $user;

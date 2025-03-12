@@ -821,26 +821,30 @@
                     method: 'GET',
                     success: function(response) {
                         response.forEach(function(item) {
+                            // Verifica se existem adicionais
+                            var adicionaisHTML = item.additionals ? `<p class="text-success"><b>+ ${item.additionals}</b></p>` : '';
+
                             var produtoHTML = `
-                    <div class="col-12 tray-item" data-id="${item.id}">
-                        <div class="img-product">
-                            <img src="http://localhost/storage/uploads/${item.picture}" class="product-img" alt="Imagem">
-                        </div>
-
-                        <div class="product-data">
-                            <p class="product-title"><b>${item.product}</b></p>
-                            <p class="product-price"><b>R$ ${item.value}</b></p>
-                            <p class="text-success"><b>+ ${item.additionals}</b></p>
-                        </div>
-
-                        <div class="add-tray">
-                            <span class="btn-less"><i class="fas fa-minus"></i></span>
-                            <span class="add-number-items">${item.ammount}</span>
-                            <span class="btn-plus"><i class="fas fa-plus"></i></span>
-                            <span class="btn btn-remove"><i class="fas fa-times"></i></span>
-                        </div>
+                <div class="col-12 tray-item" data-id="${item.id}">
+                    <div class="img-product">
+                        <img src="http://localhost/storage/uploads/${item.picture}" class="product-img" alt="Imagem">
                     </div>
-                `;
+
+                    <div class="product-data">
+                        <p class="product-title"><b>${item.product}</b></p>
+                        <p class="product-price"><b>R$ ${item.value}</b></p>
+                        ${adicionaisHTML} <!-- Adicionais aparecem aqui se existirem -->
+                    </div>
+
+                    <div class="add-tray">
+                        <span class="btn-less"><i class="fas fa-minus"></i></span>
+                        <span class="add-number-items">${item.ammount}</span>
+                        <span class="btn-plus"><i class="fas fa-plus"></i></span>
+                        <span class="btn btn-remove"><i class="fas fa-times"></i></span>
+                    </div>
+                </div>
+            `;
+
 
                             $('.tray-container').append(produtoHTML);
                         });

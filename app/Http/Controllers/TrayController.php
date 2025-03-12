@@ -149,12 +149,14 @@ class TrayController extends Controller
         foreach ($values as $value){
             $additionals = explode(',', $value->additionals);
             foreach ($additionals as $additional){
-                $value = DB::table('additionals')
+                $adValue = DB::table('additionals')
                     ->select('price')
                     ->where('name', ltrim($additional))
                     ->get();
 
-                $additionalsValue += $value[0]->price;
+                if (isset($adValue[0])){
+                    $additionalsValue += $adValue[0]->price;
+                }
             }
         }
 
