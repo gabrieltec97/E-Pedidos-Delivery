@@ -204,8 +204,6 @@ class OrderController extends Controller
             }
         }
 
-        $neighborhoods = Neighbourhood::all();
-
         //Verificação se o produto tem em estoque.
         foreach ($tray as $Titem){
             $item = DB::table('products')->where('name', $Titem->product)->get();
@@ -230,18 +228,6 @@ class OrderController extends Controller
             }
         }
 
-        //Verificando desconto.
-        $firstTray = Tray::where('user_id', $user)
-            ->first();
-
-        //Cálculo de taxa.
-        foreach ($neighborhoods as $neighborhood){
-            if ($neighborhood->name == $firstTray->neighbourhood){
-                $taxe = $neighborhood->taxe;
-            }else{
-                $taxe = 0;
-            }
-        }
         //Evitando bug de criação de pedido errôneo.
         if (count($tray) == 0){
             return redirect()->back();
@@ -258,6 +244,7 @@ class OrderController extends Controller
 
             //Cálculo de taxa.
             $neighborhoods = Neighbourhood::all();
+            $firstTray = Tray::where('user_id', $user)->first();
             $taxe = 0;
             foreach ($neighborhoods as $neighborhood){
                 if ($neighborhood->name == $firstTray->neighbourhood){
@@ -321,7 +308,7 @@ class OrderController extends Controller
                 $updateCoupons->save();
             }
 
-            
+
             $order = new Order();
             $order->id = $id;
             $order->user_id = $user;

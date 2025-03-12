@@ -1017,32 +1017,35 @@
                 method: 'GET',
                 success: function(response) {
                     if (response.length > 0) {
-                        // Limpar o contêiner de produtos antes de adicionar novos
                         $('#resumeItemsList').empty();
 
                         // Loop para criar os campos para cada produto
                         response.forEach(function(tray) {
+                            // Verifica se existem adicionais
+                            var adicionaisHTML = tray.additionals ? `<p class="text-success"><b>+ ${tray.additionals}</b></p>` : '';
+
                             var produtoHTML = `
-                            <div class="col-12 tray-item">
-                                <div class="img-product">
-                                    <img src="http://localhost/storage/uploads/${tray.picture}" class="product-img" alt="Imagem">
-                                </div>
+                    <div class="col-12 tray-item">
+                        <div class="img-product">
+                            <img src="http://localhost/storage/uploads/${tray.picture}" class="product-img" alt="Imagem">
+                        </div>
 
-                                <div class="product-data">
-                                    <p class="resume-product-title">
-                                        <b>${tray.product}</b>
-                                    </p>
+                        <div class="product-data">
+                            <p class="resume-product-title">
+                                <b>${tray.product}</b>
+                            </p>
 
-                                    <p class="resume-product-price">
-                                        <b>R$ ${tray.value}</b>
-                                    </p>
-                                </div>
+                            <p class="resume-product-price">
+                                <b>R$ ${tray.value}</b>
+                            </p>
+                            ${adicionaisHTML} <!-- Adicionais aparecem aqui se existirem -->
+                        </div>
 
-                                <p class="resume-product-quantity">
-                                    x <b>${tray.ammount}</b>
-                                </p>
-                            </div>
-                        `;
+                        <p class="resume-product-quantity">
+                            x <b>${tray.ammount}</b>
+                        </p>
+                    </div>
+                `;
 
                             // Adiciona o HTML do produto no contêiner
                             $('#resumeItemsList').append(produtoHTML);

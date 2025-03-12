@@ -569,7 +569,7 @@ class TrayController extends Controller
         }
 
         $tray = DB::table('trays')
-        ->select('id', 'value', 'sendingValue', 'ammount')
+        ->select('id', 'value', 'sendingValue', 'ammount', 'additionals')
         ->where('user_id', $user)
         ->get();
 
@@ -579,6 +579,23 @@ class TrayController extends Controller
             $subtotal += floatval($item->value) * $item->ammount;
         }
 
+        //Capturando o valor dos adicionais.
+        $additionalsValue = 0;
+        foreach ($tray as $calcAd){
+            $additionals = explode(',', $calcAd->additionals);
+            foreach ($additionals as $additional){
+                $adValue = DB::table('additionals')
+                    ->select('price')
+                    ->where('name', ltrim($additional))
+                    ->get();
+
+                if (isset($adValue[0])){
+                    $additionalsValue += $adValue[0]->price;
+                }
+            }
+        }
+
+        $subtotal += $additionalsValue;
         $trayValue = $tray[0]->sendingValue + $subtotal;
 
         DB::table('trays')
@@ -587,7 +604,6 @@ class TrayController extends Controller
 
         return response()->json(['message' => 'Cupom removido com sucesso!', 'value' => $trayValue,
             'taxe' => $tray[0]->sendingValue, 'subtotal' => $subtotal]);
-
     }
 
     public function store(Request $request)
