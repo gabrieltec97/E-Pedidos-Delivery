@@ -146,8 +146,8 @@ class TrayController extends Controller
             ->get();
 
         $additionalsValue = 0;
-        if($values[0]->additionals != null){
-            $additionals = explode(',', $values[0]->additionals);
+        foreach ($values as $value){
+            $additionals = explode(',', $value->additionals);
             foreach ($additionals as $additional){
                 $value = DB::table('additionals')
                     ->select('price')
