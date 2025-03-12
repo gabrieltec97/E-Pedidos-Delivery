@@ -187,6 +187,21 @@ class OrderController extends Controller
         }
 
         $tray = DB::table('trays')->where('user_id', $user)->get();
+
+        //Capturando o valor dos adicionais.
+        $additionalsValue = 0;
+        foreach ($tray as $calcAd){
+            $additionals = explode(',', $calcAd->additionals);
+            foreach ($additionals as $additional){
+                $value = DB::table('additionals')
+                    ->select('price')
+                    ->where('name', ltrim($additional))
+                    ->get();
+
+                $additionalsValue += $value[0]->price;
+            }
+        }
+
         $neighborhoods = Neighbourhood::all();
 
         //Verificação se o produto tem em estoque.
@@ -299,7 +314,7 @@ class OrderController extends Controller
             $order->id = $id;
             $order->user_id = $user;
             $order->status = 'Novo Pedido';
-            $order->value = $value + $taxe;
+            $order->value = $value + $taxe + $additionalsValue;
             $order->month = $this->monthConverter();
             $order->day = date('d');
             $order->year = date("Y");
