@@ -58,22 +58,25 @@
     <section class="banner">
         <div class="container">
             <div class="row">
-                <div class="col-6">
+                <div class="col-12 col-lg-6">
                     <div class="d-flex text-banner">
                         <h1><b>Escolha sua comida <b class="color-primary">favorita!</b></b></h1>
                         <p>Aproveite nosso cardápio. Escolha o que desejar e receba no conforto do seu lar de forma rápida e segura!</p>
-
-                        <div>
-                            <a class="btn btn-yellow mt-4 mr-3">
-                                Ver cardápio
-                            </a>
-                            <a href="" class="btn btn-white btn-icon-left mt-4 contact">
+                       <div class="row">
+                           <div class="col-5">
+                               <a class="btn btn-yellow mt-4 mr-3">
+                                   Ver cardápio
+                               </a>
+                           </div>
+                           <div class="col-6">
+                               <a href="" class="btn btn-white btn-icon-left mt-4 contact">
                                 <span class="icon-left">
                                     <i class="fa fa-phone"></i>
                                 </span>
-                                (21) 99746-7377
-                            </a>
-                        </div>
+                                   (21) 99746-7377
+                               </a>
+                           </div>
+                       </div>
                     </div>
 
                     <a class="btn btn-sm btn-white btn-social mt-4 mr-3">
@@ -89,10 +92,10 @@
                     </a>
                 </div>
 
-                <div class="col-6">
+                <div class="col-12 col-lg-6">
                     <div class="card-banner"></div>
                     <div class="d-flex img-banner">
-                        <img src="{{ asset('assets/img/burguer.png') }}"">
+                        <img src="{{ asset('assets/img/burguer.png') }}">
                     </div>
                     <div class="card card-case">
                        <b> "Entrega rápida e lanches deliciosos!
@@ -107,7 +110,7 @@
         </div>
     </section>
 
-    <section class="services">
+    <section class="services  mt-lg-0">
         <div class="background-services"></div>
         <div class="container">
             <div class="row">
@@ -117,7 +120,7 @@
                         <b>Qual é o nosso diferencial?</b>
                     </h1>
                 </div>
-                <div class="col-4 mb-5">
+                <div class="col-lg-4 col-12 mb-5">
                     <div class="card-icon text-center">
                         <img src="{{ asset('assets/img/icone-pedido.svg') }}" width="150">
                         <div class="card-text text-center mt-3">
@@ -129,7 +132,7 @@
                     </div>
                 </div>
 
-                <div class="col-4 mb-5">
+                <div class="col-lg-4 col-12 mb-5">
                     <div class="card-icon text-center">
                         <img src="{{ asset('assets/img/icone-delivery.svg') }}" width="250">
                         <div class="card-text text-center mt-3">
@@ -141,7 +144,7 @@
                     </div>
                 </div>
 
-                <div class="col-4 mb-5">
+                <div class="col-lg-4 col-12 mb-5">
                     <div class="card-icon text-center">
                         <img src="{{ asset('assets/img/icone-qualidade.svg') }}" width="250">
                         <div class="card-text text-center mt-3">
@@ -188,7 +191,7 @@
                 <div class="col-12">
                     <div class="row burguersDiv">
                         @foreach($burguers as $burguer)
-                            <div class="col-3 mt-4">
+                            <div class="col-12 col-lg-3 my-5">
                                 <form class="product-form" data-product-id="{{ $burguer->id }}" action="{{ route('cardapio.store')}}" method="post">
                                     @csrf
                                     <div class="card card-item" data-toggle="modal" data-target=".modalItem{{ $burguer->id }}">
@@ -350,7 +353,7 @@
                 <div class="col-12">
                     <div class="card-secondary">
                         <div class="row">
-                            <div class="col-7">
+                            <div class="col-lg-7 col-12">
                                <span class="hint-title"><b>Reservas</b></span>
                                 <h1 class="title">
                                 <b>Quer reservar um horário?</b>
@@ -366,7 +369,7 @@
                                 </a>
                             </div>
 
-                            <div class="col-5">
+                            <div class="col-lg-5 col-12 d-none d-lg-block">
                                 <div class="card-reserve"></div>
                                 <div class="d-flex img-banner">
                                     <img src="{{ asset('assets/img/icone-reserva.svg') }}" />
@@ -377,10 +380,6 @@
                 </div>
             </div>
         </div>
-    </section>
-
-    <section class="tray">
-
     </section>
 
     <footer>
@@ -437,7 +436,7 @@
                     @csrf
                     <div id="deliveryPlace" class="row" hidden="">
 
-                        <div class="col-4">
+                        <div class="col-12 col-lg-4">
                             <div class="form-group container-cep">
                                 <label for="txtCEP"><b>Cep:</b></label>
                                 <input type="text" id="txtCEP" name="cep" value="{{ $tray[0]->cep ?? '' }}" class="form-control">
@@ -447,49 +446,49 @@
                             </div>
                         </div>
 
-                        <div class="col-4">
+                        <div class="col-lg-4 col-12">
                             <div class="form-group">
                                 <label for="txtNome"><b>Nome:</b></label>
                                 <input type="text" id="txtNome" name="name" value="{{ $tray[0]->name ?? '' }}" class="form-control">
                             </div>
                         </div>
 
-                        <div class="col-4">
+                        <div class="col-lg-4 col-12">
                             <div class="form-group">
                                 <label for="txtContato"><b>Contato:</b></label>
                                 <input type="number" id="txtContato" name="contact" value="{{ $tray[0]->contact ?? '' }}"  class="form-control" required>
                             </div>
                         </div>
 
-                        <div class="col-6">
+                        <div class="col-lg-6 col-12">
                             <div class="form-group">
                                 <label for="txtEndereco"><b>Endereço:</b></label>
                                 <input type="text" id="txtEndereco" name="address" value="{{ $tray[0]->address ?? '' }}"  class="form-control">
                             </div>
                         </div>
 
-                        <div class="col-4">
+                        <div class="col-lg-4 col-12">
                             <div class="form-group">
                                 <label for="txtBairro"><b>Bairro:</b></label>
                                 <input type="text" id="txtBairro" name="neighbourhood" value="{{ $tray[0]->neighbourhood ?? '' }}"  class="form-control">
                             </div>
                         </div>
 
-                        <div class="col-2">
+                        <div class="col-lg-2 col-12">
                             <div class="form-group">
                                 <label for="txtNumero"><b>Número:</b></label>
                                 <input type="text" id="txtNumero" name="number" value="{{ $tray[0]->number ?? '' }}" class="form-control">
                             </div>
                         </div>
 
-                        <div class="col-4">
+                        <div class="col-lg-4 col-12">
                             <div class="form-group">
                                 <label for="txtCity"><b>Cidade:</b></label>
                                 <input type="text" id="txtCity" name="city" value="{{ $tray[0]->city ?? '' }}"  class="form-control" required>
                             </div>
                         </div>
 
-                        <div class="col-8">
+                        <div class="col-lg-8 col-12">
                             <div class="form-group">
                                 <label for="txtComplement"><b>Complemento:</b></label>
                                 <input type="text" id="txtComplement" name="complement" value="{{ $tray[0]->complement ?? '' }}" class="form-control">
@@ -503,12 +502,12 @@
                     <form id="formCoupon" method="post">
                         @csrf
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-lg-6 col-12">
                                 <label for="coupon"><b>Cupom:</b></label>
                                 <input type="text" id="coupon" name="coupon" value="{{ $tray[0]->coupon_apply ?? '' }}" class="form-control mb-2" {{ isset($tray[0]->coupon_apply) ? 'disabled' : '' }} style="{{ isset($tray[0]->coupon_apply) ? 'cursor: not-allowed;' : '' }}">
                             </div>
                     </form>
-                    <div class="col-6">
+                    <div class="col-12 col-lg-6">
                         <a class="btn btn-yellow mt-5 text-white" style="{{ isset($tray[0]->coupon_apply) ? 'display: none;' : '' }}" id="cadastrarCupom">Adicionar cupom</a>
                         <a class="btn btn-danger mt-5 text-white" id="removerCupom" title="Remover cupom" style="{{ !isset($tray[0]->coupon_apply) ? 'display: none;' : '' }}"><i class="fas fa-trash"></i></a>
                     </div>
@@ -516,7 +515,7 @@
                     <form id="formPayment" method="post">
                         <div class="row">
                         @csrf
-                        <div class="col-6 mt-5">
+                        <div class="col-12 col-lg-6 mt-5">
                             <div class="form-group">
                                 <label for="pagamento"><b>Forma de pagamento:</b></label>
                                 <select name="paymentMode" id="pagamento" class="form-control">
@@ -531,7 +530,7 @@
                             </div>
                         </div>
 
-                        <div class="col-6 valor-entregue mt-5">
+                        <div class="col-12 col-lg-6 valor-entregue mt-5">
                             <div class="form-group">
                                 <label for="valorPagamento"><b>Quanto você irá entregar:</b></label>
                                 <input type="number" id="valorPagamento" name="change" value="{{ $tray[0]->change ?? '' }}"  class="form-control mb-2">
