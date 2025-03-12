@@ -79,21 +79,21 @@
                                 <div class="container-fluid">
                                     <div class="row">
                                         <div class="col-12">
-                                            <p>{{$order->created_at}}</p>
-                                            <p>{{$order->user_name}}</p>
-                                            <p>{{ $order->userAdress }}</p>
+                                            <span>{{$order->created_at}}</span>
+                                            <span>{{$order->user_name}}</span>
+                                            <span>{{ $order->userAdress }}</span>
                                             @if($order->paymentMode != 'Dinheiro')
-                                                <p>{{$order->paymentMode}}</p>
+                                                <span>{{$order->paymentMode}}</span>
                                             @else
-                                                <p>Dinheiro, troco para: {{$order->change}}</p>    
+                                                <span>Dinheiro, troco para: {{$order->change}}</span>
                                             @endif
 
                                             @if($order->status == 'Em rota de entrega')
-                                                <p>Em rota de entrega com o entregador {{$order->delivery_man}}</p>
+                                                <span>Em rota de entrega com o entregador {{$order->delivery_man}}</span>
                                             @elseif($order->status == 'Pedido Entregue')
-                                                <p>Pedido entregue por {{$order->delivery_man}}</p>   
+                                                <span>Pedido entregue por {{$order->delivery_man}}</span>
                                             @endif
-                                            
+
 
                                             <p>R$ {{ $order->value }}</p>
                                         </div>
@@ -106,13 +106,13 @@
                                                             <div class="img-product">
                                                                 <img class="product-img" src="{{ asset('assets/img/cardapio/burguers/burger-au-poivre-kit-4-pack.3ca0e39b02db753304cd185638dad518.jpg') }}" />
                                                             </div>
-                            
+
                                                             <div class="product-data">
                                                                 <p class="resume-product-title">
                                                                     <b>{{ $item->product }}</b>
                                                                 </p>
                                                             </div>
-                            
+
                                                             <p class="resume-product-quantity">
                                                                 x <b>{{ $item->ammount }}</b>
                                                             </p>
