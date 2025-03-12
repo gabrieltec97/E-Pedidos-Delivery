@@ -130,6 +130,44 @@
         justify-content: center;
     }
 
+    .modal-full{
+        padding: 40px;
+    }
+
+    .modal-full .tray-item{
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+
+    .modal-full .img-product{
+       display: none;
+    }
+
+    .modal-full .product-data{
+        padding-left: 15px;
+        padding-right: 15px;
+        display: grid;
+    }
+
+    .modal-full .product-title, .modal-full .product-price{
+        font-size: 16px !important;
+    }
+
+    .modal-full .add-number-items{
+        padding: 2px 7px;
+    }
+
+    .modal-full .form-control{
+        font-size: 16px;
+    }
+
+    #cadastrarCupom{
+        margin-top: 20px !important;
+    }
+
+
+
+
     /*.container-menu{*/
     /*    overflow-x: auto;*/
     /*    overflow-y: hidden;*/

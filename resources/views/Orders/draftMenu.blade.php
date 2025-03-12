@@ -425,7 +425,7 @@
                     @csrf
                     <div id="deliveryPlace" class="row" hidden="">
 
-                        <div class="col-4">
+                        <div class="col-12 col-lg-4 col-md-4 col-sm-12">
                             <div class="form-group container-cep">
                                 <label for="txtCEP"><b>Cep:</b></label>
                                 <input type="text" id="txtCEP" name="cep" value="{{ $tray[0]->cep ?? '' }}" class="form-control">
@@ -435,49 +435,49 @@
                             </div>
                         </div>
 
-                        <div class="col-4">
+                        <div class="col-12 col-lg-4 col-md-4 col-sm-12">
                             <div class="form-group">
                                 <label for="txtNome"><b>Nome:</b></label>
                                 <input type="text" id="txtNome" name="name" value="{{ $tray[0]->name ?? '' }}" class="form-control">
                             </div>
                         </div>
 
-                        <div class="col-4">
+                        <div class="col-12 col-lg-4 col-md-4 col-sm-12">
                             <div class="form-group">
                                 <label for="txtContato"><b>Contato:</b></label>
                                 <input type="number" id="txtContato" name="contact" value="{{ $tray[0]->contact ?? '' }}"  class="form-control" required>
                             </div>
                         </div>
 
-                        <div class="col-6">
+                        <div class="col-12 col-lg-6 col-md-6 col-sm-12">
                             <div class="form-group">
                                 <label for="txtEndereco"><b>Endereço:</b></label>
                                 <input type="text" id="txtEndereco" name="address" value="{{ $tray[0]->address ?? '' }}"  class="form-control">
                             </div>
                         </div>
 
-                        <div class="col-4">
+                        <div class="col-12 col-lg-4 col-md-4 col-sm-12">
                             <div class="form-group">
                                 <label for="txtBairro"><b>Bairro:</b></label>
                                 <input type="text" id="txtBairro" name="neighbourhood" value="{{ $tray[0]->neighbourhood ?? '' }}"  class="form-control">
                             </div>
                         </div>
 
-                        <div class="col-2">
+                        <div class="col-12 col-lg-2 col-md-2 col-sm-12">
                             <div class="form-group">
                                 <label for="txtNumero"><b>Número:</b></label>
                                 <input type="text" id="txtNumero" name="number" value="{{ $tray[0]->number ?? '' }}" class="form-control">
                             </div>
                         </div>
 
-                        <div class="col-4">
+                        <div class="col-12 col-lg-4 col-md-4 col-sm-12">
                             <div class="form-group">
                                 <label for="txtCity"><b>Cidade:</b></label>
                                 <input type="text" id="txtCity" name="city" value="{{ $tray[0]->city ?? '' }}"  class="form-control" required>
                             </div>
                         </div>
 
-                        <div class="col-8">
+                        <div class="col-12 col-lg-8 col-md-8 col-sm-12">
                             <div class="form-group">
                                 <label for="txtComplement"><b>Complemento:</b></label>
                                 <input type="text" id="txtComplement" name="complement" value="{{ $tray[0]->complement ?? '' }}" class="form-control">
@@ -491,12 +491,12 @@
                     <form id="formCoupon" method="post">
                         @csrf
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-12 col-lg-6 col-md-6 col-sm-12">
                                 <label for="coupon"><b>Cupom:</b></label>
                                 <input type="text" id="coupon" name="coupon" value="{{ $tray[0]->coupon_apply ?? '' }}" class="form-control mb-2" {{ isset($tray[0]->coupon_apply) ? 'disabled' : '' }} style="{{ isset($tray[0]->coupon_apply) ? 'cursor: not-allowed;' : '' }}">
                             </div>
                     </form>
-                    <div class="col-6">
+                    <div class="col-12 col-lg-6 col-md-6 col-sm-12">
                         <a class="btn btn-yellow mt-5 text-white" style="{{ isset($tray[0]->coupon_apply) ? 'display: none;' : '' }}" id="cadastrarCupom">Adicionar cupom</a>
                         <a class="btn btn-danger mt-5 text-white" id="removerCupom" title="Remover cupom" style="{{ !isset($tray[0]->coupon_apply) ? 'display: none;' : '' }}"><i class="fas fa-trash"></i></a>
                     </div>
@@ -504,7 +504,7 @@
                     <form id="formPayment" method="post">
                         <div class="row">
                         @csrf
-                        <div class="col-6 mt-5">
+                        <div class="col-12 col-lg-6 col-md-6 col-sm-12 mt-5">
                             <div class="form-group">
                                 <label for="pagamento"><b>Forma de pagamento:</b></label>
                                 <select name="paymentMode" id="pagamento" class="form-control">
@@ -519,7 +519,7 @@
                             </div>
                         </div>
 
-                        <div class="col-6 valor-entregue mt-5">
+                        <div class="col-12 col-lg-6 col-md-6 col-sm-12 valor-entregue mt-lg-5 mt-sm-0">
                             <div class="form-group">
                                 <label for="valorPagamento"><b>Quanto você irá entregar:</b></label>
                                 <input type="number" id="valorPagamento" name="change" value="{{ $tray[0]->change ?? '' }}"  class="form-control mb-2">
