@@ -686,6 +686,15 @@ footer {
     display: none;
 }
 
+.modal-image{
+    height: 250px;
+    border-radius: 30px;
+}
+
+/*.modal-item{*/
+/*    background-color: var(--color-primary);*/
+/*}*/
+
 
 
 

@@ -207,12 +207,62 @@
                                             <span class="btn-less"><i class="fas fa-minus"></i></span>
                                             <span class="add-number-items">1</span>
                                             <span class="btn-plus"><i class="fas fa-plus"></i></span>
-                                            <button type="submit" class="btn btn-add"><i class="fas fa-shopping-bag"></i></button>
+                                            <button type="button" class="btn btn-add" data-toggle="modal" data-target=".modalItem{{ $burguer->id }}"><i class="fas fa-shopping-bag"></i></button>
                                             <input type="number" hidden class="ammount" name="ammount">
+                                        </div>
+                                    </div>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade modalItem{{ $burguer->id }}" tabindex="-1" role="dialog" aria-labelledby="item" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title product-title" id="exampleModalLongTitle">{{ $burguer->name }}</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body modal-item">
+                                                    <div class="container-fluid">
+                                                        <div class="row">
+                                                            <div class="col-12 d-flex justify-content-center">
+                                                                <img src="{{ asset('storage/uploads/' . $burguer->picture) }}" class="modal-image" alt="Imagem">
+                                                            </div>
+
+                                                            <div class="col-12">
+                                                                <hr class="horizontal dark">
+                                                                <span class="product-title">{{$burguer->description}}</span>
+                                                            </div>
+
+                                                            <div class="col-12">
+                                                                <hr class="horizontal dark">
+                                                                @if(count($additionals) != 0)
+
+                                                                    <p class="text-md font-weight-bold d-flex justify-content-center">Deixe seu lanche ainda mais gostoso:</p>
+                                                                    @foreach($additionals as $additional)
+                                                                        @if($additional->type == $burguer->type)
+                                                                            <input type="checkbox" name="additionals[]" id="additionals{{ $additional->id }}" value="{{ $additional->id }}">
+                                                                            <label for="additionals{{ $additional->id }}" style="margin-right: 10px;">{{ $additional->name }}
+                                                                                <span class="text-success">+R$ {{$additional->price}}</span></label>
+                                                                            <br>
+                                                                        @endif
+                                                                    @endforeach
+                                                                @endif
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="submit" class="btn btn-add"><i class="fas fa-shopping-bag"></i></button>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </form>
                             </div>
+
+
                         @endforeach
                     </div>
 

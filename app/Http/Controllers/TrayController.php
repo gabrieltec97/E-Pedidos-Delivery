@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Additional;
 use App\Models\Neighbourhood;
 use App\Models\Product;
 use App\Models\Tray;
@@ -33,6 +34,7 @@ class TrayController extends Controller
         }
 
         $products = Product::all();
+        $additionals = Additional::all();
         $burguers = DB::table('products')
             ->where('type', 'Comida')
             ->where('is_available', true)
@@ -85,7 +87,8 @@ class TrayController extends Controller
             'drinks' => $drinks,
             'desserts' => $desserts,
             'tray' => $tray,
-            'totalItems' => $totalItems
+            'totalItems' => $totalItems,
+            'additionals' => $additionals
         ]);
     }
 
