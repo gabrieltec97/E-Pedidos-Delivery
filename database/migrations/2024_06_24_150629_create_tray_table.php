@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('product_id');
             $table->string('value');
             $table->string('ammount');
+            $table->string('additionals');
             $table->string('coupon_apply');
             $table->string('cep')->nullable();
             $table->string('address')->nullable();
