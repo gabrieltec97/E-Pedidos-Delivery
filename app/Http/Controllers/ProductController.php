@@ -141,6 +141,7 @@ class ProductController extends Controller
         $product->name = $request->name;
         $product->type = $request->type;
         $product->description = $request->description;
+        $product->price = $request->price;
         $product->additionals = $additionals;
 
         if ($request->is_available == "on"){

@@ -24,7 +24,9 @@
                         <div class="card-header pb-0">
                             <div class="d-flex align-items-center">
                                 <h3 class="mb-0">{{ $product->name }}</h3>
-                                <button class="btn btn-primary btn-sm ms-auto">Salvar alterações</button>
+                                <button class="btn btn-primary btn-sm ms-auto save">
+                                    <div class="spinner-border spinner-border-sm loading" role="status" style="display: none;"></div>
+                                    Salvar alterações</button>
                             </div>
                         </div>
                         <div class="card-body">
@@ -33,12 +35,14 @@
                             </div>
                             <p class="text-sm">Edite os dados cadastrais deste produto</p>
                             <div class="row">
+
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="example-text-input" class="form-control-label">Nome</label>
                                         <input class="form-control" type="text" placeholder="Nome do produto" name="name" value="{{ $product->name }}" required>
                                     </div>
                                 </div>
+
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="example-text-input" class="form-control-label">Tipo de produto</label>
@@ -50,6 +54,14 @@
                                         </select>
                                     </div>
                                 </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="example-text-input" class="form-control-label">Valor</label>
+                                        <input class="form-control value" type="text" placeholder="Nome do produto" name="price" value="{{ $product->price }}" required>
+                                    </div>
+                                </div>
+
                                 @if($product->type != "Comida")
                                     <div class="col-md-3">
                                         <div class="form-group">
@@ -121,6 +133,12 @@
     </div>
 </div>
 
+    <script>
+        $(document).ready(function(){
+            $('.value').mask('000,000,000.00', {reverse: true});
+        });
+    </script>
+
     @if(session('msg-updated'))
         <script>
             $.toast({
@@ -151,4 +169,10 @@
             });
         </script>
     @endif
+
+    <script>
+        $(".save").on('click',function (){
+            $(".loading").fadeIn();
+        });
+    </script>
 @endsection

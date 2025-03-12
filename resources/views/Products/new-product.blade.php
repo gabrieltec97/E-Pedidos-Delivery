@@ -61,7 +61,7 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="example-text-input" class="form-control-label">Valor</label>
-                                        <input class="form-control" type="text" name="price" value="{{ old('price') }}" placeholder="Preço deste item">
+                                        <input class="form-control value" type="text" name="price" value="{{ old('price') }}" placeholder="Preço deste item">
                                     </div>
                                 </div>
 
@@ -159,5 +159,9 @@
         </script>
     @endif
 
-
+    <script>
+        $(document).ready(function(){
+            $('.value').mask('000,000,000.00', {reverse: true});
+        });
+    </script>
 @endsection

@@ -154,6 +154,12 @@
                                             </div>
 
                                             <script>
+                                                $(document).ready(function(){
+                                                    $('.value{{$registered->id}}').mask('000,000,000.00', {reverse: true});
+                                                });
+                                            </script>
+
+                                            <script>
                                                 $(".alter{{$registered->id}}").on('keyup', function (){
                                                     if ($(".name{{$registered->id}}").val() != $(".nameHd{{$registered->id}}").text() ||
                                                         $(".value{{$registered->id}}").val() != $(".valueHd{{$registered->id}}").text() ){
@@ -221,7 +227,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="example-text-input" class="form-control-label">Valor</label>
-                                            <input class="form-control" type="text" name="price" placeholder="Valor do adicional.">
+                                            <input class="form-control value" type="text" name="price" placeholder="Valor do adicional.">
                                         </div>
                                     </div>
 
@@ -304,4 +310,10 @@
             });
         </script>
     @endif
+
+    <script>
+        $(document).ready(function(){
+            $('.value').mask('000,000,000.00', {reverse: true});
+        });
+    </script>
 @endsection
