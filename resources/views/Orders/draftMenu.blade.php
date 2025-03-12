@@ -191,7 +191,7 @@
                             <div class="col-3 mt-4">
                                 <form class="product-form" data-product-id="{{ $burguer->id }}" action="{{ route('cardapio.store')}}" method="post">
                                     @csrf
-                                    <div class="card card-item">
+                                    <div class="card card-item" data-toggle="modal" data-target=".modalItem{{ $burguer->id }}">
                                         <div class="product-img">
                                             <img src="{{ asset('storage/uploads/' . $burguer->picture) }}" class="product-image" alt="Imagem">
                                         </div>
@@ -212,7 +212,7 @@
                                         </div>
                                     </div>
 
-                                    <!-- Modal -->
+                                    <!-- Modal de cada item-->
                                     <div class="modal fade modalItem{{ $burguer->id }}" tabindex="-1" role="dialog" aria-labelledby="item" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                             <div class="modal-content">
@@ -237,7 +237,6 @@
                                                             <div class="col-12">
                                                                 <hr class="horizontal dark">
                                                                 @if(count($additionals) != 0)
-
                                                                     <p class="text-md font-weight-bold d-flex justify-content-center">Deixe seu lanche ainda mais gostoso:</p>
                                                                     @foreach($additionals as $additional)
                                                                         @if($additional->type == $burguer->type)
@@ -251,7 +250,6 @@
                                                             </div>
                                                         </div>
                                                     </div>
-
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="submit" class="btn btn-add"><i class="fas fa-shopping-bag"></i></button>
