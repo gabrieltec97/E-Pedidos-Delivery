@@ -120,7 +120,6 @@ class TrayController extends Controller
         return response()->json($check);
     }
 
-
     public function findPrice(Request $userID)
     {
         if (Auth::user() == null){
@@ -142,9 +141,22 @@ class TrayController extends Controller
         }
 
         $values = DB::table('trays')
-            ->select('value', 'ammount', 'neighbourhood', 'coupon_apply', 'sendingValue')
+            ->select('value', 'ammount', 'neighbourhood', 'coupon_apply', 'sendingValue', 'additionals')
             ->where('user_id', $user)
             ->get();
+
+        $additionalsValue = 0;
+        if($values[0]->additionals != null){
+            $additionals = explode(',', $values[0]->additionals);
+            foreach ($additionals as $additional){
+                $value = DB::table('additionals')
+                    ->select('price')
+                    ->where('name', ltrim($additional))
+                    ->get();
+
+                $additionalsValue += $value[0]->price;
+            }
+        }
 
         $total = 0;
         $sum = false;
@@ -194,6 +206,9 @@ class TrayController extends Controller
         }else{
             $sendingValue = null;
         }
+
+        $total += $additionalsValue;
+        $subtotal += $additionalsValue;
 
         return response()->json(['total' => $total, 'subtotal' => $subtotal,
             'discount' => $discount, 'sendingValue' => $sendingValue,
@@ -577,6 +592,25 @@ class TrayController extends Controller
     {
         $item = Product::find($request->input('productId'));
 
+        //Recuperando os adicionais.
+        $additionals = '';
+        if ($request->additionals != null){
+            foreach ($request->additionals as $itemAd){
+                $itemName = DB::table('additionals')
+                    ->select('name')
+                    ->where('id', $itemAd)
+                    ->get();
+
+                if ($additionals == ''){
+                    $additionals =$itemName[0]->name;
+                }else{
+                    $additionals = $additionals . ', ' . $itemName[0]->name;
+                }
+            }
+        }else{
+            $additionals = null;
+        }
+
         //Correção de item vindo nulo do frontend.
         if($request->ammount == null){
             $ammount = 1;
@@ -623,6 +657,7 @@ class TrayController extends Controller
             $addTray->ammount = $ammount;
             $addTray->product_id = $item->id;
             $addTray->picture = $item->picture;
+            $addTray->additionals = $additionals;
             $addTray->save();
 
         } else {
@@ -650,6 +685,7 @@ class TrayController extends Controller
             $addTray->ammount = $ammount;
             $addTray->product_id = $item->id;
             $addTray->picture = $item->picture;
+            $addTray->additionals = $additionals;
             $addTray->save();
         }
         }

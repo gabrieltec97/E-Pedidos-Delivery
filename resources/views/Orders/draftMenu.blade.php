@@ -252,13 +252,21 @@
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="submit" class="btn btn-add"><i class="fas fa-shopping-bag"></i></button>
+                                                    <button type="submit" class="btn btn-add add-item{{ $burguer->id }}"><i class="fas fa-shopping-bag"></i></button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </form>
                             </div>
+
+                            <script>
+                                $(document).ready(function(){
+                                    $(".add-item{{ $burguer->id }}").click(function(){
+                                        $(".modalItem{{ $burguer->id }}").modal("hide"); // Fecha o modal ao clicar no botão
+                                    });
+                                });
+                            </script>
 
 
                         @endforeach
@@ -736,7 +744,11 @@
                     method: "POST",
                     data: formData,
                     success: function (response) {
-                        // Exibe uma mensagem de sucesso
+                        form.find("input[type='checkbox']").prop("checked", false);
+
+                        // Reseta outros campos, se necessário
+                        form[0].reset();
+
                         $.toast({
                             heading: '<b>Que legal!</b>',
                             showHideTransition: 'slide',  // It can be plain, fade or slide
@@ -818,6 +830,7 @@
                         <div class="product-data">
                             <p class="product-title"><b>${item.product}</b></p>
                             <p class="product-price"><b>R$ ${item.value}</b></p>
+                            <p class="text-success"><b>+ ${item.additionals}</b></p>
                         </div>
 
                         <div class="add-tray">
