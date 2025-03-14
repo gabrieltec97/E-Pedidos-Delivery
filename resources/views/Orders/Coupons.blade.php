@@ -180,7 +180,7 @@
                                                                 <div class="col-lg-6">
                                                                     <div class="form-group">
                                                                         <label for="example-text-input" class="form-control-label">Pedidos acima de:</label>
-                                                                        <input class="form-control" type="number" value="{{ $coupom->role }}" name="role" required>
+                                                                        <input class="form-control disccountValue" type="text" value="{{ $coupom->role }}" name="role" required>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-lg-6">
@@ -244,7 +244,7 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label for="example-text-input" class="form-control-label">Aplicação</label>
-                                        <select class="form-control" name="aplication">
+                                        <select class="form-control application" name="aplication">
                                             <option selected disabled>Selecione</option>
                                             <option value="Frete grátis">Frete grátis</option>
                                             <option value="Porcentagem">Porcentagem</option>
@@ -252,7 +252,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 disccount">
                                     <div class="form-group">
                                         <label for="example-text-input" class="form-control-label">Desconto</label>
                                         <input class="form-control" type="number" placeholder="Total do desconto" name="discount" required>
@@ -267,7 +267,7 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label for="example-text-input" class="form-control-label">Pedidos acima de:</label>
-                                        <input class="form-control" type="number" placeholder="Insira o valor" name="role" required>
+                                        <input class="form-control disccountValue" type="text" placeholder="Insira o valor" name="role" required>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -287,4 +287,21 @@
             </form>
         </div>
     </div>
+
+    <script>
+    $(document).ready(function(){
+        $('.disccountValue').mask('000.000.000.000.000.00', {reverse: true});
+
+        $(".application").on('change', function(){
+            if ($(this).val() == 'Frete grátis'){
+                $(".disccount").fadeOut();
+            }else{
+                $(".disccount").fadeIn();
+            }
+        })
+
+
+    });
+    </script>
+
 @endsection
