@@ -438,14 +438,14 @@
                         <div class="col-12 col-lg-4 col-md-4 col-sm-12">
                             <div class="form-group">
                                 <label for="txtNome"><b>Nome:</b></label>
-                                <input type="text" id="txtNome" name="name" value="{{ $tray[0]->name ?? '' }}" class="form-control">
+                                <input type="text" id="txtNome" name="name" value="{{ $tray[0]->name ?? '' }}" placeholder="Nome e sobrenome" class="form-control">
                             </div>
                         </div>
 
                         <div class="col-12 col-lg-4 col-md-4 col-sm-12">
                             <div class="form-group">
                                 <label for="txtContato"><b>Contato:</b></label>
-                                <input type="number" id="txtContato" name="contact" value="{{ $tray[0]->contact ?? '' }}"  class="form-control" required>
+                                <input type="text" id="txtContato" name="contact" value="{{ $tray[0]->contact ?? '' }}" class="form-control" placeholder="Contato com ddd" required>
                             </div>
                         </div>
 

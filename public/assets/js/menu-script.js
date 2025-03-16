@@ -58,10 +58,20 @@ $(document).ready(function (){
                         $('#txtEndereco').val(data.logradouro);
                         $('#txtBairro').val(data.bairro);
                         $('#txtCity').val(data.localidade);
-                        $('#txtNumero').focus();
+                        // $('#txtNumero').focus();
 
                     }else{
-                        //Toast de não conseguimos localizar este cep, preencha as informações manualmente
+                        $.toast({
+                            heading: '<b>Cep inválido!</b>',
+                            showHideTransition: 'slide',
+                            bgColor: 'red',
+                            text: 'Não conseguimos encontrar este cep, preencha as informações manualmente.',
+                            hideAfter: 8000,
+                            position: 'top-right',
+                            textColor: 'white',
+                            icon: 'error'
+                        });
+
                         $('#txtEndereco').focus();
                     }
                 })
@@ -130,5 +140,15 @@ $(document).ready(function (){
            $('.valor-troco').fadeIn();
            $('.valor-troco').html(`<b>Você receberá R$: ${troco} de troco</b>`)
        }
+    });
+
+    $('#txtContato').mask('(00) 0000-00009'); // Máscara inicial
+    $('#txtContato').on('keyup', function() {
+        var val = $(this).val().replace(/\D/g, ''); // Remove caracteres não numéricos
+        if (val.length > 10) {
+            $(this).mask('(00) 00000-0000'); // Formato celular
+        } else {
+            $(this).mask('(00) 0000-00009'); // Formato fixo (e mantém compatibilidade com celular)
+        }
     });
 });

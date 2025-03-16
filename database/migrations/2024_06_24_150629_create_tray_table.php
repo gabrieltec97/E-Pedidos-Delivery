@@ -26,7 +26,7 @@ return new class extends Migration
             $table->string('neighbourhood')->nullable();
             $table->string('city')->nullable();
             $table->string('complement')->nullable();
-            $table->bigInteger('contact')->nullable();
+            $table->string('contact')->nullable();
             $table->integer('number')->nullable();
             $table->string('comments')->nullable();
             $table->string('paymentMode')->nullable();
