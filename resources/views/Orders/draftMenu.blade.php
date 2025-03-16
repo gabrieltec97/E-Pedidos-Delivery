@@ -522,7 +522,7 @@
                         <div class="col-12 col-lg-6 col-md-6 col-sm-12 valor-entregue mt-lg-5 mt-sm-0">
                             <div class="form-group">
                                 <label for="valorPagamento"><b>Quanto você irá entregar:</b></label>
-                                <input type="number" id="valorPagamento" name="change" value="{{ $tray[0]->change ?? '' }}"  class="form-control mb-2">
+                                <input type="text" id="valorPagamento" name="change" value="{{ $tray[0]->change ?? '' }}"  class="form-control mb-2">
                                 <span class="text-danger alerta-troco"><b>O valor entregue não pode ser menor que o valor total do pedido!</b></span>
                                 <span class="text-success valor-troco"><b></b></span>
                             </div>

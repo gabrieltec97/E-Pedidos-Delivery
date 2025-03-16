@@ -71,7 +71,7 @@ $(document).ready(function (){
                             textColor: 'white',
                             icon: 'error'
                         });
-
+                        $('#txtCEP').val('');
                         $('#txtEndereco').focus();
                     }
                 })
@@ -93,6 +93,7 @@ $(document).ready(function (){
     });
 
     $('#txtCEP').mask('00000-000');
+    $('#valorPagamento').mask('000.000.000.000.000.00', {reverse: true});
 
     $('.btn-add').on('click', function(){
         setTimeout(function(){
