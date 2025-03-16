@@ -305,8 +305,18 @@ a.navbar-brand {
 }
 
 .btn-add {
-    border: 2px solid var(--color-black-heavy);
+    border: 2px solid var(--color-primary);
     font-size: 16px;
+    padding: 4px 10px;
+    border-radius: 10px;
+    color: var(--color-white);
+    background-color: var(--color-primary);
+    margin-left: 15px;
+}
+
+.btn-add-final {
+    border: 2px solid var(--color-black-heavy);
+    font-size: 18px;
     padding: 4px 10px;
     border-radius: 10px;
     color: var(--color-white);
@@ -327,31 +337,27 @@ a.navbar-brand {
     display: flex;
 }
 
-.card-item:hover .product-price {
+.card-item:hover .product-price{
     color: var(--color-black-heavy) !important;
     margin-top: 20px;
 }
 
+.card-item:hover .btn-add{
+    background-color: var(--color-black-heavy) !important;
+    color: var(--color-white) !important;
+}
 
-
-
-
-
-
-
-
-
-.reserve {
+.reserve{
     padding-bottom: 150px;
 }
 
-.card-secondary {
+.card-secondary{
     background-color: var(--color-secondary);
     border-radius: 70px;
     padding: 90px;
 }
 
-.card-reserve {
+.card-reserve{
     height: 320px;
     width: 320px;
     border-radius: 120px;
@@ -366,32 +372,32 @@ a.navbar-brand {
     width: 100%;
 }
 
-footer {
+footer{
     background-color: var(--color-secondary);
 }
 
-.logo-footer {
+.logo-footer{
     width: 80px;
 }
 
-.container-logo-footer, .container-footer-text, .container-media-footer {
+.container-logo-footer, .container-footer-text, .container-media-footer{
    display: flex;
    align-items: center;
 }
 
-.container-logo-footer {
+.container-logo-footer{
     justify-content: start;
 }
 
-.container-footer-text {
+.container-footer-text{
     justify-content: center;
 }
 
-.container-media-footer {
+.container-media-footer{
     justify-content: end;
 }
 
-.modal-full {
+.modal-full{
     position: fixed;
     top: 0;
     bottom: 0;

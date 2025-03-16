@@ -195,13 +195,13 @@
                                         </p>
                                         <input type="hidden" name="productId" value="{{ $burguer->id }}">
                                         <input type="number" class="form-control" name="ammount" style="width: 90px" value="1" hidden="">
-                                        <div class="add-tray">
-                                            <span class="btn-less"><i class="fas fa-minus"></i></span>
-                                            <span class="add-number-items">1</span>
-                                            <span class="btn-plus"><i class="fas fa-plus"></i></span>
-                                            <button type="button" class="btn btn-add" data-toggle="modal" data-target=".modalItem{{ $burguer->id }}"><i class="fas fa-shopping-bag"></i></button>
-                                            <input type="number" hidden class="ammount" name="ammount">
-                                        </div>
+                                        <button type="button" class="btn btn-add no-mobile" data-toggle="modal" data-target=".modalItem{{ $burguer->id }}"><i class="fas fa-shopping-bag"></i></button>
+                                        <input type="number" hidden class="ammount" name="ammount">
+{{--                                        <div class="add-tray">--}}
+{{--                                            <span class="btn-less"><i class="fas fa-minus"></i></span>--}}
+{{--                                            <span class="add-number-items">1</span>--}}
+{{--                                            <span class="btn-plus"><i class="fas fa-plus"></i></span>--}}
+{{--                                        </div>--}}
                                     </div>
 
                                     <!-- Modal de cada item-->
@@ -244,7 +244,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="submit" class="btn btn-add add-item{{ $burguer->id }}"><i class="fas fa-shopping-bag"></i></button>
+                                                    <button type="submit" class="btn btn-add-final float-right add-item{{ $burguer->id }}"><i class="fas fa-shopping-bag mr-2"></i>Adicionar</button>
                                                 </div>
                                             </div>
                                         </div>
