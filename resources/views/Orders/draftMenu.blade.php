@@ -493,7 +493,7 @@
                         <div class="row">
                             <div class="col-12 col-lg-6 col-md-6 col-sm-12">
                                 <label for="coupon"><b>Cupom:</b></label>
-                                <input type="text" id="coupon" name="coupon" value="{{ $tray[0]->coupon_apply ?? '' }}" class="form-control mb-2" {{ isset($tray[0]->coupon_apply) ? 'disabled' : '' }} style="{{ isset($tray[0]->coupon_apply) ? 'cursor: not-allowed;' : '' }}">
+                                <input type="text" id="coupon" name="coupon" value="{{ $tray[0]->coupon_apply ?? '' }}" class="form-control mb-2" {{ isset($tray[0]->coupon_apply) ? 'disabled' : '' }} oninput="this.value = this.value.toUpperCase().replace(/\s+/g, '');" style="{{ isset($tray[0]->coupon_apply) ? 'cursor: not-allowed;' : '' }}">
                             </div>
                     </form>
                     <div class="col-12 col-lg-6 col-md-6 col-sm-12">

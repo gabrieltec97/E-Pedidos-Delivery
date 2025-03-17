@@ -521,6 +521,13 @@ class TrayController extends Controller
                     'heading' => 'Cupom não encontrado!']);
             }
 
+            if (isset($coupon[0])){
+                if ($coupon[0]->status == 0){
+                    return response()->json(['message' => 'Infelizmente este cupom já foi utilizado em sua quantidade máxima de vezes.',
+                        'heading' => 'Cupom indisponível!']);
+                }
+            }
+
             $error = false;
             $message = '';
             $heading = '';
