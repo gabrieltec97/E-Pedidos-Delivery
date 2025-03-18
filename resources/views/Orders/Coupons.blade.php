@@ -23,8 +23,8 @@
                                         Nome</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                         Desconto</th>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Itens</th>
+{{--                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">--}}
+{{--                                        Itens</th>--}}
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Uso</th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
@@ -36,12 +36,23 @@
                                 @foreach($coupons as $coupom)
                                     @php
                                         $percent = round(($coupom->used / $coupom->limit) * 100, 0);
+                                         $dados[] = [
+                                             'id' => $coupom->id,
+                                             'name' => $coupom->name,
+                                             'discount' => $coupom->discount,
+                                             'limit' => $coupom->limit,
+                                             'role' => $coupom->role,
+                                             'type' => $coupom->type,
+                                             'status' => $coupom->status
+                                               ];
+                                         $jsonData = json_encode($dados);
                                     @endphp
                                     <tr>
                                         <td>
                                             <div class="d-flex px-2 py-1">
                                                 <div class="d-flex flex-column justify-content-center">
                                                     <h6 class="mb-0 text-sm font-weight-bold text-success">{{ $coupom->name }}</h6>
+                                                    <input class="couponId" disabled hidden value="{{ $coupom->id }}">
                                                 </div>
                                             </div>
                                         </td>
@@ -54,9 +65,9 @@
                                                 <p class="text-xs font-weight-bold mb-0">Frete grátis</p>
                                             @endif
                                         </td>
-                                        <td class="align-middle text-center text-sm">
-                                            <p class="text-xs font-weight-bold mb-0">{{ $coupom->products }}</p>
-                                        </td>
+{{--                                        <td class="align-middle text-center text-sm">--}}
+{{--                                            <p class="text-xs font-weight-bold mb-0">{{ $coupom->products }}</p>--}}
+{{--                                        </td>--}}
                                         <td class="align-middle text-center text-sm">
                                             <div class="d-flex align-items-center justify-content-center">
                                                 <span class="me-2 text-xs font-weight-bold">({{ $coupom->used }}/{{ $coupom->limit }}) {{ $percent }}%</span>
@@ -89,7 +100,7 @@
                                             @endif
                                         </td>
                                         <td class="align-middle">
-                                            <a style="text-decoration: none; cursor: pointer;" class="text-secondary font-weight-bold text-xs"
+                                            <a style="text-decoration: none; cursor: pointer;" class="text-secondary font-weight-bold text-xs edit{{$coupom->id}}"
                                                data-bs-toggle="modal" data-bs-target="#editmodal{{$coupom->id}}">
                                                 Editar
                                             </a>
@@ -136,28 +147,27 @@
                                                             @csrf
                                                             @method('PATCH')
                                                             <div class="row">
-                                                                <div class="col-lg-6">
+                                                                <div class="col-lg-12">
                                                                     <div class="form-group">
                                                                         <label for="example-text-input" class="form-control-label">Nome</label>
-                                                                        <input class="form-control" value="{{ $coupom->name }}" type="text" style="text-transform: uppercase;" oninput="this.value = this.value.replace(/\s+/g, '');" name="name" required>
+                                                                        <input class="form-control name{{$coupom->id}} alter{{$coupom->id}}" value="{{ $coupom->name }}" type="text" style="text-transform: uppercase;" oninput="this.value = this.value.replace(/\s+/g, '');" name="name" required>
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-lg-6">
-                                                                    <div class="form-group">
-                                                                        <label for="example-text-input" class="form-control-label">Items</label>
-                                                                        <select class="form-control" name="items">
-                                                                            <option selected disabled>Selecione</option>
-                                                                            <option value="Todos"  @selected($coupom->products == "Todos")>Todos</option>
-                                                                            <option value="Comida"  @selected($coupom->products == "Comida")>Comida</option>
-                                                                            <option value="Bebida"  @selected($coupom->products == "Bebida")>Bebida</option>
-                                                                            <option value="Sobremesa"  @selected($coupom->products == "Sobremesa")>Sobremesa</option>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
+{{--                                                                <div class="col-lg-6">--}}
+{{--                                                                    <div class="form-group">--}}
+{{--                                                                        <label for="example-text-input" class="form-control-label">Items</label>--}}
+{{--                                                                        <select class="form-control Items{{$coupom->id}} select{{$coupom->id}}" name="items">--}}
+{{--                                                                            <option selected disabled>Selecione</option>--}}
+{{--                                                                            <option value="Comida"  @selected($coupom->products == "Comida")>Comida</option>--}}
+{{--                                                                            <option value="Bebida"  @selected($coupom->products == "Bebida")>Bebida</option>--}}
+{{--                                                                            <option value="Sobremesa"  @selected($coupom->products == "Sobremesa")>Sobremesa</option>--}}
+{{--                                                                        </select>--}}
+{{--                                                                    </div>--}}
+{{--                                                                </div>--}}
                                                                 <div class="col-lg-6">
                                                                     <div class="form-group">
                                                                         <label for="example-text-input" class="form-control-label">Aplicação</label>
-                                                                        <select class="form-control" name="aplication">
+                                                                        <select class="form-control aplication{{$coupom->id}} select{{$coupom->id}}" name="aplication">
                                                                             <option selected disabled>Selecione</option>
                                                                             <option value="Frete grátis"  @selected($coupom->type == "Frete grátis")>Frete grátis</option>
                                                                             <option value="Porcentagem"  @selected($coupom->type == "Porcentagem")>Porcentagem</option>
@@ -168,24 +178,24 @@
                                                                 <div class="col-lg-6">
                                                                     <div class="form-group">
                                                                         <label for="example-text-input" class="form-control-label">Desconto</label>
-                                                                        <input class="form-control" type="number" placeholder="Total do desconto" name="discount" value="{{ $coupom->discount }}" required>
+                                                                        <input class="form-control discount{{$coupom->id}} alter{{$coupom->id}}" type="number" placeholder="Total do desconto" name="discount" value="{{ $coupom->discount }}" required>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-lg-6">
                                                                     <div class="form-group">
                                                                         <label for="example-text-input" class="form-control-label">Limite de uso</label>
-                                                                        <input class="form-control" type="number" placeholder="Quantidade de pedidos" value="{{ $coupom->limit }}" name="limit" required>
+                                                                        <input class="form-control alter{{$coupom->id}} limit{{$coupom->id}}" type="number" placeholder="Quantidade de pedidos" value="{{ $coupom->limit }}" name="limit" required>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-lg-6">
                                                                     <div class="form-group">
                                                                         <label for="example-text-input" class="form-control-label">Pedidos acima de:</label>
-                                                                        <input class="form-control disccountValue" type="text" value="{{ $coupom->role }}" name="role" required>
+                                                                        <input class="form-control disccountValue alter{{$coupom->id}} up{{$coupom->id}}" type="text" value="{{ $coupom->role }}" name="role" required>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-lg-6">
                                                                     <div class="form-group">
-                                                                        <input type="checkbox" name="is_available" id="available" style="margin-top: 45px;" @checked($coupom->status)>
+                                                                        <input type="checkbox" class="is_available" name="is_available" id="available" @checked($coupom->status)>
                                                                         <label for="available">Disponível para uso</label>
                                                                     </div>
                                                                 </div>
@@ -194,12 +204,64 @@
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="submit" class="btn btn-primary">Salvar</button>
+                                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deletemodal{{ $coupom->id }}">
+                                                        Deletar cupom
+                                                    </button>
+                                                    <button type="submit" class="btn btn-primary save" style="display: none;">
+                                                        <div class="spinner-border spinner-border-sm loading" role="status" style="display: none;"></div>
+                                                        Salvar alterações
+                                                    </button>
                                                 </div>
+
+                                                <script>
+                                                    var data = <?php echo $jsonData; ?>;
+                                                    $(".edit{{$coupom->id}}").on('click', function(){
+                                                        data.forEach((item) => {
+                                                            if({{$coupom->id}} == item.id){
+                                                                $(".alter{{$coupom->id}}").on('keyup', function (){
+                                                                    if ($(".name{{$coupom->id}}").val().toUpperCase() != item.name
+                                                                    || $(".discount{{$coupom->id}}").val() != item.discount
+                                                                    || $(".limit{{$coupom->id}}").val() != item.limit
+                                                                    || $(".up{{$coupom->id}}").val() != item.role){
+                                                                       $(".save").fadeIn();
+                                                                    }else{
+                                                                        $(".save").fadeOut();
+                                                                    }
+                                                                });
+
+                                                                $(".select{{$coupom->id}}").on('change', function (){
+                                                                    if($(".aplication{{$coupom->id}}").val() != item.type){
+                                                                        $(".save").fadeIn();
+                                                                    }else{
+                                                                        $(".save").fadeOut();
+                                                                    }
+                                                                });
+
+                                                                $(".is_available").on('click', function (){
+                                                                    let isChecked = $(this).prop('checked');
+
+                                                                    if (isChecked == true && item.status == 0 || isChecked == false && item.status == 1){
+                                                                        $(".save").fadeIn();
+                                                                    }else{
+                                                                        $(".save").fadeOut();
+                                                                    }
+
+                                                                    console.log(isChecked);
+                                                                });
+                                                            }
+                                                        });
+                                                    });
+
+                                                    $(".save").on('click',function (){
+                                                        $(".loading").fadeIn();
+                                                    });
+                                                </script>
+
                                                 </form>
                                             </div>
                                         </div>
                                     </div>
+
                                 @endforeach
                                 </tbody>
                             </table>
@@ -223,24 +285,23 @@
                         <form action="{{ route('cupons.store') }}" method="post">
                             @csrf
                             <div class="row">
-                                <div class="col-lg-6">
+                                <div class="col-lg-12">
                                     <div class="form-group">
                                         <label for="example-text-input" class="form-control-label">Nome</label>
                                         <input class="form-control" type="text" style="text-transform: uppercase;" oninput="this.value = this.value.replace(/\s+/g, '');" name="name" required>
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label for="example-text-input" class="form-control-label">Items</label>
-                                        <select class="form-control" name="items">
-                                            <option selected disabled>Selecione</option>
-                                            <option value="Todos">Todos</option>
-                                            <option value="Comida">Comida</option>
-                                            <option value="Bebida">Bebida</option>
-                                            <option value="Sobremesa">Sobremesa</option>
-                                        </select>
-                                    </div>
-                                </div>
+{{--                                <div class="col-lg-6">--}}
+{{--                                    <div class="form-group">--}}
+{{--                                        <label for="example-text-input" class="form-control-label">Items</label>--}}
+{{--                                        <select class="form-control" name="items">--}}
+{{--                                            <option selected disabled>Selecione</option>--}}
+{{--                                            <option value="Comida">Comida</option>--}}
+{{--                                            <option value="Bebida">Bebida</option>--}}
+{{--                                            <option value="Sobremesa">Sobremesa</option>--}}
+{{--                                        </select>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label for="example-text-input" class="form-control-label">Aplicação</label>
@@ -255,7 +316,7 @@
                                 <div class="col-lg-6 disccount">
                                     <div class="form-group">
                                         <label for="example-text-input" class="form-control-label">Desconto</label>
-                                        <input class="form-control" type="number" placeholder="Total do desconto" name="discount" required>
+                                        <input class="form-control discount" type="number" placeholder="Total do desconto" name="discount" required>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -299,9 +360,37 @@
                 $(".disccount").fadeIn();
             }
         })
-
-
     });
     </script>
+
+    @if(session('msg-coupon-updated'))
+        <script>
+            $.toast({
+                heading: '<b>Alterações realizadas!</b>',
+                showHideTransition: 'slide',  // It can be plain, fade or slide
+                bgColor: '#2ecc71',
+                text: 'Alterações realizadas com sucesso!',
+                hideAfter: 8000,
+                position: 'top-right',
+                textColor: '#ecf0f1',
+                icon: 'success'
+            });
+        </script>
+    @endif
+
+    @if(session('msg-store'))
+        <script>
+            $.toast({
+                heading: '<b>Alterações realizadas!</b>',
+                showHideTransition: 'slide',  // It can be plain, fade or slide
+                bgColor: '#2ecc71',
+                text: 'Cupom cadastrado com sucesso!',
+                hideAfter: 8000,
+                position: 'top-right',
+                textColor: '#ecf0f1',
+                icon: 'success'
+            });
+        </script>
+    @endif
 
 @endsection

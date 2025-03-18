@@ -28,7 +28,7 @@ class CouponController extends Controller
     {
         $coupon = new Coupon();
         $coupon->name = strtoupper($request->name);
-        $coupon->products = $request->items;
+//        $coupon->products = $request->items;
         $coupon->type = $request->aplication;
         $coupon->limit = $request->limit;
         $coupon->role = $request->role;
@@ -48,7 +48,7 @@ class CouponController extends Controller
 
         $coupon->save();
 
-        return redirect()->back();
+        return redirect()->back()->with('msg-store');
     }
 
     public function apply(Request $request)
@@ -100,10 +100,9 @@ class CouponController extends Controller
     {
         $coupon = Coupon::find($id);
         $coupon->name = strtoupper($request->name);
-        $coupon->products = $request->items;
+//        $coupon->products = $request->items;
         $coupon->type = $request->aplication;
         $coupon->limit = $request->limit;
-        $coupon->used = 0;
 
         if ($request->type == "Frete grátis"){
             $coupon->discount == "Frete grátis";
@@ -118,8 +117,7 @@ class CouponController extends Controller
         }
 
         $coupon->save();
-
-        return redirect()->back();
+        return redirect()->back()->with('msg-coupon-updated', '.');
     }
 
     /**
