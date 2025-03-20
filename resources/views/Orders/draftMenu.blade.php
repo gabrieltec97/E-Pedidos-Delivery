@@ -626,6 +626,12 @@
 
     <script>
         $(document).ready(function () {
+            let totalItems = {{ $totalItems }};
+
+            if (totalItems == 0) {
+                $('.btn-tray-side').hide();
+            }
+
              if($("#valorPagamento").val() != ''){
                  $(".valor-entregue").fadeIn();
              }
@@ -728,7 +734,6 @@
                     url: countUrl,
                     method: "GET",
                     success: function (response) {
-                        // Atualiza o contador no HTML (exemplo: um <span id="cart-count">)
                         $(".cart-count").text(response.count);
                         $('.btn-tray-side').fadeIn();
                     },
