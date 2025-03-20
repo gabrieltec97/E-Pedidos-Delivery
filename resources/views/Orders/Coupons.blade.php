@@ -178,7 +178,7 @@
                                                                 <div class="col-lg-6 col-discount{{$coupom->id}}">
                                                                     <div class="form-group">
                                                                         <label for="example-text-input" class="form-control-label">Desconto</label>
-                                                                        <input class="form-control discount{{$coupom->id}} alter{{$coupom->id}}" type="number" placeholder="Total do desconto" name="discount" value="{{ $coupom->discount }}" required>
+                                                                        <input class="form-control discount{{$coupom->id}} alter{{$coupom->id}}" type="number" placeholder="Total do desconto" name="discount" value="{{ $coupom->discount }}">
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-lg-6">

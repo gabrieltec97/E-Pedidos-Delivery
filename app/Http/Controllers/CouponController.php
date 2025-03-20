@@ -107,10 +107,10 @@ class CouponController extends Controller
     public function update(Request $request, string $id)
     {
         $coupons = DB::table('coupons')
-            ->select('name')->get();
+            ->select('name', 'id')->get();
 
         foreach ($coupons as $item){
-            if ($item->name == strtoupper($request->name)){
+            if ($item->name == strtoupper($request->name) && $item->id != $id){
                 return redirect()->back()->with('msg-error-upd', 'Já existe um cupom cadastrado com este nome.');
             }
         }
