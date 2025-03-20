@@ -151,19 +151,11 @@
                                                                     <div class="form-group">
                                                                         <label for="example-text-input" class="form-control-label">Nome</label>
                                                                         <input class="form-control name{{$coupom->id}} alter{{$coupom->id}}" value="{{ $coupom->name }}" type="text" style="text-transform: uppercase;" oninput="this.value = this.value.replace(/\s+/g, '');" name="name" required>
+                                                                        <span class="text-danger checkCoupon{{$coupom->id}}" style="display: none;">
+                                                                            Já existe um cupom com o nome <b><span class="notName{{$coupom->id}}"></span>.</b> Por favor, escolha outro nome.
+                                                                        </span>
                                                                     </div>
                                                                 </div>
-{{--                                                                <div class="col-lg-6">--}}
-{{--                                                                    <div class="form-group">--}}
-{{--                                                                        <label for="example-text-input" class="form-control-label">Items</label>--}}
-{{--                                                                        <select class="form-control Items{{$coupom->id}} select{{$coupom->id}}" name="items">--}}
-{{--                                                                            <option selected disabled>Selecione</option>--}}
-{{--                                                                            <option value="Comida"  @selected($coupom->products == "Comida")>Comida</option>--}}
-{{--                                                                            <option value="Bebida"  @selected($coupom->products == "Bebida")>Bebida</option>--}}
-{{--                                                                            <option value="Sobremesa"  @selected($coupom->products == "Sobremesa")>Sobremesa</option>--}}
-{{--                                                                        </select>--}}
-{{--                                                                    </div>--}}
-{{--                                                                </div>--}}
                                                                 <div class="col-lg-6">
                                                                     <div class="form-group">
                                                                         <label for="example-text-input" class="form-control-label">Aplicação</label>
@@ -266,6 +258,42 @@
                                                     if("{{$coupom->type}}" == "Frete grátis"){
                                                         $(".col-discount{{$coupom->id}}").hide();
                                                     }
+
+                                                    function verificarNome(nome, id){
+                                                        $.ajax({
+                                                            url: "{{ route('verificarNomeCupom') }}",
+                                                            method: "GET",
+                                                            data: {name: nome, id: id},
+                                                            success: function (response) {
+                                                                if (response.success == false){
+                                                                    $(".checkCoupon{{$coupom->id}}").fadeIn();
+                                                                    $(".notName{{$coupom->id}}").text(nome);
+                                                                    $(".name{{$coupom->id}}").val('');
+                                                                    $(".saveCoupon{{$coupom->id}}").prop("disabled", true);
+                                                                }else{
+                                                                    $(".checkCoupon{{$coupom->id}}").fadeOut();
+                                                                    $(".saveCoupon{{$coupom->id}}").prop("disabled", false);
+                                                                }
+                                                            },
+                                                            error: function () {
+                                                                console.error("Erro ao buscar a contagem dos itens na bandeja.");
+                                                            }
+                                                        });
+                                                    }
+
+                                                    $(".name{{$coupom->id}}").blur(function(){
+                                                        let nome = $(this).val().toUpperCase().replace(/\s/g, '');
+                                                        let id = {{ $coupom->id }};
+
+
+                                                        verificarNome(nome, id);
+                                                    });
+
+                                                    $(".save").on('click', function (e){
+                                                        e.preventDefault();
+
+                                                        verificarNome();
+                                                    });
                                                 </script>
 
                                                 </form>

@@ -24,12 +24,22 @@ class CouponController extends Controller
     public function checkCouponName(Request $request)
     {
         $name = $request->input('name');
+        $id = '';
+        if ($request->input('id') != ''){
+            $id = $request->input('id');
+        }
         $check = DB::table('coupons')
-            ->select('name')->get();
+            ->select('name', 'id')->get();
 
         foreach ($check as $item){
-            if ($item->name == $name){
-                return response()->json(['success' => false]);
+            if ($id == ''){
+                if ($item->name == $name){
+                    return response()->json(['success' => false]);
+                }
+            }else{
+                if ($item->name == $name && $item->id != $id){
+                    return response()->json(['success' => false]);
+                }
             }
         }
 
