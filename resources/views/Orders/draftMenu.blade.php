@@ -230,12 +230,17 @@
                                                                 <hr class="horizontal dark">
                                                                 @if(count($additionals) != 0)
                                                                     <p class="text-md font-weight-bold d-flex justify-content-center">Deixe seu lanche ainda mais gostoso:</p>
+                                                                    @php
+                                                                        $additionalsBg = explode(",", $burguer->additionals);
+                                                                    @endphp
                                                                     @foreach($additionals as $additional)
                                                                         @if($additional->type == $burguer->type)
-                                                                            <input type="checkbox" name="additionals[]" id="additionals{{ $additional->id }}" value="{{ $additional->id }}">
-                                                                            <label for="additionals{{ $additional->id }}" style="margin-right: 10px;">{{ $additional->name }}
-                                                                                <span class="text-success">+R$ {{$additional->price}}</span></label>
-                                                                            <br>
+                                                                            @if(in_array($additional->id, $additionalsBg))
+                                                                                <input type="checkbox" name="additionals[]" id="additionals{{ $additional->id }}" value="{{ $additional->id }}">
+                                                                                <label for="additionals{{ $additional->id }}" style="margin-right: 10px;">{{ $additional->name }}
+                                                                                    <span class="text-success">+R$ {{$additional->price}}</span></label>
+                                                                                <br>
+                                                                            @endif
                                                                         @endif
                                                                     @endforeach
                                                                 @endif
