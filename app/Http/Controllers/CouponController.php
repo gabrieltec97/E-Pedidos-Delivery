@@ -21,6 +21,21 @@ class CouponController extends Controller
         ]);
     }
 
+    public function checkCouponName(Request $request)
+    {
+        $name = $request->input('name');
+        $check = DB::table('coupons')
+            ->select('name')->get();
+
+        foreach ($check as $item){
+            if ($item->name == $name){
+                return response()->json(['success' => false]);
+            }
+        }
+
+        return response()->json(['success' => true]);
+    }
+
     /**
      * Store a newly created resource in storage.
      */

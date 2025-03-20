@@ -299,7 +299,10 @@
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label for="example-text-input" class="form-control-label">Nome</label>
-                                        <input class="form-control" type="text" style="text-transform: uppercase;" oninput="this.value = this.value.replace(/\s+/g, '');" name="name" required>
+                                        <input class="form-control couponName" type="text" style="text-transform: uppercase;" oninput="this.value = this.value.replace(/\s+/g, '');" name="name" required>
+                                        <span class="text-danger checkCoupon" style="display: none;">
+                                            Já existe um cupom com o nome <b><span class="notName"></span>.</b> Por favor, escolha outro nome.
+                                        </span>
                                     </div>
                                 </div>
 
@@ -344,7 +347,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Salvar</button>
+                    <button type="submit" class="btn btn-primary saveCoupon">Cadastrar cupom</button>
                 </div>
             </div>
             </form>
@@ -438,6 +441,35 @@
     @endif
 
     <script>
+        $(".couponName").blur(function(){
+            let nome = $(this).val().toUpperCase().replace(/\s/g, '');
+
+            function verificarNome(){
+                $.ajax({
+                    url: "{{ route('verificarNomeCupom') }}",
+                    method: "GET",
+                    data: {name: nome},
+                    success: function (response) {
+                       if (response.success == false){
+                           $(".checkCoupon").fadeIn();
+                           $(".notName").text(nome);
+                           $(".couponName").val('');
+                           $(".saveCoupon").prop("disabled", true);
+                       }else{
+                           $(".checkCoupon").fadeOut();
+                           $(".saveCoupon").prop("disabled", false);
+                       }
+                    },
+                    error: function () {
+                        console.error("Erro ao buscar a contagem dos itens na bandeja.");
+                    }
+                });
+            }
+            verificarNome();
+        });
+
+
+
 
     </script>
 
