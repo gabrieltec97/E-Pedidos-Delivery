@@ -26,9 +26,17 @@ class CouponController extends Controller
      */
     public function store(Request $request)
     {
+        $coupons = DB::table('coupons')
+            ->select('name')->get();
+
+        foreach ($coupons as $item){
+            if ($item->name == strtoupper($request->name)){
+                return redirect()->back()->with('msg-error', 'Já existe um cupom cadastrado com este nome.');
+            }
+        }
+
         $coupon = new Coupon();
         $coupon->name = strtoupper($request->name);
-//        $coupon->products = $request->items;
         $coupon->type = $request->aplication;
         $coupon->limit = $request->limit;
         $coupon->role = $request->role;
@@ -48,7 +56,7 @@ class CouponController extends Controller
 
         $coupon->save();
 
-        return redirect()->back()->with('msg-store');
+        return redirect()->back()->with('msg-store', '.');
     }
 
     public function apply(Request $request)
@@ -98,9 +106,17 @@ class CouponController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $coupons = DB::table('coupons')
+            ->select('name')->get();
+
+        foreach ($coupons as $item){
+            if ($item->name == strtoupper($request->name)){
+                return redirect()->back()->with('msg-error-upd', 'Já existe um cupom cadastrado com este nome.');
+            }
+        }
+
         $coupon = Coupon::find($id);
         $coupon->name = strtoupper($request->name);
-//        $coupon->products = $request->items;
         $coupon->type = $request->aplication;
         $coupon->limit = $request->limit;
 
@@ -128,6 +144,6 @@ class CouponController extends Controller
         $coupon = Coupon::find($id);
         $coupon->delete();
 
-        return redirect()->back();
+        return redirect()->back()->with('msg-delete', '.');
     }
 }

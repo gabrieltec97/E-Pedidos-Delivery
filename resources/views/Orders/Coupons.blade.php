@@ -316,7 +316,7 @@
                                 <div class="col-lg-6 disccount">
                                     <div class="form-group">
                                         <label for="example-text-input" class="form-control-label">Desconto</label>
-                                        <input class="form-control discount" type="number" placeholder="Total do desconto" name="discount" required>
+                                        <input class="form-control discount" type="number" placeholder="Total do desconto" name="discount">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -366,10 +366,39 @@
     @if(session('msg-coupon-updated'))
         <script>
             $.toast({
-                heading: '<b>Alterações realizadas!</b>',
+                heading: '<b>Alterações realizadas com sucesso!</b>',
                 showHideTransition: 'slide',  // It can be plain, fade or slide
                 bgColor: '#2ecc71',
-                text: 'Alterações realizadas com sucesso!',
+                hideAfter: 3000,
+                position: 'top-right',
+                textColor: '#ecf0f1',
+                icon: 'success'
+            });
+        </script>
+    @endif
+
+    @if(session('msg-error'))
+        <script>
+            $.toast({
+                heading: '<b>Não foi possível cadastrar este cupom!</b>',
+                showHideTransition: 'slide',  // It can be plain, fade or slide
+                bgColor: '#ea1818',
+                text: '{{ session('msg-error') }}',
+                hideAfter: 8000,
+                position: 'top-right',
+                textColor: '#ecf0f1',
+                icon: 'success'
+            });
+        </script>
+    @endif
+
+    @if(session('msg-error-upd'))
+        <script>
+            $.toast({
+                heading: '<b>Não foi possível alterar este cupom!</b>',
+                showHideTransition: 'slide',  // It can be plain, fade or slide
+                bgColor: '#ea1818',
+                text: '{{ session('msg-error-upd') }}',
                 hideAfter: 8000,
                 position: 'top-right',
                 textColor: '#ecf0f1',
@@ -381,16 +410,33 @@
     @if(session('msg-store'))
         <script>
             $.toast({
-                heading: '<b>Alterações realizadas!</b>',
+                heading: '<b>Cupom cadastrado com sucesso!</b>',
                 showHideTransition: 'slide',  // It can be plain, fade or slide
                 bgColor: '#2ecc71',
-                text: 'Cupom cadastrado com sucesso!',
-                hideAfter: 8000,
+                hideAfter: 3000,
                 position: 'top-right',
                 textColor: '#ecf0f1',
                 icon: 'success'
             });
         </script>
     @endif
+
+    @if(session('msg-delete'))
+        <script>
+            $.toast({
+                heading: '<b>Cupom deletado com sucesso!</b>',
+                showHideTransition: 'slide',  // It can be plain, fade or slide
+                bgColor: '#2D2D2D',
+                hideAfter: 3000,
+                position: 'top-right',
+                textColor: '#ecf0f1',
+                icon: 'success'
+            });
+        </script>
+    @endif
+
+    <script>
+
+    </script>
 
 @endsection
