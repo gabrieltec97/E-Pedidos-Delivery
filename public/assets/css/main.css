@@ -697,6 +697,28 @@ footer{
     border-radius: 30px;
 }
 
+.vibrar {
+    animation: vibracaoVertical 0.5s ease-in-out;
+}
+
+@keyframes vibracaoVertical {
+    0% {
+        transform: translateY(0) rotate(0deg);
+    }
+    25% {
+        transform: translateY(-10px) rotate(-5deg);
+    }
+    50% {
+        transform: translateY(10px) rotate(5deg);
+    }
+    75% {
+        transform: translateY(-10px) rotate(-5deg);
+    }
+    100% {
+        transform: translateY(0) rotate(0deg);
+    }
+}
+
 /*.modal-item{*/
 /*    background-color: var(--color-primary);*/
 /*}*/

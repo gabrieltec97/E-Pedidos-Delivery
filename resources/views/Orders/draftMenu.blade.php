@@ -63,7 +63,7 @@
                     <div class="d-flex text-banner">
                         <h1><b>Escolha sua comida <b class="color-primary">favorita!</b></b></h1>
                         <p>Aproveite nosso cardápio. Escolha o que desejar e receba no conforto do seu lar de forma rápida e segura!</p>
-                        <a class="btn btn-yellow mt-4 mr-3">
+                        <a class="btn btn-yellow mt-4 mr-3 btn-cardapio">
                             Ver cardápio
                         </a>
                     </div>
@@ -152,7 +152,7 @@
         <div class="background-menu"></div>
         <div class="container">
             <div class="row">
-                <div class="col-12 col-one text-center mb-5">
+                <div class="col-12 col-one text-center mb-5 cardapio">
                     <span class="hint-title"><b>Cardápio</b></span>
                     <h1 class="title">
                         <b>Conheça o nosso cardápio</b>
@@ -629,6 +629,24 @@
              if($("#valorPagamento").val() != ''){
                  $(".valor-entregue").fadeIn();
              }
+
+            $('.btn-cardapio').click(function() {
+                $('html, body').animate({
+                    scrollTop: $('.cardapio').offset().top
+                }, 1000); // O "1000" é o tempo em milissegundos (1 segundo)
+            });
+
+            function vibrarBandeja() {
+                $('.btn-tray-side').addClass('vibrar');
+
+                // Após 500ms, remove a classe para parar a vibração
+                setTimeout(function() {
+                    $('.btn-tray-side').removeClass('vibrar');
+                }, 500); // Duração da vibração
+            }
+
+            // A cada 2 segundos, a função vibrarItem será chamada
+            setInterval(vibrarBandeja, 1700);
 
              function fecharBandeja(){
                  $('.modal-full, .tray-container, #trayResume, #deliveryPlace, #paymentStep, #btnBack, #btnLastBack, #btnAddressStep, #btnResumeStep, ' +
