@@ -261,6 +261,11 @@
                                                     $(".save").on('click',function (){
                                                         $(".loading").fadeIn();
                                                     });
+
+                                                    //retirando o campo de desconto caso o valor venha como frete gratis
+                                                    if("{{$coupom->type}}" == "Frete grátis"){
+                                                        $(".col-discount{{$coupom->id}}").hide();
+                                                    }
                                                 </script>
 
                                                 </form>
@@ -297,17 +302,7 @@
                                         <input class="form-control" type="text" style="text-transform: uppercase;" oninput="this.value = this.value.replace(/\s+/g, '');" name="name" required>
                                     </div>
                                 </div>
-{{--                                <div class="col-lg-6">--}}
-{{--                                    <div class="form-group">--}}
-{{--                                        <label for="example-text-input" class="form-control-label">Items</label>--}}
-{{--                                        <select class="form-control" name="items">--}}
-{{--                                            <option selected disabled>Selecione</option>--}}
-{{--                                            <option value="Comida">Comida</option>--}}
-{{--                                            <option value="Bebida">Bebida</option>--}}
-{{--                                            <option value="Sobremesa">Sobremesa</option>--}}
-{{--                                        </select>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
+
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label for="example-text-input" class="form-control-label">Aplicação</label>
@@ -319,6 +314,7 @@
                                         </select>
                                     </div>
                                 </div>
+
                                 <div class="col-lg-6 disccount">
                                     <div class="form-group">
                                         <label for="example-text-input" class="form-control-label">Desconto</label>
