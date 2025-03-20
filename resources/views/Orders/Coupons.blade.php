@@ -150,7 +150,7 @@
                                                                 <div class="col-lg-12">
                                                                     <div class="form-group">
                                                                         <label for="example-text-input" class="form-control-label">Nome</label>
-                                                                        <input class="form-control name{{$coupom->id}} alter{{$coupom->id}}" value="{{ $coupom->name }}" type="text" style="text-transform: uppercase;" oninput="this.value = this.value.replace(/\s+/g, '');" name="name" required>
+                                                                        <input class="form-control name{{$coupom->id}} alter{{$coupom->id}}" autocomplete="off" value="{{ $coupom->name }}" type="text" style="text-transform: uppercase;" oninput="this.value = this.value.replace(/\s+/g, '');" name="name" required>
                                                                         <span class="text-danger checkCoupon{{$coupom->id}}" style="display: none;">
                                                                             Já existe um cupom com o nome <b><span class="notName{{$coupom->id}}"></span>.</b> Por favor, escolha outro nome.
                                                                         </span>
@@ -259,40 +259,32 @@
                                                         $(".col-discount{{$coupom->id}}").hide();
                                                     }
 
-                                                    function verificarNome(nome, id){
+                                                    $(".name{{$coupom->id}}").on('keyup',function(){
+                                                        let nome = $(this).val().toUpperCase().replace(/\s/g, '');
+                                                        let id = {{ $coupom->id }};
+
                                                         $.ajax({
                                                             url: "{{ route('verificarNomeCupom') }}",
                                                             method: "GET",
                                                             data: {name: nome, id: id},
                                                             success: function (response) {
+                                                                console.log(response.success)
                                                                 if (response.success == false){
                                                                     $(".checkCoupon{{$coupom->id}}").fadeIn();
                                                                     $(".notName{{$coupom->id}}").text(nome);
                                                                     $(".name{{$coupom->id}}").val('');
-                                                                    $(".saveCoupon{{$coupom->id}}").prop("disabled", true);
+                                                                    $(".save").prop("disabled", true);
+                                                                    $(".loading").attr("style", "display: none !important;");
                                                                 }else{
                                                                     $(".checkCoupon{{$coupom->id}}").fadeOut();
-                                                                    $(".saveCoupon{{$coupom->id}}").prop("disabled", false);
+                                                                    $(".save").prop("disabled", false);
+                                                                    // $(".loading").fadeIn();
                                                                 }
                                                             },
                                                             error: function () {
                                                                 console.error("Erro ao buscar a contagem dos itens na bandeja.");
                                                             }
                                                         });
-                                                    }
-
-                                                    $(".name{{$coupom->id}}").blur(function(){
-                                                        let nome = $(this).val().toUpperCase().replace(/\s/g, '');
-                                                        let id = {{ $coupom->id }};
-
-
-                                                        verificarNome(nome, id);
-                                                    });
-
-                                                    $(".save").on('click', function (e){
-                                                        e.preventDefault();
-
-                                                        verificarNome();
                                                     });
                                                 </script>
 
