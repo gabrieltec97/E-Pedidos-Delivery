@@ -217,12 +217,11 @@
                                                 <div class="modal-body modal-item">
                                                     <div class="container-fluid">
                                                         <div class="row">
-                                                            <div class="col-12 d-flex justify-content-center">
+                                                            <div class="col-lg-6 col-md-12 col-sm-12 d-flex justify-content-center">
                                                                 <img src="{{ asset('storage/uploads/' . $burguer->picture) }}" class="modal-image" alt="Imagem">
                                                             </div>
 
-                                                            <div class="col-12">
-                                                                <hr class="horizontal dark">
+                                                            <div class="col-12 col-lg-6 col-md-12 col-sm-12 bg-description">
                                                                 <span class="product-title">{{$burguer->description}}</span>
                                                             </div>
 
@@ -244,6 +243,11 @@
                                                                         @endif
                                                                     @endforeach
                                                                 @endif
+                                                            </div>
+
+                                                            <div class="col-12">
+                                                                <hr class="horizontal dark">
+                                                                <textarea class="form-control mt-3" name="comments" id="" cols="30" rows="2" resize="none;" placeholder="Comentário (Se precisar)."></textarea>
                                                             </div>
                                                         </div>
                                                     </div>

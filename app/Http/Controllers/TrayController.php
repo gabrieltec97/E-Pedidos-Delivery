@@ -680,6 +680,7 @@ class TrayController extends Controller
             $addTray->product = $item->name;
             $addTray->value = $item->price;
             $addTray->ammount = $ammount;
+            $addTray->comments = $request->comments;
             $addTray->product_id = $item->id;
             $addTray->picture = $item->picture;
             $addTray->additionals = $additionals;
@@ -709,6 +710,7 @@ class TrayController extends Controller
             $addTray->value = $item->price;
             $addTray->ammount = $ammount;
             $addTray->product_id = $item->id;
+            $addTray->comments = $request->comments;
             $addTray->picture = $item->picture;
             $addTray->additionals = $additionals;
             $addTray->save();
