@@ -82,9 +82,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <i class="fa-solid fa-circle-xmark" style="cursor: pointer; color: #ef4444;" data-bs-dismiss="modal" aria-label="Close"></i>
             </div>
             <div class="modal-body">
             <form action="{{ route('deliveryManagement') }}" method="post">
@@ -93,8 +91,7 @@
                     <input type="number" class="statusApi" name="status" hidden>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="submit" class="btn btn-primary lblDelivery"></button>
+                <button type="submit" class="btn lblDelivery"></button>
             </div>
             </form>
         </div>
@@ -110,11 +107,19 @@
 
             // Define o texto do modal de acordo com o estado do switch
             let statusText = isChecked ? 'ativar' : 'desativar';
-            let consequencesText = isChecked ? 'Isso permitirá que os pedidos online comecem a chegar, certifique-se de que está tudo pronto para receber os pedidos.' : 'Isso desativará pedidos online.';
+            let modalTitle = isChecked ? 'Abrir delivery' : 'Fechar delivery';
+            let consequencesText = isChecked ? 'Isso permitirá que os pedidos online comecem a chegar, certifique-se de que está tudo preparado para receber os pedidos.' : 'Isso desativará pedidos online e não chegarão novos pedidos enquanto o delivery estiver offline.';
             let lblDelivery = isChecked ? 'Ativar delivery' : 'Desativar delivery';
             let deliveryStatus = isChecked ? '1' : '0';
 
+            if (statusText == 'ativar'){
+                $(".lblDelivery").addClass('btn-success')
+            }else{
+                $(".lblDelivery").addClass('btn-danger')
+            }
+
             // Atualiza o modal
+            $('.modal-title').text(modalTitle);
             $('.status').text(statusText);
             $('.consequences').text(consequencesText);
             $('.lblDelivery').text(lblDelivery);
@@ -124,28 +129,29 @@
             $('#modalStatus').modal('show');
         });
 
-        function verificarStatusDelivery() {
-            $.ajax({
-                url: '{{ route('verificarDelivery') }}',
-                method: "GET",
-                success: function (response) {
-                    $('#delivery').prop('checked', response.status == 1);
-                },
-                error: function () {
-                    $.toast({
-                        heading: '<b>Falha no delivery!</b>',
-                        showHideTransition : 'slide',
-                        bgColor : '#ec0606',
-                        text: 'Não conseguimos buscar o status do delivery. Entre em contato com o suporte!',
-                        hideAfter : 10000,
-                        position: 'top-right',
-                        textColor: 'white',
-                        icon: 'success'
-                    });
-                }
-            });
-        }
+        $.ajax({
+            url: '{{ route('verificarDelivery') }}',
+            method: "GET",
+            success: function (response) {
+                $('#delivery').prop('checked', response.status == 1);
+            },
+            error: function () {
+                $.toast({
+                    heading: '<b>Falha no delivery!</b>',
+                    showHideTransition : 'slide',
+                    bgColor : '#ec0606',
+                    text: 'Não conseguimos buscar o status do delivery. Entre em contato com o suporte!',
+                    hideAfter : 10000,
+                    position: 'top-right',
+                    textColor: 'white',
+                    icon: 'success'
+                });
+            }
+        });
 
-        verificarStatusDelivery();
+        $(".lblDelivery").on('click', function (){
+            let myText = $(this).text();
+            $(this).html('<span class="spinner-border spinner-border-sm"></span> &nbsp;' + myText);
+        });
     });
 </script>
