@@ -269,7 +269,6 @@
                                 });
                             </script>
 
-
                         @endforeach
                     </div>
 
@@ -278,7 +277,7 @@
                             <div class="col-12 col-lg-3 col-md-3 col-sm-6 mt-4">
                                 <form class="product-form" data-product-id="{{ $drink->id }}" action="{{ route('cardapio.store')}}" method="post">
                                     @csrf
-                                    <div class="card card-item">
+                                    <div class="card card-item" data-toggle="modal" data-target=".drinkItem{{ $drink->id }}">
                                         <div class="product-img">
                                             <img src="{{ asset('storage/uploads/' . $drink->picture) }}" class="product-image" alt="Imagem">
                                         </div>
@@ -291,15 +290,78 @@
                                         <input type="hidden" name="productId" value="{{ $drink->id }}">
                                         <input type="number" class="form-control" name="ammount" style="width: 90px" value="1" hidden="">
                                         <div class="add-tray">
-                                            <span class="btn-less"><i class="fas fa-minus"></i></span>
-                                            <span class="add-number-items">1</span>
-                                            <span class="btn-plus"><i class="fas fa-plus"></i></span>
-                                            <button type="submit" class="btn btn-add"><i class="fas fa-shopping-bag"></i></button>
+{{--                                            <span class="btn-less"><i class="fas fa-minus"></i></span>--}}
+{{--                                            <span class="add-number-items">1</span>--}}
+{{--                                            <span class="btn-plus"><i class="fas fa-plus"></i></span>--}}
+                                            <button type="button" class="btn btn-add w-100 no-mobile" data-toggle="modal" data-target=".drinkItem{{ $burguer->id }}"><i class="fas fa-shopping-bag"></i></button>
                                             <input type="number" hidden class="ammount" name="ammount">
+                                        </div>
+                                    </div>
+
+                                    <!-- Modal de cada item-->
+                                    <div class="modal fade drinkItem{{ $drink->id }}" tabindex="-1" role="dialog" aria-labelledby="item" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title product-title" id="exampleModalLongTitle">{{ $drink->name }}</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body modal-item">
+                                                    <div class="container-fluid">
+                                                        <div class="row">
+                                                            <div class="col-lg-6 col-md-12 col-sm-12 d-flex justify-content-center">
+                                                                <img src="{{ asset('storage/uploads/' . $drink->picture) }}" class="modal-image" alt="Imagem">
+                                                            </div>
+
+                                                            <div class="col-12 col-lg-6 col-md-12 col-sm-12 bg-description">
+                                                                <span class="product-title">{{$drink->description}}</span>
+                                                            </div>
+
+                                                            <div class="col-12">
+                                                                <hr class="horizontal dark">
+                                                                @if(count($additionals) != 0)
+                                                                    <p class="text-md font-weight-bold d-flex justify-content-center">Deixe sua bebida ainda mais gostosa:</p>
+                                                                    @php
+                                                                        $additionalsBg = explode(",", $drink->additionals);
+                                                                    @endphp
+                                                                    @foreach($additionals as $additional)
+                                                                        @if($additional->type == $drink->type)
+                                                                            @if(in_array($additional->id, $additionalsBg))
+                                                                                <input type="checkbox" name="additionals[]" id="additionals{{ $additional->id }}" value="{{ $additional->id }}">
+                                                                                <label for="additionals{{ $additional->id }}" style="margin-right: 10px;">{{ $additional->name }}
+                                                                                    <span class="text-success">+R$ {{$additional->price}}</span></label>
+                                                                                <br>
+                                                                            @endif
+                                                                        @endif
+                                                                    @endforeach
+                                                                @endif
+                                                            </div>
+
+                                                            <div class="col-12">
+                                                                <hr class="horizontal dark">
+                                                                <textarea class="form-control mt-3" name="comments" id="" cols="30" rows="2" resize="none;" placeholder="Comentário (Se precisar)."></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="submit" class="btn btn-add-final float-right add-item{{ $drink->id }}"><i class="fas fa-shopping-bag mr-2"></i>Adicionar</button>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </form>
                             </div>
+
+                            <script>
+                                $(document).ready(function(){
+                                    $(".add-item{{ $drink->id }}").click(function(){
+                                        $(".drinkItem{{ $drink->id }}").modal("hide"); // Fecha o modal ao clicar no botão
+                                    });
+                                });
+                            </script>
                         @endforeach
                     </div>
 
