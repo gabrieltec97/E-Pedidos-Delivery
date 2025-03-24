@@ -62,9 +62,9 @@
             <div class="row">
                 <div class="col-12 col-lg-6 col-mg-6 col-sm-12 col-one">
                     <div class="d-flex text-banner">
-                        <h1><b>Escolha sua comida <b class="color-primary">favorita!</b></b></h1>
-                        <p>Aproveite nosso cardápio. Escolha o que desejar e receba no conforto do seu lar de forma rápida e segura!</p>
-                        <a class="btn btn-yellow mt-4 mr-3 btn-cardapio">
+                        <h1 class="animated fadeInLeft"><b>Escolha sua comida <b class="color-primary">favorita!</b></b></h1>
+                        <p class="animated fadeInLeft delay-02s">Aproveite nosso cardápio. Escolha o que desejar e receba no conforto do seu lar de forma rápida e segura!</p>
+                        <a class="btn btn-yellow mt-4 mr-3 btn-cardapio animated fadeInLeft delay-05s">
                             Ver cardápio
                         </a>
                     </div>
@@ -83,11 +83,11 @@
                 </div>
 
                 <div class="col-6 no-mobile">
-                    <div class="card-banner"></div>
-                    <div class="d-flex img-banner">
-                        <img src="{{ asset('assets/img/burguer.png') }}"">
+                    <div class="card-banner animated fadeIn delay-03s"></div>
+                    <div class="d-flex img-banner animated fadeIn delay-05s">
+                        <img src="{{ asset('assets/img/burguer.png') }}">
                     </div>
-                    <div class="card card-case">
+                    <div class="card card-case animated fadeInRight delay-07s">
                        <b> "Entrega rápida e lanches deliciosos!
                            <br>A comida chegou quente e<br>
                            muito saborosa!"</b>
@@ -104,13 +104,13 @@
         <div class="background-services"></div>
         <div class="container">
             <div class="row">
-                <div class="col-12 col-one text-center mb-5">
+                <div class="col-12 col-one text-center mb-5 wow fadeIn">
                     <span class="hint-title"><b>Serviços</b></span>
                     <h1 class="title">
                         <b>Qual é o nosso diferencial?</b>
                     </h1>
                 </div>
-                <div class="col-12 col-lg-4 col-md-4 col-sm-12 col-one mb-5">
+                <div class="col-12 col-lg-4 col-md-4 col-sm-12 col-one mb-5 wow fadeInUp delay-02s">
                     <div class="card-icon text-center">
                         <img src="{{ asset('assets/img/icone-pedido.svg') }}" width="150">
                         <div class="card-text text-center mt-3">
@@ -122,7 +122,7 @@
                     </div>
                 </div>
 
-                <div class="col-12 col-lg-4 col-md-4 col-sm-12 col-one mb-5">
+                <div class="col-12 col-lg-4 col-md-4 col-sm-12 col-one mb-5 wow fadeInUp delay-02s">
                     <div class="card-icon text-center">
                         <img src="{{ asset('assets/img/icone-delivery.svg') }}" width="250">
                         <div class="card-text text-center mt-3">
@@ -134,7 +134,7 @@
                     </div>
                 </div>
 
-                <div class="col-12 col-lg-4 col-md-4 col-sm-12 col-one mb-5">
+                <div class="col-12 col-lg-4 col-md-4 col-sm-12 col-one mb-5 wow fadeInUp delay-02s">
                     <div class="card-icon text-center">
                         <img src="{{ asset('assets/img/icone-qualidade.svg') }}" width="250">
                         <div class="card-text text-center mt-3">
@@ -153,7 +153,7 @@
         <div class="background-menu"></div>
         <div class="container">
             <div class="row">
-                <div class="col-12 col-one text-center mb-5 cardapio">
+                <div class="col-12 col-one text-center mb-5 cardapio wow fadeIn">
                     <span class="hint-title"><b>Cardápio</b></span>
                     <h1 class="title">
                         <b>Conheça o nosso cardápio</b>
@@ -161,19 +161,19 @@
                 </div>
 
                 <div class="col-12 container-menu col-one">
-                    <a class="btn btn-white btn-sm burguersBtn mr-3 active">
+                    <a class="btn btn-white btn-sm burguersBtn mr-3 active wow fadeInLeft delay-06s">
                         <i class="fas fa-hamburger"></i>&nbsp; Burgers
                     </a>
 
-                    <a class="btn btn-white btn-sm mr-3">
+                   {{-- <a class="btn btn-white btn-sm mr-3 wow fadeInLeft delay-02s">
                         <i class="fas fa-hamburger"></i>&nbsp; Artesanais
-                    </a>
+                    </a>--}}
 
-                    <a class="btn btn-white btn-sm mr-3 drinksBtn">
+                    <a class="btn btn-white btn-sm mr-3 drinksBtn wow fadeInUp delay-06s">
                         <i class="fas fa-wine-bottle"></i>&nbsp; Bebidas
                     </a>
 
-                    <a class="btn btn-white btn-sm dessertsBtn mr-3">
+                    <a class="btn btn-white btn-sm dessertsBtn mr-3 wow fadeInRight delay-06s">
                         <i class="fas fa-cookie-bite"></i>&nbsp; Sobremesas
                     </a>
                 </div>
@@ -181,7 +181,7 @@
                 <div class="col-12 col-one">
                     <div class="row burguersDiv">
                         @foreach($burguers as $burguer)
-                            <div class="col-12 col-lg-3 col-md-3 col-sm-6 mt-4">
+                            <div class="col-12 col-lg-3 col-md-3 col-sm-6 mt-4 wow fadeInUp delay-05s">
                                 <form class="product-form" data-product-id="{{ $burguer->id }}" action="{{ route('cardapio.store')}}" method="post">
                                     @csrf
                                     <div class="card card-item" data-toggle="modal" data-target=".modalItem{{ $burguer->id }}">
@@ -405,9 +405,9 @@
                     </div>
                 </div>
 
-                <div class="col-12 text-center">
+               {{-- <div class="col-12 text-center">
                    <a class="btn btn-white btn-sm mt-5"><b>Ver mais</b></a>
-                </div>
+                </div>--}}
             </div>
         </div>
     </section>
@@ -419,24 +419,24 @@
                     <div class="card-secondary">
                         <div class="row">
                             <div class="col-12 col-lg-7 col-md-7 col-sm-12">
-                               <span class="hint-title"><b>Reservas</b></span>
-                                <h1 class="title">
+                               <span class="hint-title wow fadeInLeft delay-02s"><b>Reservas</b></span>
+                                <h1 class="title wow fadeInLeft delay-02s">
                                 <b>Quer reservar um horário?</b>
                                 </h1>
-                                <p class="pr-5">
+                                <p class="pr-5 wow fadeInLeft delay-06s">
                                     Mande uma mensagem clicando no botão abaixo!
                                     <br>
                                     Reserve sua data e horário de forma simples e rápida.
                                 </p>
 
-                                <a class="btn btn-yellow mt-4">
+                                <a class="btn btn-yellow mt-4 wow jackInTheBox delay-07s">
                                     <b>Fazer reserva</b>
                                 </a>
                             </div>
 
                             <div class="col-5 no-mobile">
-                                <div class="card-reserve"></div>
-                                <div class="d-flex img-banner">
+                                <div class="card-reserve wow fadeInRight delay-02s"></div>
+                                <div class="d-flex img-banner wow fadeInRight delay-06s">
                                     <img src="{{ asset('assets/img/icone-reserva.svg') }}" />
                                 </div>
                             </div>
@@ -447,31 +447,27 @@
         </div>
     </section>
 
-    <section class="tray">
-
-    </section>
-
     <footer>
         <div class="container">
             <div class="row">
                 <div class="col-12 col-lg-3 col-md-3 col-sm-12 col-one container-logo-footer">
-                   <img class="logo-footer" src="{{ asset('assets/img/logo.png') }}" />
+                   <img class="logo-footer wow fadeInLeft delay-04s" src="{{ asset('assets/img/logo.png') }}" />
                 </div>
-                <div class="col-12 col-lg-6 col-md-6 col-sm-12 container-footer-text">
+                <div class="col-12 col-lg-6 col-md-6 col-sm-12 container-footer-text wow fadeInUp">
                     <p class="mb-0">
                         <b>E-Pedidos Delivery</b> &copy; Todos os direitos reservados.
                     </p>
                 </div>
                 <div class="col-12 col-lg-3 col-md-3 col-sm-12 container-media-footer">
-                   <a class="btn btn-sm btn-white btn-social mr-3">
+                   <a class="btn btn-sm btn-white btn-social mr-3 wow fadeInRight">
                         <i class="fab fa-instagram"></i>
                     </a>
 
-                    <a class="btn btn-sm btn-white btn-social mr-3">
+                    <a class="btn btn-sm btn-white btn-social mr-3 wow fadeInRight">
                         <i class="fab fa-facebook"></i>
                     </a>
 
-                    <a class="btn btn-sm btn-white btn-social">
+                    <a class="btn btn-sm btn-white btn-social wow fadeInRight delay-04s">
                         <i class="fab fa-whatsapp"></i>
                     </a>
                 </div>
@@ -479,7 +475,7 @@
         </div>
     </footer>
 
-    <div class="modal-full" hidden>
+    <div class="modal-full animated fadeIn" hidden>
         <div class="m-header">
             <div class="container">
                 <a class="btn btn-white btn-sm float-right fechar-modal">Fechar</a>
