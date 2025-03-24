@@ -15,72 +15,137 @@
             </div>
             <!-- End Toggle Button -->
         </div>
-        <hr class="horizontal dark my-1">
+{{--        <hr class="horizontal dark my-1">--}}
         <div class="card-body pt-sm-3 pt-0 overflow-auto">
-            <!-- Sidebar Backgrounds -->
-            <div>
-                <h6 class="mb-0">Sidebar Colors</h6>
-            </div>
-            <a href="javascript:void(0)" class="switch-trigger background-color">
-                <div class="badge-colors my-2 text-start">
-                    <span class="badge filter bg-gradient-primary active" data-color="primary"
-                        onclick="sidebarColor(this)"></span>
-                    <span class="badge filter bg-gradient-dark" data-color="dark" onclick="sidebarColor(this)"></span>
-                    <span class="badge filter bg-gradient-info" data-color="info" onclick="sidebarColor(this)"></span>
-                    <span class="badge filter bg-gradient-success" data-color="success"
-                        onclick="sidebarColor(this)"></span>
-                    <span class="badge filter bg-gradient-warning" data-color="warning"
-                        onclick="sidebarColor(this)"></span>
-                    <span class="badge filter bg-gradient-danger" data-color="danger"
-                        onclick="sidebarColor(this)"></span>
-                </div>
-            </a>
-            <!-- Sidenav Type -->
-            <div class="mt-3">
-                <h6 class="mb-0">Sidenav Type</h6>
-                <p class="text-sm">Choose between 2 different sidenav types.</p>
-            </div>
-            <div class="d-flex">
-                <button class="btn bg-gradient-primary w-100 px-3 mb-2 active me-2" data-class="bg-white"
-                    onclick="sidebarType(this)">White</button>
-                <button class="btn bg-gradient-primary w-100 px-3 mb-2" data-class="bg-default"
-                    onclick="sidebarType(this)">Dark</button>
-            </div>
-            <p class="text-sm d-xl-none d-block mt-2">You can change the sidenav type just on desktop view.</p>
-            <!-- Navbar Fixed -->
-            <div class="d-flex my-3">
-                <h6 class="mb-0">Navbar Fixed</h6>
-                <div class="form-check form-switch ps-0 ms-auto my-auto">
-                    <input class="form-check-input mt-1 ms-auto" type="checkbox" id="navbarFixed"
-                        onclick="navbarFixed(this)">
-                </div>
-            </div>
-            <hr class="horizontal dark my-sm-4">
+
             <div class="mt-2 mb-5 d-flex">
-                <h6 class="mb-0">Light / Dark</h6>
+                <h6 class="mb-0">Funcionamento do Delivery</h6>
                 <div class="form-check form-switch ps-0 ms-auto my-auto">
-                    <input class="form-check-input mt-1 ms-auto" type="checkbox" id="dark-version"
-                        onclick="darkMode(this)">
+                    <input class="form-check-input" type="checkbox" role="switch" id="delivery">
                 </div>
             </div>
-            <a class="btn bg-gradient-dark w-100" href="https://www.creative-tim.com/product/argon-dashboard-laravel" target="_blank">Free Download</a>
-            <a class="btn btn-outline-dark w-100"
-                href="/docs/bootstrap/overview/argon-dashboard/index.html" target="_blank">View documentation</a>
-            <div class="w-100 text-center">
-                <a class="github-button" href="https://github.com/creativetimofficial/argon-dashboard-laravel"
-                    data-icon="octicon-star" data-size="large" data-show-count="true"
-                    aria-label="Star creativetimofficial/argon-dashboard on GitHub">Star</a>
-                <h6 class="mt-3">Thank you for sharing!</h6>
-                <a href="https://twitter.com/intent/tweet?text=Check%20Argon%20Dashboard%20made%20by%20%40CreativeTim%20and%20%40UPDIVISION%20%23webdesign%20%23dashboard%20%23bootstrap5&amp;url=https%3A%2F%2Fwww.creative-tim.com%2Fproduct%2Fargon-dashboard-laravel"
-                    class="btn btn-dark mb-0 me-2" target="_blank">
-                    {{-- &amp;url2=https%3A%2F%2Fwww.updivision.com --}}
-                    <i class="fab fa-twitter me-1" aria-hidden="true"></i> Tweet
-                </a>
-                <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.creative-tim.com/product/argon-dashboard-laravel"
-                    class="btn btn-dark mb-0 me-2" target="_blank">
-                    <i class="fab fa-facebook-square me-1" aria-hidden="true"></i> Share
-                </a>
+
+{{--            <!-- Sidebar Backgrounds -->--}}
+{{--            <div>--}}
+{{--                <h6 class="mb-0">Sidebar Colors</h6>--}}
+{{--            </div>--}}
+{{--            <a href="javascript:void(0)" class="switch-trigger background-color">--}}
+{{--                <div class="badge-colors my-2 text-start">--}}
+{{--                    <span class="badge filter bg-gradient-primary active" data-color="primary"--}}
+{{--                        onclick="sidebarColor(this)"></span>--}}
+{{--                    <span class="badge filter bg-gradient-dark" data-color="dark" onclick="sidebarColor(this)"></span>--}}
+{{--                    <span class="badge filter bg-gradient-info" data-color="info" onclick="sidebarColor(this)"></span>--}}
+{{--                    <span class="badge filter bg-gradient-success" data-color="success"--}}
+{{--                        onclick="sidebarColor(this)"></span>--}}
+{{--                    <span class="badge filter bg-gradient-warning" data-color="warning"--}}
+{{--                        onclick="sidebarColor(this)"></span>--}}
+{{--                    <span class="badge filter bg-gradient-danger" data-color="danger"--}}
+{{--                        onclick="sidebarColor(this)"></span>--}}
+{{--                </div>--}}
+{{--            </a>--}}
+{{--            <!-- Sidenav Type -->--}}
+{{--            <div class="mt-3">--}}
+{{--                <h6 class="mb-0">Sidenav Type</h6>--}}
+{{--                <p class="text-sm">Choose between 2 different sidenav types.</p>--}}
+{{--            </div>--}}
+{{--            <div class="d-flex">--}}
+{{--                <button class="btn bg-gradient-primary w-100 px-3 mb-2 active me-2" data-class="bg-white"--}}
+{{--                    onclick="sidebarType(this)">White</button>--}}
+{{--                <button class="btn bg-gradient-primary w-100 px-3 mb-2" data-class="bg-default"--}}
+{{--                    onclick="sidebarType(this)">Dark</button>--}}
+{{--            </div>--}}
+{{--            <p class="text-sm d-xl-none d-block mt-2">You can change the sidenav type just on desktop view.</p>--}}
+{{--            <!-- Navbar Fixed -->--}}
+{{--            <div class="d-flex my-3">--}}
+{{--                <h6 class="mb-0">Navbar Fixed</h6>--}}
+{{--                <div class="form-check form-switch ps-0 ms-auto my-auto">--}}
+{{--                    <input class="form-check-input mt-1 ms-auto" type="checkbox" id="navbarFixed"--}}
+{{--                        onclick="navbarFixed(this)">--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--            <hr class="horizontal dark my-sm-4">--}}
+{{--            <div class="mt-2 mb-5 d-flex">--}}
+{{--                <h6 class="mb-0">Light / Dark</h6>--}}
+{{--                <div class="form-check form-switch ps-0 ms-auto my-auto">--}}
+{{--                    <input class="form-check-input mt-1 ms-auto" type="checkbox" id="dark-version"--}}
+{{--                        onclick="darkMode(this)">--}}
+{{--                </div>--}}
+{{--            </div>--}}
             </div>
         </div>
     </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalStatus" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+            <form action="{{ route('deliveryManagement') }}" method="post">
+                @csrf
+                    <p>Tem certeza que deseja <span class="status"></span> o delivery? <span class="consequences"></span></p>
+                    <input type="number" class="statusApi" name="status" hidden>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-primary lblDelivery"></button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    $(document).ready(function() {
+        $('#delivery').on('change', function() {
+            let isChecked = $(this).is(':checked');
+
+            // Define o texto do modal de acordo com o estado do switch
+            let statusText = isChecked ? 'ativar' : 'desativar';
+            let consequencesText = isChecked ? 'Isso permitirá que os pedidos online comecem a chegar, certifique-se de que está tudo pronto para receber os pedidos.' : 'Isso desativará pedidos online.';
+            let lblDelivery = isChecked ? 'Ativar delivery' : 'Desativar delivery';
+            let deliveryStatus = isChecked ? '1' : '0';
+
+            // Atualiza o modal
+            $('.status').text(statusText);
+            $('.consequences').text(consequencesText);
+            $('.lblDelivery').text(lblDelivery);
+            $('.statusApi').val(deliveryStatus);
+
+            // Exibe o modal
+            $('#modalStatus').modal('show');
+        });
+
+        function verificarStatusDelivery() {
+            $.ajax({
+                url: '{{ route('verificarDelivery') }}',
+                method: "GET",
+                success: function (response) {
+                    $('#delivery').prop('checked', response.status == 1);
+                },
+                error: function () {
+                    $.toast({
+                        heading: '<b>Falha no delivery!</b>',
+                        showHideTransition : 'slide',
+                        bgColor : '#ec0606',
+                        text: 'Não conseguimos buscar o status do delivery. Entre em contato com o suporte!',
+                        hideAfter : 10000,
+                        position: 'top-right',
+                        textColor: 'white',
+                        icon: 'success'
+                    });
+                }
+            });
+        }
+
+        verificarStatusDelivery();
+    });
+</script>

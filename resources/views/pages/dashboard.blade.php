@@ -332,6 +332,37 @@
 
     </script>
 
+    @if(session('msg-delivery'))
+        <script>
+            console.log('tem');
+            $.toast({
+                heading: '<b>Delivery alterado com sucesso!</b>',
+                showHideTransition : 'slide',
+                bgColor : '#2D2D2D',
+                text: '<b>{{ session('msg-delivery') }}</b>',
+                hideAfter : 10000,
+                position: 'top-right',
+                textColor: 'white',
+                icon: 'success'
+            });
+        </script>
+    @endif
+
+    @if(session('msg-delivery-error'))
+        <script>
+            $.toast({
+                heading: '<b>Operação negada!</b>',
+                showHideTransition : 'slide',
+                bgColor : '#ec0606',
+                text: '<b>{{ session('msg-delivery-error') }}</b>',
+                hideAfter : 10000,
+                position: 'top-right',
+                textColor: 'white',
+                icon: 'success'
+            });
+        </script>
+    @endif
+
 @endsection
 
 

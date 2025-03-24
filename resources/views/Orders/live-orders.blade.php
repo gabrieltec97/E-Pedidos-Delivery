@@ -38,6 +38,20 @@
         </div>
     </div>
 
+    @if($status[0]->status == false)
+        <script>
+            $.toast({
+                heading: '<b>Delivery Offline!</b>',
+                text: '<b>Para começar a receber pedidos, é necessário que você ative o delivery!</b>',
+                position: 'top-right',
+                hideAfter : 10000,
+                bgColor: 'red',
+                textColor: 'white',
+                stack: false
+            });
+        </script>
+    @endif
+
     <script>
     $(document).ready(function () {
         let isModalOpen = false; // Variável para rastrear se um modal está aberto
@@ -74,7 +88,7 @@
                                 <td>
                                     <div class="d-flex px-2 py-1">
                                         <div class="d-flex flex-column justify-content-center">
-                                            <h6 class="mb-0 text-sm" style="color: black; cursor: pointer;" 
+                                            <h6 class="mb-0 text-sm" style="color: black; cursor: pointer;"
                                                 data-bs-toggle="modal" data-bs-target="#pedido${order.id}">
                                                 ${order.client}
                                             </h6>
@@ -83,7 +97,7 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <h5 class="text-xs font-weight-bold mb-0" style="color: black; cursor: pointer;" 
+                                    <h5 class="text-xs font-weight-bold mb-0" style="color: black; cursor: pointer;"
                                         data-bs-toggle="modal" data-bs-target="#pedido${order.id}">
                                         #${order.id}
                                     </h5>
@@ -109,10 +123,10 @@
                         let items = order.items.split(',');
                         let itemsList = items.map(item => `<li>${item}</li>`).join('');
 
-                        
+
 
                         if(order.paymentMode == "Dinheiro"){
-                           var pagamento = "Dinheiro - Troco para R$: " + order.change;    
+                           var pagamento = "Dinheiro - Troco para R$: " + order.change;
                         }else{
                            var pagamento = "Cartão - " + order.paymentMode;
                         }
@@ -129,7 +143,7 @@
                                             <div class="d-flex flex-column justify-content-center">
                                                 <p class="text-xs text-secondary mb-0">Pedido: #${order.id}</p>
                                                 <p class="text-xs text-secondary mb-0">${order.date}</p>
-                                                
+
                                                 <hr>
                                                 <ul>
                                                     ${itemsList}
@@ -139,7 +153,7 @@
                                                 <p class="text-xs text-secondary mb-0">${order.neighborhood} - ${order.contact}</p>
                                                 <p class="mb-0 text-sm">${order.address}</p>
                                                 <p class="mb-0 text-sm">${pagamento}</p>
-                                                
+
                                             </div>
                                         </div>
                                         <div class="modal-footer">
@@ -179,7 +193,7 @@
                         heading: '<b>Oopsss, algo errado aconteceu!</b>',
                         showHideTransition : 'slide',  // It can be plain, fade or slide
                         bgColor : 'red',
-                        text: '<b>Tivemos um erro ao buscar os pedidos. Entre em contato com o suporte para a verificação deste erro.</b>', 
+                        text: '<b>Tivemos um erro ao buscar os pedidos. Entre em contato com o suporte para a verificação deste erro.</b>',
                         hideAfter : 12000,
                         position: 'top-right',
                         textColor: 'white',

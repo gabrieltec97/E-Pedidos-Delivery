@@ -18,7 +18,41 @@ class OrderController extends Controller
 {
     public function index()
     {
-        return view('Orders.live-orders');
+        $status = DB::table('delivery_status')
+            ->select('status')->get();
+
+        return view('Orders.live-orders', [
+            'status' => $status
+        ]);
+    }
+
+    public function deliveryManagement(Request $request)
+    {
+        $user = Auth::user();
+
+        if ($request->status == '1'){
+            DB::table('delivery_status')
+                ->update(['status' => true, 'responsable' => $user->firstname . ' ' . $user->lastname]);
+
+            return redirect()->back()->with('msg-delivery', 'Agora os clientes poderão acessar o cardápio e fazer pedidos!');
+        }else if ($request->status == 0){
+            DB::table('delivery_status')
+                ->update(['status' => false, 'responsable' => $user->firstname . ' ' . $user->lastname]);
+
+            return redirect()->back()->with('msg-delivery', 'Agora o delivery está offline e não receberemos pedidos.');
+        }else{
+            return redirect()->back()->with('msg-delivery-error', 'Falha ao alterar status do delivery. Entre em contato com a equipe de suporte!');
+        }
+    }
+
+    public function verificarDelivery()
+    {
+        $status = DB::table('delivery_status')
+            ->select('status')->get();
+
+        $status = $status[0]->status;
+
+        return response()->json(['status' => $status]);
     }
 
     public function getPedidosJson()
