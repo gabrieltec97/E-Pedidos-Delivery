@@ -1308,6 +1308,7 @@
                             $("#coupon").prop('disabled', true).css('cursor', 'not-allowed');
                         }
                    }else{
+                    $("#coupon").val('');
                     $.toast({
                         heading: `<b>${response.heading}</b>`,
                         showHideTransition: 'slide',
