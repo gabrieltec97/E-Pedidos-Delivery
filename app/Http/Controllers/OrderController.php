@@ -202,6 +202,15 @@ class OrderController extends Controller
 
     public function store(Request $userID)
     {
+        $status = DB::table('delivery_status')
+            ->select('status')
+            ->where('id', 1)->get();
+
+        if ($status[0]->status == false){
+            DB::table('trays')->truncate();
+            return redirect()->route('cardapio.index');
+        }
+
         if (Auth::user() == null){
             if (!$userID->cookie('user_identifier')) {
                 // Gera um identificador único

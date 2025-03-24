@@ -253,7 +253,11 @@
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="submit" class="btn btn-add-final float-right add-item{{ $burguer->id }}"><i class="fas fa-shopping-bag mr-2"></i>Adicionar</button>
+                                                    <button type="submit" class="btn btn-add-final float-right add-item{{ $burguer->id }}"
+                                                    @if($status == false)
+                                                        disabled
+                                                    @endif
+                                                    ><i class="fas fa-shopping-bag mr-2"></i>Adicionar</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -347,7 +351,11 @@
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="submit" class="btn btn-add-final float-right add-item{{ $drink->id }}"><i class="fas fa-shopping-bag mr-2"></i>Adicionar</button>
+                                                    <button type="submit" class="btn btn-add-final float-right add-item{{ $drink->id }}"><i class="fas fa-shopping-bag mr-2"
+                                                    @if($status == false)
+                                                        disabled
+                                                    @endif
+                                                    ></i>Adicionar</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -694,6 +702,21 @@
     <script type="text/javascript" src="{{ asset('assets/js/dados.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/js/app.js') }}"></script>
     <script src="{{ asset('assets/js/jquerytoast.js') }}"></script>
+
+    @if($status == false)
+        <script>
+            $.toast({
+                heading: '<b>Não estamos disponíveis no momento!</b>',
+                showHideTransition: 'slide',
+                bgColor: 'red',
+                text: 'Infelizmente não estamos recebendo pedidos no momento. Tente novamente mais tarde!',
+                hideAfter: 12000,
+                position: 'top-right',
+                textColor: 'white',
+                icon: 'error'
+            });
+        </script>
+    @endif
 
     <script>
         $(document).ready(function () {

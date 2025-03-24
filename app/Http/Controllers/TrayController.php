@@ -82,13 +82,29 @@ class TrayController extends Controller
             $totalItems = 0;
         }
 
+        $deliveryStatus = DB::table('delivery_status')
+            ->select('status')
+            ->where('id', 1)->get();
+
+        $status = '';
+        if (isset($deliveryStatus[0])){
+            if ($deliveryStatus[0]->status == 1){
+                $status = true;
+            }else{
+                $status = false;
+            }
+        }else{
+            $status = false;
+        }
+
         return view('Orders.draftMenu', [
             'burguers' => $burguers,
             'drinks' => $drinks,
             'desserts' => $desserts,
             'tray' => $tray,
             'totalItems' => $totalItems,
-            'additionals' => $additionals
+            'additionals' => $additionals,
+            'status' => $status
         ]);
     }
 
@@ -628,6 +644,17 @@ class TrayController extends Controller
 
     public function store(Request $request)
     {
+        $status = DB::table('delivery_status')
+            ->select('status')
+            ->where('id', 1)->get();
+
+        if ($status[0]->status == false){
+            return response()->json([
+                'success' => false,
+                'message' => 'Infelizmente não estamos recebendo pedidos no momento. Tente novamente mais tarde!'
+            ], 400);
+        }
+
         $item = Product::find($request->input('productId'));
 
         //Recuperando os adicionais.
