@@ -267,6 +267,19 @@ class TrayController extends Controller
             }
         }
 
+        //Verificando se o local de entrega está disponível.
+        $check2 = DB::table('neighbourhoods')
+            ->select('is_available')
+            ->where('name', $local)->get();
+
+        if (isset($check2[0])){
+            if ($check2[0]->is_available != true){
+                $taxe = 'no';
+            }
+        }else{
+            $taxe = 'no';
+        }
+
         return response()->json(['taxe' => $taxe, 'discount' => $discount]);
     }
 
