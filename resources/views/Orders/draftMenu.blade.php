@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/fontawesome.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/responsible.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/animate.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/jquerytoast.css') }}">
     <script src="{{ asset('assets/js/jquery-3.7.1.min.js') }}"></script>
     <script src="{{ asset('assets/js/menu-script.js') }}"></script>
@@ -25,7 +26,7 @@
         <div class="container">
             <nav class="navbar navbar-expand-lg pl-0 pr-0 col-one">
                 <a href="#" class="navbar-brand"></a>
-                <img class="img.logo" src="{{ asset('assets/img/logo.png') }}" width="140px">
+                <img class="img.logo animated flip" src="{{ asset('assets/img/logo.png') }}" width="140px">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown">
                     <span class="navbar-toggler-icon">
                         <i class="fas fa-bars"></i>
@@ -699,9 +700,12 @@
     <script type="text/javascript" src="{{ asset('assets/js/modernizr-3.5.0.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/js/popper.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/wow.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/js/dados.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/js/app.js') }}"></script>
     <script src="{{ asset('assets/js/jquerytoast.js') }}"></script>
+
+    <script>new WOW().init();</script>
 
     @if($status == false)
         <script>
