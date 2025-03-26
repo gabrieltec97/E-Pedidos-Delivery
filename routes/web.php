@@ -51,6 +51,7 @@ Route::get('/verificar-nome-cupom', [CouponController::class, 'checkCouponName']
 Route::get('revisar-pedido', [OrderController::class, 'review'])->name('review');
 Route::post('/gerenciar-delivery', [OrderController::class, 'deliveryManagement'])->name('deliveryManagement');
 Route::get('/verificar-delivery', [OrderController::class, 'verificarDelivery'])->name('verificarDelivery');
+Route::get('/verificar-nome-produto', [ProductController::class, 'checkProductName'])->name('verificarNomeProduto');
 Route::resource('/pedidos', OrderController::class);
 
 Route::get('log', function (){

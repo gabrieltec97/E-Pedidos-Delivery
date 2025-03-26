@@ -21,7 +21,7 @@
                         <div class="card-header pb-0">
                             <div class="d-flex align-items-center">
                                 <h3 class="mb-0">Novo produto</h3>
-                                <button class="btn btn-primary btn-sm ms-auto">Cadastrar</button>
+                                <button class="btn btn-primary ms-auto saveProduct"><i class="fa-solid fa-plus"></i> Cadastrar</button>
                             </div>
                         </div>
                         <div class="card-body">
@@ -30,7 +30,8 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="example-text-input" class="form-control-label">Nome</label>
-                                        <input class="form-control" type="text" placeholder="Nome do produto" name="name" value="{{ old('name') }}" required>
+                                        <input class="form-control productName" type="text" placeholder="Nome do produto" name="name" value="{{ old('name') }}" required>
+                                        <label class="text-danger label-check">Já existe um item com o nome <span class="item-error"></span>. Por favor, escolha outro nome.</label>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
@@ -61,7 +62,7 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="example-text-input" class="form-control-label">Valor</label>
-                                        <input class="form-control value" type="text" name="price" value="{{ old('price') }}" placeholder="Preço deste item">
+                                        <input class="form-control value" type="text" name="price" value="{{ old('price') }}" placeholder="Preço deste item" required>
                                     </div>
                                 </div>
 
@@ -162,6 +163,41 @@
     <script>
         $(document).ready(function(){
             $('.value').mask('000,000,000.00', {reverse: true});
+            $(".label-check").hide();
+
+            $(".productName").on('click', function (){
+                $(".label-check").fadeOut();
+            });
+
+            $(".saveProduct").on('click', function (){
+                $(this).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Cadastrar');
+            });
+
+            $(".productName").on('blur', function(){
+
+                let nome = $(".productName").val();
+
+                $.ajax({
+                    url: "{{ route('verificarNomeProduto') }}",
+                    method: "GET",
+                    data: {name: nome},
+                    success: function (response) {
+                        console.log(response.success);
+                        if (response.success == false){
+                            $(".label-check").fadeIn();
+                            $(".item-error").text(nome);
+                            $(".saveProduct").prop('disabled', true);
+
+                        }else{
+                            $(".label-check").fadeOut();
+                            $(".saveProduct").prop('disabled', false);
+                        }
+                    },
+                    error: function () {
+                        console.error("Erro ao fazer verificação de nome.");
+                    }
+                });
+            });
         });
     </script>
 @endsection

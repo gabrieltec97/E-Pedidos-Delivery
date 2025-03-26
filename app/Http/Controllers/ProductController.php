@@ -21,6 +21,19 @@ class ProductController extends Controller
         ]);
     }
 
+    public function checkProductName(Request $request)
+    {
+       $check = DB::table('products')
+           ->select('id')
+           ->where('name', $request->name)->count();
+
+       if ($check != 0){
+           return response()->json(['success' => false]);
+       }else{
+           return response()->json(['success' => true]);
+       }
+    }
+
     /**
      * Show the form for creating a new resource.
      */
