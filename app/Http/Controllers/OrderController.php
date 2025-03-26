@@ -8,7 +8,6 @@ use App\Models\Neighbourhood;
 use App\Models\OrderItems;
 use App\Models\Product;
 use App\Models\Tray;
-use Faker\Provider\DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
