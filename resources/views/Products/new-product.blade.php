@@ -182,7 +182,6 @@
                     method: "GET",
                     data: {name: nome},
                     success: function (response) {
-                        console.log(response.success);
                         if (response.success == false){
                             $(".label-check").fadeIn();
                             $(".item-error").text(nome);

@@ -464,28 +464,25 @@
         $(".couponName").blur(function(){
             let nome = $(this).val().toUpperCase().replace(/\s/g, '');
 
-            function verificarNome(){
-                $.ajax({
-                    url: "{{ route('verificarNomeCupom') }}",
-                    method: "GET",
-                    data: {name: nome},
-                    success: function (response) {
-                       if (response.success == false){
-                           $(".checkCoupon").fadeIn();
-                           $(".notName").text(nome);
-                           $(".couponName").val('');
-                           $(".saveCoupon").prop("disabled", true);
-                       }else{
-                           $(".checkCoupon").fadeOut();
-                           $(".saveCoupon").prop("disabled", false);
-                       }
-                    },
-                    error: function () {
-                        console.error("Erro ao buscar a contagem dos itens na bandeja.");
+            $.ajax({
+                url: "{{ route('verificarNomeCupom') }}",
+                method: "GET",
+                data: {name: nome},
+                success: function (response) {
+                    if (response.success == false){
+                        $(".checkCoupon").fadeIn();
+                        $(".notName").text(nome);
+                        $(".couponName").val('');
+                        $(".saveCoupon").prop("disabled", true);
+                    }else{
+                        $(".checkCoupon").fadeOut();
+                        $(".saveCoupon").prop("disabled", false);
                     }
-                });
-            }
-            verificarNome();
+                },
+                error: function () {
+                    console.error("Erro ao buscar a contagem dos itens na bandeja.");
+                }
+            });
         });
 
 
