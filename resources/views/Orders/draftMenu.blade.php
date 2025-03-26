@@ -731,7 +731,7 @@
                        @if($liveOrder != 0)
                            <div class="row">
                                <div class="col-12">
-                                   <div class="steps">
+                                   <div class="steps d-flex justify-content-center">
                                        <div class="step step1 active">1</div>
                                        <div class="step step2">2</div>
                                        <div class="step step3">3</div>
@@ -803,6 +803,7 @@
     <script>
         $(document).ready(function () {
 
+            let contador = 0;
            setInterval(function(){
                $.ajax({
                    url: "{{ route('orders.realTime') }}",
@@ -812,9 +813,38 @@
                            if(response[0].status == "Em Preparação"){
                                $(".second-live").css("color", "#FFBF00FF");
                                $(".step2").addClass("active");
+
+                               if (contador === 0) {
+                                   $.toast({
+                                       heading: '<b>Seu pedido já está sendo preparado!</b>',
+                                       showHideTransition: 'slide',  // It can be plain, fade or slide
+                                       bgColor: '#2ecc71',
+                                       text: 'Nossa equipe já está preparando seu pedido com todo o carinho!',
+                                       hideAfter: 15000,
+                                       position: 'top-right',
+                                       textColor: '#ecf0f1',
+                                       icon: 'success'
+                                   });
+                                   contador++; // Evita que a função seja chamada novamente
+                               }
+
                            }else if(response[0].status == "Em rota de entrega"){
                                $(".third-live").css("color", "#25f4ab");
                                $(".step3").addClass("active");
+
+                               if (contador === 1) {
+                                   $.toast({
+                                       heading: '<b>Seu pedido já está indo até você!</b>',
+                                       showHideTransition: 'slide',  // It can be plain, fade or slide
+                                       bgColor: '#2ecc71',
+                                       text: 'Fique atento(a), o entregador já estará chegando com seu pedido!',
+                                       hideAfter: 15000,
+                                       position: 'top-right',
+                                       textColor: '#ecf0f1',
+                                       icon: 'success'
+                                   });
+                                   contador++; // Evita que a função seja chamada novamente
+                               }
                            }else if(response[0].status == "Pedido Entregue"){
                                $(".fourth-live").css("color", "#25f4ab");
                                $(".step4").addClass("active");
