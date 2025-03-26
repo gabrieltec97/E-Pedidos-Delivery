@@ -737,6 +737,29 @@ footer{
     }
 }
 
+.table-row {
+    display: flex; /* Usa flexbox para alinhar o ícone e o texto */
+    align-items: center; /* Alinha o ícone e o texto verticalmente */
+    padding: 10px;
+    border-bottom: 1px solid #ddd; /* Linha de separação entre os itens */
+    font-size: 16px; /* Ajuste o tamanho da fonte conforme necessário */
+    margin-left: -5px;
+}
+
+.table-row i {
+    font-size: 20px; /* Tamanho do ícone */
+    margin-right: 10px; /* Espaço entre o ícone e o texto */
+    color: #aeabab /* Cor do ícone (pode ser qualquer cor desejada) */
+}
+
+.table-row .text {
+    color: var(--color-black); /* Cor do texto */
+}
+
+.first-live{
+    color: var(--color-primary) !important;
+}
+
 
 
 /*.modal-item{*/

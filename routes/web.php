@@ -37,6 +37,7 @@ Route::get('/teste', function (){
 Route::resource('/cardapio', TrayController::class);
 Route::get('/count', [TrayController::class, 'count'])->name('cardapio.count');
 Route::get('/verificar-bandeja', [TrayController::class, 'count'])->name('tray.check');
+Route::get('/pedido-tempo-real', [TrayController::class, 'realTimeOrders'])->name('orders.realTime');
 Route::get('/calcular-frete', [TrayController::class, 'taxeCalculator'])->name('calcular-frete');
 Route::get('/atualizar-bandeja', [TrayController::class, 'refreshTray'])->name('tray.data');
 Route::post('/remover-item', [TrayController::class, 'removeItem'])->name('tray.remove');

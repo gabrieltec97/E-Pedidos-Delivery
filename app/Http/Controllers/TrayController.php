@@ -114,6 +114,34 @@ class TrayController extends Controller
         ]);
     }
 
+    public function realTimeOrders(Request $request)
+    {
+        if (Auth::user() == null){
+            if (!$request->cookie('user_identifier')) {
+                // Gera um identificador único
+                $identifier = uniqid(true);
+
+                // Cria o cookie por 30 dias
+                Cookie::queue('user_identifier', $identifier, 43200); // 30 dias
+
+                // Redireciona para a mesma página para que o cookie seja lido corretamente
+                return redirect()->back();
+            }
+
+            // Obtém o cookie e exibe
+            $user = $request->cookie('user_identifier');
+        }else{
+            $user = Auth::user()->id;
+        }
+
+        $orders = DB::table('orders')
+            ->where('status', '!=', 'Pedido Entregue')
+            ->where('status', '!=', 'Cancelado')
+            ->where('user_id', $user)->get();
+
+        return response()->json($orders);
+    }
+
     public function checkTray(Request $userID)
     {
         if (Auth::user() == null){

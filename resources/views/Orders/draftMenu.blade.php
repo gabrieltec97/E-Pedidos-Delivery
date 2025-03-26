@@ -28,8 +28,8 @@
 
            @if($liveOrder != 0)
                <div class="col-6">
-                   <a class="btn-live-order">
-                       <div class="badge-total-tray cart-count"></div>
+                   <a class="btn-live-order" data-toggle="modal" data-target="#modalLive">
+                       <div class="badge-total-tray cart-count">{{ $liveOrder }}</div>
                        <i class="fa fa-clipboard text-white"></i>
                    </a>
                </div>
@@ -714,8 +714,61 @@
     <script type="text/javascript" src="{{ asset('assets/js/dados.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/js/app.js') }}"></script>
     <script src="{{ asset('assets/js/jquerytoast.js') }}"></script>
-
     <script>new WOW().init();</script>
+
+   <!-- Modal -->
+   <div class="modal fade" id="modalLive" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+       <div class="modal-dialog modal-dialog-centered" role="document">
+           <div class="modal-content">
+               <div class="modal-header">
+                   <h5 class="modal-title" id="exampleModalLongTitle">Acompanhe seu pedido!</h5>
+                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                       <span aria-hidden="true">&times;</span>
+                   </button>
+               </div>
+               <div class="modal-body">
+                   <div class="container-fluid">
+                       @if($liveOrder != 0)
+                           <div class="row">
+                               <div class="col-12">
+                                   <div class="steps">
+                                       <div class="step step1 active">1</div>
+                                       <div class="step step2">2</div>
+                                       <div class="step step3">3</div>
+                                       <div class="step step4">4</div>
+                                   </div>
+                               </div>
+
+                               <div class="col-12 col-lg-6 col-md-6 col-sm-12 mt-3">
+                                   <div class="table-row">
+                                       <i class="fa fa-check-circle first-live"></i>
+                                       <span class="text">Pedido Registrado</span>
+                                   </div>
+
+                                   <div class="table-row">
+                                       <i class="fa fa-check-circle second-live"></i>
+                                       <span class="text">Em preparo</span>
+                                   </div>
+                                   <div class="table-row">
+                                       <i class="fa fa-check-circle third-live"></i>
+                                       <span class="text">Em rota de entrega</span>
+                                   </div>
+                                   <div class="table-row">
+                                       <i class="fa fa-check-circle fourth-live"></i>
+                                       <span class="text">Pedido Entregue</span>
+                                   </div>
+                               </div>
+                           </div>
+                       @endif
+                   </div>
+               </div>
+               <div class="modal-footer">
+                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                   <button type="button" class="btn btn-primary">Save changes</button>
+               </div>
+           </div>
+       </div>
+   </div>
 
     @if($status == false)
         <script>
@@ -749,6 +802,34 @@
 
     <script>
         $(document).ready(function () {
+
+           setInterval(function(){
+               $.ajax({
+                   url: "{{ route('orders.realTime') }}",
+                   method: "GET",
+                   success: function (response) {
+                       if(response[0]){
+                           if(response[0].status == "Em Preparação"){
+                               $(".second-live").css("color", "#FFBF00FF");
+                               $(".step2").addClass("active");
+                           }else if(response[0].status == "Em rota de entrega"){
+                               $(".third-live").css("color", "#25f4ab");
+                               $(".step3").addClass("active");
+                           }else if(response[0].status == "Pedido Entregue"){
+                               $(".fourth-live").css("color", "#25f4ab");
+                               $(".step4").addClass("active");
+                           }
+                       }
+                   },
+                   error: function () {
+                       console.error("Erro ao buscar valor total");
+                   }
+               });
+           }, 1000)
+
+
+
+
             let totalItems = {{ $totalItems }};
 
             if (totalItems == 0) {
