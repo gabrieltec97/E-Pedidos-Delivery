@@ -2,8 +2,7 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/fontawesome.css') }}">
@@ -18,10 +17,25 @@
     <title>Cardápio - Seja bem vindo!</title>
 </head>
 <body>
-    <a class="btn-tray-side">
-        <div class="badge-total-tray cart-count">{{ $totalItems }}</div>
-        <i class="fa fa-shopping-bag"></i>
-    </a>
+   <div class="container">
+       <div class="row">
+           <div class="col-6">
+               <a class="btn-tray-side">
+                   <div class="badge-total-tray cart-count">{{ $totalItems }}</div>
+                   <i class="fa fa-shopping-bag"></i>
+               </a>
+           </div>
+
+           @if($liveOrder != 0)
+               <div class="col-6">
+                   <a class="btn-live-order">
+                       <div class="badge-total-tray cart-count"></div>
+                       <i class="fa fa-clipboard text-white"></i>
+                   </a>
+               </div>
+           @endif
+       </div>
+   </div>
     <section class="header">
         <div class="container">
             <nav class="navbar navbar-expand-lg pl-0 pr-0 col-one">
@@ -714,6 +728,21 @@
                 position: 'top-right',
                 textColor: 'white',
                 icon: 'error'
+            });
+        </script>
+    @endif
+
+    @if(session('new-order'))
+        <script>
+            $.toast({
+                heading: '<b>Que legal, seu pedido foi registrado!</b>',
+                showHideTransition: 'slide',  // It can be plain, fade or slide
+                bgColor: '#2ecc71',
+                text: 'Acompanhe o andamento do seu pedido em tempo real clicando no ícone que está no canto inferior direito.',
+                hideAfter: 15000,
+                position: 'top-right',
+                textColor: '#ecf0f1',
+                icon: 'success'
             });
         </script>
     @endif

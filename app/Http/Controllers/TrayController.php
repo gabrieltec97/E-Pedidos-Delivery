@@ -97,6 +97,11 @@ class TrayController extends Controller
             $status = false;
         }
 
+        $liveOrder = DB::table('orders')
+            ->where('status', '!=', 'Pedido Entregue')
+            ->where('status', '!=', 'Cancelado')
+            ->where('user_id', $user)->count();
+
         return view('Orders.draftMenu', [
             'burguers' => $burguers,
             'drinks' => $drinks,
@@ -104,7 +109,8 @@ class TrayController extends Controller
             'tray' => $tray,
             'totalItems' => $totalItems,
             'additionals' => $additionals,
-            'status' => $status
+            'status' => $status,
+            'liveOrder' => $liveOrder
         ]);
     }
 

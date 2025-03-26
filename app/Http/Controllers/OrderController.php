@@ -372,7 +372,7 @@ class OrderController extends Controller
             //Limpando bandeja.
             DB::table('trays')->where('user_id', $user)->delete();
 
-            return redirect()->route('teste');
+            return redirect()->route('cardapio.index')->with('new-order', '.');
         }
     }
     public function updateStatus(Request $request, string $id)

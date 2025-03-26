@@ -484,10 +484,6 @@
                 }
             });
         });
-
-
-
-
     </script>
 
 @endsection
