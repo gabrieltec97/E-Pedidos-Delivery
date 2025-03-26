@@ -760,6 +760,14 @@ footer{
     color: var(--color-primary) !important;
 }
 
+.order-items{
+    display: flex;
+    align-items: center; /* Alinha verticalmente os itens */
+    gap: 10px;
+}
+
+
+
 
 
 /*.modal-item{*/

@@ -117,7 +117,6 @@
                                                                 x <b>{{ $item->ammount }}</b>
                                                             </p>
                                                         </div>
-                                                            </li>
                                                         @endif
                                             @endforeach
                                         </div>

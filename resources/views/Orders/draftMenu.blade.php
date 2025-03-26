@@ -716,9 +716,9 @@
     <script src="{{ asset('assets/js/jquerytoast.js') }}"></script>
     <script>new WOW().init();</script>
 
-   <!-- Modal -->
-   <div class="modal fade" id="modalLive" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-       <div class="modal-dialog modal-dialog-centered" role="document">
+
+   <div class="modal fade bd-example-modal-lg" id="modalLive" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+       <div class="modal-dialog modal-lg">
            <div class="modal-content">
                <div class="modal-header">
                    <h5 class="modal-title" id="exampleModalLongTitle">Acompanhe seu pedido!</h5>
@@ -759,14 +759,42 @@
                                    </div>
                                </div>
                            </div>
+
+                           <div class="row">
+                               <div class="col-12 mt-3">
+                                   <div class="product-data">
+                                       <h4 class="resume-product-title">Veja os itens do seu pedido:</h4>
+                                   </div>
+                               </div>
+                               <div class="col-12 col-lg-3 col-md-12 col-sm-12 mt-4">
+                                   <div class="col-12 order-items">
+                                       <div class="img-product">
+                                           <img style="width: 50px; height: 50px; border-radius: 10px" src="{{ asset('assets/img/cardapio/burguers/burger-au-poivre-kit-4-pack.3ca0e39b02db753304cd185638dad518.jpg') }}" />
+                                       </div>
+                                       <div class="teste">
+                                           <p class="resume-product-title">
+                                               <b>X-tudo</b>
+                                           </p>
+
+                                           <p class="resume-product-quantity">
+                                               x <b>2</b>
+                                           </p>
+                                       </div>
+                                   </div>
+                               </div>
+
+                           </div>
                        @endif
                    </div>
                </div>
-               <div class="modal-footer">
-                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                   <button type="button" class="btn btn-primary">Save changes</button>
-               </div>
            </div>
+       </div>
+   </div>
+
+   <!-- Modal -->
+   <div class="modal fade " id="modalLive" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+       <div class="modal-dialog modal-dialog-centered" role="document">
+
        </div>
    </div>
 
