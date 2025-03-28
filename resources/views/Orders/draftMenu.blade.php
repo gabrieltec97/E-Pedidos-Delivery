@@ -838,6 +838,12 @@
         </script>
     @endif
 
+   @if($liveOrder != 0 && $totalItems == 0)
+       <script>
+           $(".btn-live-order").css("bottom", "20px").css("important", "true");
+       </script>
+   @endif
+
     <script>
         $(document).ready(function () {
 
@@ -936,6 +942,7 @@
 
             $('.fechar-modal').on('click', function (){
                 fecharBandeja();
+                $(".btn-live-order").css("bottom", "90px").css("important", "true");
             });
 
             $('#btnOrderStep').on('click', function (){
@@ -1042,6 +1049,8 @@
                             textColor: '#ecf0f1',
                             icon: 'success'
                         });
+
+                        $(".btn-live-order").css("bottom", "90px").css("important", "true");
 
                         // Após adicionar, faz uma nova requisição para contar os itens
                         atualizarContagemBandeja();
@@ -1178,7 +1187,8 @@
                                             textColor: '#ecf0f1',
                                             icon: 'success'
                                         });
-                                        itemDiv.fadeOut();  // Remove o item da bandeja na interface
+                                        // itemDiv.fadeOut();  // Remove o item da bandeja na interface
+                                        $(".btn-live-order").css("bottom", "20px").css("important", "true");
                                         atualizarPreco();
                                         recuperarBandeja();
                                     } else {
@@ -1239,6 +1249,8 @@
             }
 
             $('.btn-tray, .btn-tray-side').on('click', function (){
+
+                $(".btn-live-order").css("bottom", "20px").css("important", "true");
 
                 $.ajax({
                     url: '{{ route('tray.check')}}',
