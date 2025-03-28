@@ -766,6 +766,25 @@ footer{
     gap: 10px;
 }
 
+.live-delivery {
+    display: flex; /* Coloca o ícone e o texto em linha */
+    align-items: center; /* Alinha verticalmente no centro */
+}
+
+.live-img-map {
+    margin-right: 100px; /* Espaçamento entre o ícone e o texto */
+}
+
+.live-delivery-data {
+    display: flex;
+    flex-direction: column; /* Faz o texto aparecer em coluna */
+}
+
+.live-address-text, .live-cityAddress {
+    margin: 0; /* Remove as margens extras nos textos */
+}
+
+
 
 
 

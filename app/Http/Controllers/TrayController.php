@@ -104,12 +104,15 @@ class TrayController extends Controller
 
         $count = count($liveOrder);
         $items = '';
+        $myOrder = '';
 
         if (isset($liveOrder[0])){
             $items = DB::table('order_items')
                 ->where('user_id', $user)
                 ->where('order_id', $liveOrder[0]->id)
                 ->get();
+
+            $myOrder = $liveOrder;
         }
 
         return view('Orders.draftMenu', [
@@ -121,7 +124,8 @@ class TrayController extends Controller
             'additionals' => $additionals,
             'status' => $status,
             'liveOrder' => $count,
-            'items' => $items
+            'items' => $items,
+            'myOrder' => $myOrder
         ]);
     }
 
