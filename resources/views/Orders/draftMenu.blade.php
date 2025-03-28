@@ -766,23 +766,24 @@
                                        <h4 class="resume-product-title">Veja os itens do seu pedido:</h4>
                                    </div>
                                </div>
-                               <div class="col-12 col-lg-3 col-md-12 col-sm-12 mt-4">
-                                   <div class="col-12 order-items">
-                                       <div class="img-product">
-                                           <img style="width: 50px; height: 50px; border-radius: 10px" src="{{ asset('assets/img/cardapio/burguers/burger-au-poivre-kit-4-pack.3ca0e39b02db753304cd185638dad518.jpg') }}" />
-                                       </div>
-                                       <div class="teste">
-                                           <p class="resume-product-title">
-                                               <b>X-tudo</b>
-                                           </p>
+                               @foreach($items as $item)
+                                   <div class="col-12 col-lg-3 col-md-12 col-sm-12 mt-4">
+                                       <div class="col-12 order-items">
+                                           <div class="img-product">
+                                               <img style="width: 50px; height: 50px; border-radius: 10px" src="{{ asset('assets/img/cardapio/burguers/burger-au-poivre-kit-4-pack.3ca0e39b02db753304cd185638dad518.jpg') }}" />
+                                           </div>
+                                           <div class="teste">
+                                               <p class="resume-product-title">
+                                                   <b>{{ $item->product }}</b>
+                                               </p>
 
-                                           <p class="resume-product-quantity">
-                                               x <b>2</b>
-                                           </p>
+                                               <p class="resume-product-quantity">
+                                                   x <b>{{ $item->ammount }}</b>
+                                               </p>
+                                           </div>
                                        </div>
                                    </div>
-                               </div>
-
+                               @endforeach
                            </div>
                        @endif
                    </div>

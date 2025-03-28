@@ -100,7 +100,17 @@ class TrayController extends Controller
         $liveOrder = DB::table('orders')
             ->where('status', '!=', 'Pedido Entregue')
             ->where('status', '!=', 'Cancelado')
-            ->where('user_id', $user)->count();
+            ->where('user_id', $user)->get();
+
+        $count = count($liveOrder);
+        $items = '';
+
+        if (isset($liveOrder[0])){
+            $items = DB::table('order_items')
+                ->where('user_id', $user)
+                ->where('order_id', $liveOrder[0]->id)
+                ->get();
+        }
 
         return view('Orders.draftMenu', [
             'burguers' => $burguers,
@@ -110,7 +120,8 @@ class TrayController extends Controller
             'totalItems' => $totalItems,
             'additionals' => $additionals,
             'status' => $status,
-            'liveOrder' => $liveOrder
+            'liveOrder' => $count,
+            'items' => $items
         ]);
     }
 
