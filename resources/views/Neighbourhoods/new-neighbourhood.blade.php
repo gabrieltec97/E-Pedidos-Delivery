@@ -15,7 +15,7 @@
                         <div class="card-header pb-0">
                             <div class="d-flex align-items-center">
                                 <h3 class="mb-0">Novo bairro</h3>
-                                <button class="btn btn-primary btn-sm ms-auto btn-cadastrar">Cadastrar</button>
+                                <button type="submit" class="btn btn-primary btn-sm ms-auto btn-cadastrar"><b>Cadastrar</b></button>
                             </div>
                         </div>
                         <div class="card-body">
@@ -24,7 +24,7 @@
                                 <div class="col-12 col-lg-3 col-md-3 col-sm-12">
                                     <div class="form-group">
                                         <label for="example-text-input" class="form-control-label">Cep</label>
-                                        <input class="form-control" id="txtCEP" type="text" placeholder="Cep de uma rua deste bairro" name="name" required>
+                                        <input class="form-control" id="txtCEP" type="text" placeholder="Cep de uma rua deste bairro" name="cep">
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-3 col-md-3 col-sm-12">
@@ -36,14 +36,13 @@
                                 <div class="col-12 col-lg-3 col-md-3 col-sm-12">
                                     <div class="form-group">
                                         <label for="example-text-input" class="form-control-label">Taxa de entrega</label>
-                                        <input class="form-control" type="number" placeholder="Valor da entrega" name="taxe" required>
+                                        <input class="form-control value" type="text" placeholder="Valor da entrega" name="taxe" required>
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-3 col-md-3 col-sm-12">
                                     <div class="form-group">
                                         <label for="example-text-input" class="form-control-label">Tempo médio de entrega</label>
                                         <select class="form-control" name="time" required>
-                                            <option selected disabled>Selecione</option>
                                             <option value="20min a 40min">20min a 40min</option>
                                             <option value="40min a 60min">40min a 60min</option>
                                             <option value="1hora a 1h e 20min">1hora a 1h e 20min</option>
@@ -73,6 +72,7 @@
         $(document).ready(function(){
         
         $('#txtCEP').mask('00000-000');
+        $('.value').mask('000.000.000.000.000.00', {reverse: true});
 
             //API de busca de cep.
         function buscarCep(){
@@ -95,6 +95,7 @@
                                success: function (response) {
                                 
                                 $('.btn-cadastrar').prop('disabled', 'true');
+                                   
                                    if(response.return == true){
                                     $.toast({
                                         heading: '<b>Bairro já cadastrado!</b>',
@@ -106,10 +107,14 @@
                                         textColor: 'white',
                                         icon: 'error'
                                     });
+
+                                    
                                     
                                 
                                    }else{
-                                    $('.btn-cadastrar').removeAttr('disabled')
+                                    
+                                    $('.btn-cadastrar').removeAttr('disabled');
+                        
                                    }
                                },
                                error: function () {
@@ -142,6 +147,15 @@
         $("#txtCEP").blur(function() {
             buscarCep();
         });
+
+        $(".btn-cadastrar").on('click', function(){
+            $(this).html('<b><span class="spinner-border spinner-border-sm"></span> Cadastrar</b>');
+
+            setTimeout(() => {
+                $(this).html('<b>Cadastrar</b>');
+            }, 4000);
+        })
+       
     });
     </script>
 @endsection
