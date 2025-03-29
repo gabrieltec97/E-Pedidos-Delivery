@@ -15,7 +15,7 @@
                         <div class="card-header pb-0">
                             <div class="d-flex align-items-center">
                                 <h3 class="mb-0">Novo bairro</h3>
-                                <button class="btn btn-primary btn-sm ms-auto">Cadastrar</button>
+                                <button class="btn btn-primary btn-sm ms-auto btn-cadastrar">Cadastrar</button>
                             </div>
                         </div>
                         <div class="card-body">
@@ -71,6 +71,9 @@
 
     <script>
         $(document).ready(function(){
+        
+        $('#txtCEP').mask('00000-000');
+
             //API de busca de cep.
         function buscarCep(){
             var cep = $('#txtCEP').val().trim().replace(/\D/g,'');
@@ -83,23 +86,52 @@
     
                         if (!("erro" in data)){
                             $('#txtBairro').val(data.bairro);
+
+                            var local = data.bairro;
+                            $.ajax({
+                               url: '{{ route('verificar-bairro')}}',
+                               method: "GET",
+                               data: { local: local },
+                               success: function (response) {
+                                
+                                $('.btn-cadastrar').prop('disabled', 'true');
+                                   if(response.return == true){
+                                    $.toast({
+                                        heading: '<b>Bairro já cadastrado!</b>',
+                                        showHideTransition: 'slide',
+                                        bgColor: 'red',
+                                        text: 'Este bairro já está cadastrado no sistema, verifique seu cadastro no gerenciamento de bairros.',
+                                        hideAfter: 12000,
+                                        position: 'top-right',
+                                        textColor: 'white',
+                                        icon: 'error'
+                                    });
+                                    
+                                
+                                   }else{
+                                    $('.btn-cadastrar').removeAttr('disabled')
+                                   }
+                               },
+                               error: function () {
+                                   console.error("Erro ao buscar a contagem dos itens na bandeja.");
+                               }
+                            });
     
                         }else{
                             $.toast({
                                 heading: '<b>Cep inválido!</b>',
                                 showHideTransition: 'slide',
                                 bgColor: 'red',
-                                text: 'Não conseguimos encontrar este cep, preencha as informações manualmente.',
+                                text: 'Não conseguimos encontrar este cep, busque um cep de uma outra rua.',
                                 hideAfter: 8000,
                                 position: 'top-right',
                                 textColor: 'white',
                                 icon: 'error'
                             });
-                            $('#txtCEP').val('');
+
+                            $('#txtBairro').val('');
                         }
                     })
-                }else{
-                   //Tratar com toast de cep inválido
                 }
     
             }else{
@@ -110,7 +142,7 @@
         $("#txtCEP").blur(function() {
             buscarCep();
         });
-        });
+    });
     </script>
 @endsection
 

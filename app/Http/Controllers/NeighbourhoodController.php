@@ -19,6 +19,22 @@ class NeighbourhoodController extends Controller
         ]);
     }
 
+    public function checkNeighbourhood(Request $request)
+    {
+        $check = DB::table('neighbourhoods')
+        ->where('name', trim($request->input('local')))->count();
+        $return = '';
+
+        if($check != 0){
+            $return = $check;
+        }else{
+            $return = $check;
+        }
+
+        return response()->json(['return' => $return]);
+    
+    }
+
     /**
      * Show the form for creating a new resource.
      */
