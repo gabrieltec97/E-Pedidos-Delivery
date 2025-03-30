@@ -108,9 +108,10 @@
     @if(session('msg-neig-removed'))
         <script>
             $.toast({
-                heading: '<b>Bairro removido com sucesso!</b>',
+                heading: 'Remoção concluída!',
                 showHideTransition : 'slide',  // It can be plain, fade or slide
                 bgColor : '#2D2D2D',
+                text: '{{ session('msg-neig-removed') }}',
                 hideAfter : 5000,
                 position: 'top-right',
                 textColor: 'white',

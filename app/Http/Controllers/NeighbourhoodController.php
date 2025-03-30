@@ -22,8 +22,18 @@ class NeighbourhoodController extends Controller
     public function checkNeighbourhood(Request $request)
     {
         $check = DB::table('neighbourhoods')
-        ->where('name', trim($request->input('local')))->count();
+        ->where('name', trim($request->input('local')))
+        ->count();
         $return = '';
+        $name = '';
+
+        if($request->input('id') != null){
+            $name = DB::table('neighbourhoods')
+            ->select('name')
+            ->where('id', trim($request->input('id')))->get();
+
+            $name = $name[0]->name;
+        }
 
         if($check != 0){
             $return = $check;
@@ -31,7 +41,7 @@ class NeighbourhoodController extends Controller
             $return = $check;
         }
 
-        return response()->json(['return' => $return]);
+        return response()->json(['return' => $return, 'name' => $name]);
     
     }
 
@@ -66,7 +76,7 @@ class NeighbourhoodController extends Controller
             }
             $neighbourhood->save();
 
-            return redirect()->route('bairros.index')->with('msg', $request->name.' foi cadastrado com sucesso!');
+            return redirect()->route('bairros.index')->with('msg', 'O bairro ' .$request->name.' foi cadastrado com sucesso!');
         }else{
             return redirect()->route('bairros.index')->with('msg-error', 'O bairro '.$request->name.' já está cadastrado!');
         }
@@ -111,6 +121,6 @@ class NeighbourhoodController extends Controller
         $neighbourhood = Neighbourhood::find($id);
         $neighbourhood->delete();
 
-        return redirect()->route('bairros.index')->with('msg-neig-removed', '.');
+        return redirect()->route('bairros.index')->with('msg-neig-removed', 'O bairro '. $neighbourhood->name . ' foi removido com sucesso!');
     }
 }
