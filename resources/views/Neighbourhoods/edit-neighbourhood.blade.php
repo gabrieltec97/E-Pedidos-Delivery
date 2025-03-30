@@ -100,7 +100,7 @@
                                method: "GET",
                                data: { local: local, id: id },
                                success: function (response) {
-                                console.log(response.name)
+                            
                                 $('.btn-cadastrar').prop('disabled', 'true');
                                    
                                    if(response.return == true && response.name != local){
