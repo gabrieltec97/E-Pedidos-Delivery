@@ -70,20 +70,20 @@
 
     <script>
         $(document).ready(function(){
-        
+
         $('#txtCEP').mask('00000-000');
         $('.value').mask('000.000.000.000.000.00', {reverse: true});
 
             //API de busca de cep.
         function buscarCep(){
             var cep = $('#txtCEP').val().trim().replace(/\D/g,'');
-    
+
             if (cep != ""){
                 var cepValidate = /^[0-9]{8}$/;
-    
+
                 if (cepValidate.test(cep)){
                     $.getJSON("http://viacep.com.br/ws/" + cep + "/json/?callback=?", function (data){
-    
+
                         if (!("erro" in data)){
                             $('#txtBairro').val(data.bairro);
 
@@ -93,9 +93,9 @@
                                method: "GET",
                                data: { local: local },
                                success: function (response) {
-                                
+
                                 $('.btn-cadastrar').prop('disabled', 'true');
-                                   
+
                                    if(response.return == true){
                                     $.toast({
                                         heading: '<b>Bairro já cadastrado!</b>',
@@ -107,18 +107,18 @@
                                         textColor: 'white',
                                         icon: 'error'
                                     });
-                                
+
                                    }else{
-                                    
+
                                     $('.btn-cadastrar').removeAttr('disabled');
-                        
+
                                    }
                                },
                                error: function () {
                                    console.error("Erro ao buscar a contagem dos itens na bandeja.");
                                }
                             });
-    
+
                         }else{
                             $.toast({
                                 heading: '<b>Cep inválido!</b>',
@@ -135,12 +135,12 @@
                         }
                     })
                 }
-    
+
             }else{
                 $('#txtCEP').focus();
             }
         }
-    
+
         $("#txtCEP").blur(function() {
             buscarCep();
         });
@@ -151,8 +151,8 @@
             setTimeout(() => {
                 $(this).html('<b>Cadastrar</b>');
             }, 4000);
-        })
-       
+        });
+
     });
     </script>
 @endsection
