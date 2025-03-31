@@ -60,11 +60,6 @@
                                     </div>
                                 </div>
 
-{{--                                <div class="col-12">--}}
-{{--                                    <label for="profile-photo">Foto de perfil</label><br>--}}
-{{--                                    <input type="file" class="form-control" name="profile-photo" id="profile-photo">--}}
-{{--                                </div>--}}
-
                                 <div class="col-md-12 d-lg-flex" style="margin-bottom: -20px;">
                                     <button type="submit" class="btn btn-primary ms-auto btn-cadastrar" style="margin-top: 10px;"><b><i class="fa-solid fa-user-plus" ></i> Cadastrar usuário</b></button>
                                 </div>
@@ -75,7 +70,6 @@
             </div>
         </div>
     </div>
-
 
     <!-- Modal -->
     <div class="modal fade" id="modalCheck" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -101,11 +95,6 @@
             $('#txtContato').mask('(00) 0000-00009');
 
             $(".btn-cadastrar").on('click', function(){
-
-                if ($("#user-profile").val() == 'Selecione'){
-                    console.log('aaa')
-                }
-
                 $(this).html('<b><span class="spinner-border spinner-border-sm"></span> Cadastrar usuário</b>');
 
                 setTimeout(() => {
@@ -128,6 +117,7 @@
 
                         $(".userEmail").text(email);
                         $("#modalCheck").modal("show");
+                        $("#email").val('');
 
                     }else{
                         $('.btn-cadastrar').removeAttr('disabled');

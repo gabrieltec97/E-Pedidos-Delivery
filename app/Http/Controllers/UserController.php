@@ -35,18 +35,35 @@ class UserController extends Controller
         $check = DB::table('users')
             ->select('id')
             ->where('email', $request->input('email'))->get();
+
+        //Verificação se o e-mail já existe tanto para cadastro quanto para edição.
         $id = '';
         $exist = '';
+        $userExist = '';
+        if ($request->input('user') != null) {
+            $user = DB::table('users')
+                ->select('id')
+                ->where('email', $request->input('user'))->get();
 
-        if (isset($check[0]->id)){
+            if (isset($check[0]->id)) {
+                if ($check[0]->id == $user[0]->id) {
+                    $userExist = false;
+                } else {
+                    $userExist = true;
+                }
+            }
+        }
+
+        if (isset($check[0]->id)) {
             $id = $check[0]->id;
             $exist = true;
-        }else{
+        } else {
             $exist = false;
         }
 
-        return response()->json(['check' => $exist, 'id' => $id]);
+        return response()->json(['check' => $exist, 'id' => $id, 'checkUserId' => $userExist]);
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -57,6 +74,7 @@ class UserController extends Controller
         $user->email = $request->email;
         $user->firstname = ucfirst($request->name);
         $user->password = bcrypt($request->password);
+        $user->contact = $request->contact;
 
         if ($request->user_type == 'Administrador'){
             $user->user_type = $request->user_type;
