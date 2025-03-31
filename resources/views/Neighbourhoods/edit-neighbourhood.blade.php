@@ -31,7 +31,7 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="example-text-input" class="form-control-label">Taxa de entrega</label>
-                                        <input class="form-control" type="number" name="taxe" value="{{ $neighbourhood->taxe }}" required>
+                                        <input class="form-control value" type="text" name="taxe" value="{{ $neighbourhood->taxe }}" required>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
@@ -67,7 +67,7 @@
         </div>
     </div>
 
-  
+
   <!-- Modal -->
   <div class="modal fade" id="modaldelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -81,7 +81,7 @@
                 @csrf
                 @method('DELETE')
                 <p>Tem certeza que deseja deletar o bairro <b>{{$neighbourhood->name}}</b>?</p>
-            
+
         </div>
         <div class="modal-footer">
             <button type="submit" class="btn btn-danger btn-remove">Deletar bairro</button>
@@ -92,55 +92,58 @@
   </div>
 
     <script>
-        function verificarBairro(){
-            let local = $(".name").val();
-            let id = {{ $neighbourhood->id}}
-                            $.ajax({
-                               url: '{{ route('verificar-bairro')}}',
-                               method: "GET",
-                               data: { local: local, id: id },
-                               success: function (response) {
-                            
-                                $('.btn-cadastrar').prop('disabled', 'true');
-                                   
-                                   if(response.return == true && response.name != local){
-                                    $.toast({
-                                        heading: '<b>Bairro já cadastrado!</b>',
-                                        showHideTransition: 'slide',
-                                        bgColor: 'red',
-                                        text: 'Este bairro já está cadastrado no sistema, verifique seu cadastro no gerenciamento de bairros.',
-                                        hideAfter: 12000,
-                                        position: 'top-right',
-                                        textColor: 'white',
-                                        icon: 'error'
-                                    });
-                                
-                                   }else{
-                                    
-                                    $('.btn-cadastrar').removeAttr('disabled');
-                        
-                                   }
-                               },
-                               error: function () {
-                                   console.error("Erro ao buscar a contagem dos itens na bandeja.");
-                               }
-                            });
-        }
+       $(document).ready(function(){
+           $('.value').mask('000.000.000.000.000.00', {reverse: true});
+           function verificarBairro(){
+               let local = $(".name").val();
+               let id = {{ $neighbourhood->id}}
+               $.ajax({
+                   url: '{{ route('verificar-bairro')}}',
+                   method: "GET",
+                   data: { local: local, id: id },
+                   success: function (response) {
 
-        $(".name").blur(function(){
-            verificarBairro();
-        });
+                       $('.btn-cadastrar').prop('disabled', 'true');
 
-        $(".btn-cadastrar").on('click', function(){
-            $(this).html('<b><span class="spinner-border spinner-border-sm"></span> Salvar Alterações</b>');
+                       if(response.return == true && response.name != local){
+                           $.toast({
+                               heading: '<b>Bairro já cadastrado!</b>',
+                               showHideTransition: 'slide',
+                               bgColor: 'red',
+                               text: 'Este bairro já está cadastrado no sistema, verifique seu cadastro no gerenciamento de bairros.',
+                               hideAfter: 12000,
+                               position: 'top-right',
+                               textColor: 'white',
+                               icon: 'error'
+                           });
 
-            setTimeout(() => {
-                $(this).html('<b>Salvar Alterações</b>');
-            }, 4000);
-        });
+                       }else{
 
-        $(".btn-remove").on('click', function(){
-            $(this).html('<b><span class="spinner-border spinner-border-sm"></span> Deletar bairro</b>');
-        })
+                           $('.btn-cadastrar').removeAttr('disabled');
+
+                       }
+                   },
+                   error: function () {
+                       console.error("Erro ao buscar a contagem dos itens na bandeja.");
+                   }
+               });
+           }
+
+           $(".name").blur(function(){
+               verificarBairro();
+           });
+
+           $(".btn-cadastrar").on('click', function(){
+               $(this).html('<b><span class="spinner-border spinner-border-sm"></span> Salvar Alterações</b>');
+
+               setTimeout(() => {
+                   $(this).html('<b>Salvar Alterações</b>');
+               }, 4000);
+           });
+
+           $(".btn-remove").on('click', function(){
+               $(this).html('<b><span class="spinner-border spinner-border-sm"></span> Deletar bairro</b>');
+           });
+       });
     </script>
 @endsection
