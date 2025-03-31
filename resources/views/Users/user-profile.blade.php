@@ -42,28 +42,28 @@
                                     <div class="col-12 col-lg-6 col-md-6 col-sm-12">
                                         <div class="form-group">
                                             <label for="example-text-input" class="form-control-label">Nome</label>
-                                            <input class="form-control" type="text" name="name" value="{{ $user->firstname }}">
+                                            <input class="form-control" type="text" name="name" value="{{ $user->firstname }}" required>
                                         </div>
                                     </div>
 
                                     <div class="col-12 col-lg-6 col-md-6 col-sm-12">
                                         <div class="form-group">
                                             <label for="example-text-input" class="form-control-label">E-mail</label>
-                                            <input class="form-control" id="email" name="email" type="email" value="{{ $user->email }}">
+                                            <input class="form-control" id="email" name="email" type="email" value="{{ $user->email }}" required>
                                         </div>
                                     </div>
 
                                     <div class="col-12 col-lg-6 col-md-6 col-sm-12">
                                         <div class="form-group">
                                             <label for="example-text-input" class="form-control-label">Senha</label>
-                                            <input class="form-control" type="password" name="password" placeholder="Digite nova senha">
+                                            <input class="form-control" type="password" name="password" placeholder="Digite nova senha" required>
                                         </div>
                                     </div>
 
                                     <div class="col-12 col-lg-6 col-md-6 col-sm-12">
                                         <div class="form-group">
                                             <label for="example-text-input" class="form-control-label">Contato</label>
-                                            <input class="form-control" id="txtContato" name="contact" type="text" value="{{ $user->contact }}">
+                                            <input class="form-control" id="txtContato" name="contact" type="text" value="{{ $user->contact }}" required>
                                         </div>
                                     </div>
                                 </div>
