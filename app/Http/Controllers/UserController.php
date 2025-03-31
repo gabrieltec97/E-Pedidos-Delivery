@@ -27,10 +27,25 @@ class UserController extends Controller
      */
     public function create()
     {
-        $neighborhoods = Neighbourhood::all();
-        return view('Users.user-create', [
-            'neighborhoods' => $neighborhoods
-        ]);
+        return view('Users.user-create');
+    }
+
+    public function checkUser(Request $request)
+    {
+        $check = DB::table('users')
+            ->select('id')
+            ->where('email', $request->input('email'))->get();
+        $id = '';
+        $exist = '';
+
+        if (isset($check[0]->id)){
+            $id = $check[0]->id;
+            $exist = true;
+        }else{
+            $exist = false;
+        }
+
+        return response()->json(['check' => $exist, 'id' => $id]);
     }
 
     /**
@@ -41,11 +56,7 @@ class UserController extends Controller
         $user = new User();
         $user->email = $request->email;
         $user->firstname = ucfirst($request->name);
-        $user->lastname = ucfirst($request->surname);
         $user->password = bcrypt($request->password);
-        $user->address = $request->address;
-        $user->city = $request->city;
-        $user->neighbourhood = $request->neighbourhood;
 
         if ($request->user_type == 'Administrador'){
             $user->user_type = $request->user_type;
@@ -60,7 +71,7 @@ class UserController extends Controller
 
         $user->save();
 
-        return redirect()->route('usuarios.index')->with('msg-success', 'Usuário cadastrado com sucesso!');
+        return redirect()->route('usuarios.index')->with('msg-success', 'Usuário '. ucfirst($request->name) .' cadastrado com sucesso!');
     }
 
     /**
@@ -69,10 +80,8 @@ class UserController extends Controller
     public function show(string $id)
     {
         $user = User::find($id);
-        $neighborhoods = Neighbourhood::all();
         return view('Users.user-profile', [
-            'user' => $user,
-            'neighborhoods' => $neighborhoods
+            'user' => $user
         ]);
     }
 
@@ -101,10 +110,7 @@ class UserController extends Controller
         $user = User::find($id);
         $user->email = $request->email;
         $user->firstname = ucfirst($request->name);
-        $user->lastname = ucfirst($request->surname);
         $user->password = bcrypt($request->password);
-        $user->address = $request->address;
-        $user->city = $request->city;
 
         if ($request->user_type == 'Administrador'){
             $user->user_type = $request->user_type;
@@ -116,7 +122,6 @@ class UserController extends Controller
             $user->user_type = $request->user_type;
             $user->assignRole('Entregador');
         }
-
         $user->save();
 
         return redirect()->route('usuarios.index');

@@ -54,6 +54,7 @@ Route::post('/gerenciar-delivery', [OrderController::class, 'deliveryManagement'
 Route::get('/verificar-delivery', [OrderController::class, 'verificarDelivery'])->name('verificarDelivery');
 Route::get('/verificar-nome-produto', [ProductController::class, 'checkProductName'])->name('verificarNomeProduto');
 Route::get('/verificar-bairro', [NeighbourhoodController::class, 'checkNeighbourhood'])->name('verificar-bairro');
+Route::get('/verificar-usuario', [UserController::class, 'checkUser'])->name('verificar-usuario');
 Route::resource('/pedidos', OrderController::class);
 
 Route::get('log', function (){
