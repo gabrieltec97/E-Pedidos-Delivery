@@ -7,7 +7,7 @@
 
             <div class="card mb-4">
                 <div class="card-header pb-0 d-flex">
-                    <h6>Gerenciamento de usuários</h6>
+                    <h3>Gerenciamento de usuários</h3>
                     <a href="{{ route('usuarios.create') }}" class="btn btn-primary ms-auto"><i class="fa-solid fa-user-plus"></i> Novo usuário</a>
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">
@@ -27,9 +27,9 @@
                                     <tr>
                                         <td>
                                             <div class="d-flex px-3 py-1">
-                                                <div>
-                                                    <img src="./img/team-1.jpg" class="avatar me-3" alt="image">
-                                                </div>
+{{--                                                <div>--}}
+{{--                                                    <img src="./img/logos/user.png" style="height: 40px; width: 45px; border-radius: 15px; margin-right: 14px; margin-left: -8px;" alt="image">--}}
+{{--                                                </div>--}}
                                                 <div class="d-flex flex-column justify-content-center">
                                                     <h6 class="mb-0">{{ $user->firstname }}</h6>
                                                     <p class="mb-0 text-sm">{{ $user->lastname }}</p>
