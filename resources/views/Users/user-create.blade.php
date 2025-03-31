@@ -84,7 +84,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Continuar cadastro</button>
-                    <button type="button" class="btn btn-success">Ir para usuário</button>
+                    <a type="button" class="btn btn-success btn-redirect">Ir para usuário</a>
                 </div>
             </div>
         </div>
@@ -113,12 +113,13 @@
                 success: function (response) {
 
                     if(response.check == true){
+                        let url = `/usuarios/${response.id}`;
                         $('.btn-cadastrar').prop('disabled', 'true');
 
                         $(".userEmail").text(email);
                         $("#modalCheck").modal("show");
                         $("#email").val('');
-
+                        $(".btn-redirect").attr("href", url);
                     }else{
                         $('.btn-cadastrar').removeAttr('disabled');
                     }

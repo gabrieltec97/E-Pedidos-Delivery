@@ -44,11 +44,7 @@
                                         </td>
                                         <td class="align-middle text-end">
                                             <div class="d-flex px-3 py-1 justify-content-center align-items-center">
-                                                <form action="{{ route('usuarios.show', $user->id) }}">
-                                                    @csrf
-                                                    @method('PUT')
-                                                    <button title="Editar" type="submit" style="cursor: pointer; border: none; margin-right: 15px" class="badge badge-sm bg-gradient-success"><i class="fa-solid fa-pen-to-square"></i></button>
-                                                </form>
+                                                    <a href="{{ route('usuarios.show', $user->id) }}" title="Editar" style="cursor: pointer; border: none; margin-right: 15px" class="badge badge-sm bg-gradient-success"><i class="fa-solid fa-pen-to-square"></i></a>
                                                 <form action="{{ route('usuarios.destroy', $user->id) }}" method="post">
                                                     @csrf
                                                     @method('DELETE')
