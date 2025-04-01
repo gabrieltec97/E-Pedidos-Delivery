@@ -23,7 +23,7 @@
                     <div class="card">
                         <div class="card-header pb-0">
                             <div class="d-flex align-items-center">
-                                <h3 class="mb-0">{{ $product->name }}</h3>
+                                <h3 class="mb-3">{{ $product->name }}</h3>
                                 <button class="btn btn-primary btn-sm ms-auto save">
                                     <div class="spinner-border spinner-border-sm loading" role="status" style="display: none;"></div>
                                     Salvar alterações</button>
@@ -40,6 +40,9 @@
                                     <div class="form-group">
                                         <label for="example-text-input" class="form-control-label">Nome</label>
                                         <input class="form-control" type="text" placeholder="Nome do produto" name="name" value="{{ $product->name }}" required>
+                                        @error('name')
+                                        <span class="text-danger" style="font-size: 13.5px;"><b><i class="fa-solid fa-circle-info"></i> {{ $message }}</b></span>
+                                        @enderror
                                     </div>
                                 </div>
 
@@ -59,6 +62,9 @@
                                     <div class="form-group">
                                         <label for="example-text-input" class="form-control-label">Valor</label>
                                         <input class="form-control value" type="text" placeholder="Nome do produto" name="price" value="{{ $product->price }}" required>
+                                        @error('price')
+                                        <span class="text-danger" style="font-size: 13.5px;"><b><i class="fa-solid fa-circle-info"></i> {{ $message }}</b></span>
+                                        @enderror
                                     </div>
                                 </div>
 
@@ -67,6 +73,9 @@
                                         <div class="form-group">
                                             <label for="example-text-input" class="form-control-label">Estoque</label>
                                             <input class="form-control" type="number" name="stock" value="{{ $product->stock }}" placeholder="Quantidade em estoque">
+                                            @error('stock')
+                                            <span class="text-danger" style="font-size: 13.5px;"><b><i class="fa-solid fa-circle-info"></i> {{ $message }}</b></span>
+                                            @enderror
                                         </div>
                                     </div>
                                 @endif
@@ -113,7 +122,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="example-text-input" class="form-control-label">Descrição</label>
-                                        <textarea name="description" id="" cols="10" rows="5" class="form-control" required>{{ $product->description }}</textarea>
+                                        <textarea name="description" value="{{ old('description') }}" id="" cols="10" rows="5" class="form-control" required>{{ $product->description }}</textarea>
                                     </div>
                                 </div>
                             </div>

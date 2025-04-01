@@ -58,13 +58,15 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-//        $check = DB::table('products')
-//            ->where('name', 'like', '%'.$request->name.'%')
-//            ->count();
-//
-//        if ($check >= 1){
-//            return redirect()->back()->with('msg-error','Já temos um produto cadastrado com o nome '.$request->name.'.');
-//        }
+        $request->validate([
+            'name' => 'required|min:3',
+            'price' => 'required|min:3',
+        ],[
+            'name.required' => 'Insira um nome para o produto.',
+            'name.min' => 'O nome do produto deve conter no mínimo 3 caracteres.',
+            'price.required' => 'Insira valor para o produto.',
+            'price.min' => 'O valor do produto deve conter no mínimo 3 caracteres.',
+        ]);
 
         $product = new Product();
         $product->name = $request->name;
@@ -79,6 +81,14 @@ class ProductController extends Controller
         }
 
         if ($request->type != 'Comida'){
+
+            $request->validate([
+                'stock' => 'required|min:3',
+            ],[
+                'stock.required' => 'Insira a quantidade que este produto tem em estoque',
+                'stock.min' => 'A quantidade mínima deve ser de pelo menos 1 produto.',
+            ]);
+
             if ($request->stock == 0){
                 $product->is_available = false;
                 $product->stock = $request->stock;
@@ -108,6 +118,17 @@ class ProductController extends Controller
 
     public function update(Request $request, string $id)
     {
+        $request->validate([
+            'name' => 'required|min:3',
+            'price' => 'required|min:3',
+        ],[
+            'name.required' => 'Insira um nome para o produto.',
+            'name.min' => 'O nome do produto deve conter no mínimo 3 caracteres.',
+            'price.required' => 'Insira valor para o produto.',
+            'price.min' => 'O valor do produto deve conter no mínimo 3 caracteres.',
+        ]);
+
+
         $additionals = '';
 
         if (isset($request->additionals)){
@@ -164,6 +185,14 @@ class ProductController extends Controller
         }
 
         if ($product->type != "Comida"){
+
+            $request->validate([
+                'stock' => 'required|min:3',
+            ],[
+                'stock.required' => 'Insira a quantidade que este produto tem em estoque',
+                'stock.min' => 'A quantidade mínima deve ser de pelo menos 1 produto.',
+            ]);
+
             if ($request->stock == 0){
                 $product->is_available = false;
                 $product->stock = $request->stock;

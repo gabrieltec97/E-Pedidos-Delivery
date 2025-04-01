@@ -32,6 +32,9 @@
                                         <label for="example-text-input" class="form-control-label">Nome</label>
                                         <input class="form-control productName" type="text" placeholder="Nome do produto" name="name" value="{{ old('name') }}" required>
                                         <label class="text-danger label-check">Já existe um item com o nome <span class="item-error"></span>. Por favor, escolha outro nome.</label>
+                                        @error('name')
+                                        <span class="text-danger" style="font-size: 13.5px;"><b><i class="fa-solid fa-circle-info"></i> {{ $message }}</b></span>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-3">
@@ -49,6 +52,9 @@
                                     <div class="form-group">
                                         <label for="example-text-input" class="form-control-label">Estoque</label>
                                         <input class="form-control" type="number" name="stock" value="{{ old('stock') }}" placeholder="Quantidade em estoque">
+                                        @error('stock')
+                                        <span class="text-danger" style="font-size: 13.5px;"><b><i class="fa-solid fa-circle-info"></i> {{ $message }}</b></span>
+                                        @enderror
                                     </div>
                                 </div>
 
@@ -63,6 +69,9 @@
                                     <div class="form-group">
                                         <label for="example-text-input" class="form-control-label">Valor</label>
                                         <input class="form-control value" type="text" name="price" value="{{ old('price') }}" placeholder="Preço deste item" required>
+                                        @error('price')
+                                        <span class="text-danger" style="font-size: 13.5px;"><b><i class="fa-solid fa-circle-info"></i> {{ $message }}</b></span>
+                                        @enderror
                                     </div>
                                 </div>
 
@@ -77,7 +86,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="example-text-input" class="form-control-label">Descrição</label>
-                                        <textarea name="description" id="" cols="10" rows="5" class="form-control" required></textarea>
+                                        <textarea name="description" value="{{ old('description') }}" cols="10" rows="5" class="form-control" required></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -173,7 +182,7 @@
                 $(this).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Cadastrar');
             });
 
-            $(".productName").on('blur', function(){
+            $(".productName").on('keyup', function(){
 
                 let nome = $(".productName").val();
 
