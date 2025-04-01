@@ -24,25 +24,37 @@
                                 <div class="col-12 col-lg-3 col-md-6 col-sm-12">
                                     <div class="form-group">
                                         <label for="example-text-input" class="form-control-label">Nome e sobrenome</label>
-                                        <input class="form-control" type="text" name="name" autocomplete="off" placeholder="Apenas o primeiro nome" required>
+                                        <input class="form-control" type="text" name="name" autocomplete="off" placeholder="Apenas o primeiro nome" value="{{ old('name') }}" required>
+                                        @error('name')
+                                            <span class="text-danger" style="font-size: 13.5px;"><b><i class="fa-solid fa-circle-info"></i> {{ $message }}</b></span>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-3 col-md-6 col-sm-12">
                                     <div class="form-group">
                                         <label for="example-text-input" class="form-control-label">Contato</label>
-                                        <input class="form-control" id="txtContato" type="text" autocomplete="off" name="contact" placeholder="Telefone com ddd" required>
+                                        <input class="form-control" id="txtContato" type="text" autocomplete="off" name="contact" placeholder="Telefone com ddd" value="{{ old('contact') }}" required>
+                                        @error('contact')
+                                        <span class="text-danger" style="font-size: 13.5px;"><b><i class="fa-solid fa-circle-info"></i> {{ $message }}</b></span>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-3 col-md-6 col-sm-12">
                                     <div class="form-group">
                                         <label for="example-text-input" class="form-control-label">E-mail</label>
-                                        <input class="form-control" id="email" name="email" type="email" autocomplete="off" placeholder="Ex: joao@gmail.com" required>
+                                        <input class="form-control" id="email" name="email" type="email" autocomplete="off" placeholder="Ex: joao@gmail.com" value="{{ old('email') }}" required>
+                                        @error('email')
+                                        <span class="text-danger" style="font-size: 13.5px;"><b><i class="fa-solid fa-circle-info"></i> {{ $message }}</b></span>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-3 col-md-6 col-sm-12">
                                     <div class="form-group">
                                         <label for="example-text-input" class="form-control-label">Senha</label>
                                         <input class="form-control" type="password" name="password" required>
+                                        @error('password')
+                                        <span class="text-danger" style="font-size: 13.5px;"><b><i class="fa-solid fa-circle-info"></i> {{ $message }}</b></span>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>
