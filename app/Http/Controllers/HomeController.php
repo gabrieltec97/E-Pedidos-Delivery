@@ -216,6 +216,7 @@ class HomeController extends Controller
             }
         }
 
+        $moneyMetrics = 0;
         if (date('d') > 1){
             $moneyMetrics = calcPercent($metDay, $metMonth);
         }
