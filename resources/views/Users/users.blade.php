@@ -1,7 +1,16 @@
 @extends('layouts.app', ['class' => 'g-sidenav-show bg-gray-100'])
 
+@section('title')
+    Gerenciamento de usuários
+@endsection
+
 @section('content')
     @include('layouts.navbars.auth.topnav', ['title' => 'User Management'])
+    <style>
+        a:hover {
+            color: white; /* Mantém a cor original */
+        }
+    </style>
     <div class="row mt-4 mx-4">
         <div class="col-12">
 
@@ -45,14 +54,35 @@
                                         <td class="align-middle text-end">
                                             <div class="d-flex px-3 py-1 justify-content-center align-items-center">
                                                     <a href="{{ route('usuarios.show', $user->id) }}" title="Editar" style="cursor: pointer; border: none; margin-right: 15px" class="badge badge-sm bg-gradient-success"><i class="fa-solid fa-pen-to-square"></i></a>
-                                                <form action="{{ route('usuarios.destroy', $user->id) }}" method="post">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" title="Deletar" style="cursor: pointer; border: none;" class="badge badge-sm bg-gradient-danger"><i class="fa-solid fa-trash"></i></button>
-                                                </form>
+                                                    <a title="Deletar" style="cursor: pointer; border: none;" class="badge badge-sm bg-gradient-danger" data-bs-toggle="modal" data-bs-target="#modalDelete{{ $user->id }}"><i class="fa-solid fa-trash"></i></a>
                                             </div>
                                         </td>
                                     </tr>
+
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="modalDelete{{ $user->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel"><b>Atenção!</b></h5>
+                                                    <i class="fa-solid fa-circle-xmark" style="cursor: pointer; color: #ef4444;" data-bs-dismiss="modal" aria-label="Close"></i>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p>Tem certeza que deseja excluir o usuário <b>{{ $user->firstname }}</b>?</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <form action="{{ route('usuarios.destroy', $user->id) }}" method="post">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger btn-deletar"><b>Deletar usuário</b></button>
+                                                    </form>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
                                 @endforeach
                             </tbody>
                         </table>
@@ -67,7 +97,7 @@
             $.toast({
                 heading: '<b>Cadastro realizado com sucesso!</b>',
                 showHideTransition : 'slide',  // It can be plain, fade or slide
-                bgColor : '#2ecc71',
+                bgColor : '#2D2D2D',
                 hideAfter : 5000,
                 position: 'top-right',
                 textColor: 'white',
@@ -75,5 +105,39 @@
             });
         </script>
     @endif
+
+    @if(session('msg-del'))
+        <script>
+            $.toast({
+                heading: '<b>Usuário deletado com sucesso!</b>',
+                showHideTransition : 'slide',  // It can be plain, fade or slide
+                bgColor : '#2D2D2D',
+                hideAfter : 5000,
+                position: 'top-right',
+                textColor: 'white',
+                icon: 'success'
+            });
+        </script>
+    @endif
+
+    @if(session('msg-upd'))
+        <script>
+            $.toast({
+                heading: '<b>Alterações realizadas com sucesso!</b>',
+                showHideTransition : 'slide',  // It can be plain, fade or slide
+                bgColor : '#2D2D2D',
+                hideAfter : 5000,
+                position: 'top-right',
+                textColor: 'white',
+                icon: 'success'
+            });
+        </script>
+    @endif
+
+    <script>
+        $(".btn-deletar").on('click', function(){
+            $(this).html('<b><span class="spinner-border spinner-border-sm"></span> Deletar usuário</b>');
+        });
+    </script>
 @endsection
 

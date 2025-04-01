@@ -56,7 +56,7 @@
                                     <div class="col-12 col-lg-6 col-md-6 col-sm-12">
                                         <div class="form-group">
                                             <label for="example-text-input" class="form-control-label">Senha</label>
-                                            <input class="form-control" type="password" name="password" placeholder="Digite nova senha" required>
+                                            <input class="form-control" type="password" name="password" placeholder="Digite nova senha">
                                         </div>
                                     </div>
 

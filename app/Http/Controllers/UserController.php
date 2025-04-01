@@ -129,6 +129,7 @@ class UserController extends Controller
         $user->email = $request->email;
         $user->firstname = ucfirst($request->name);
         $user->password = $request->password;
+        $user->contact = $request->contact;
 
         if ($request->user_type == 'Administrador'){
             $user->user_type = $request->user_type;
@@ -142,7 +143,7 @@ class UserController extends Controller
         }
         $user->save();
 
-        return redirect()->route('usuarios.index');
+        return redirect()->route('usuarios.index')->with('msg-upd', '.');
     }
 
     /**
@@ -153,6 +154,6 @@ class UserController extends Controller
         $user = User::find($id);
         $user->delete();
 
-        return redirect()->back();
+        return redirect()->back()->with('msg-del', 'Usuário deletado com sucesso!');
     }
 }
