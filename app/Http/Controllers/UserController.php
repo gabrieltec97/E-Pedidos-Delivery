@@ -73,7 +73,7 @@ class UserController extends Controller
         $user = new User();
         $user->email = $request->email;
         $user->firstname = ucfirst($request->name);
-        $user->password = bcrypt($request->password);
+        $user->password = $request->password;
         $user->contact = $request->contact;
 
         if ($request->user_type == 'Administrador'){
@@ -128,7 +128,7 @@ class UserController extends Controller
         $user = User::find($id);
         $user->email = $request->email;
         $user->firstname = ucfirst($request->name);
-        $user->password = bcrypt($request->password);
+        $user->password = $request->password;
 
         if ($request->user_type == 'Administrador'){
             $user->user_type = $request->user_type;
