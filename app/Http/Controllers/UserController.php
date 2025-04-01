@@ -72,23 +72,24 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => 'required|min:3',
+            'surname' => 'required|min:3',
             'contact' => 'required|min:8',
             'email' => 'required|min:5',
-            'password' => 'required|min:3'
         ],[
             'name.required' => 'Insira um nome para o usuário.',
             'name.min' => 'O nome de usuário deve conter no mínimo 3 caracteres.',
+            'surname.required' => 'Insira um sobrenome para o usuário.',
+            'surname.min' => 'O sobrenome de usuário deve conter no mínimo 3 caracteres.',
             'contact.required' => 'Insira um número para contato.',
             'contact.min' => 'O número de contato deve conter no mínimo 10 caracteres.',
             'email.required' => 'Insira um email para o usuário.',
             'email.min' => 'O email do usuário deve conter no mínimo 3 caracteres.',
-            'password.required' => 'Insira uma senha para o usuário.',
-            'password.min' => 'A senha do usuário deve conter no mínimo 3 caracteres.',
         ]);
 
         $user = new User();
         $user->email = $request->email;
         $user->firstname = ucfirst($request->name);
+        $user->surname = ucfirst($request->surname);
         $user->password = $request->password;
         $user->contact = $request->contact;
 
@@ -143,11 +144,14 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => 'required|min:3',
+            'surname' => 'required|min:3',
             'contact' => 'required|min:8',
             'email' => 'required|min:5',
         ],[
             'name.required' => 'Insira um nome para o usuário.',
             'name.min' => 'O nome de usuário deve conter no mínimo 3 caracteres.',
+            'surname.required' => 'Insira um sobrenome para o usuário.',
+            'surname.min' => 'O sobrenome de usuário deve conter no mínimo 3 caracteres.',
             'contact.required' => 'Insira um número para contato.',
             'contact.min' => 'O número de contato deve conter no mínimo 10 caracteres.',
             'email.required' => 'Insira um email para o usuário.',
@@ -157,6 +161,7 @@ class UserController extends Controller
         $user = User::find($id);
         $user->email = $request->email;
         $user->firstname = ucfirst($request->name);
+        $user->surname = ucfirst($request->surname);
         $user->password = $request->password;
         $user->contact = $request->contact;
 

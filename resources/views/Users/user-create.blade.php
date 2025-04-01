@@ -21,16 +21,27 @@
                             @csrf
 
                             <div class="row">
-                                <div class="col-12 col-lg-3 col-md-6 col-sm-12">
+                                <div class="col-12 col-lg-4 col-md-6 col-sm-12">
                                     <div class="form-group">
-                                        <label for="example-text-input" class="form-control-label">Nome e sobrenome</label>
+                                        <label for="example-text-input" class="form-control-label">Nome</label>
                                         <input class="form-control" type="text" name="name" autocomplete="off" placeholder="Apenas o primeiro nome" value="{{ old('name') }}" required>
                                         @error('name')
                                             <span class="text-danger" style="font-size: 13.5px;"><b><i class="fa-solid fa-circle-info"></i> {{ $message }}</b></span>
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-12 col-lg-3 col-md-6 col-sm-12">
+
+                                <div class="col-12 col-lg-4 col-md-6 col-sm-12">
+                                    <div class="form-group">
+                                        <label for="example-text-input" class="form-control-label">Sobrenome</label>
+                                        <input class="form-control" type="text" name="surname" autocomplete="off" placeholder="Apenas um sobrenome" value="{{ old('surname') }}" required>
+                                        @error('surname')
+                                        <span class="text-danger" style="font-size: 13.5px;"><b><i class="fa-solid fa-circle-info"></i> {{ $message }}</b></span>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-lg-4 col-md-6 col-sm-12">
                                     <div class="form-group">
                                         <label for="example-text-input" class="form-control-label">Contato</label>
                                         <input class="form-control" id="txtContato" type="text" autocomplete="off" name="contact" placeholder="Telefone com ddd" value="{{ old('contact') }}" required>
@@ -39,7 +50,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-12 col-lg-3 col-md-6 col-sm-12">
+                                <div class="col-12 col-lg-6 col-md-6 col-sm-12">
                                     <div class="form-group">
                                         <label for="example-text-input" class="form-control-label">E-mail</label>
                                         <input class="form-control" id="email" name="email" type="email" autocomplete="off" placeholder="Ex: joao@gmail.com" value="{{ old('email') }}" required>
@@ -48,7 +59,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-12 col-lg-3 col-md-6 col-sm-12">
+                                <div class="col-12 col-lg-6 col-md-6 col-sm-12">
                                     <div class="form-group">
                                         <label for="example-text-input" class="form-control-label">Senha</label>
                                         <input class="form-control" type="password" name="password" required>

@@ -39,7 +39,7 @@
                                 @csrf
                                 @method('PUT')
                                 <div class="row">
-                                    <div class="col-12 col-lg-6 col-md-6 col-sm-12">
+                                    <div class="col-12 col-lg-4 col-md-6 col-sm-12">
                                         <div class="form-group">
                                             <label for="example-text-input" class="form-control-label">Nome</label>
                                             <input class="form-control" type="text" name="name" value="{{ $user->firstname }}" required>
@@ -47,6 +47,26 @@
                                             <span class="text-danger" style="font-size: 13.5px;"><b><i class="fa-solid fa-circle-info"></i> {{ $message }}</b></span>
                                             @enderror
                                         </div>
+                                    </div>
+
+                                    <div class="col-12 col-lg-4 col-md-6 col-sm-12">
+                                        <div class="form-group">
+                                            <label for="example-text-input" class="form-control-label">Sobrenome</label>
+                                            <input class="form-control" type="text" name="surname" autocomplete="off" placeholder="Apenas um sobrenome" value="{{ $user->surname }}" required>
+                                            @error('surname')
+                                            <span class="text-danger" style="font-size: 13.5px;"><b><i class="fa-solid fa-circle-info"></i> {{ $message }}</b></span>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-lg-4 col-md-6 col-sm-12">
+                                        <div class="form-group">
+                                            <label for="example-text-input" class="form-control-label">Contato</label>
+                                            <input class="form-control" id="txtContato" name="contact" type="text" value="{{ $user->contact }}" required>
+                                        </div>
+                                        @error('contact')
+                                        <span class="text-danger" style="font-size: 13.5px;"><b><i class="fa-solid fa-circle-info"></i> {{ $message }}</b></span>
+                                        @enderror
                                     </div>
 
                                     <div class="col-12 col-lg-6 col-md-6 col-sm-12">
@@ -64,16 +84,6 @@
                                             <label for="example-text-input" class="form-control-label">Senha</label>
                                             <input class="form-control" type="password" name="password" placeholder="Digite nova senha">
                                         </div>
-                                    </div>
-
-                                    <div class="col-12 col-lg-6 col-md-6 col-sm-12">
-                                        <div class="form-group">
-                                            <label for="example-text-input" class="form-control-label">Contato</label>
-                                            <input class="form-control" id="txtContato" name="contact" type="text" value="{{ $user->contact }}" required>
-                                        </div>
-                                        @error('contact')
-                                        <span class="text-danger" style="font-size: 13.5px;"><b><i class="fa-solid fa-circle-info"></i> {{ $message }}</b></span>
-                                        @enderror
                                     </div>
                                 </div>
 

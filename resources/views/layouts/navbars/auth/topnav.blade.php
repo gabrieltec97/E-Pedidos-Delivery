@@ -11,12 +11,19 @@
         </nav>--}}
         <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
             <div class="ms-md-auto pe-md-3 d-flex align-items-center">
-                <div class="input-group">
-                    <span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
-                    <input type="text" class="form-control" placeholder="Type here...">
-                </div>
+            @php
+               $time = date('H');
+               $user = \Illuminate\Support\Facades\Auth::user();
+            @endphp
+                @if ($time>= 18 or $time < 6)
+                    <span class="text-white"><b>Boa noite, {{ $user->firstname }}</b></span>
+                @elseif($time>= 6 or $time < 12)
+                    <span class="text-white"><b>Bom dia, {{ $user->firstname }}</b></span>
+                @elseif($time>= 12 or $time < 18)
+                    <span class="text-white"><b>Boa tarde, {{ $user->firstname }}</b></span>
+                @endif
             </div>
-            <ul class="navbar-nav  justify-content-end">
+            <ul class="navbar-nav d-flex justify-content-end">
                 <li class="nav-item d-flex align-items-center">
                     <form role="form" method="post" action="{{ route('logout') }}" id="logout-form">
                         @csrf
