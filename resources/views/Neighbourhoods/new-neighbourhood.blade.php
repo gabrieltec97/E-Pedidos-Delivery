@@ -30,13 +30,19 @@
                                 <div class="col-12 col-lg-3 col-md-3 col-sm-12">
                                     <div class="form-group">
                                         <label for="example-text-input" class="form-control-label">Nome</label>
-                                        <input class="form-control" type="text" id="txtBairro" placeholder="Nome do bairro" name="name" required>
+                                        <input class="form-control" type="text" id="txtBairro" placeholder="Nome do bairro" name="name" value="{{ old('name') }}" required>
+                                        @error('name')
+                                        <span class="text-danger" style="font-size: 13.5px;"><b><i class="fa-solid fa-circle-info"></i> {{ $message }}</b></span>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-3 col-md-3 col-sm-12">
                                     <div class="form-group">
                                         <label for="example-text-input" class="form-control-label">Taxa de entrega</label>
-                                        <input class="form-control value" type="text" placeholder="Valor da entrega" name="taxe" required>
+                                        <input class="form-control value" type="text" placeholder="Valor da entrega" name="taxe" value="{{ old('taxe') }}" required>
+                                        @error('taxe')
+                                        <span class="text-danger" style="font-size: 13.5px;"><b><i class="fa-solid fa-circle-info"></i> {{ $message }}</b></span>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-3 col-md-3 col-sm-12">

@@ -26,12 +26,18 @@
                                     <div class="form-group">
                                         <label for="example-text-input" class="form-control-label">Nome</label>
                                         <input class="form-control name" type="text" name="name" value="{{ $neighbourhood->name }}" required>
+                                        @error('name')
+                                        <span class="text-danger" style="font-size: 13.5px;"><b><i class="fa-solid fa-circle-info"></i> {{ $message }}</b></span>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="example-text-input" class="form-control-label">Taxa de entrega</label>
                                         <input class="form-control value" type="text" name="taxe" value="{{ $neighbourhood->taxe }}" required>
+                                        @error('taxe')
+                                        <span class="text-danger" style="font-size: 13.5px;"><b><i class="fa-solid fa-circle-info"></i> {{ $message }}</b></span>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-3">

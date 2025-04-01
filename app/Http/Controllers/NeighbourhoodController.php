@@ -42,7 +42,7 @@ class NeighbourhoodController extends Controller
         }
 
         return response()->json(['return' => $return, 'name' => $name]);
-    
+
     }
 
     /**
@@ -58,6 +58,16 @@ class NeighbourhoodController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required|min:3',
+            'taxe' => 'required|min:3',
+        ],[
+            'name.required' => 'Insira um nome para o bairro.',
+            'name.min' => 'O nome do bairro deve conter no mínimo 3 caracteres.',
+            'taxe.required' => 'Insira um valor para a taxa.',
+            'taxe.min' => 'O valor da taxa deve conter no mínimo 3 caracteres.'
+        ]);
+
         $check = DB::table('neighbourhoods')
             ->select('id')
             ->where('name', 'like', '%'.$request->name.'%')
@@ -98,6 +108,16 @@ class NeighbourhoodController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $request->validate([
+            'name' => 'required|min:3',
+            'taxe' => 'required|min:3',
+        ],[
+            'name.required' => 'Insira um nome para o bairro.',
+            'name.min' => 'O nome do bairro deve conter no mínimo 3 caracteres.',
+            'taxe.required' => 'Insira um valor para a taxa.',
+            'taxe.min' => 'O valor da taxa deve conter no mínimo 3 caracteres.'
+        ]);
+
         $neighbourhood = Neighbourhood::find($id);
         $neighbourhood->name = $request->name;
         $neighbourhood->taxe = $request->taxe;
