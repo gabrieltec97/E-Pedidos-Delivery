@@ -141,6 +141,19 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $request->validate([
+            'name' => 'required|min:3',
+            'contact' => 'required|min:8',
+            'email' => 'required|min:5',
+        ],[
+            'name.required' => 'Insira um nome para o usuário.',
+            'name.min' => 'O nome de usuário deve conter no mínimo 3 caracteres.',
+            'contact.required' => 'Insira um número para contato.',
+            'contact.min' => 'O número de contato deve conter no mínimo 10 caracteres.',
+            'email.required' => 'Insira um email para o usuário.',
+            'email.min' => 'O email do usuário deve conter no mínimo 3 caracteres.',
+        ]);
+
         $user = User::find($id);
         $user->email = $request->email;
         $user->firstname = ucfirst($request->name);

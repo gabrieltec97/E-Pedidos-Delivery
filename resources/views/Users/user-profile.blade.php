@@ -43,6 +43,9 @@
                                         <div class="form-group">
                                             <label for="example-text-input" class="form-control-label">Nome</label>
                                             <input class="form-control" type="text" name="name" value="{{ $user->firstname }}" required>
+                                            @error('name')
+                                            <span class="text-danger" style="font-size: 13.5px;"><b><i class="fa-solid fa-circle-info"></i> {{ $message }}</b></span>
+                                            @enderror
                                         </div>
                                     </div>
 
@@ -50,6 +53,9 @@
                                         <div class="form-group">
                                             <label for="example-text-input" class="form-control-label">E-mail</label>
                                             <input class="form-control" id="email" name="email" type="email" value="{{ $user->email }}" required>
+                                            @error('email')
+                                            <span class="text-danger" style="font-size: 13.5px;"><b><i class="fa-solid fa-circle-info"></i> {{ $message }}</b></span>
+                                            @enderror
                                         </div>
                                     </div>
 
@@ -65,6 +71,9 @@
                                             <label for="example-text-input" class="form-control-label">Contato</label>
                                             <input class="form-control" id="txtContato" name="contact" type="text" value="{{ $user->contact }}" required>
                                         </div>
+                                        @error('contact')
+                                        <span class="text-danger" style="font-size: 13.5px;"><b><i class="fa-solid fa-circle-info"></i> {{ $message }}</b></span>
+                                        @enderror
                                     </div>
                                 </div>
 
