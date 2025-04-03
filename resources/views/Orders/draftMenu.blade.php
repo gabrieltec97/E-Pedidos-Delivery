@@ -59,7 +59,7 @@
                             <a href="#cardápio" class="nav-link"><b>Cardápio</b></a>
                         </li>
                         <li class="nav-item">
-                            <a href="#depoimentos" class="nav-link"><b>Depoimentos</b></a>
+                            <a href="#depoimentos" class="nav-link"><b>Meus Pedidos</b></a>
                         </li>
                     </ul>
 
