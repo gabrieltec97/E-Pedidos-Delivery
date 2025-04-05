@@ -31,7 +31,7 @@ use Illuminate\Support\Str;
 */
 
 Route::get('/teste', function (){
-    echo 'feito';
+    return view('auth.draftLogin');
 })->name('teste');
 
 Route::resource('/cardapio', TrayController::class);

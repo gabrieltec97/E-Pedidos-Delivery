@@ -4,19 +4,14 @@
     <title>Login V1</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!--===============================================================================================-->
     <link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
-    <!--===============================================================================================-->
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/fontawesome.css') }}">
-    <!--===============================================================================================-->
     <link rel="stylesheet" href="{{ asset('assets/css/animate.css') }}">
-    <!--===============================================================================================-->
     <link rel="stylesheet" href="{{ asset('assets/css/util.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/login.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/select2.min..css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/hamburgers.min..css') }}">
-    <!--===============================================================================================-->
+    <link rel="stylesheet" href="{{ asset('assets/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/hamburgers.min.css') }}">
 </head>
 <body>
 
@@ -24,7 +19,7 @@
     <div class="container-login100">
         <div class="wrap-login100">
             <div class="login100-pic js-tilt" data-tilt>
-                <img src="images/img-01.png" alt="IMG">
+                <img src="img/img-01.png" alt="IMG">
             </div>
 
             <form class="login100-form validate-form">
