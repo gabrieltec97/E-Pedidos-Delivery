@@ -15,11 +15,11 @@
                $time = date('H');
                $user = \Illuminate\Support\Facades\Auth::user();
             @endphp
-                @if ($time>= 18 or $time < 6)
+                @if ($time>= 18 && $time < 6)
                     <span class="text-white"><b>Boa noite, {{ $user->firstname }}</b></span>
-                @elseif($time>= 6 or $time < 12)
+                @elseif($time>= 6 && $time < 12)
                     <span class="text-white"><b>Bom dia, {{ $user->firstname }}</b></span>
-                @elseif($time>= 12 or $time < 18)
+                @elseif($time>= 12 && $time < 18)
                     <span class="text-white"><b>Boa tarde, {{ $user->firstname }}</b></span>
                 @endif
             </div>
