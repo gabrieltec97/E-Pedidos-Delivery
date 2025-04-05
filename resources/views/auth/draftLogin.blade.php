@@ -12,12 +12,10 @@
     <!--===============================================================================================-->
     <link rel="stylesheet" href="{{ asset('assets/css/animate.css') }}">
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="css/util.css">
-    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" href="{{ asset('assets/css/util.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/login.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/select2.min..css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/hamburgers.min..css') }}">
     <!--===============================================================================================-->
 </head>
 <body>
@@ -80,13 +78,10 @@
 
 
 <script src="{{ asset('assets/js/jquery-3.7.1.min.js') }}"></script>
-<!--===============================================================================================-->
-<script src="vendor/bootstrap/js/popper.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-<!--===============================================================================================-->
-<script src="vendor/select2/select2.min.js"></script>
-<!--===============================================================================================-->
-<script src="vendor/tilt/tilt.jquery.min.js"></script>
+<script src="{{ asset('assets/js/popper.js.min.js') }}"></script>
+<script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('assets/js/select2.min.js') }}"></script>
+<script src="{{ asset('assets/js/tilt.jquery.min.js') }}"></script>
 <script >
     $('.js-tilt').tilt({
         scale: 1.1
