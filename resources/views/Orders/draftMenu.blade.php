@@ -741,7 +741,7 @@
 
                                <div class="col-12 col-lg-6 col-md-6 col-sm-12 mt-3">
                                    <div class="table-row">
-                                       <i class="fa fa-check-circle first-live"></i>
+                                       <i class="fa fa-check-circle first-live" style="color: var(--color-primary) !important;"></i>
                                        <span class="text">Pedido Registrado</span>
                                    </div>
 
@@ -814,6 +814,28 @@
                                       </button>
                                       <div class="collapse mt-3" id="pedido{{$order->id}}">
                                           <div class="card card-body">
+                                              <div class="row">
+                                                  <div class="col-12">
+                                                      <div class="table-row">
+                                                          <i class="fa fa-check-circle first-live{{$order->id}}" style="color: var(--color-primary) !important;"></i>
+                                                          <span class="text">Pedido Registrado</span>
+                                                      </div>
+
+                                                      <div class="table-row">
+                                                          <i class="fa fa-check-circle second-live{{$order->id}}"></i>
+                                                          <span class="text">Em preparo</span>
+                                                      </div>
+                                                      <div class="table-row">
+                                                          <i class="fa fa-check-circle third-live{{$order->id}}"></i>
+                                                          <span class="text">Em rota de entrega</span>
+                                                      </div>
+                                                      <div class="table-row">
+                                                          <i class="fa fa-check-circle fourth-live{{$order->id}}"></i>
+                                                          <span class="text">Pedido Entregue</span>
+                                                      </div>
+                                                  </div>
+                                              </div>
+
                                               @foreach($orderItems as $items)
                                                   @if($items->order_id == $order->id)
                                                       {{ $items->product }}
@@ -882,7 +904,6 @@
 
     <script>
         $(document).ready(function () {
-
             let contador = 0;
            setInterval(function(){
                $.ajax({
@@ -890,45 +911,49 @@
                    method: "GET",
                    success: function (response) {
                        if(response[0]){
-                           if(response[0].status == "Em Preparação"){
-                               $(".second-live").css("color", "#FFBF00FF");
-                               $(".step2").addClass("active");
+                           // Variável contador (certifique-se de que está declarada fora deste bloco)
+                           response.forEach((item, index) => {
+                               if (item.status == "Em Preparação") {
+                                   $(`.second-live${item.id}`).css("color", "#FFBF00FF");
+                                   $(`.step2${item.id}`).addClass("active");
 
-                               if (contador === 0) {
-                                   $.toast({
-                                       heading: '<b>Seu pedido já está sendo preparado!</b>',
-                                       showHideTransition: 'slide',  // It can be plain, fade or slide
-                                       bgColor: '#2ecc71',
-                                       text: 'Nossa equipe já está preparando seu pedido com todo o carinho!',
-                                       hideAfter: 15000,
-                                       position: 'top-right',
-                                       textColor: '#ecf0f1',
-                                       icon: 'success'
-                                   });
-                                   contador++; // Evita que a função seja chamada novamente
+                                   if (contador === 0) {
+                                       $.toast({
+                                           heading: '<b>Seu pedido já está sendo preparado!</b>',
+                                           showHideTransition: 'slide',
+                                           bgColor: '#2ecc71',
+                                           text: 'Nossa equipe já está preparando seu pedido com todo o carinho!',
+                                           hideAfter: 15000,
+                                           position: 'top-right',
+                                           textColor: '#ecf0f1',
+                                           icon: 'success'
+                                       });
+                                       contador++;
+                                   }
+
+                               } else if (item.status == "Em rota de entrega") {
+                                   $(`.third-live${item.id}`).css("color", "#25f4ab");
+                                   $(`.step3${item.id}`).addClass("active");
+
+                                   if (contador === 1) {
+                                       $.toast({
+                                           heading: '<b>Seu pedido já está indo até você!</b>',
+                                           showHideTransition: 'slide',
+                                           bgColor: '#2ecc71',
+                                           text: 'Fique atento(a), o entregador já estará chegando com seu pedido!',
+                                           hideAfter: 15000,
+                                           position: 'top-right',
+                                           textColor: '#ecf0f1',
+                                           icon: 'success'
+                                       });
+                                       contador++;
+                                   }
+
+                               } else if (item.status == "Pedido Entregue") {
+                                   $(`.fourth-live${item.id}`).css("color", "#25f4ab");
+                                   $(`.step4${item.id}`).addClass("active");
                                }
-
-                           }else if(response[0].status == "Em rota de entrega"){
-                               $(".third-live").css("color", "#25f4ab");
-                               $(".step3").addClass("active");
-
-                               if (contador === 1) {
-                                   $.toast({
-                                       heading: '<b>Seu pedido já está indo até você!</b>',
-                                       showHideTransition: 'slide',  // It can be plain, fade or slide
-                                       bgColor: '#2ecc71',
-                                       text: 'Fique atento(a), o entregador já estará chegando com seu pedido!',
-                                       hideAfter: 15000,
-                                       position: 'top-right',
-                                       textColor: '#ecf0f1',
-                                       icon: 'success'
-                                   });
-                                   contador++; // Evita que a função seja chamada novamente
-                               }
-                           }else if(response[0].status == "Pedido Entregue"){
-                               $(".fourth-live").css("color", "#25f4ab");
-                               $(".step4").addClass("active");
-                           }
+                           });
                        }
                    },
                    error: function () {

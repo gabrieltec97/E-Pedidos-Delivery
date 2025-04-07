@@ -756,10 +756,6 @@ footer{
     color: var(--color-black); /* Cor do texto */
 }
 
-.first-live{
-    color: var(--color-primary) !important;
-}
-
 .order-items{
     display: flex;
     align-items: center; /* Alinha verticalmente os itens */
