@@ -784,6 +784,19 @@ footer{
     margin: 0; /* Remove as margens extras nos textos */
 }
 
+#live-addressResume, #live-cityAddress {
+    margin-left: 10px !important;
+}
+
+.resume-order-title {
+    color: var(--color-black);
+    font-size: 18px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    margin-bottom: 0;
+    margin-left: 10px !important;
+}
 
 
 

@@ -793,6 +793,9 @@
                                        </div>
 
                                        <div class="live-product-data">
+                                           <p class="resume-order-title">
+                                               <b>Pedido #{{ $myOrder[0]->id }}</b>
+                                           </p>
                                            <p class="live-address-text">
                                                <b id="live-addressResume">{{ $myOrder[0]->userAdress }} - {{ $myOrder[0]->user_name }}</b>
                                            </p>
