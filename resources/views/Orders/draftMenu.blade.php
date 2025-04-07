@@ -29,7 +29,7 @@
            @if($liveOrder != 0)
                <div class="col-6">
                    <a class="btn-live-order" data-toggle="modal" data-target="#modalLive">
-                       <div class="badge-total-tray cart-count">{{ $liveOrder }}</div>
+                       <div class="badge-total-tray">{{ $liveOrder }}</div>
                        <i class="fa fa-clipboard text-white"></i>
                    </a>
                </div>
@@ -808,7 +808,7 @@
                           <div class="row">
                              @foreach($myOrder as $order)
                                   <div class="col-12 mt-3">
-                                      <button class="btn btn-primary w-100 d-flex justify-content-between align-items-center" type="button" data-toggle="collapse" data-target="#pedido{{$order->id}}" aria-expanded="false" aria-controls="collapseExample">
+                                      <button class="btn btn-warning w-100 text-white font-weight-bold d-flex justify-content-between align-items-center" type="button" data-toggle="collapse" data-target="#pedido{{$order->id}}" aria-expanded="false" aria-controls="collapseExample">
                                           Pedido #{{$order->id}}
                                           <i class="fas fa-plus"></i>
                                       </button>
