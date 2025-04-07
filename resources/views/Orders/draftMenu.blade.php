@@ -823,6 +823,19 @@
                                       </div>
                                   </div>
                              @endforeach
+
+                                 <div class="col-12 mt-5 live-delivery">
+                                     <div class="img-map">
+                                         <i class="fas fa-map-marked-alt"></i>
+                                     </div>
+
+                                     <div class="live-product-data">
+                                         <p class="live-address-text">
+                                             <b id="live-addressResume">{{ $myOrder[0]->userAdress }} - {{ $myOrder[0]->user_name }}</b>
+                                         </p>
+                                         <p class="live-cityAddress" id="live-cityAddress"><b class="text-success">R$: </b> <span class="text-success">{{ $myOrder[0]->value }}</span> - {{ $myOrder[0]->paymentMode }}</p>
+                                     </div>
+                                 </div>
                           </div>
                        @endif
                    </div>
