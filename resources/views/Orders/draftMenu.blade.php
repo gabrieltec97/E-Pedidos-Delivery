@@ -741,20 +741,20 @@
 
                                <div class="col-12 col-lg-6 col-md-6 col-sm-12 mt-3">
                                    <div class="table-row">
-                                       <i class="fa fa-check-circle first-live" style="color: var(--color-primary) !important;"></i>
+                                       <i class="fa fa-check-circle first-live{{ $myOrder[0]->id }}" style="color: var(--color-primary) !important;"></i>
                                        <span class="text">Pedido Registrado</span>
                                    </div>
 
                                    <div class="table-row">
-                                       <i class="fa fa-check-circle second-live"></i>
+                                       <i class="fa fa-check-circle second-live{{ $myOrder[0]->id }}"></i>
                                        <span class="text">Em preparo</span>
                                    </div>
                                    <div class="table-row">
-                                       <i class="fa fa-check-circle third-live"></i>
+                                       <i class="fa fa-check-circle third-live{{ $myOrder[0]->id }}"></i>
                                        <span class="text">Em rota de entrega</span>
                                    </div>
                                    <div class="table-row">
-                                       <i class="fa fa-check-circle fourth-live"></i>
+                                       <i class="fa fa-check-circle fourth-live{{ $myOrder[0]->id }}"></i>
                                        <span class="text">Pedido Entregue</span>
                                    </div>
                                </div>
