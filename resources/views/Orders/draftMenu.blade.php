@@ -728,7 +728,7 @@
                </div>
                <div class="modal-body">
                    <div class="container-fluid">
-                       @if($liveOrder != 0)
+                       @if($liveOrder == 1)
                            <div class="row">
                                <div class="col-12">
                                    <div class="steps d-flex justify-content-center">
@@ -804,6 +804,26 @@
                                    </div>
                                @endif
                            </div>
+                       @elseif($liveOrder > 1)
+                          <div class="row">
+                             @foreach($myOrder as $order)
+                                  <div class="col-12 mt-3">
+                                      <button class="btn btn-primary w-100 d-flex justify-content-between align-items-center" type="button" data-toggle="collapse" data-target="#pedido{{$order->id}}" aria-expanded="false" aria-controls="collapseExample">
+                                          Pedido #{{$order->id}}
+                                          <i class="fas fa-plus"></i>
+                                      </button>
+                                      <div class="collapse mt-3" id="pedido{{$order->id}}">
+                                          <div class="card card-body">
+                                              @foreach($orderItems as $items)
+                                                  @if($items->order_id == $order->id)
+                                                      {{ $items->product }}
+                                                  @endif
+                                              @endforeach
+                                          </div>
+                                      </div>
+                                  </div>
+                             @endforeach
+                          </div>
                        @endif
                    </div>
                </div>

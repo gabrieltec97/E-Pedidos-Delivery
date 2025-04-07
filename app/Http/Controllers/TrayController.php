@@ -106,11 +106,18 @@ class TrayController extends Controller
         $items = '';
         $myOrder = '';
 
+        $orderItems = [];
         if (isset($liveOrder[0])){
-            $items = DB::table('order_items')
-                ->where('user_id', $user)
-                ->where('order_id', $liveOrder[0]->id)
-                ->get();
+           foreach ($liveOrder as $order){
+               $items = DB::table('order_items')
+                   ->where('user_id', $user)
+                   ->where('order_id', $order->id)
+                   ->get();
+
+               foreach ($items as $item) {
+                   array_push($orderItems, $item); // Adiciona o objeto $item ao array
+               }
+           }
 
             $myOrder = $liveOrder;
         }
@@ -125,7 +132,8 @@ class TrayController extends Controller
             'status' => $status,
             'liveOrder' => $count,
             'items' => $items,
-            'myOrder' => $myOrder
+            'myOrder' => $myOrder,
+            'orderItems' => $orderItems
         ]);
     }
 
