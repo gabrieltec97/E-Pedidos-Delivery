@@ -264,7 +264,7 @@
                     method: 'GET',
                     success: function (entregadores) {
                         let entregadoresOptions = entregadores.map(entregador =>
-                            `<option value="${entregador.firstname} ${entregador.lastname}">${entregador.firstname} ${entregador.lastname}</option>`
+                            `<option value="${entregador.firstname} ${entregador.surname}">${entregador.firstname} ${entregador.surname}</option>`
                         ).join('');
 
                         const modalHtml = `

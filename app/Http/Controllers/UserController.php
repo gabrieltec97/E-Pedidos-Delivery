@@ -131,7 +131,7 @@ class UserController extends Controller
     public function motoboys()
     {
         $entregadores = DB::table('users')
-            ->select('firstname', 'lastname')
+            ->select('firstname', 'surname')
             ->where('user_type', 'Entregador')
             ->get();
         return response()->json($entregadores);
