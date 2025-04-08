@@ -835,12 +835,15 @@
                                                       </div>
                                                   </div>
                                               </div>
-
+                                              <div class="mt-5">
+                                                  <ul>
                                               @foreach($orderItems as $items)
                                                   @if($items->order_id == $order->id)
-                                                      {{ $items->product }}
+                                                        <li>{{ $items->product }}</li>
                                                   @endif
                                               @endforeach
+                                                  </ul>
+                                              </div>
                                           </div>
                                       </div>
                                   </div>
