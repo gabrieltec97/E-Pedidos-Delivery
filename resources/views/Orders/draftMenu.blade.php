@@ -888,7 +888,7 @@
                        <div class="row">
                           @if(!isset($historic[0]))
                               <div class="col-12 text-center">
-                                  <h3 class="no-orders-text font-weight-bold">Poxaaa, você não fez <span class="text-warning">nenhum</span> pedido nos últimos 30 dias!</h3>
+                                  <h3 class="no-orders-text font-weight-bold">Você não fez <span class="text-warning">nenhum</span> pedido nos últimos 30 dias.g</h3>
 
                                   <img src="{{ asset('img/icons/triste-sem-pedidos.png') }}" class="no-orders">
                               </div>
