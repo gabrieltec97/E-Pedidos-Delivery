@@ -181,6 +181,13 @@ class ProductController extends Controller
 
         if ($request->is_available == "on"){
             $product->is_available = true;
+
+            $checkNotification = DB::table('notifications')->where('item', $id)->count();
+            if ($checkNotification != 0){
+                DB::table('notifications')
+                    ->where('item', $id)
+                    ->delete();
+            }
         }else{
             $product->is_available = false;
 
