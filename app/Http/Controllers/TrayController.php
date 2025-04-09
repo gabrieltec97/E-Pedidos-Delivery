@@ -59,12 +59,16 @@ class TrayController extends Controller
                   $updateProduct->is_available = false;
                   $updateProduct->save();
 
-                   $notification = new Notification();
-                   $notification->title = 'Item desativado!';
-                   $notification->content = 'O item '. $updateProduct->name . ' foi desativado por baixo estoque!';
-                   $notification->type = 'Desativação';
-                   $notification->item = $updateProduct->id;
-                   $notification->save();
+                  $checkNotification = DB::table('notifications')->where('item', $product->id)->get();
+
+                  if (!isset($checkNotification[0])){
+                      $notification = new Notification();
+                      $notification->title = 'Produto desativado.';
+                      $notification->content = 'O item '. $updateProduct->name . ' foi desativado por baixa quantidade em estoque!';
+                      $notification->type = 'Desativação';
+                      $notification->item = $updateProduct->id;
+                      $notification->save();
+                  }
 
                }elseif ($product->stock <= 0 or !$product->is_available){
                     unset($products[$key]);

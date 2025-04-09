@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Additional;
+use App\Models\Notification;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -182,6 +183,13 @@ class ProductController extends Controller
             $product->is_available = true;
         }else{
             $product->is_available = false;
+
+            $notification = new Notification();
+            $notification->title = 'Produto Inativo.';
+            $notification->content = 'O item '. $request->name . ' foi alterado para inativo no cardápio!';
+            $notification->type = 'Inativação';
+            $notification->item = $product->id;
+            $notification->save();
         }
 
         if ($product->type != "Comida"){
