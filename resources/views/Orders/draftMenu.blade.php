@@ -1346,7 +1346,7 @@
                                             textColor: '#ecf0f1',
                                             icon: 'success'
                                         });
-                                        // itemDiv.fadeOut();  // Remove o item da bandeja na interface
+                                        itemDiv.fadeOut();  // Remove o item da bandeja na interface
                                         $(".btn-live-order").css("bottom", "20px").css("important", "true");
                                         atualizarPreco();
                                         recuperarBandeja();
