@@ -54,9 +54,16 @@
                     <a href="javascript:;" class="nav-link text-white p-0" id="dropdownMenuButton"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fa fa-bell cursor-pointer"></i>
+                        @if(count($notifications) > 0)
+                            <span class="notification-count">{{ count($notifications) }}</span>
+                        @endif
                     </a>
                     <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4"
                         aria-labelledby="dropdownMenuButton">
+                        @if(count($notifications) == 0)
+                            <h6 class="d-flex justify-content-center">Sem Notificações</h6>
+                            <i class="fa fa-thumbs-up d-flex justify-content-center text-primary" style="font-size: 20px;"></i>
+                        @endif
                         @foreach($notifications as $verification)
                             @if($verification->type == 'Verificação')
                                 <li class="mb-2 check-stock">
@@ -131,4 +138,14 @@
     });
 </script>
 
+<style>
+    .notification-count {
+        margin-left: 5px;
+        background-color: red;
+        color: white;
+        font-size: 12px;
+        padding: 2px 6px;
+        border-radius: 50%;
+    }
+</style>
 <!-- End Navbar -->
