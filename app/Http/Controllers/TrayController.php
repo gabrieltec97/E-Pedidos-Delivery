@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Additional;
 use App\Models\Neighbourhood;
+use App\Models\Notification;
 use App\Models\Product;
 use App\Models\Tray;
 use Illuminate\Http\Request;
@@ -57,6 +58,14 @@ class TrayController extends Controller
                   $updateProduct = Product::find($product->id);
                   $updateProduct->is_available = false;
                   $updateProduct->save();
+
+                   $notification = new Notification();
+                   $notification->title = 'Item desativado!';
+                   $notification->content = 'O item '. $updateProduct->name . ' foi desativado por baixo estoque!';
+                   $notification->type = 'Desativação';
+                   $notification->item = $updateProduct->id;
+                   $notification->save();
+
                }elseif ($product->stock <= 0 or !$product->is_available){
                     unset($products[$key]);
                }

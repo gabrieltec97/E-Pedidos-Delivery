@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Coupon;
+use App\Models\Notification;
 use App\Models\Order;
 use App\Models\Neighbourhood;
 use App\Models\OrderItems;
@@ -184,7 +185,6 @@ class OrderController extends Controller
         }
 
        if ($total != 0){
-
            return view('Orders.Review', [
                'user' => $user,
                'items' => $items,
@@ -255,6 +255,13 @@ class OrderController extends Controller
                     $disableItem = Product::find($item[0]->id);
                     $disableItem->is_available = false;
                     $disableItem->save();
+
+                    $notification = new Notification();
+                    $notification->title = 'Item desativado!';
+                    $notification->content = 'O item '. $disableItem->product . ' foi desativado por baixo estoque!';
+                    $notification->type = 'Desativação';
+                    $notification->item = $disableItem->id;
+                    $notification->save();
 
                     $deleteItem = Tray::find($Titem->id);
                     $deleteItem->delete();
@@ -349,7 +356,6 @@ class OrderController extends Controller
                 $updateCoupons->used = $use;
                 $updateCoupons->save();
             }
-
 
             $order = new Order();
             $order->id = $id;
