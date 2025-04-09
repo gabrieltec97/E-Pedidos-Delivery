@@ -794,6 +794,33 @@ footer{
     margin-left: 10px !important;
 }
 
+.my-orders {
+    font-size: 16px;
+    margin-top: -18px;
+}
+
+.my-payment {
+    font-size: 17px;
+    margin-top: -12.9px;
+}
+
+.hr-my-orders {
+    margin-top: 0px;
+}
+
+.my-status {
+    font-size: 16px;
+    margin-top: -12.9px;
+}
+
+.my-data {
+    font-size: 16px;
+    margin-top: -10px;
+}
+
+.fa-info-circle {
+    cursor: pointer;
+}
 
 
 

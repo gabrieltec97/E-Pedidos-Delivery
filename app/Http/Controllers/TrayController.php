@@ -122,6 +122,13 @@ class TrayController extends Controller
             $myOrder = $liveOrder;
         }
 
+        $historic = DB::table('orders')
+            ->where('user_id', $user)->get();
+
+        $historicItems =  $items = DB::table('order_items')
+            ->where('user_id', $user)
+            ->get();
+
         return view('Orders.draftMenu', [
             'burguers' => $burguers,
             'drinks' => $drinks,
@@ -133,7 +140,9 @@ class TrayController extends Controller
             'liveOrder' => $count,
             'items' => $items,
             'myOrder' => $myOrder,
-            'orderItems' => $orderItems
+            'orderItems' => $orderItems,
+            'historic' => $historic,
+            'historicItems' => $historicItems
         ]);
     }
 

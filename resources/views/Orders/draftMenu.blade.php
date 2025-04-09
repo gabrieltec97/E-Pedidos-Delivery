@@ -59,7 +59,7 @@
                             <a href="#cardápio" class="nav-link"><b>Cardápio</b></a>
                         </li>
                         <li class="nav-item">
-                            <a href="#depoimentos" class="nav-link"><b>Meus Pedidos</b></a>
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#exampleModalCenter"><b>Meus Pedidos</b></a>
                         </li>
                     </ul>
 
@@ -868,6 +868,91 @@
            </div>
        </div>
    </div>
+
+   <!-- Modal -->
+   <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+       <div class="modal-dialog modal-dialog-centered" role="document">
+           <div class="modal-content">
+               <div class="modal-header">
+                   <h5 class="modal-title font-weight-bold text-black" id="exampleModalLongTitle">
+                       Histórico de Pedidos
+                       <i class="fa fa-info-circle text-primary"
+                          title="Aqui você encontra os pedidos referentes aos últimos 30 dias."></i>
+                   </h5>
+                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                       <span aria-hidden="true">&times;</span>
+                   </button>
+               </div>
+               <div class="modal-body">
+                   <div class="container-fluid">
+                       <div class="row">
+                          @foreach($historic as $order)
+                               <div class="col-12 mt-3">
+                                   <button class="btn btn-white w-100 text-white d-flex justify-content-between align-items-center" type="button" data-toggle="collapse" data-target="#order{{ $order->id }}" aria-expanded="false" aria-controls="collapseExample">
+                                       Pedido #{{ $order->id }}
+                                       <i class="fas fa-plus"></i>
+                                   </button>
+                                   <div class="collapse mt-3" id="order{{ $order->id }}">
+                                       <div class="card card-body">
+                                           <div class="container-fluid">
+                                               <div class="row">
+                                                   <div class="col-12 mt-5">
+                                                       <p class="my-orders">
+                                                           <b> {{ $order->user_name }}</b>
+                                                       </p>
+
+                                                       <p class="my-status font-weight-bold
+                                                       @if($order->status == 'Pedido Entregue')
+                                                       text-success
+                                                       @elseif($order->status == 'Cancelado')
+                                                       text-danger
+                                                       @else
+                                                       text-warning
+                                                       @endif
+                                                       ">
+                                                           {{ $order->status }}
+                                                       </p>
+
+                                                       <hr class="hr-my-orders">
+                                                   </div>
+
+                                                   <ul>
+                                                       @foreach($historicItems as $myItems)
+                                                           @if($myItems->order_id == $order->id)
+                                                               <li>{{ $myItems->product }}</li>
+                                                           @endif
+                                                       @endforeach
+                                                   </ul>
+
+                                                   <div class="col-12">
+                                                       <hr class="hr-my-orders">
+                                                   </div>
+
+                                                   <div class="col-12 mt-3">
+                                                       <p class="my-orders">
+                                                           <b>{{ $order->userAdress }}.</b>
+                                                       </p>
+
+                                                       <p class="my-payment">
+                                                           <b class="text-success">R$: </b>
+                                                           <span class="text-success">{{ $order->value }}</span>
+                                                           - {{ $order->paymentMode }}
+                                                       </p>
+
+                                                       <p class="my-data">
+                                                           {{ $order->created_at }}
+                                                       </p>
+                                                   </div>
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
+                          @endforeach
+                       </div>
+                   </div>
+               </div>
+           </div>
 
     @if($status == false)
         <script>
