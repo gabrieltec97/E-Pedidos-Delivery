@@ -187,7 +187,7 @@ class ProductController extends Controller
         if ($product->type != "Comida"){
 
             $request->validate([
-                'stock' => 'required|min:3',
+                'stock' => 'required|min:1',
             ],[
                 'stock.required' => 'Insira a quantidade que este produto tem em estoque',
                 'stock.min' => 'A quantidade mínima deve ser de pelo menos 1 produto.',
