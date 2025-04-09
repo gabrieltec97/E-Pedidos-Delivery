@@ -53,6 +53,10 @@ class HomeController extends Controller
                 $notification->item = null;
                 $notification->save();
             }
+        }else{
+            DB::table('notifications')
+                ->where('type', 'Verificação')
+                ->delete();
         }
 
         //Lógica referente ao dia de hoje.
