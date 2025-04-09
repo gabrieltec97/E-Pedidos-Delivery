@@ -142,7 +142,8 @@ class TrayController extends Controller
             'myOrder' => $myOrder,
             'orderItems' => $orderItems,
             'historic' => $historic,
-            'historicItems' => $historicItems
+            'historicItems' => $historicItems,
+            'user' => $user
         ]);
     }
 

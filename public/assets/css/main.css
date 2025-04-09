@@ -822,6 +822,22 @@ footer{
     cursor: pointer;
 }
 
+.fa-sad-tear {
+    opacity: 50%;
+    font-size: 50px;
+    margin-top: 15px;
+}
+
+.no-orders {
+    width: 100px;
+    height: 100px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.no-orders-text, .historic-header {
+    color: var(--color-black-heavy);
+}
 
 
 

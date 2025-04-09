@@ -874,7 +874,7 @@
        <div class="modal-dialog modal-dialog-centered" role="document">
            <div class="modal-content">
                <div class="modal-header">
-                   <h5 class="modal-title font-weight-bold text-black" id="exampleModalLongTitle">
+                   <h5 class="modal-title font-weight-bold historic-header" id="exampleModalLongTitle">
                        Histórico de Pedidos
                        <i class="fa fa-info-circle text-primary"
                           title="Aqui você encontra os pedidos referentes aos últimos 30 dias."></i>
@@ -886,22 +886,30 @@
                <div class="modal-body">
                    <div class="container-fluid">
                        <div class="row">
-                          @foreach($historic as $order)
-                               <div class="col-12 mt-3">
-                                   <button class="btn btn-white w-100 text-white d-flex justify-content-between align-items-center" type="button" data-toggle="collapse" data-target="#order{{ $order->id }}" aria-expanded="false" aria-controls="collapseExample">
-                                       Pedido #{{ $order->id }}
-                                       <i class="fas fa-plus"></i>
-                                   </button>
-                                   <div class="collapse mt-3" id="order{{ $order->id }}">
-                                       <div class="card card-body">
-                                           <div class="container-fluid">
-                                               <div class="row">
-                                                   <div class="col-12 mt-5">
-                                                       <p class="my-orders">
-                                                           <b> {{ $order->user_name }}</b>
-                                                       </p>
+                          @if(!isset($historic[0]))
+                              <div class="col-12 text-center">
+                                  <h3 class="no-orders-text font-weight-bold">Poxaaa, você não fez <span class="text-warning">nenhum</span> pedido nos últimos 30 dias!</h3>
 
-                                                       <p class="my-status font-weight-bold
+                                  <img src="{{ asset('img/icons/triste-sem-pedidos.png') }}" class="no-orders">
+                              </div>
+                          @else
+                               @foreach($historic as $order)
+                                   @if($order->user_id == $user)
+                                       <div class="col-12 mt-3">
+                                           <button class="btn btn-white w-100 text-white d-flex justify-content-between align-items-center" type="button" data-toggle="collapse" data-target="#order{{ $order->id }}" aria-expanded="false" aria-controls="collapseExample">
+                                               Pedido #{{ $order->id }}
+                                               <i class="fas fa-plus"></i>
+                                           </button>
+                                           <div class="collapse mt-3" id="order{{ $order->id }}">
+                                               <div class="card card-body">
+                                                   <div class="container-fluid">
+                                                       <div class="row">
+                                                           <div class="col-12 mt-5">
+                                                               <p class="my-orders">
+                                                                   <b> {{ $order->user_name }}</b>
+                                                               </p>
+
+                                                               <p class="my-status font-weight-bold
                                                        @if($order->status == 'Pedido Entregue')
                                                        text-success
                                                        @elseif($order->status == 'Cancelado')
@@ -910,45 +918,47 @@
                                                        text-warning
                                                        @endif
                                                        ">
-                                                           {{ $order->status }}
-                                                       </p>
+                                                                   {{ $order->status }}
+                                                               </p>
 
-                                                       <hr class="hr-my-orders">
-                                                   </div>
+                                                               <hr class="hr-my-orders">
+                                                           </div>
 
-                                                   <ul>
-                                                       @foreach($historicItems as $myItems)
-                                                           @if($myItems->order_id == $order->id)
-                                                               <li>{{ $myItems->product }}</li>
-                                                           @endif
-                                                       @endforeach
-                                                   </ul>
+                                                           <ul>
+                                                               @foreach($historicItems as $myItems)
+                                                                   @if($myItems->order_id == $order->id)
+                                                                       <li>{{ $myItems->product }}</li>
+                                                                   @endif
+                                                               @endforeach
+                                                           </ul>
 
-                                                   <div class="col-12">
-                                                       <hr class="hr-my-orders">
-                                                   </div>
+                                                           <div class="col-12">
+                                                               <hr class="hr-my-orders">
+                                                           </div>
 
-                                                   <div class="col-12 mt-3">
-                                                       <p class="my-orders">
-                                                           <b>{{ $order->userAdress }}.</b>
-                                                       </p>
+                                                           <div class="col-12 mt-3">
+                                                               <p class="my-orders">
+                                                                   <b>{{ $order->userAdress }}.</b>
+                                                               </p>
 
-                                                       <p class="my-payment">
-                                                           <b class="text-success">R$: </b>
-                                                           <span class="text-success">{{ $order->value }}</span>
-                                                           - {{ $order->paymentMode }}
-                                                       </p>
+                                                               <p class="my-payment">
+                                                                   <b class="text-success">R$: </b>
+                                                                   <span class="text-success">{{ $order->value }}</span>
+                                                                   - {{ $order->paymentMode }}
+                                                               </p>
 
-                                                       <p class="my-data">
-                                                           {{ $order->created_at }}
-                                                       </p>
+                                                               <p class="my-data">
+                                                                   {{ $order->created_at }}
+                                                               </p>
+                                                           </div>
+                                                       </div>
                                                    </div>
                                                </div>
                                            </div>
                                        </div>
-                                   </div>
-                               </div>
-                          @endforeach
+                                   @endif
+                               @endforeach
+                          @endif
                        </div>
                    </div>
                </div>
