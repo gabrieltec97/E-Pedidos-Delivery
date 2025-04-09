@@ -63,7 +63,7 @@ class TrayController extends Controller
 
                   if (!isset($checkNotification[0])){
                       $notification = new Notification();
-                      $notification->title = 'Produto desativado.';
+                      $notification->title = 'Produto Desativado.';
                       $notification->content = 'O item '. $updateProduct->name . ' foi desativado por baixa quantidade em estoque!';
                       $notification->type = 'Desativação';
                       $notification->item = $updateProduct->id;

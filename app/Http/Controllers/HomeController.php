@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Charts\AreaChart;
 use App\Charts\MonthChart;
+use App\Models\Notification;
 use ConsoleTVs\Charts\Classes\Chartjs\Chart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -39,7 +40,20 @@ class HomeController extends Controller
             $year = date("Y");
         }
 
-        $lowstock = DB::table('products')->where('stock', '<', 15)->count();
+        $lowstock = DB::table('products')->where('stock', '<', 10)->count();
+
+        if ($lowstock != 0){
+            $checkNotification = DB::table('notifications')->where('type', 'Verificação')->count();
+
+            if($checkNotification == 0){
+                $notification = new Notification();
+                $notification->title = 'Verifique o Estoque Imediatamente!';
+                $notification->content = 'Temos produtos com baixa quantidade em estoque podendo comprometer as vendas!';
+                $notification->type = 'Verificação';
+                $notification->item = null;
+                $notification->save();
+            }
+        }
 
         //Lógica referente ao dia de hoje.
         $todayOrders = DB::table('orders')

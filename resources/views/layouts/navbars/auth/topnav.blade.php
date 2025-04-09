@@ -57,34 +57,60 @@
                     </a>
                     <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4"
                         aria-labelledby="dropdownMenuButton">
+                        @foreach($notifications as $verification)
+                            @if($verification->type == 'Verificação')
+                                <li class="mb-2 check-stock">
+                                    <a class="dropdown-item border-radius-md" href="javascript:;">
+                                        <div class="d-flex py-1">
+                                            <div class="my-auto">
+                                                <i class="fa fa-bolt text-warning me-3 notification-warning" style="font-size: 35px;"></i>
+                                            </div>
+                                            <div class="d-flex flex-column justify-content-center">
+                                                <h6 class="text-sm font-weight-normal mb-1">
+                                                    <span class="font-weight-bold">{{ $verification->title }}</span>
+                                                </h6>
+                                                <p class="text-xs text-secondary mb-0">
+                                                    {{ $verification->content }}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+
+                                <hr>
+                            @endif
+                        @endforeach
+
                         @foreach($notifications as $notification)
-                            <li class="mb-2">
-                                <a class="dropdown-item border-radius-md" href="javascript:;">
-                                    <div class="d-flex py-1">
-                                        <div class="my-auto">
-                                            <i class="fa
+                            @if($notification->type != 'Verificação')
+                                <li class="mb-2">
+                                    <a class="dropdown-item border-radius-md" href="javascript:;">
+                                        <div class="d-flex py-1">
+                                            <div class="my-auto">
+                                                <i class="fa
                                                 @if($notification->type == 'Desativação')
                                                 fa-exclamation-circle
                                                 text-danger
                                                 @elseif($notification->type == 'Inativação')
                                                 fa-exclamation-triangle
-                                                text-warning
+                                                text-success
                                                 @endif
                                                 me-3 notification-warning" style="font-size: 35px;">
 
-                                            </i>
+                                                </i>
+                                            </div>
+                                            <div class="d-flex flex-column justify-content-center">
+                                                <h6 class="text-sm font-weight-normal mb-1">
+                                                    <span class="font-weight-bold">{{ $notification->title }}</span>
+                                                </h6>
+                                                <p class="text-xs text-secondary mb-0">
+                                                    {{ $notification->content }}
+                                                </p>
+                                            </div>
                                         </div>
-                                        <div class="d-flex flex-column justify-content-center">
-                                            <h6 class="text-sm font-weight-normal mb-1">
-                                                <span class="font-weight-bold">{{ $notification->title }}</span>
-                                            </h6>
-                                            <p class="text-xs text-secondary mb-0">
-                                                {{ $notification->content }}
-                                            </p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
+                                    </a>
+                                </li>
+                            @endif
                         @endforeach
                     </ul>
                 </li>
@@ -92,4 +118,17 @@
         </div>
     </div>
 </nav>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const checkStock = document.querySelector('.check-stock');
+
+        if (checkStock) {
+            checkStock.addEventListener('click', function () {
+                window.location.href = "{{ route('produtos.index') }}";
+            });
+        }
+    });
+</script>
+
 <!-- End Navbar -->
