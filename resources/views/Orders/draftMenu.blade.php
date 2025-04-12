@@ -56,7 +56,7 @@
                             <a href="#serviços" class="nav-link"><b>Serviços</b></a>
                         </li>
                         <li class="nav-item">
-                            <a href="#cardápio" class="nav-link"><b>Cardápio</b></a>
+                            <a href="#cardápio" class="nav-link btn-cardapio"><b>Cardápio</b></a>
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link" data-toggle="modal" data-target="#exampleModalCenter"><b>Meus Pedidos</b></a>
