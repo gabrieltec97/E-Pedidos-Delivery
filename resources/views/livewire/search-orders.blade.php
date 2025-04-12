@@ -81,7 +81,7 @@
                                         <div class="col-12">
                                             <div class="col-12">
                                                 <p class="my-orders">
-                                                    <b> {{ $order->user_name }}</b>
+                                                    <b> {{ $order->user_name }} - {{ $order->created_at }}</b>
                                                 </p>
 
                                                 <p class="my-status font-weight-bold
@@ -95,6 +95,7 @@
                                             " style="margin-top: -15px;">
                                                     {{ $order->status }}
                                                 </p>
+
                                             </div>
 
                                             
@@ -121,6 +122,24 @@
                                                         </div>
                                                         @endif
                                             @endforeach
+                                        </div>
+
+                                        <hr>
+
+                                        <div class="col-12">
+                                            <p class="text-black font-weight-bold">{{$order->userAdress}}</p>
+                                            <p class="text-black font-weight-bold" style="margin-top: -15px;">
+                                                @if($order->paymentMode == 'Dinheiro')
+                                                    Pagamento em dinheiro, troco para R$ {{ $order->change}}
+                                                @else
+                                                    {{ $order->paymentMode}}
+                                                @endif
+                                            </p>
+                                            <p class="font-weight-bold text-success" style="margin-top: -15px;">
+                                                @if($order->status == 'Pedido Entregue' || $order->status == 'Em rota de entrega')
+                                                Entregue por: {{ $order->delivery_man}}
+                                                @endif
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
