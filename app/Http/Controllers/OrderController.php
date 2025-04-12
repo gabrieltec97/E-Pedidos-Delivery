@@ -34,10 +34,18 @@ class OrderController extends Controller
             DB::table('delivery_status')
                 ->update(['status' => true, 'responsable' => $user->firstname . ' ' . $user->lastname]);
 
+            DB::table('notifications')->where('type', 'Delivery')->delete(); 
+
             return redirect()->back()->with('msg-delivery', 'Agora os clientes poderão acessar o cardápio e fazer pedidos!');
         }else if ($request->status == 0){
             DB::table('delivery_status')
                 ->update(['status' => false, 'responsable' => $user->firstname . ' ' . $user->lastname]);
+
+                $notification = new Notification();
+                $notification->type = 'Delivery';
+                $notification->title = 'Delivery Offline!';
+                $notification->content = 'Com o delivery desativado, não será possível receber pedidos.';
+                $notification->save();
 
             return redirect()->back()->with('msg-delivery', 'Agora o delivery está offline e não receberemos pedidos.');
         }else{

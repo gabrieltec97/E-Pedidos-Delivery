@@ -102,6 +102,9 @@
                                                 @elseif($notification->type == 'Inativação')
                                                 fa-exclamation-triangle
                                                 text-success
+                                                @elseif($notification->type == 'Delivery')
+                                                fa-lock
+                                                text-danger
                                                 @endif
                                                 me-3 notification-warning" style="font-size: 35px;">
 
