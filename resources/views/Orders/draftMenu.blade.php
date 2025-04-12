@@ -767,22 +767,24 @@
                                    </div>
                                </div>
                                @foreach($items as $item)
+                                   @if($myOrder[0]->id == $item->order_id)
                                    <div class="col-12 col-lg-3 col-md-12 col-sm-12 mt-4">
-                                       <div class="col-12 order-items">
-                                           <div class="img-product">
-                                               <img style="width: 50px; height: 50px; border-radius: 10px" src="{{ asset('assets/img/cardapio/burguers/burger-au-poivre-kit-4-pack.3ca0e39b02db753304cd185638dad518.jpg') }}" />
-                                           </div>
-                                           <div class="teste">
-                                               <p class="resume-product-title">
-                                                   <b>{{ $item->product }}</b>
-                                               </p>
+                                    <div class="col-12 order-items">
+                                        <div class="img-product">
+                                            <img style="width: 50px; height: 50px; border-radius: 10px" src="{{ asset('assets/img/cardapio/burguers/burger-au-poivre-kit-4-pack.3ca0e39b02db753304cd185638dad518.jpg') }}" />
+                                        </div>
+                                        <div class="teste">
+                                            <p class="resume-product-title">
+                                                <b>{{ $item->product }}</b>
+                                            </p>
 
-                                               <p class="resume-product-quantity">
-                                                   x <b>{{ $item->ammount }}</b>
-                                               </p>
-                                           </div>
-                                       </div>
-                                   </div>
+                                            <p class="resume-product-quantity">
+                                                x <b>{{ $item->ammount }}</b>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                @endif
                                @endforeach
 
 
