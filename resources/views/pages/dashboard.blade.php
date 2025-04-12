@@ -1,7 +1,7 @@
 @extends('layouts.app', ['class' => 'g-sidenav-show bg-gray-100'])
 
 @section('title')
-    Dashboard - Aqui você encontra todas as informações!
+    Dashboard - Aqui você encontra todas as informações necessárias para lhe ajudar com o gerenciamento!
 @endsection
 
 @section('content')
@@ -101,8 +101,8 @@
             <div class="col-lg-12 mb-lg-0 mb-4">
                 <div class="card z-index-2 h-100">
                     <div class="card-header pb-0 pt-3 bg-transparent">
-                        <h6 class="text-capitalize">Métricas de venda</h6>
-                        <p class="text-sm mb-0">
+                        <h4 class="text-black">Métricas de Venda</h6>
+                        <p class="text-sm mb-3">
                         @if($moneyMetrics > 0)
                             <p class="mb-0">
                                 <span class="text-success text-sm font-weight-bolder">+{{$moneyMetrics}}%</span>
@@ -150,7 +150,7 @@
             <div id="metricsDiv" class="col-lg-12 mt-4 mb-lg-0 mb-4">
                 <div class="card z-index-2 h-100">
                     <div class="card-header pb-3 pt-3 bg-transparent d-flex justify-content-between align-items-center">
-                        <h4 class="mb-0">
+                        <h4 class="mb-0 text-black">
                             @if(request('month') == '')
                                 Métricas deste mês
                             @else
@@ -175,7 +175,7 @@
                                 <option value="Dezembro" @if($selectedMonth == 'Dezembro') selected @endif>Dezembro</option>
                             </select>
 
-                            <select name="year" class="form-control w-auto year" style="cursor: pointer;">
+                            <select name="year" class="form-control w-100 year" style="cursor: pointer;">
                                 <option value="2023" @if($selectedYear == '2023') selected @endif>2023</option>
                                 <option value="2024" @if($selectedYear == '2024') selected @endif>2024</option>
                                 <option value="2025" @if($selectedYear == '2025') selected @endif>2025</option>
@@ -199,7 +199,7 @@
                 <div class="card ">
                     <div class="card-header pb-0 p-3">
                         <div class="d-flex justify-content-between">
-                            <h6 class="mb-3">Bairros com mais pedidos</h6>
+                            <h5 class="mb-3 text-black">Bairros com mais pedidos</h5>
                         </div>
                     </div>
                     <div class="table-responsive">
@@ -210,9 +210,6 @@
                                     <td class="w-30">
                                         <div class="d-flex px-2 py-1 align-items-center">
                                             <div>
-                                                <img src="./img/icons/flags/US.png" alt="Country flag">
-                                            </div>
-                                            <div class="ms-4">
                                                 <p class="text-xs font-weight-bold mb-0">Bairro:</p>
                                                 <h6 class="text-sm mb-0">{{ $neighboor['name'] }}</h6>
                                             </div>
@@ -246,7 +243,7 @@
             <div class="col-lg-5">
                 <div class="card">
                     <div class="card-header pb-0 p-3">
-                        <h6 class="mb-3">Itens mais vendidos</h6>
+                        <h5 class="mb-3 text-black">Itens mais vendidos</h5>
                     </div>
                     <div class="card-body p-3">
                         <ul class="list-group">
