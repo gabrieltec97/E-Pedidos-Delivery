@@ -79,23 +79,25 @@
                                 <div class="container-fluid">
                                     <div class="row">
                                         <div class="col-12">
-                                            <span>{{$order->created_at}}</span>
-                                            <span>{{$order->user_name}}</span>
-                                            <span>{{ $order->userAdress }}</span>
-                                            @if($order->paymentMode != 'Dinheiro')
-                                                <span>{{$order->paymentMode}}</span>
+                                            <div class="col-12">
+                                                <p class="my-orders">
+                                                    <b> {{ $order->user_name }}</b>
+                                                </p>
+
+                                                <p class="my-status font-weight-bold
+                                            @if($order->status == 'Pedido Entregue')
+                                            text-success
+                                            @elseif($order->status == 'Cancelado')
+                                            text-danger
                                             @else
-                                                <span>Dinheiro, troco para: {{$order->change}}</span>
+                                            text-warning
                                             @endif
+                                            " style="margin-top: -15px;">
+                                                    {{ $order->status }}
+                                                </p>
+                                            </div>
 
-                                            @if($order->status == 'Em rota de entrega')
-                                                <span>Em rota de entrega com o entregador {{$order->delivery_man}}</span>
-                                            @elseif($order->status == 'Pedido Entregue')
-                                                <span>Pedido entregue por {{$order->delivery_man}}</span>
-                                            @endif
-
-
-                                            <p>R$ {{ $order->value }}</p>
+                                            
                                         </div>
                                         <hr>
                                         <div class="col-12">
