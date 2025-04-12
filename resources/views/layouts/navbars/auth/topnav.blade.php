@@ -15,6 +15,7 @@
                $time = date('H');
                $user = \Illuminate\Support\Facades\Auth::user();
                $notifications = \App\Models\Notification::all();
+               $delivery = DB::table('delivery_status')->where('id', 1)->get();
             @endphp
                 @if ($time>= 18 && $time < 24)
                     <span class="text-white" style="margin-right: -17px;"><b>Boa noite, {{ $user->firstname }}</b></span>
@@ -123,6 +124,12 @@
                 </li>
             </ul>
         </div>
+
+        @if($delivery[0]->status)
+            <div title="Delivery Online" style="width: 20px; height: 20px; background-color: #03ce6f; border-radius: 50px; margin-left: 5px; cursor: pointer;"></div>
+        @else
+            <div title="Delivery Offline" style="width: 20px; height: 20px; background-color: #e40606; border-radius: 50px; margin-left: 5px; cursor: pointer;"></div>
+        @endif
     </div>
 </nav>
 

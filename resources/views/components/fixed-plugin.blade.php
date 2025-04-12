@@ -35,7 +35,6 @@
                         <span class="d-sm-inline d-none">Encerrar Sessão</span>
                     </a>
                 </form>
-                
             </div>
 
 {{--            <!-- Sidebar Backgrounds -->--}}
