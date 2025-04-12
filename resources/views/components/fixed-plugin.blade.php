@@ -25,6 +25,19 @@
                 </div>
             </div>
 
+            <div class="col-12">
+                <form role="form" method="post" action="{{ route('logout') }}" id="logout-form">
+                    @csrf
+                    <a class="btn btn-primary w-100" href="{{ route('logout') }}"
+                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                        class="nav-link text-white font-weight-bold px-0">
+                        <i class="fa fa-user me-sm-1"></i>
+                        <span class="d-sm-inline d-none">Encerrar Sessão</span>
+                    </a>
+                </form>
+                
+            </div>
+
 {{--            <!-- Sidebar Backgrounds -->--}}
 {{--            <div>--}}
 {{--                <h6 class="mb-0">Sidebar Colors</h6>--}}

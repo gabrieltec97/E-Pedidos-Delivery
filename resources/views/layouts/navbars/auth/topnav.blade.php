@@ -17,15 +17,15 @@
                $notifications = \App\Models\Notification::all();
             @endphp
                 @if ($time>= 18 && $time < 24)
-                    <span class="text-white"><b>Boa noite, {{ $user->firstname }}</b></span>
+                    <span class="text-white" style="margin-right: -17px;"><b>Boa noite, {{ $user->firstname }}</b></span>
                 @elseif($time>= 6 && $time < 12)
-                    <span class="text-white"><b>Bom dia, {{ $user->firstname }}</b></span>
+                    <span class="text-white" style="margin-right: -17px;"><b>Bom dia, {{ $user->firstname }}</b></span>
                 @elseif($time>= 12 && $time < 18)
-                    <span class="text-white"><b>Boa tarde, {{ $user->firstname }}</b></span>
+                    <span class="text-white" style="margin-right: -17px;"><b>Boa tarde, {{ $user->firstname }}</b></span>
                 @endif
             </div>
             <ul class="navbar-nav d-flex justify-content-end">
-                <li class="nav-item d-flex align-items-center">
+                <!--<li class="nav-item d-flex align-items-center">
                     <form role="form" method="post" action="{{ route('logout') }}" id="logout-form">
                         @csrf
                         <a href="{{ route('logout') }}"
@@ -35,7 +35,7 @@
                             <span class="d-sm-inline d-none">Log out</span>
                         </a>
                     </form>
-                </li>
+                </li> -->
                 <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
                     <a href="javascript:;" class="nav-link text-white p-0" id="iconNavbarSidenav">
                         <div class="sidenav-toggler-inner">
