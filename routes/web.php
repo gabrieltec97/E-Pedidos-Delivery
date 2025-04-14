@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdditionalController;
 use App\Http\Controllers\CouponController;
+use App\Http\Controllers\EmailController;
 use App\Http\Controllers\NeighbourhoodController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
@@ -55,6 +56,7 @@ Route::get('/verificar-delivery', [OrderController::class, 'verificarDelivery'])
 Route::get('/verificar-nome-produto', [ProductController::class, 'checkProductName'])->name('verificarNomeProduto');
 Route::get('/verificar-bairro', [NeighbourhoodController::class, 'checkNeighbourhood'])->name('verificar-bairro');
 Route::get('/verificar-usuario', [UserController::class, 'checkUser'])->name('verificar-usuario');
+Route::post('/recuperar-senha', [EmailController::class, 'sendMail'])->name('enviar-email');
 Route::resource('/pedidos', OrderController::class);
 
 Route::get('log', function (){

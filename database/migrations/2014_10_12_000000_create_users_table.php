@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('user_type');
             $table->string('password');
             $table->string('contact');
+            $table->string('code')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
