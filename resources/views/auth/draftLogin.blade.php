@@ -25,7 +25,7 @@
             <div class="div-login">
                 <form class="login100-form validate-form" action="{{ route('login.perform') }}" method="post">
                     @csrf
-                        <span class="login100-form-title">
+                        <span class="login100-form-title text-black font-weight-bold">
                             Área de membros
                         </span>
 
@@ -75,9 +75,14 @@
                     <span class="login100-form-title text-black font-weight-bold">
                         Recuperação de senha:
                     </span>
-                    <label for="email" class="text-black">Digite seu e-mail:</label>
-                    <input type="email" name="email" id="email" class="form-control">
-                    <button class="btn btn-primary mt-4 w-100 font-weight-bold send-code">Enviar código</button>
+                    <div class="wrap-input100 validate-input mt-3" data-validate = "Valid email is required: ex@abc.xyz">
+                        <input class="input100" type="text" name="email" placeholder="Email">
+                        <span class="focus-input100"></span>
+                        <span class="symbol-input100">
+                                <i class="fa fa-envelope" aria-hidden="true"></i>
+                            </span>
+                    </div>
+                    <button class="btn btn-primary mt-2 w-100 font-weight-bold send-code">Enviar código</button>
 
                     <div class="text-center p-t-12">
                             <span class="txt1">
@@ -97,7 +102,7 @@
 
 
 <script src="{{ asset('assets/js/jquery-3.7.1.min.js') }}"></script>
-<script src="{{ asset('assets/js/popper.js.min.js') }}"></script>
+<script src="{{ asset('assets/js/core/popper.min.js') }}"></script>
 <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('assets/js/select2.min.js') }}"></script>
 <script src="{{ asset('assets/js/tilt.jquery.min.js') }}"></script>
