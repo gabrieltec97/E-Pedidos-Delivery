@@ -207,10 +207,10 @@ iframe {
   color: #333333;
   line-height: 1.2;
   text-align: center;
-
+  margin-bottom: 15px;
   width: 100%;
   display: block;
-  padding-bottom: 54px;
+  margin-top: -40px;
 }
 
 
@@ -452,4 +452,8 @@ iframe {
     visibility: visible;
     opacity: 1;
   }
+}
+
+.div-recover {
+  display: none;
 }
