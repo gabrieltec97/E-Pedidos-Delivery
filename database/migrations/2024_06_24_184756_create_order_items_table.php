@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('year');
             $table->string('value');
             $table->string('comments')->nullable();
+            $table->string('product_img')->nullable();
             $table->timestamps();
 
 //            $table->foreign('order_id')->references('id')->on('orders')->cascadeOnDelete();
