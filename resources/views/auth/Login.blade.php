@@ -149,8 +149,23 @@
         scale: 1.1
     })
 </script>
-<!--===============================================================================================-->
 <script src="js/main.js"></script>
+
+@if(session('error'))
+<script>
+    $.toast({
+        heading: '<b>Não foi possível realizar o login!</b>',
+        showHideTransition : 'slide',  // It can be plain, fade or slide
+        bgColor : 'red',
+        text: 'Os dados de entrada fornecidos estão incorretos.',
+        hideAfter : 8000,
+        position: 'top-right',
+        textColor: 'white',
+        icon: 'warning',
+        showHideTransition: 'plain'
+    });
+</script>
+@endif
 
 <script>
     $(".send-code").on('click', function (){
