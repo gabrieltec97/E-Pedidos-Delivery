@@ -6,7 +6,7 @@
            aria-hidden="true" id="iconSidenav"></i>
         <a class="navbar-brand m-0" href="{{ route('home') }}"
            target="_blank">
-            <img src="{{ asset('img/logo-ct-dark.png') }}" class="navbar-brand-img h-100" alt="main_logo">
+            <img src="{{ asset('img/logos/mylogo.png') }}" class="navbar-brand-img h-100" alt="main_logo">
             <span class="ms-1 font-weight-bold">E-pedidos Delivery</span>
         </a>
     </div>

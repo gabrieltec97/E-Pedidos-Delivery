@@ -1,6 +1,6 @@
 @extends('layouts.app', ['class' => 'g-sidenav-show bg-gray-100'])
 
-@section('title', 'Adicionais')
+@section('title', 'Gerenciamento de Adicionais')
 
 @section('content')
     @include('layouts.navbars.auth.topnav', ['title' => 'Tables'])
