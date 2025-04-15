@@ -70,9 +70,7 @@
                           <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="exampleModalLongTitle">Pedido {{ $order->id }}</h5>
-                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
+                                <i class="fa-solid fa-circle-xmark" style="cursor: pointer; color: #ef4444;" data-bs-dismiss="modal" aria-label="Close"></i>
                             </div>
 
                             <div class="modal-body">
@@ -98,7 +96,7 @@
 
                                             </div>
 
-                                            
+
                                         </div>
                                         <hr>
                                         <div class="col-12">
@@ -107,7 +105,7 @@
                                             @if($item->order_id == $order->id)
                                                         <div class="col-12 tray-item">
                                                             <div class="img-product">
-                                                                <img class="product-img" src="{{ asset('assets/img/cardapio/burguers/burger-au-poivre-kit-4-pack.3ca0e39b02db753304cd185638dad518.jpg') }}" />
+                                                                <img class="product-img" src="{{ asset('storage/uploads/' . $item->product_img) }}" />
                                                             </div>
 
                                                             <div class="product-data">

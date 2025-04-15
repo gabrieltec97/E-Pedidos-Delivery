@@ -1,10 +1,10 @@
 .product-data{
     flex: 1;
-    margin-left: -200px;
+    margin-left: -160px;
 
-    }
+}
 
-    .resume-product-quantity {
+.resume-product-quantity {
     color: var(--color-black);
     font-size: 10px;
     margin-bottom: 0;

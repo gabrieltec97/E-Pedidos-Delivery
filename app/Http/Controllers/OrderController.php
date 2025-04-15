@@ -34,7 +34,7 @@ class OrderController extends Controller
             DB::table('delivery_status')
                 ->update(['status' => true, 'responsable' => $user->firstname . ' ' . $user->lastname]);
 
-            DB::table('notifications')->where('type', 'Delivery')->delete(); 
+            DB::table('notifications')->where('type', 'Delivery')->delete();
 
             return redirect()->back()->with('msg-delivery', 'Agora os clientes poderão acessar o cardápio e fazer pedidos!');
         }else if ($request->status == 0){
@@ -320,6 +320,7 @@ class OrderController extends Controller
                 $item->order_id = $id;
                 $item->product = $t->product;
                 $item->ammount = $t->ammount;
+                $item->product_img = $t->picture;
                 $item->value = $t->value;
                 $item->address = $firstTray->address;
                 $item->neighbourhood = $firstTray->neighbourhood;
