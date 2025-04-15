@@ -57,7 +57,7 @@ Route::get('/verificar-nome-produto', [ProductController::class, 'checkProductNa
 Route::get('/verificar-bairro', [NeighbourhoodController::class, 'checkNeighbourhood'])->name('verificar-bairro');
 Route::get('/verificar-usuario', [UserController::class, 'checkUser'])->name('verificar-usuario');
 Route::get('/recuperar-senha', [EmailController::class, 'sendMail'])->name('enviar-email');
-Route::get('/alterar-senha', [UserController::class, 'changePassword'])->name('alterar-senha');
+Route::post('/alterar-senha', [UserController::class, 'changePassword'])->name('alterar-senha');
 Route::resource('/pedidos', OrderController::class);
 
 Route::get('log', function (){

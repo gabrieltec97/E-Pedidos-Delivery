@@ -122,6 +122,27 @@ class UserController extends Controller
 
     public function changePassword(Request $request)
     {
+        $status = false;
+        if ($request->password != $request->password2){
+            $status = 'As senhas digitadas são diferentes umas das outras.';
+            return response()->json(['status' => $status]);
+        }
+
+        $check = DB::table('users')
+            ->where('code', $request->code)->get();
+
+        if (isset($check[0])) {
+            $user = User::find($check[0]->id);
+            $user->password = $request->password;
+            $user->save();
+
+//            return redirect()
+
+        }else{
+            $status = 'Não foi possível encontrar este código na base de dados.';
+            return response()->json(['status' => $status]);
+        }
+
 
     }
 
