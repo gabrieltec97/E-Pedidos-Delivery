@@ -771,9 +771,9 @@
                                    <div class="col-12 col-lg-3 col-md-12 col-sm-12 mt-4">
                                     <div class="col-12 order-items">
                                         <div class="img-product">
-                                            <img style="width: 50px; height: 50px; border-radius: 10px" src="{{ asset('assets/img/cardapio/burguers/burger-au-poivre-kit-4-pack.3ca0e39b02db753304cd185638dad518.jpg') }}" />
+                                            <img style="width: 50px; height: 50px; border-radius: 10px" src="{{ asset('storage/uploads/' . $item->product_img) }}" />
                                         </div>
-                                        <div class="teste">
+                                        <div>
                                             <p class="resume-product-title">
                                                 <b>{{ $item->product }}</b>
                                             </p>
@@ -787,8 +787,8 @@
                                 @endif
                                @endforeach
 
-
                                @if($myOrder != '')
+                                   <hr>
                                    <div class="col-12 mt-5 live-delivery">
                                        <div class="img-map">
                                            <i class="fas fa-map-marked-alt"></i>
