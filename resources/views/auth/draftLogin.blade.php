@@ -190,41 +190,55 @@
 
 
     $(".change-pass").on('click', function (){
-        let email = $(".myEmail").val();
 
-        $.ajax({
-            url: "{{ route('enviar-email') }}",
-            method: "GET",
-            data: { email: email },
-            success: function (response) {
-                if (response.exist == true){
-                    $.toast({
-                        heading: '<b>Código enviado!</b>',
-                        showHideTransition: 'slide',
-                        bgColor: '#2ecc71',
-                        text: 'Enviamos um código para você, verifique sua caixa de e-mail.',
-                        hideAfter: 10000,
-                        position: 'top-right',
-                        textColor: 'white',
-                        icon: 'error'
-                    });
-                }else{
-                    $.toast({
-                        heading: '<b>Preencha corretamente!</b>',
-                        showHideTransition: 'slide',
-                        bgColor: 'red',
-                        text: 'O e-mail inserido não foi encontrado na base de dados.',
-                        hideAfter: 7000,
-                        position: 'top-right',
-                        textColor: 'white',
-                        icon: 'error'
-                    });
+        if($(".myCode").val().length < 6){
+            $.toast({
+                heading: '<b>Código inválido!</b>',
+                showHideTransition: 'slide',
+                bgColor: 'red',
+                text: 'O código enviado ao seu e-mail possui 6 dígitos, verifique o código corretamente.',
+                hideAfter: 7000,
+                position: 'top-right',
+                textColor: 'white',
+                icon: 'error'
+            });
+        }else{
+            $.ajax({
+                url: "{{ route('enviar-email') }}",
+                method: "GET",
+                data: { email: email },
+                success: function (response) {
+                    if (response.exist == true){
+                        $.toast({
+                            heading: '<b>Código enviado!</b>',
+                            showHideTransition: 'slide',
+                            bgColor: '#2ecc71',
+                            text: 'Enviamos um código para você, verifique sua caixa de e-mail.',
+                            hideAfter: 10000,
+                            position: 'top-right',
+                            textColor: 'white',
+                            icon: 'error'
+                        });
+                    }else{
+                        $.toast({
+                            heading: '<b>Preencha corretamente!</b>',
+                            showHideTransition: 'slide',
+                            bgColor: 'red',
+                            text: 'O e-mail inserido não foi encontrado na base de dados.',
+                            hideAfter: 7000,
+                            position: 'top-right',
+                            textColor: 'white',
+                            icon: 'error'
+                        });
+                    }
+                },
+                error: function () {
+                    console.error("Erro ao buscar a contagem dos itens na bandeja.");
                 }
-            },
-            error: function () {
-                console.error("Erro ao buscar a contagem dos itens na bandeja.");
-            }
-        });
+            });
+        }
+
+
     });
 </script>
 </body>

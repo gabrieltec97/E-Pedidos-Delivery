@@ -15,7 +15,7 @@ $(document).ready(function() {
     });
 
     $(".back-login").on('click', function () {
-        $(".div-recover").fadeOut();
+        $(".div-recover, .div-insert").fadeOut();
 
         setTimeout(function () {
             $(".div-login").fadeIn();
