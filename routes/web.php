@@ -31,10 +31,6 @@ use Illuminate\Support\Str;
 |
 */
 
-Route::get('/teste', function (){
-    return view('auth.draftLogin');
-})->name('teste');
-
 Route::resource('/cardapio', TrayController::class);
 Route::get('/count', [TrayController::class, 'count'])->name('cardapio.count');
 Route::get('/verificar-bandeja', [TrayController::class, 'count'])->name('tray.check');
