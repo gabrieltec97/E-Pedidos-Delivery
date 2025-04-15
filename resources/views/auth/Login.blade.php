@@ -57,7 +57,7 @@
                             <span class="txt1">
                                 Esqueceu
                             </span>
-                        <a class="txt2 pass-recover" href="#">
+                        <a class="txt2 pass-recover">
                             sua senha?
                         </a>
                     </div>
@@ -88,7 +88,7 @@
                             <span class="txt1">
                                 Voltar
                             </span>
-                        <a class="txt2 back-login" href="#">
+                        <a class="txt2 back-login">
                             ao login.
                         </a>
                     </div>
@@ -129,7 +129,7 @@
                             <span class="txt1">
                                 Voltar
                             </span>
-                    <a class="txt2 back-login" href="#">
+                    <a class="txt2 back-login">
                         ao login.
                     </a>
                 </div>
