@@ -27,8 +27,8 @@
             <div class="div-login">
                 <form class="login100-form validate-form" action="{{ route('login.perform') }}" method="post">
                     @csrf
-                        <span class="login100-form-title text-black font-weight-bold">
-                            Área de membros
+                        <span class="login100-form-title text-black">
+                           <b>Área de membros</b>
                         </span>
 
                     <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
@@ -49,7 +49,7 @@
 
                     <div class="container-login100-form-btn">
                         <button class="login100-form-btn" type="submit">
-                            Login
+                            <span class="login-label">Login</span>
                         </button>
                     </div>
 

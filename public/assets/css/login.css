@@ -461,3 +461,8 @@ iframe {
 .img-login{
     margin-top: -50px;
 }
+
+.login-label {
+    text-transform: capitalize !important;
+    font-size: 18px;
+}
