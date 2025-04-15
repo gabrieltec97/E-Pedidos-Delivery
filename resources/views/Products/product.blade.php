@@ -129,13 +129,32 @@
                         </form>
                     <div class="row">
                         <div class="col-12">
-                            <form action="{{ route('produtos.destroy', $product->id) }}" method="post">
-                                @csrf
-                                @method('DELETE')
-                                <button class="btn btn-danger mb-0" type="submit">Deletar produto</button>
-                            </form>
+                            <button class="btn btn-danger mb-0 font-weight-bold" type="button" data-bs-toggle="modal" data-bs-target="#deletarItem">Deletar produto</button>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="deletarItem" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Atenção!</h5>
+                    <i class="fa-solid fa-circle-xmark" style="cursor: pointer; color: #ef4444;" data-bs-dismiss="modal" aria-label="Close"></i>
+                </div>
+                <form action="{{ route('produtos.destroy', $product->id) }}" method="post">
+                    @csrf
+                    @method('DELETE')
+                <div class="modal-body">
+                    <h5 class="text-black">Tem certeza que deseja deletar o item <span class="text-danger">{{ $product->name }}</span>?</h5>
+                </div>
+                <div class="modal-footer" style="margin-bottom: -20px;">
+                    <button type="button" class="btn btn-primary font-weight-bold" data-bs-dismiss="modal">Fechar</button>
+                    <button type="submit" class="btn btn-danger delete-item font-weight-bold">Deletar Produto</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -145,6 +164,10 @@
     <script>
         $(document).ready(function(){
             $('.value').mask('000,000,000.00', {reverse: true});
+
+            $(".delete-item").on('click', function (){
+                $(this).html('<div class="spinner-border spinner-border-sm loading"></div> Deletar Produto');
+            });
         });
     </script>
 
