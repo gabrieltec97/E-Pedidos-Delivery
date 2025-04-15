@@ -162,7 +162,16 @@
             data: { email: email },
             success: function (response) {
                 if (response.exist == true){
-                    console.log('tem');
+                    $.toast({
+                        heading: '<b>Código enviado!</b>',
+                        showHideTransition: 'slide',
+                        bgColor: '#2ecc71',
+                        text: 'Enviamos um código para você, verifique sua caixa de e-mail.',
+                        hideAfter: 7000,
+                        position: 'top-right',
+                        textColor: 'white',
+                        icon: 'error'
+                    });
                 }else{
                     $.toast({
                         heading: '<b>Preencha corretamente!</b>',
