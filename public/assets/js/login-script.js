@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    $(".change-pass").prop("disabled", true);
 
     $(".pass-recover").on('click', function () {
         $(".div-login").fadeOut();
@@ -20,5 +21,15 @@ $(document).ready(function() {
             $(".div-login").fadeIn();
         }, 500);
 
+    });
+
+    $(".pass1, .pass2").on('keyup', function (){
+
+        if($(".pass2").val() != $(".pass1").val()){
+            $(".change-pass").prop("disabled", true);
+        }else{
+            $(".change-pass").prop("disabled", false);
+
+        }
     });
 });

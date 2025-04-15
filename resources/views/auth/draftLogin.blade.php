@@ -98,7 +98,7 @@
                         Insira seu código:
                     </span>
                 <div class="wrap-input100 validate-input mt-3" data-validate = "Valid email is required: ex@abc.xyz">
-                    <input class="input100 myEmail" type="email" name="email" placeholder="Código enviado ao e-mail">
+                    <input class="input100 myCode" type="number" name="code" placeholder="Código enviado ao e-mail" required>
                     <span class="focus-input100"></span>
                     <span class="symbol-input100">
                                 <i class="fa fa-envelope" aria-hidden="true"></i>
@@ -106,7 +106,7 @@
                 </div>
 
                 <div class="wrap-input100 validate-input" data-validate = "Password is required">
-                    <input class="input100" type="password" name="password" placeholder="Insira a nova senha">
+                    <input class="input100 pass1" type="password" name="password" placeholder="Insira a nova senha">
                     <span class="focus-input100"></span>
                     <span class="symbol-input100">
                                 <i class="fa fa-lock" aria-hidden="true"></i>
@@ -114,13 +114,12 @@
                 </div>
 
                 <div class="wrap-input100 validate-input" data-validate = "Password is required">
-                    <input class="input100" type="password" name="password" placeholder="Confirme sua senha">
+                    <input class="input100 pass2" type="password" placeholder="Confirme sua senha">
                     <span class="focus-input100"></span>
-                    <span class="symbol-input100">
-                                <i class="fa fa-lock" aria-hidden="true"></i>
-                            </span>
+                    <span class="symbol-input100"><i class="fa fa-lock" aria-hidden="true"></i></span>
                 </div>
-                <button class="btn btn-primary mt-2 w-100 font-weight-bold send-code">Salvar</button>
+
+                <button class="btn btn-primary mt-2 w-100 font-weight-bold change-pass">Salvar</button>
 
                 <div class="text-center p-t-12">
                             <span class="txt1">
@@ -134,7 +133,6 @@
         </div>
     </div>
 </div>
-
 
 <script src="{{ asset('assets/js/jquery-3.7.1.min.js') }}"></script>
 <script src="{{ asset('assets/js/core/popper.min.js') }}"></script>
@@ -151,7 +149,6 @@
 <!--===============================================================================================-->
 <script src="js/main.js"></script>
 
-
 <script>
     $(".send-code").on('click', function (){
         let email = $(".myEmail").val();
@@ -167,7 +164,46 @@
                         showHideTransition: 'slide',
                         bgColor: '#2ecc71',
                         text: 'Enviamos um código para você, verifique sua caixa de e-mail.',
+                        hideAfter: 10000,
+                        position: 'top-right',
+                        textColor: 'white',
+                        icon: 'error'
+                    });
+                }else{
+                    $.toast({
+                        heading: '<b>Preencha corretamente!</b>',
+                        showHideTransition: 'slide',
+                        bgColor: 'red',
+                        text: 'O e-mail inserido não foi encontrado na base de dados.',
                         hideAfter: 7000,
+                        position: 'top-right',
+                        textColor: 'white',
+                        icon: 'error'
+                    });
+                }
+            },
+            error: function () {
+                console.error("Erro ao buscar a contagem dos itens na bandeja.");
+            }
+        });
+    });
+
+
+    $(".change-pass").on('click', function (){
+        let email = $(".myEmail").val();
+
+        $.ajax({
+            url: "{{ route('enviar-email') }}",
+            method: "GET",
+            data: { email: email },
+            success: function (response) {
+                if (response.exist == true){
+                    $.toast({
+                        heading: '<b>Código enviado!</b>',
+                        showHideTransition: 'slide',
+                        bgColor: '#2ecc71',
+                        text: 'Enviamos um código para você, verifique sua caixa de e-mail.',
+                        hideAfter: 10000,
                         position: 'top-right',
                         textColor: 'white',
                         icon: 'error'
@@ -191,6 +227,5 @@
         });
     });
 </script>
-
 </body>
 </html>
