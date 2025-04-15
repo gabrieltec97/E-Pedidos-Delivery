@@ -162,6 +162,10 @@
             data: { email: email },
             success: function (response) {
                 if (response.exist == true){
+
+                    $(".div-recover").fadeOut();
+                    $(".div-insert").fadeIn();
+
                     $.toast({
                         heading: '<b>Código enviado!</b>',
                         showHideTransition: 'slide',
@@ -186,7 +190,7 @@
                 }
             },
             error: function () {
-                console.error("Erro ao buscar a contagem dos itens na bandeja.");
+                console.error("Erro na comunicação com o backend. Entre em contato com o suporte.");
             }
         });
     });
@@ -214,19 +218,40 @@
                 method: "POST",
                 data: $(this).serialize(),
                 success: function (response) {
-                    $.toast({
-                        heading: '<b>Falha ao alterar senha!</b>',
-                        showHideTransition: 'slide',
-                        bgColor: 'red',
-                        text: response.status,
-                        hideAfter: 10000,
-                        position: 'top-right',
-                        textColor: 'white',
-                        icon: 'error'
-                    });
+                    if(response.status == 'success'){
+
+                        $(".div-recover, .div-insert").fadeOut();
+
+                        setTimeout(function(){
+                            $(".div-login").fadeIn();
+                        }, 1000)
+
+                        $.toast({
+                            heading: '<b>Senha alterada com sucesso!</b>',
+                            showHideTransition: 'slide',
+                            bgColor: '#2ecc71',
+                            text: 'Agora você pode utilizar o sistema com a sua nova senha. Bom trabalho!',
+                            hideAfter: 10000,
+                            position: 'top-right',
+                            textColor: 'white',
+                            icon: 'error'
+                        });
+
+                    }else{
+                        $.toast({
+                            heading: '<b>Falha ao alterar senha!</b>',
+                            showHideTransition: 'slide',
+                            bgColor: 'red',
+                            text: response.status,
+                            hideAfter: 10000,
+                            position: 'top-right',
+                            textColor: 'white',
+                            icon: 'error'
+                        });
+                    }
                 },
                 error: function () {
-                    console.error("Erro ao buscar a contagem dos itens na bandeja.");
+                    console.error("Erro na comunicação com o backend. Entre em contato com o suporte.");
                 }
             });
         }

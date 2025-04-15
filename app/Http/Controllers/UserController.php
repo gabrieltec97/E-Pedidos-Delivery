@@ -134,9 +134,10 @@ class UserController extends Controller
         if (isset($check[0])) {
             $user = User::find($check[0]->id);
             $user->password = $request->password;
+            $user->code = null;
             $user->save();
 
-//            return redirect()
+            return response()->json(['status' => 'success']);
 
         }else{
             $status = 'Não foi possível encontrar este código na base de dados.';
