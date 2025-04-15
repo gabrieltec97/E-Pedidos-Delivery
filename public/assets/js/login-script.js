@@ -32,4 +32,8 @@ $(document).ready(function() {
 
         }
     });
+
+    $(".send-code").on('click', function (){
+        $(this).html('<div class="spinner-border spinner-border-sm" role="status"> </div> Enviando código');
+    });
 });

@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
-    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
+{{--    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">--}}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset('assets/css/fontawesome.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/animate.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/util.css') }}">
@@ -138,8 +139,9 @@
 </div>
 
 <script src="{{ asset('assets/js/jquery-3.7.1.min.js') }}"></script>
-<script src="{{ asset('assets/js/core/popper.min.js') }}"></script>
-<script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+{{--<script src="{{ asset('assets/js/core/popper.min.js') }}"></script>--}}
+{{--<script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>--}}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
 <script src="{{ asset('assets/js/select2.min.js') }}"></script>
 <script src="{{ asset('assets/js/tilt.jquery.min.js') }}"></script>
 <script src="{{ asset('assets/js/login-script.js') }}"></script>
@@ -191,7 +193,14 @@
                         textColor: 'white',
                         icon: 'error'
                     });
+
+                    setTimeout(function (){
+                        $(".send-code").html('Enviar código');
+                        $(".myEmail").val('');
+                    }, 2000);
                 }else{
+                    $(".send-code").html('Enviar código');
+
                     $.toast({
                         heading: '<b>Preencha corretamente!</b>',
                         showHideTransition: 'slide',
