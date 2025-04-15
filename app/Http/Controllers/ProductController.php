@@ -7,6 +7,7 @@ use App\Models\Notification;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -239,6 +240,10 @@ class ProductController extends Controller
     {
         $product = Product::find($id);
         $product->delete();
+
+        if ($product->picture) {
+            Storage::delete('public/uploads/' . $product->picture);
+        }
 
         return redirect()->route('produtos.index')->with('msg-removed', '.');
     }
