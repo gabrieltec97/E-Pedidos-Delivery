@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/login.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/hamburgers.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/jquerytoast.css') }}">
 </head>
 <body>
 
@@ -70,13 +71,11 @@
             </div>
 
             <div class="div-recover">
-                <form action="{{ route('enviar-email') }}" method="post">
-                    @csrf
                     <span class="login100-form-title text-black font-weight-bold">
                         Recuperação de senha:
                     </span>
                     <div class="wrap-input100 validate-input mt-3" data-validate = "Valid email is required: ex@abc.xyz">
-                        <input class="input100" type="email" name="email" placeholder="Email">
+                        <input class="input100 myEmail" type="email" name="email" placeholder="Email">
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
                                 <i class="fa fa-envelope" aria-hidden="true"></i>
@@ -92,13 +91,49 @@
                             ao login.
                         </a>
                     </div>
-                </form>
+            </div>
+
+            <div class="div-insert">
+                    <span class="login100-form-title text-black font-weight-bold">
+                        Insira seu código:
+                    </span>
+                <div class="wrap-input100 validate-input mt-3" data-validate = "Valid email is required: ex@abc.xyz">
+                    <input class="input100 myEmail" type="email" name="email" placeholder="Código enviado ao e-mail">
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+                                <i class="fa fa-envelope" aria-hidden="true"></i>
+                            </span>
+                </div>
+
+                <div class="wrap-input100 validate-input" data-validate = "Password is required">
+                    <input class="input100" type="password" name="password" placeholder="Insira a nova senha">
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+                                <i class="fa fa-lock" aria-hidden="true"></i>
+                            </span>
+                </div>
+
+                <div class="wrap-input100 validate-input" data-validate = "Password is required">
+                    <input class="input100" type="password" name="password" placeholder="Confirme sua senha">
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+                                <i class="fa fa-lock" aria-hidden="true"></i>
+                            </span>
+                </div>
+                <button class="btn btn-primary mt-2 w-100 font-weight-bold send-code">Salvar</button>
+
+                <div class="text-center p-t-12">
+                            <span class="txt1">
+                                Voltar
+                            </span>
+                    <a class="txt2 back-login" href="#">
+                        ao login.
+                    </a>
+                </div>
             </div>
         </div>
     </div>
 </div>
-
-
 
 
 <script src="{{ asset('assets/js/jquery-3.7.1.min.js') }}"></script>
@@ -107,6 +142,7 @@
 <script src="{{ asset('assets/js/select2.min.js') }}"></script>
 <script src="{{ asset('assets/js/tilt.jquery.min.js') }}"></script>
 <script src="{{ asset('assets/js/login-script.js') }}"></script>
+<script src="{{ asset('assets/js/jquerytoast.js') }}"></script>
 <script >
     $('.js-tilt').tilt({
         scale: 1.1
@@ -114,6 +150,38 @@
 </script>
 <!--===============================================================================================-->
 <script src="js/main.js"></script>
+
+
+<script>
+    $(".send-code").on('click', function (){
+        let email = $(".myEmail").val();
+
+        $.ajax({
+            url: "{{ route('enviar-email') }}",
+            method: "GET",
+            data: { email: email },
+            success: function (response) {
+                if (response.exist == true){
+                    console.log('tem');
+                }else{
+                    $.toast({
+                        heading: '<b>Preencha corretamente!</b>',
+                        showHideTransition: 'slide',
+                        bgColor: 'red',
+                        text: 'O e-mail inserido não foi encontrado na base de dados.',
+                        hideAfter: 7000,
+                        position: 'top-right',
+                        textColor: 'white',
+                        icon: 'error'
+                    });
+                }
+            },
+            error: function () {
+                console.error("Erro ao buscar a contagem dos itens na bandeja.");
+            }
+        });
+    });
+</script>
 
 </body>
 </html>

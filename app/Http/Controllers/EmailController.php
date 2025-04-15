@@ -25,14 +25,11 @@ class EmailController extends Controller
               $checkCode = DB::table('users')->where('code', $code)->count();
             }while ($checkCode != 0);
 
-
             DB::table('users')
                 ->where('email', $request->email)
                 ->update(['code' => $code]);
 
-
             Mail::to($request->email)->send(new CodigoRecuperacao($code));
-
 
             return response()->json(['exist' => $exist]);
         }else{
