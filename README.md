@@ -49,6 +49,8 @@ Este projeto, criado sem fins comerciais, tem como principal objetivo colocar em
 - Ativação/Desativação de produtos e bairros
 - Ativação/Desativação do delivery
 - Aplicação de cupons
+- Notificações sobre problemas em estoque, delivery, bairros e produtos
+- Escolha de motoboy para realizar cada entrega
 
 Gerenciamento total (CRUD) de:
 
@@ -56,4 +58,15 @@ Gerenciamento total (CRUD) de:
 - Bairros
 - Usuários
 - Produtos, Adicionais para Produtos
+
+## 🛠️ Como rodar o projeto
+
+1. Tenha em sua máquina um ambiente que fala a emulação de um servidor, como Xampp ou Docker instalado e parametrizado.
+2. Clone o repositório.
+3. No arquivo .env
+
+## 📸 Screenshots
+
+![Tela de login](./screenshots/login.png)
+
 
