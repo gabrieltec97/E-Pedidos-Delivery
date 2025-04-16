@@ -27,8 +27,8 @@ Route::get('log', function (){
 
 //Rotas de login no sistema.
 Route::get('/gerent', [LoginController::class, 'show'])->name('login');
-Route::post('/login', [LoginController::class, 'login'])->middleware('guest')->name('login.perform');
-Route::get('/', [TrayController::class, 'index'])->name('cardapio-principal');
+Route::post('/login-do', [LoginController::class, 'login'])->middleware('guest')->name('login.perform');
+//Route::get('/', [TrayController::class, 'index'])->name('cardapio-principal');
 
 //Rotas de administração do sistema
 Route::group(['middleware' => 'auth'], function () {
@@ -47,12 +47,13 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource('/cupons', CouponController::class);
         Route::resource('/bairros', NeighbourhoodController::class);
         Route::resource('/adicionais', AdditionalController::class);
+        Route::resource('/pedidos', OrderController::class);
         Route::get('/api/pedidos', [OrderController::class, 'getPedidosJson'])->name('pedidos.json');
         Route::get('/atualizar/{id}', [OrderController::class, 'updateStatus'])->name('update.status');
         Route::get('/entregadores', [UserController::class, 'motoboys']);
+
     });
 });
-
 
 //Rotas do cardápio.
 Route::resource('/cardapio', TrayController::class);
@@ -78,9 +79,11 @@ Route::get('/verificar-bairro', [NeighbourhoodController::class, 'checkNeighbour
 Route::get('/verificar-usuario', [UserController::class, 'checkUser'])->name('verificar-usuario');
 Route::get('/recuperar-senha', [EmailController::class, 'sendMail'])->name('enviar-email');
 Route::post('/alterar-senha', [UserController::class, 'changePassword'])->name('alterar-senha');
-Route::resource('/pedidos', OrderController::class);
 
-//Route::get('/', function () {return redirect('/dashboard');})->middleware('auth');
+
+//Rotas de redirecionamento.
+Route::get('/login', function () {return redirect('/');});
+Route::get('/home', function () {return redirect('/pedidos');})->middleware('auth');
 
 
 

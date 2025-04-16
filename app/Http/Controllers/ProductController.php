@@ -11,9 +11,6 @@ use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $products = Product::all();
@@ -36,9 +33,6 @@ class ProductController extends Controller
        }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return view('Products.new-product');
@@ -55,9 +49,6 @@ class ProductController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -129,7 +120,6 @@ class ProductController extends Controller
             'price.min' => 'O valor do produto deve conter no mínimo 3 caracteres.',
         ]);
 
-
         $additionals = '';
 
         if (isset($request->additionals)){
@@ -144,33 +134,6 @@ class ProductController extends Controller
         }else {
             $additionals = null;
         }
-//
-//
-//            $check = DB::table('additionals')
-//                ->select('products')
-//                ->where('id', $item)
-//                ->get()->toArray();
-//
-//            print_r($check);
-//
-//            die();
-//
-//            if ($check[0]->products != null){
-//                $exist = explode(',', $check[0]->products);
-//
-//                if (!in_array($product->id, $exist)){
-//                    array_push($exist, $product->id);
-//                }
-//
-//                $updateCol = implode(",", $exist);
-//            }else{
-//                $updateCol = $product->id;
-//            }
-////
-////            DB::table('additionals')
-////                ->where('id', $item)
-////                ->update(['products' => $updateCol]);
-//        }
 
         $product = Product::find($id);
         $product->name = $request->name;
@@ -233,9 +196,6 @@ class ProductController extends Controller
         return redirect()->back()->with('msg-updated', '.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         $product = Product::find($id);
@@ -244,7 +204,6 @@ class ProductController extends Controller
         if ($product->picture) {
             Storage::delete('public/uploads/' . $product->picture);
         }
-
         return redirect()->route('produtos.index')->with('msg-removed', '.');
     }
 }

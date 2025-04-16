@@ -8,9 +8,6 @@ use Illuminate\Support\Facades\DB;
 
 class NeighbourhoodController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $neighbourhoods = Neighbourhood::all();
@@ -42,20 +39,13 @@ class NeighbourhoodController extends Controller
         }
 
         return response()->json(['return' => $return, 'name' => $name]);
-
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return view('Neighbourhoods.new-neighbourhood');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -92,9 +82,6 @@ class NeighbourhoodController extends Controller
         }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         $neighbourhood = Neighbourhood::find($id);
@@ -103,9 +90,6 @@ class NeighbourhoodController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         $request->validate([
@@ -133,9 +117,6 @@ class NeighbourhoodController extends Controller
         return redirect()->route('bairros.index')->with('msg-updated', 'Alterações no bairro '.$request->name. ' realizadas com sucesso!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         $neighbourhood = Neighbourhood::find($id);

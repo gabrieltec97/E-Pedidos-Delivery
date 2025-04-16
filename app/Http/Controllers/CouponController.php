@@ -10,9 +10,6 @@ use Illuminate\Support\Facades\DB;
 
 class CouponController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $coupons = Coupon::all();
@@ -46,9 +43,6 @@ class CouponController extends Controller
         return response()->json(['success' => true]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $coupons = DB::table('coupons')
@@ -80,7 +74,6 @@ class CouponController extends Controller
         }
 
         $coupon->save();
-
         return redirect()->back()->with('msg-store', '.');
     }
 
@@ -126,9 +119,6 @@ class CouponController extends Controller
         return redirect()->route('review')->with('msg-coupon-removed', '.');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         $coupons = DB::table('coupons')
@@ -161,9 +151,6 @@ class CouponController extends Controller
         return redirect()->back()->with('msg-coupon-updated', '.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         $coupon = Coupon::find($id);

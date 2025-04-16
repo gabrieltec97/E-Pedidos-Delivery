@@ -10,21 +10,14 @@ use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $users = User::all();
-
         return view('Users.users', [
             'users' => $users
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return view('Users.user-create');
@@ -64,10 +57,6 @@ class UserController extends Controller
         return response()->json(['check' => $exist, 'id' => $id, 'checkUserId' => $userExist]);
     }
 
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -105,13 +94,9 @@ class UserController extends Controller
         }
 
         $user->save();
-
         return redirect()->route('usuarios.index')->with('msg-success', 'Usuário '. ucfirst($request->name) .' cadastrado com sucesso!');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         $user = User::find($id);
@@ -143,8 +128,6 @@ class UserController extends Controller
             $status = 'Não foi possível encontrar este código na base de dados.';
             return response()->json(['status' => $status]);
         }
-
-
     }
 
     public function motoboys()
@@ -156,9 +139,6 @@ class UserController extends Controller
         return response()->json($entregadores);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         $request->validate([
@@ -194,14 +174,11 @@ class UserController extends Controller
             $user->user_type = $request->user_type;
             $user->assignRole('Entregador');
         }
-        $user->save();
 
+        $user->save();
         return redirect()->route('usuarios.index')->with('msg-upd', '.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         $user = User::find($id);

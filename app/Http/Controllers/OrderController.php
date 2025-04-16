@@ -59,7 +59,6 @@ class OrderController extends Controller
             ->select('status')->get();
 
         $status = $status[0]->status;
-
         return response()->json(['status' => $status]);
     }
 
@@ -386,7 +385,6 @@ class OrderController extends Controller
 
             //Limpando bandeja.
             DB::table('trays')->where('user_id', $user)->delete();
-
             return redirect()->route('cardapio.index')->with('new-order', '.');
         }
     }

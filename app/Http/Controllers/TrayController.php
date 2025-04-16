@@ -131,7 +131,6 @@ class TrayController extends Controller
                    array_push($orderItems, $item); // Adiciona o objeto $item ao array
                }
            }
-
             $myOrder = $liveOrder;
         }
 
@@ -312,6 +311,7 @@ class TrayController extends Controller
             'discount' => $discount, 'sendingValue' => $sendingValue,
             'usedCoupon' => $usedCoupon]);
     }
+
     public function taxeCalculator(Request $request)
     {
         if (Auth::user() == null){
@@ -352,7 +352,6 @@ class TrayController extends Controller
             }
 
         $local = $request->input('local');
-
         $neighborhoods = Neighbourhood::all();
 
         //Cálculo de taxa.
@@ -461,12 +460,10 @@ class TrayController extends Controller
             $productName = $item['product_name'];
             $ammount = $item['quantity'];
 
-            // Aqui você pode armazenar as quantidades em uma tabela.
-            // Supondo que você tenha uma tabela `tray_items` com `product_name` e `quantity`.
             DB::table('trays')
                 ->where('user_id', $user)
                 ->where('product', $productName)
-                ->update(['product' => $productName, 'ammount' => $ammount]);
+                ->update(['ammount' => $ammount]);
         }
 
         return response()->json(['success' => 'sucesso']);
@@ -497,9 +494,8 @@ class TrayController extends Controller
               ->where('user_id', $user)
               ->get()->first();
 
-              return response()->json($tray);
+        return response()->json($tray);
     }
-
 
     public function trackAddress(Request $request){
 
@@ -806,7 +802,7 @@ class TrayController extends Controller
             $addTray->additionals = $additionals;
             $addTray->save();
 
-        } else {
+        }else {
             $exist = false;
             foreach ($hasTray as $trayItem){
                 if ($trayItem->product == $item->name){
@@ -871,7 +867,6 @@ class TrayController extends Controller
         return response()->json(['count' => $totalItems]);
     }
 
-
     public function update(Request $request, string $id)
     {
         $tray = Tray::find($id);
@@ -883,6 +878,7 @@ class TrayController extends Controller
         }else{
             $tray->delete();
         }
+
         return redirect()->back();
     }
 
