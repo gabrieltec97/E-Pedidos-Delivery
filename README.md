@@ -86,7 +86,7 @@ php artisan serve
 
 ## 📸 Screenshots
 
-![Tela de login](./screenshots/login.png)
+![Tela de login](assets/dashboard.png)
 dashboard
 gestao de pedidos
 itens cadastrados
