@@ -14,7 +14,7 @@
                     <div class="card">
                         <div class="card-header pb-0">
                             <div class="d-flex align-items-center">
-                                <h3 class="mb-0">Novo bairro</h3>
+                                <h3 class="mb-4">Novo bairro</h3>
                                 <button type="submit" class="btn btn-primary btn-sm ms-auto btn-cadastrar"><b>Cadastrar</b></button>
                             </div>
                         </div>
