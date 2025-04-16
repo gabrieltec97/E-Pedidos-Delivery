@@ -76,7 +76,7 @@ composer install
 ```
 5. Rode as migrations e seeders necessárias para dar a configuração inicial para o sistema executar corretamente.
 ```bash
-php artisan migrate --seed
+php (ou sail) artisan migrate --seed
 ```
 7. Inicie o servidor.
 ```bash
