@@ -86,11 +86,26 @@ php artisan serve
 
 ## 📸 Screenshots
 
-![Tela de login](assets/dashboard.png)
-dashboard
-gestao de pedidos
-itens cadastrados
-novo bairro
-acompanhamento de pedido (cliente)
+<h4>Dashboard com informativo de vendas sobre os meses. (Outras informações ao rolar a página no sistema)</h4>
 
+![Dashboard](assets/dashboard.png)
 
+<h4>Gestão de pedidos em tempo real.</h4>
+
+![TempoReal](assets/realtime.png)
+
+<h4>Gestão de Produtos</h4>
+
+![Produtos](assets/produtos.png)
+
+<h4>Cadastro de Bairro</h4>
+
+![Bairro](assets/produtos.png)
+
+<h4>Acompanhamento de Pedido (Visão do Cliente)</h4>
+
+![Cliente](assets/cliente-acompanhamento.png)
+
+<h4>Histórico de Pedidos (Visão do Cliente)</h4>
+
+![ClienteHistorico](assets/meus-pedidos.png)
