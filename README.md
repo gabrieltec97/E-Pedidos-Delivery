@@ -86,7 +86,7 @@ php artisan serve
 
 ## 📸 Screenshots
 
-<h4>Dashboard com informativo de vendas sobre os meses. (Outras informações ao rolar a página no sistema)</h4>
+<h4>Dashboard com informativo de vendas sobre os meses (Outras informações ao rolar a página no sistema).</h4>
 
 ![Dashboard](assets/dashboard.png)
 
@@ -94,18 +94,18 @@ php artisan serve
 
 ![TempoReal](assets/realtime.png)
 
-<h4>Gestão de Produtos</h4>
+<h4>Gestão de Produtos.</h4>
 
 ![Produtos](assets/produtos.png)
 
-<h4>Cadastro de Bairro</h4>
+<h4>Cadastro de Bairro.</h4>
 
 ![Bairro](assets/produtos.png)
 
-<h4>Acompanhamento de Pedido (Visão do Cliente)</h4>
+<h4>Acompanhamento de Pedido (Visão do Cliente).</h4>
 
 ![Cliente](assets/cliente-acompanhamento.png)
 
-<h4>Histórico de Pedidos (Visão do Cliente)</h4>
+<h4>Histórico de Pedidos (Visão do Cliente).</h4>
 
 ![ClienteHistorico](assets/meus-pedidos.png)
