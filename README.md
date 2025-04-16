@@ -7,11 +7,12 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## E-pedidos Delivery
+## 🛍️ E-pedidos Delivery
 Este projeto, criado sem fins comerciais, tem como principal objetivo colocar em prática minhas habilidades em diferentes cenários da programação, tanto no front-end quanto no back-end. Iniciei minha carreira em 2018, e desde então venho estudando e explorando continuamente comandos, bibliotecas e componentes que tornam meus projetos mais robustos, funcionais e visualmente atrativos. Ao longo dessa jornada, cada projeto e estudo me permitiu construir uma base sólida que me permite enfrentar e solucionar desafios técnicos com eficiência, sempre buscando as melhores práticas de desenvolvimento.
 
 ## 🚀 Tecnologias Utilizadas no projeto
 
+Front-end:
 - HTML
 - CSS
 - JavaScript
@@ -19,15 +20,17 @@ Este projeto, criado sem fins comerciais, tem como principal objetivo colocar em
 - Bootstrap
 - Ajax
 - Jquery Toast Plugin
+
+Back-end:
 - PHP
 - Laravel
 - MySql
-- ACL
+- ACL (Controle de Acesso)
 - Livewire
 - Laravel Charts
-- MailTrap
+- MailTrap (Simulação de envio de e-mails)
 
-## ✨ Funcionalidades do Sistema
+## ✨ Principais Funcionalidades
 
 - Login com autenticação
 - Recuperação de senha com envio de e-mail
@@ -61,12 +64,33 @@ Gerenciamento total (CRUD) de:
 
 ## 🛠️ Como rodar o projeto
 
-1. Tenha em sua máquina um ambiente que fala a emulação de um servidor, como Xampp ou Docker instalado e parametrizado.
-2. Clone o repositório.
-3. No arquivo .env
+1. Tenha em sua máquina um ambiente que faça a emulação de um servidor, como Xampp ou Docker instalado e parametrizado.
+2. Clone o repositório:
+```bash
+git clone git@github.com:gabrieltec97/portfolio-delivery.git
+```
+3. Copie o arquivo .env.example para .env e configure as variáveis do banco de dados e do servidor de e-mails (MailTrap ou seu servidor).
+4. Instale as dependências com o Composer:
+```bash
+composer install
+```
+5. Rode as migrations e seeders necessárias para dar a configuração inicial para o sistema executar corretamente.
+```bash
+php artisan migrate --seed
+```
+7. Inicie o servidor.
+```bash
+php artisan serve
+```
+8. Pronto! Agora é só acessar http://localhost:8000
 
 ## 📸 Screenshots
 
 ![Tela de login](./screenshots/login.png)
+dashboard
+gestao de pedidos
+itens cadastrados
+novo bairro
+acompanhamento de pedido (cliente)
 
 
