@@ -1236,9 +1236,9 @@
                     url: "{{ route('price.data') }}",
                     method: "GET",
                     success: function (response) {
-                        $("#lbl-totalValueFront").text('R$: ' + response.total);
+                        $("#lbl-totalValueFront").text('R$: ' + parseFloat(response.total.toFixed(2)));
                         $("#lbl-totalValue").text(response.total);
-                        $("#lbl-subtotal").text("R$: " + response.subtotal);
+                        $("#lbl-subtotal").text("R$: " + parseFloat(response.subtotal.toFixed(2)));
 
                         if(response.sendingValue != null){
                             if(response.sendingValue == 0){
@@ -1454,7 +1454,7 @@
                     method: "GET",
                     success: function (response) {
                         $("#lbl-totalValue").text(response.total);
-                        $("#lbl-totalValueFront").text("R$ " + response.total);
+                        $("#lbl-totalValueFront").text("R$ " + parseFloat(response.total.toFixed(2)));
                     },
                     error: function () {
                         console.error("Erro ao buscar valor total");
@@ -1653,7 +1653,7 @@
                         if(response.type == 'Frete grátis'){
                             let valor = parseFloat($("#lbl-totalValue").text()) - response.sendingValue;
 
-                            $("#lbl-totalValueFront").text("R$ " + valor);
+                            $("#lbl-totalValueFront").text("R$ " + parseFloat(valor.toFixed(2)));
                             $("#lbl-totalValue").text(valor);
                             $("#lbl-deliveryValue").text("Frete grátis");
                             $("#cadastrarCupom").fadeOut();
@@ -1664,7 +1664,7 @@
                         }else if(response.type == 'Porcentagem'){
                             let valor = parseFloat($("#lbl-totalValue").text()) - (parseFloat($("#lbl-totalValue").text()) / parseInt(response.discount));
 
-                            $("#lbl-totalValueFront").text("R$ " + valor);
+                            $("#lbl-totalValueFront").text("R$ " + parseFloat(valor.toFixed(2)));
                             $("#lbl-totalValue").text(valor);
                             $("#cadastrarCupom").fadeOut();
                             $("#removerCupom, .cupom").fadeIn();
@@ -1674,7 +1674,7 @@
                         }else if(response.type == 'Dinheiro'){
                             let valor = parseFloat($("#lbl-totalValue").text()) - parseInt(response.discount);
 
-                            $("#lbl-totalValueFront").text("R$ " + valor);
+                            $("#lbl-totalValueFront").text("R$ " + parseFloat(valor.toFixed(2)));
                             $("#lbl-totalValue").text(valor);
                             $("#cadastrarCupom").fadeOut();
                             $("#removerCupom, .cupom").fadeIn();
@@ -1730,9 +1730,9 @@
                     $("#coupon").removeAttr('disabled').css('cursor', 'inherit').val('');
                     $("#cadastrarCupom").fadeIn();
                     $("#removerCupom, .cupom").fadeOut();
-                    $("#lbl-totalValueFront").text("R$ " + response.value);
+                    $("#lbl-totalValueFront").text("R$ " + parseFloat(response.value.toFixed(2)));
                     $("#lbl-totalValue").text(response.value);
-                    $("#lbl-subtotal").text("R$ " + response.subtotal);
+                    $("#lbl-subtotal").text("R$ " + parseFloat(response.subtotal.toFixed(2)));
 
                     if(response.taxe == 0){
                         $("#lbl-deliveryValue").text("Frete grátis");

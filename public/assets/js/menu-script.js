@@ -139,7 +139,7 @@ $(document).ready(function (){
            let troco = $(this).val() - parseFloat($('#lbl-totalValue').text());
            $('.alerta-troco').fadeOut();
            $('.valor-troco').fadeIn();
-           $('.valor-troco').html(`<b>Você receberá R$: ${troco} de troco</b>`)
+           $('.valor-troco').html(`<b>Você receberá R$: ${parseFloat(troco.toFixed(2))} de troco</b>`)
        }
     });
 
