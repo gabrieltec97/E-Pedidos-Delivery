@@ -89,7 +89,7 @@
                                 <td>
                                     <div class="d-flex px-2 py-1">
                                         <div class="d-flex flex-column justify-content-center">
-                                            <h6 class="mb-0 text-sm" style="color: black; cursor: pointer;"
+                                            <h6 class="mb-0 text-sm text-black font-weight-bold" style="color: black; cursor: pointer;"
                                                 data-bs-toggle="modal" data-bs-target="#pedido${order.id}">
                                                 ${order.client}
                                             </h6>
