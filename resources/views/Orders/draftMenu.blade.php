@@ -697,7 +697,7 @@
                 <a class="btn btn-yellow float-right" id="btnOrderStep">Continuar</a>
                 <a class="btn btn-yellow float-right" id="btnAddressStep">Continuar</a>
                 <a class="btn btn-yellow float-right" id="btnCheck">Revisar pedido</a>
-                <a class="btn btn-yellow float-right" id="btnResumeStep">Enviar pedido</a>
+                <a href="{{ route('novo-pedido') }}" class="btn btn-yellow float-right" id="btnResumeStep">Enviar pedido</a>
                 <a class="btn btn-white float-right mr-3" id="btnBack">Voltar</a>
                 <a class="btn btn-white float-right mr-3" id="btnSecondBack">Voltar</a>
                 <a class="btn btn-white float-right mr-3" id="btnLastBack">Voltar</a>
@@ -705,7 +705,7 @@
         </div>
     </div>
 
-    <form id="confirmarPedido" action="{{ route('pedidos.store') }}" method="post">@csrf</form>
+{{--    <form id="confirmarPedido" action="{{ route('novo-pedido') }}">@csrf</form>--}}
     <script type="text/javascript" src="{{ asset('assets/js/jquery-1.12.4.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/js/modernizr-3.5.0.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
@@ -1866,9 +1866,9 @@
         }
     });
 
-    $("#btnResumeStep").on('click', function (){
-        $("#confirmarPedido").submit();
-    });
+    // $("#btnResumeStep").on('click', function (){
+    //     $("#confirmarPedido").submit();
+    // });
 });
     </script>
 </body>

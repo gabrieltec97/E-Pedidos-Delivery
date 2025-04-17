@@ -28,7 +28,7 @@ Route::get('log', function (){
 //Rotas de login no sistema.
 Route::get('/gerent', [LoginController::class, 'show'])->name('login');
 Route::post('/login-do', [LoginController::class, 'login'])->middleware('guest')->name('login.perform');
-//Route::get('/', [TrayController::class, 'index'])->name('cardapio-principal');
+Route::get('/', [TrayController::class, 'index'])->name('cardapio-principal');
 
 //Rotas de administração do sistema
 Route::group(['middleware' => 'auth'], function () {
@@ -74,6 +74,7 @@ Route::get('/verificar-nome-cupom', [CouponController::class, 'checkCouponName']
 Route::get('revisar-pedido', [OrderController::class, 'review'])->name('review');
 Route::post('/gerenciar-delivery', [OrderController::class, 'deliveryManagement'])->name('deliveryManagement');
 Route::get('/verificar-delivery', [OrderController::class, 'verificarDelivery'])->name('verificarDelivery');
+Route::get('/novo-pedido', [OrderController::class, 'storeOrder'])->name('novo-pedido');
 Route::get('/verificar-nome-produto', [ProductController::class, 'checkProductName'])->name('verificarNomeProduto');
 Route::get('/verificar-bairro', [NeighbourhoodController::class, 'checkNeighbourhood'])->name('verificar-bairro');
 Route::get('/verificar-usuario', [UserController::class, 'checkUser'])->name('verificar-usuario');

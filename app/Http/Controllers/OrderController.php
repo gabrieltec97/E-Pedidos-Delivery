@@ -206,7 +206,7 @@ class OrderController extends Controller
        }
     }
 
-    public function store(Request $userID)
+    public function storeOrder(Request $userID)
     {
         $status = DB::table('delivery_status')
             ->select('status')
@@ -385,7 +385,7 @@ class OrderController extends Controller
 
             //Limpando bandeja.
             DB::table('trays')->where('user_id', $user)->delete();
-            return redirect()->route('cardapio.index')->with('new-order', '.');
+            return redirect()->route('cardapio-principal')->with('new-order', '.');
         }
     }
     public function updateStatus(Request $request, string $id)
