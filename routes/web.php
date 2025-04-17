@@ -28,17 +28,7 @@ Route::get('log', function (){
 
 
 Route::get('cad', function (){
-    $user = new User();
 
-    $user->firstname = 'Admin';
-    $user->surname = 'E-Pedidos';
-    $user->email = 'ad@t.com';
-    $user->user_type = 'Administrador';
-    $user->password = '123';
-    $user->contact = '(11) 1234-56789';
-    $user->save();
-
-    $user->assignRole('Administrador');
 });
 
 //Rotas de login no sistema.
