@@ -200,7 +200,7 @@
                                     @csrf
                                     <div class="card card-item" data-toggle="modal" data-target=".modalItem{{ $burguer->id }}">
                                         <div class="product-img">
-                                            <img src="{{ asset('storage/uploads/' . $burguer->picture) }}" class="product-image" alt="Imagem">
+                                            <img src="{{ asset('products/' . $burguer->picture) }}"  class="product-image" alt="Imagem">
                                         </div>
                                         <p class="product-title text-center mt-4">
                                             <b>{{ $burguer->name }}</b>
@@ -233,7 +233,7 @@
                                                     <div class="container-fluid">
                                                         <div class="row">
                                                             <div class="col-lg-6 col-md-12 col-sm-12 d-flex justify-content-center">
-                                                                <img src="{{ asset('storage/uploads/' . $burguer->picture) }}" class="modal-image" alt="Imagem">
+                                                                <img src="{{ asset('products/' . $burguer->picture) }}" class="modal-image" alt="Imagem">
                                                             </div>
 
                                                             <div class="col-12 col-lg-6 col-md-12 col-sm-12 bg-description">
@@ -298,7 +298,7 @@
                                     @csrf
                                     <div class="card card-item" data-toggle="modal" data-target=".drinkItem{{ $drink->id }}">
                                         <div class="product-img">
-                                            <img src="{{ asset('storage/uploads/' . $drink->picture) }}" class="product-image" alt="Imagem">
+                                            <img src="{{ asset('products/' . $drink->picture) }}" class="product-image" alt="Imagem">
                                         </div>
                                         <p class="product-title text-center mt-4">
                                             <b>{{ $drink->name }}</b>
@@ -331,7 +331,7 @@
                                                     <div class="container-fluid">
                                                         <div class="row">
                                                             <div class="col-lg-6 col-md-12 col-sm-12 d-flex justify-content-center">
-                                                                <img src="{{ asset('storage/uploads/' . $drink->picture) }}" class="modal-image" alt="Imagem">
+                                                                <img src="{{ asset('products/' . $drink->picture) }}" class="modal-image" alt="Imagem">
                                                             </div>
 
                                                             <div class="col-12 col-lg-6 col-md-12 col-sm-12 bg-description">
@@ -395,7 +395,7 @@
                                     @csrf
                                     <div class="card card-item">
                                         <div class="product-img">
-                                            <img src="{{ asset('storage/uploads/' . $dessert->picture) }}" class="product-image" alt="Imagem">
+                                            <img src="{{ asset('products/' . $dessert->picture) }}" class="product-image" alt="Imagem">
                                         </div>
                                         <p class="product-title text-center mt-4">
                                             <b>{{ $dessert->name }}</b>
@@ -771,7 +771,7 @@
                                    <div class="col-12 col-lg-3 col-md-12 col-sm-12 mt-4">
                                     <div class="col-12 order-items">
                                         <div class="img-product">
-                                            <img style="width: 50px; height: 50px; border-radius: 10px" src="{{ asset('storage/uploads/' . $item->product_img) }}" />
+                                            <img style="width: 50px; height: 50px; border-radius: 10px" src="{{ asset('products/' . $item->product_img) }}" />
                                         </div>
                                         <div>
                                             <p class="resume-product-title">
@@ -1269,6 +1269,8 @@
             }
 
             function atualizarBandeja() {
+                const baseImageUrl = "{{ asset('products') }}";
+
                 $.ajax({
                     url: '{{ route('tray.data') }}',
                     method: 'GET',
@@ -1280,7 +1282,7 @@
                             var produtoHTML = `
                 <div class="col-12 tray-item" data-id="${item.id}">
                     <div class="img-product">
-                        <img src="http://localhost/storage/uploads/${item.picture}" class="product-img" alt="Imagem">
+                        <img src="${baseImageUrl}/${item.picture}" class="product-img" alt="Imagem">
                     </div>
 
                     <div class="product-data">
@@ -1472,6 +1474,7 @@
                 url: '{{ route('tray.data') }}',
                 method: 'GET',
                 success: function(response) {
+                    const baseImageUrl = "{{ asset('products') }}";
                     if (response.length > 0) {
                         $('#resumeItemsList').empty();
 
@@ -1483,7 +1486,7 @@
                             var produtoHTML = `
                     <div class="col-12 tray-item">
                         <div class="img-product">
-                            <img src="http://localhost/storage/uploads/${tray.picture}" class="product-img" alt="Imagem">
+                            <img src="${baseImageUrl}/${tray.picture}" class="product-img" alt="Imagem">
                         </div>
 
                         <div class="product-data">
