@@ -8,6 +8,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\TrayController;
 use App\Http\Controllers\UserController;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Route;
@@ -23,6 +24,21 @@ use Illuminate\Support\Str;
 
 Route::get('log', function (){
     Auth::loginUsingId(5);
+});
+
+
+Route::get('cad', function (){
+    $user = new User();
+
+    $user->firstname = 'Admin';
+    $user->surname = 'E-Pedidos';
+    $user->email = 'ad@t.com';
+    $user->user_type = 'Administrador';
+    $user->password = '123';
+    $user->contact = '(11) 1234-56789';
+    $user->save();
+
+    $user->assignRole('Administrador');
 });
 
 //Rotas de login no sistema.
