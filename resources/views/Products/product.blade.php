@@ -31,7 +31,7 @@
                         </div>
                         <div class="card-body">
                             <div class="col-12">
-                                <img src="{{ asset('storage/uploads/' . $product->picture) }}" class="product-image" alt="Imagem">
+                                <img src="{{ asset('products/' . $product->picture) }}" class="product-image" alt="Imagem">
                             </div>
                             <p class="text-sm">Edite os dados cadastrais deste produto</p>
                             <div class="row">

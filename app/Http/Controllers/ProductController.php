@@ -98,10 +98,11 @@ class ProductController extends Controller
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
-            $image->storeAs('public/uploads', $imageName);
+            $image->move(public_path('products'), $imageName);
 
             $product->picture = $imageName;
         }
+
 
         $product->save();
 
@@ -181,13 +182,9 @@ class ProductController extends Controller
 
         // Verifica se um arquivo foi enviado
         if ($request->hasFile('image')) {
-            $request->validate([
-                'image' => 'required|image|mimes:jpeg,png,jpg|max:2048'
-            ]);
-
             $image = $request->file('image');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
-            $image->storeAs('public/uploads', $imageName);
+            $image->move(public_path('products'), $imageName);
 
             $product->picture = $imageName;
         }
@@ -202,7 +199,8 @@ class ProductController extends Controller
         $product->delete();
 
         if ($product->picture) {
-            Storage::delete('public/uploads/' . $product->picture);
+            $imagePath = public_path('products/' . $product->picture);
+            unlink($imagePath);
         }
         return redirect()->route('produtos.index')->with('msg-removed', '.');
     }
