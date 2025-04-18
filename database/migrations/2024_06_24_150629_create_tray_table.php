@@ -14,13 +14,14 @@ return new class extends Migration
         Schema::create('trays', function (Blueprint $table) {
             $table->id();
             $table->string('user_id');
-            $table->string('name');
+            $table->string('name')->nullable();
             $table->string('product');
             $table->string('product_id');
             $table->string('value');
+            $table->string('picture')->nullable();
             $table->string('ammount');
-            $table->string('additionals');
-            $table->string('coupon_apply');
+            $table->string('additionals')->nullable();
+            $table->string('coupon_apply')->nullable();
             $table->string('cep')->nullable();
             $table->string('address')->nullable();
             $table->string('neighbourhood')->nullable();
