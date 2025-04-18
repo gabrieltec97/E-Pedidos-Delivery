@@ -15,8 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('type');
-            $table->string('discount');
-            $table->string('products');
+            $table->string('discount')->nullable();
             $table->string('limit');
             $table->string('role');
             $table->boolean('status');
