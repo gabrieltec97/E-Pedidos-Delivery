@@ -23,11 +23,11 @@ return new class extends Migration
             $table->string('userAdress');
             $table->string('neighborhood');
             $table->string('city');
-            $table->string('complement');
+            $table->string('complement')->nullable();
             $table->string('contact');
             $table->string('paymentMode');
-            $table->string('change');
-            $table->string('delivery_man');
+            $table->string('change')->nullable();
+            $table->string('delivery_man')->nullable();
             $table->timestamps();
 
 //            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
