@@ -724,6 +724,7 @@
    <div class="modal fade bd-example-modal-lg" id="modalLive" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
        <div class="modal-dialog modal-lg">
            <div class="modal-content">
+               @if(isset($liveOrder[0]))
                <div class="modal-header">
                    <h5 class="modal-title font-weight-bold" id="exampleModalLongTitle">Acompanhe o pedido #{{ $myOrder[0]->id }}!</h5>
                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -732,7 +733,6 @@
                </div>
                <div class="modal-body">
                    <div class="container-fluid">
-                       @if($liveOrder == 1)
                            <div class="row">
                                <div class="col-12">
                                    <div class="steps d-flex justify-content-center">
