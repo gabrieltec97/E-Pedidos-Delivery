@@ -11,7 +11,7 @@
 :root{
     --color-background: #fffdf7;
     --color-black: #212121;
-    --color-black-heavy: #000;
+    --color-black-heavy: #000000;
     --color-text: #4f4f4f;
     --color-text-out: #90908e;
     --color-primary: #ffbf00;
@@ -837,6 +837,19 @@ footer{
 
 .no-orders-text, .historic-header {
     color: var(--color-black-heavy);
+}
+
+#lbl-time , #lbl-subtotal, #lbl-sb, .lbl-details, .details-order{
+    color: var(--color-black-heavy) !important;
+}
+
+.order-time {
+    color: var(--color-black-heavy) !important;
+    margin-top: -15px;
+}
+
+.order-info {
+    margin-bottom: -20px;
 }
 
 

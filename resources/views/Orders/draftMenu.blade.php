@@ -673,7 +673,7 @@
             <div class="container">
                 <div class="container-total text-right mb-4">
                     <p class="mb-0">
-                        <span>Subtotal: </span>
+                        <span id="lbl-sb">Subtotal: </span>
                         <span id="lbl-subtotal"></span>
                     </p>
 
@@ -683,8 +683,12 @@
                     </p>
 
                     <p class="mb-0 delivery-text text-success">
+                        <span id="lbl-time"></span>
+                        <br>
                         <span><i class="fas fa-motorcycle"></i> Entrega: </span>
                         <span id="lbl-deliveryValue">+ R$ 5,00</span>
+
+
                     </p>
 
                     <p class="mb-0 total-text">
@@ -721,7 +725,7 @@
        <div class="modal-dialog modal-lg">
            <div class="modal-content">
                <div class="modal-header">
-                   <h5 class="modal-title" id="exampleModalLongTitle">Acompanhe seu pedido!</h5>
+                   <h5 class="modal-title font-weight-bold" id="exampleModalLongTitle">Acompanhe o pedido #{{ $myOrder[0]->id }}!</h5>
                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                        <span aria-hidden="true">&times;</span>
                    </button>
@@ -763,7 +767,7 @@
                            <div class="row">
                                <div class="col-12 mt-3">
                                    <div class="product-data">
-                                       <h4 class="resume-product-title">Veja os itens do seu pedido:</h4>
+                                       <h5 class="lbl-details">Veja os detalhes do seu pedido:</h5>
                                    </div>
                                </div>
                                @foreach($items as $item)
@@ -788,21 +792,21 @@
                                @endforeach
 
                                @if($myOrder != '')
-                                   <hr>
                                    <div class="col-12 mt-5 live-delivery">
                                        <div class="img-map">
                                            <i class="fas fa-map-marked-alt"></i>
                                        </div>
 
                                        <div class="live-product-data">
-                                           <p class="resume-order-title">
-                                               <b>Pedido #{{ $myOrder[0]->id }}</b>
-                                           </p>
                                            <p class="live-address-text">
                                                <b id="live-addressResume">{{ $myOrder[0]->userAdress }} - {{ $myOrder[0]->user_name }}</b>
                                            </p>
                                            <p class="live-cityAddress" id="live-cityAddress"><b class="text-success">R$: </b> <span class="text-success">{{ $myOrder[0]->value }}</span> - {{ $myOrder[0]->paymentMode }}</p>
                                        </div>
+                                   </div>
+
+                                   <div class="col-12 mt-5 d-flex justify-content-lg-center order-info">
+                                       <p class="details-order">{{ $myOrder[0]->created_at }} - {{ $time }}</p>
                                    </div>
                                @endif
                            </div>
@@ -1244,9 +1248,11 @@
                             if(response.sendingValue == 0){
                                 $(".delivery-text").fadeIn();
                                 $("#lbl-deliveryValue").text("Frete grátis");
+                                $("#lbl-time").html('<i class="fa fa-clock mr-1"></i>' + response.time);
                             }else{
                               $(".delivery-text").fadeIn();
                               $("#lbl-deliveryValue").text("+ R$: " + response.sendingValue);
+                              $("#lbl-time").html('<i class="fa fa-clock mr-1"></i>' + response.time);
                             }
 
                         }
@@ -1599,8 +1605,10 @@
                         $(".delivery-text").fadeIn();
                         if(response.taxe == 0 || response.discount == 'Frete grátis'){
                             $("#lbl-deliveryValue").text("Frete grátis");
+                            $("#lbl-time").html('<i class="fa fa-clock mr-1"></i>' + response.time);
                         }else{
                             $("#lbl-deliveryValue").text("+ R$ " + response.taxe);
+                            $("#lbl-time").html('<i class="fa fa-clock mr-1"></i>' + response.time);
                         }
 
                         cadastrarEndereço();

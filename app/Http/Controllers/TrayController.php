@@ -118,6 +118,7 @@ class TrayController extends Controller
         $count = count($liveOrder);
         $items = '';
         $myOrder = '';
+        $time = '';
 
         $orderItems = [];
         if (isset($liveOrder[0])){
@@ -126,6 +127,12 @@ class TrayController extends Controller
                    ->where('user_id', $user)
                    ->where('order_id', $order->id)
                    ->get();
+
+               $time = DB::table('neighbourhoods')
+                   ->select('time')
+                   ->where('name', $liveOrder[0]->neighborhood)->get();
+
+               $time = $time[0]->time;
 
                foreach ($items as $item) {
                    array_push($orderItems, $item); // Adiciona o objeto $item ao array
@@ -155,6 +162,7 @@ class TrayController extends Controller
             'orderItems' => $orderItems,
             'historic' => $historic,
             'historicItems' => $historicItems,
+            'time' => $time,
             'user' => $user
         ]);
     }
@@ -260,7 +268,7 @@ class TrayController extends Controller
         foreach ($values as $one){
             if ($one->neighbourhood != null){
                 $neighbourhood = DB::table('neighbourhoods')
-                    ->select('taxe', 'name')
+                    ->select('taxe', 'name', 'time')
                     ->where('name', $one->neighbourhood)
                     ->get();
 
@@ -307,9 +315,14 @@ class TrayController extends Controller
         $total += $additionalsValue;
         $subtotal += $additionalsValue;
 
+        $time = false;
+        if (isset($neighbourhood[0]->time)){
+            $time = $neighbourhood[0]->time;
+        }
+
         return response()->json(['total' => $total, 'subtotal' => $subtotal,
             'discount' => $discount, 'sendingValue' => $sendingValue,
-            'usedCoupon' => $usedCoupon]);
+            'usedCoupon' => $usedCoupon, 'time' => $time]);
     }
 
     public function taxeCalculator(Request $request)
@@ -356,9 +369,11 @@ class TrayController extends Controller
 
         //Cálculo de taxa.
         $taxe = 'no';
+        $time = false;
         foreach ($neighborhoods as $neighborhood){
             if ($neighborhood->name == $local){
                 $taxe = $neighborhood->taxe;
+                $time = $neighborhood->time;
             }
         }
 
@@ -375,7 +390,7 @@ class TrayController extends Controller
             $taxe = 'no';
         }
 
-        return response()->json(['taxe' => $taxe, 'discount' => $discount]);
+        return response()->json(['taxe' => $taxe, 'discount' => $discount, 'time' => $time]);
     }
 
     public function refreshTray(Request $userID){
