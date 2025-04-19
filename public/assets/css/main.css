@@ -849,9 +849,13 @@ footer{
 }
 
 .order-info {
+    margin-top: 30px !important;
     margin-bottom: -20px;
 }
 
+.lg-only {
+    margin-top: -20px;
+}
 /*.modal-item{*/
 /*    background-color: var(--color-primary);*/
 /*}*/

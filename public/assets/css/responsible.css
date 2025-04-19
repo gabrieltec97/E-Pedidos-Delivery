@@ -1,5 +1,11 @@
 @media (min-width: 992px){
+    .mb-only{
+        display: none;
+    }
 
+    .order-info {
+        display: block;
+    }
 }
 
 
@@ -13,8 +19,12 @@
 
 @media (max-width: 767px){
 
-    .no-mobile{
+    .no-mobile, .order-info{
         display: none;
+    }
+
+    .mb-only {
+        display: block;
     }
 
     .col-one{

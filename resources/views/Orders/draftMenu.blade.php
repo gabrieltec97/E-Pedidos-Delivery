@@ -724,15 +724,16 @@
    <div class="modal fade bd-example-modal-lg" id="modalLive" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
        <div class="modal-dialog modal-lg">
            <div class="modal-content">
-               @if(isset($liveOrder[0]))
+
                <div class="modal-header">
-                   <h5 class="modal-title font-weight-bold" id="exampleModalLongTitle">Acompanhe o pedido #{{ $myOrder[0]->id }}!</h5>
+                   <h5 class="modal-title font-weight-bold" id="exampleModalLongTitle">Acompanhe seu pedido!</h5>
                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                        <span aria-hidden="true">&times;</span>
                    </button>
                </div>
                <div class="modal-body">
                    <div class="container-fluid">
+                       @if($liveOrder == 1)
                            <div class="row">
                                <div class="col-12">
                                    <div class="steps d-flex justify-content-center">
@@ -805,8 +806,16 @@
                                        </div>
                                    </div>
 
-                                   <div class="col-12 mt-5 d-flex justify-content-lg-center order-info">
-                                       <p class="details-order">{{ $myOrder[0]->created_at }} - {{ $time }}</p>
+                                   <div class="col-12 mt-5 order-info">
+                                       <p class="details-order"><i class="fa fa-check-circle mr-2 text-success"></i>Pedido n°{{ $myOrder[0]->id }} - <i class="fa fa-calendar-week text-primary mx-1"></i> {{ $myOrder[0]->created_at }} - <i class="fa fa-clock mx-1 text-warning"></i> {{ $time }}</p>
+                                   </div>
+
+                                   <div class="mb-only">
+                                       <div class="col-12 mt-5 d-flex justify-content-lg-center order-info">
+                                           <p class="details-order"><i class="fa fa-check-circle mr-2 text-success"></i>Pedido n°{{ $myOrder[0]->id }}</p>
+                                       </div>
+                                       <div class="col-12 mt-3"><p><i class="fa fa-calendar-week text-primary mx-1"></i> {{ $myOrder[0]->created_at }}</p></div>
+                                       <div class="col-12"><p><i class="fa fa-clock mx-1 text-warning"></i> {{ $time }}</p></div>
                                    </div>
                                @endif
                            </div>
