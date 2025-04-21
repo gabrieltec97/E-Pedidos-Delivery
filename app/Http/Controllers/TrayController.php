@@ -148,7 +148,7 @@ class TrayController extends Controller
             ->where('user_id', $user)
             ->get();
 
-        return view('Orders.draftMenu', [
+        return view('Orders.Menu', [
             'burguers' => $burguers,
             'drinks' => $drinks,
             'desserts' => $desserts,
