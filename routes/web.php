@@ -26,11 +26,6 @@ Route::get('log', function (){
     Auth::loginUsingId(5);
 });
 
-
-Route::get('cad', function (){
-
-});
-
 //Rotas de login no sistema.
 Route::get('/gerent', [LoginController::class, 'show'])->name('login');
 Route::post('/login-do', [LoginController::class, 'login'])->middleware('guest')->name('login.perform');

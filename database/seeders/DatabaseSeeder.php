@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call(UserSeeder::class);
+        $this->call(DeliverySeeder::class);
 
 //        $administrador = Role::create(['name' => 'Administrador']);
 //        $operador = Role::create(['name' => 'Operador']);
