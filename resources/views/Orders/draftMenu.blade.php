@@ -575,50 +575,50 @@
                         </div>
                     </div>
                 </form>
+                    
 
-                <div id="paymentStep" hidden>
-
-                    <form id="formCoupon" method="post">
-                        @csrf
-                        <div class="row">
+                    <div id="paymentStep" hidden>
+                        <form id="formPayment" method="post">
+                            <div class="row">
+                                <div class="col-12 col-lg-6 col-md-6 col-sm-12 valor-entregue mt-sm-0">
+                                    <div class="form-group">
+                                        <label for="valorPagamento"><b>Precisa de Troco?</b></label>
+                                        <input type="text" id="valorPagamento" name="change" placeholder="O valor que você irá entregar" value="{{ $tray[0]->change ?? '' }}"  class="form-control mb-2">
+                                        <span class="text-danger alerta-troco"><b>O valor entregue não pode ser menor que o valor total do pedido!</b></span>
+                                        <span class="text-success valor-troco"><b></b></span>
+                                    </div>
+                                </div>
+                            @csrf
                             <div class="col-12 col-lg-6 col-md-6 col-sm-12">
-                                <label for="coupon"><b>Cupom:</b></label>
-                                <input type="text" id="coupon" name="coupon" value="{{ $tray[0]->coupon_apply ?? '' }}" class="form-control mb-2" {{ isset($tray[0]->coupon_apply) ? 'disabled' : '' }} oninput="this.value = this.value.toUpperCase().replace(/\s+/g, '');" style="{{ isset($tray[0]->coupon_apply) ? 'cursor: not-allowed;' : '' }}">
+                                <div class="form-group">
+                                    <label for="pagamento"><b>Forma de pagamento:</b></label>
+                                    <select name="paymentMode" id="pagamento" class="form-control">
+                                        <option disabled selected>Selecione</option>
+                                        <option value="Dinheiro" @selected(isset($tray[0]) && $tray[0]->paymentMode == 'Dinheiro')>Dinheiro</option>
+                                        <option value="Mastercard - crédito" @selected(isset($tray[0]) && $tray[0]->paymentMode == 'Mastercard - crédito')>Mastercard - crédito</option>
+                                        <option value="Mastercard - débito" @selected(isset($tray[0]) && $tray[0]->paymentMode == 'Mastercard - débito')>Mastercard - débito</option>
+                                        <option value="Elo - crédito" @selected(isset($tray[0]) && $tray[0]->paymentMode == 'Elo - crédito')>Elo - crédito</option>
+                                        <option value="Elo - débito" @selected(isset($tray[0]) && $tray[0]->paymentMode == 'Elo - débito')>Elo - débito</option>
+                                    </select>
+    
+                                </div>
                             </div>
-                    </form>
-                    <div class="col-12 col-lg-6 col-md-6 col-sm-12">
-                        <a class="btn btn-yellow mt-5 text-white" style="{{ isset($tray[0]->coupon_apply) ? 'display: none;' : '' }}" id="cadastrarCupom">Adicionar cupom</a>
-                        <a class="btn btn-danger mt-5 text-white" id="removerCupom" title="Remover cupom" style="{{ !isset($tray[0]->coupon_apply) ? 'display: none;' : '' }}"><i class="fas fa-trash"></i></a>
+                            </div>
+                        </form>
+
+                        <form id="formCoupon" method="post">
+                            @csrf
+                            <div class="row">
+                                <div class="col-12 col-lg-6 col-md-6 col-sm-12 mt-2">
+                                    <label for="coupon"><b>Cupom:</b></label>
+                                    <input type="text" id="coupon" name="coupon" value="{{ $tray[0]->coupon_apply ?? '' }}" class="form-control mb-2" {{ isset($tray[0]->coupon_apply) ? 'disabled' : '' }} oninput="this.value = this.value.toUpperCase().replace(/\s+/g, '');" style="{{ isset($tray[0]->coupon_apply) ? 'cursor: not-allowed;' : '' }}">
+                                </div>
+                        </form>
+                        <div class="col-12 col-lg-6 col-md-6 col-sm-12">
+                            <a class="btn btn-yellow mt-5 text-white" style="{{ isset($tray[0]->coupon_apply) ? 'display: none;' : '' }}" id="cadastrarCupom">Adicionar cupom</a>
+                            <a class="btn btn-danger mt-5 text-white" id="removerCupom" title="Remover cupom" style="{{ !isset($tray[0]->coupon_apply) ? 'display: none;' : '' }}"><i class="fas fa-trash"></i></a>
+                        </div>
                     </div>
-                </div>
-                    <form id="formPayment" method="post">
-                        <div class="row">
-                        @csrf
-                        <div class="col-12 col-lg-6 col-md-6 col-sm-12 mt-5">
-                            <div class="form-group">
-                                <label for="pagamento"><b>Forma de pagamento:</b></label>
-                                <select name="paymentMode" id="pagamento" class="form-control">
-                                    <option disabled selected>Selecione</option>
-                                    <option value="Dinheiro" @selected(isset($tray[0]) && $tray[0]->paymentMode == 'Dinheiro')>Dinheiro</option>
-                                    <option value="Mastercard - crédito" @selected(isset($tray[0]) && $tray[0]->paymentMode == 'Mastercard - crédito')>Mastercard - crédito</option>
-                                    <option value="Mastercard - débito" @selected(isset($tray[0]) && $tray[0]->paymentMode == 'Mastercard - débito')>Mastercard - débito</option>
-                                    <option value="Elo - crédito" @selected(isset($tray[0]) && $tray[0]->paymentMode == 'Elo - crédito')>Elo - crédito</option>
-                                    <option value="Elo - débito" @selected(isset($tray[0]) && $tray[0]->paymentMode == 'Elo - débito')>Elo - débito</option>
-                                </select>
-
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-lg-6 col-md-6 col-sm-12 valor-entregue mt-lg-5 mt-sm-0">
-                            <div class="form-group">
-                                <label for="valorPagamento"><b>Quanto você irá entregar:</b></label>
-                                <input type="text" id="valorPagamento" name="change" value="{{ $tray[0]->change ?? '' }}"  class="form-control mb-2">
-                                <span class="text-danger alerta-troco"><b>O valor entregue não pode ser menor que o valor total do pedido!</b></span>
-                                <span class="text-success valor-troco"><b></b></span>
-                            </div>
-                        </div>
-                        </div>
-                    </form>
                 </div>
 
                 <div id="trayResume" hidden class="row mx-0" >
