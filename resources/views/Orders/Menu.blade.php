@@ -34,6 +34,12 @@
                    </a>
                </div>
            @endif
+
+           <div class="col-6">
+            <a id="btn-useHelp" style="display: none;">
+                <i class="fa fa-arrow-down"></i>
+            </a>
+        </div>
        </div>
    </div>
     <section class="header">
@@ -50,7 +56,7 @@
                 <div class="collapse navbar-collapse" id="navbarNavDropdown">
                     <ul class="navbar navbar-nav ml-auto mr-auto">
                         <li class="nav-item">
-                            <a href="#reservas" class="nav-link"><b>Reservas</b></a>
+                            <a href="#reservas" class="nav-link btn-reserve"><b>Reservas</b></a>
                         </li>
                         <li class="nav-item">
                             <a href="#serviços" class="nav-link"><b>Serviços</b></a>
@@ -575,7 +581,7 @@
                         </div>
                     </div>
                 </form>
-                    
+
 
                     <div id="paymentStep" hidden>
                         <form id="formPayment" method="post">
@@ -600,7 +606,7 @@
                                         <option value="Elo - crédito" @selected(isset($tray[0]) && $tray[0]->paymentMode == 'Elo - crédito')>Elo - crédito</option>
                                         <option value="Elo - débito" @selected(isset($tray[0]) && $tray[0]->paymentMode == 'Elo - débito')>Elo - débito</option>
                                     </select>
-    
+
                                 </div>
                             </div>
                             </div>
@@ -1107,7 +1113,7 @@
             setInterval(vibrarBandeja, 1700);
 
              function fecharBandeja(){
-                 $('.modal-full, .tray-container, #trayResume, #deliveryPlace, #paymentStep, #btnBack, #btnLastBack, #btnAddressStep, #btnResumeStep, ' +
+                 $('.modal-full, .tray-container, #trayResume, #deliveryPlace, #paymentStep, #btnBack, #btnLastBack, #btnAddressStep, #btnResumeStep, #btn-useHelp, ' +
                      '#btnSecondBack, #btnCheck, .alerta-troco, .valor-troco').fadeOut();
                  $('.step2, .step3, .step4').removeClass('active')
                  $('.tray-container').html('');
@@ -1147,7 +1153,7 @@
                             $('#btnOrderStep').fadeOut();
                             $('#trayItems').fadeOut();
                             $('#deliveryPlace').removeAttr('hidden');
-                            $('#btnAddressStep, #deliveryPlace').fadeIn();
+                            $('#btnAddressStep, #deliveryPlace, #btn-useHelp').fadeIn();
                             $('#btnBack').fadeIn(2700);
                             $('.step1').removeClass('active');
                             $('.step2').addClass('active');
@@ -1605,7 +1611,7 @@
                         toastTrigger(message);
                     }else{
                         $('#deliveryPlace').fadeOut();
-                        $('#btnBack, #btnAddressStep').fadeOut();
+                        $('#btnBack, #btnAddressStep, #btn-useHelp').fadeOut();
                         $('#paymentStep').removeAttr('hidden');
                         $('.step2').removeClass('active');
                         $('.step3').addClass('active');

@@ -1,6 +1,6 @@
 @media (min-width: 992px){
-    .mb-only{
-        display: none;
+    .mb-only, #btn-useHelp{
+        display: none !important;
     }
 
     .order-info {
@@ -20,7 +20,7 @@
 @media (max-width: 767px){
 
     .no-mobile, .order-info{
-        display: none;
+        display: none !important;
     }
 
     .mb-only {

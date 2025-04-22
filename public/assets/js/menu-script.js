@@ -17,7 +17,7 @@ $(document).ready(function (){
 
     $('#btnSecondBack').on('click', function (){
         $('#deliveryPlace').fadeIn();
-        $('#btnBack, #btnAddressStep').fadeIn();
+        $('#btnBack, #btnAddressStep, #btn-useHelp').fadeIn();
         $('#paymentStep').fadeOut();
         $('.step3').removeClass('active');
         $('.step2').addClass('active');
