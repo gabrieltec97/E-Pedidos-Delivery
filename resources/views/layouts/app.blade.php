@@ -95,4 +95,12 @@
     @livewireScripts
 </body>
 
+<script>
+    // Impede que o clique em um link do menu feche o menu pai
+    document.querySelectorAll('.nav-link[data-bs-toggle="collapse"]').forEach(item => {
+        item.addEventListener('click', function (e) {
+            e.stopPropagation();
+        });
+    });
+</script>
 </html>
