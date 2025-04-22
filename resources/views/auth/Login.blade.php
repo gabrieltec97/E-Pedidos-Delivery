@@ -84,7 +84,7 @@
                         Recuperação de senha:
                     </span>
                     <div class="wrap-input100 validate-input mt-3" data-validate = "Valid email is required: ex@abc.xyz">
-                        <input class="input100 myEmail w-100" type="email" name="email" placeholder="Email">
+                        <input class="input100 myEmail" type="email" name="email" placeholder="Email">
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
                                 <i class="fa fa-envelope" aria-hidden="true"></i>

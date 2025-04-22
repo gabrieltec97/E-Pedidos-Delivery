@@ -417,9 +417,10 @@ footer{
 }
 
 .m-body {
-    flex: 1;
-    overflow: auto;
-    overflow-x: hidden;
+    /*flex: 1;*/
+    /*overflow: auto;*/
+    /*overflow-x: hidden;*/
+    margin-bottom: 10px;
 }
 
 /*Caso queira retirar a barra de rolagem.*/
@@ -535,7 +536,7 @@ footer{
 }
 
 .container-total {
-    padding-top: 20px;
+    padding-top: -100px;
     border-top: 1px solid var(--color-separate);
 }
 

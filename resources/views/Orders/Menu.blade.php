@@ -34,11 +34,6 @@
                    </a>
                </div>
            @endif
-
-           <div class="col-6">
-            <a id="btn-useHelp" style="display: none;">
-                <i class="fa fa-arrow-down"></i>
-            </a>
         </div>
        </div>
    </div>
@@ -620,8 +615,8 @@
                                     <input type="text" id="coupon" name="coupon" value="{{ $tray[0]->coupon_apply ?? '' }}" class="form-control mb-2" {{ isset($tray[0]->coupon_apply) ? 'disabled' : '' }} oninput="this.value = this.value.toUpperCase().replace(/\s+/g, '');" style="{{ isset($tray[0]->coupon_apply) ? 'cursor: not-allowed;' : '' }}">
                                 </div>
                         </form>
-                        <div class="col-12 col-lg-6 col-md-6 col-sm-12">
-                            <a class="btn btn-yellow mt-5 text-white" style="{{ isset($tray[0]->coupon_apply) ? 'display: none;' : '' }}" id="cadastrarCupom">Adicionar cupom</a>
+                        <div class="col-12 col-lg-6 col-md-6 col-sm-12 mb-3">
+                            <a class="btn btn-yellow mt-5 text-white" style="{{ isset($tray[0]->coupon_apply) ? 'display: none;' : '' }}" id="cadastrarCupom">Aplicar cupom</a>
                             <a class="btn btn-danger mt-5 text-white" id="removerCupom" title="Remover cupom" style="{{ !isset($tray[0]->coupon_apply) ? 'display: none;' : '' }}"><i class="fas fa-trash"></i></a>
                         </div>
                     </div>
@@ -678,7 +673,7 @@
         <div class="m-footer">
             <div class="container">
                 <div class="container-total text-right mb-4">
-                    <p class="mb-0">
+                    <p class="mb-0 mt-4">
                         <span id="lbl-sb">Subtotal: </span>
                         <span id="lbl-subtotal"></span>
                     </p>
@@ -1114,7 +1109,7 @@
             setInterval(vibrarBandeja, 1700);
 
              function fecharBandeja(){
-                 $('.modal-full, .tray-container, #trayResume, #deliveryPlace, #paymentStep, #btnBack, #btnLastBack, #btnAddressStep, #btnResumeStep, #btn-useHelp, ' +
+                 $('.modal-full, .tray-container, #trayResume, #deliveryPlace, #paymentStep, #btnBack, #btnLastBack, #btnAddressStep, #btnResumeStep, ' +
                      '#btnSecondBack, #btnCheck, .alerta-troco, .valor-troco').fadeOut();
                  $('.step2, .step3, .step4').removeClass('active')
                  $('.tray-container').html('');
@@ -1154,7 +1149,7 @@
                             $('#btnOrderStep').fadeOut();
                             $('#trayItems').fadeOut();
                             $('#deliveryPlace').removeAttr('hidden');
-                            $('#btnAddressStep, #deliveryPlace, #btn-useHelp').fadeIn();
+                            $('#btnAddressStep, #deliveryPlace').fadeIn();
                             $('#btnBack').fadeIn(2700);
                             $('.step1').removeClass('active');
                             $('.step2').addClass('active');
@@ -1622,12 +1617,11 @@
                         $("#txtContato").focus();
                     }else{
                         $('#deliveryPlace').fadeOut();
-                        $('#btnBack, #btnAddressStep, #btn-useHelp').fadeOut();
+                        $('#btnBack, #btnAddressStep').fadeOut();
                         $('#paymentStep').removeAttr('hidden');
                         $('.step2').removeClass('active');
                         $('.step3').addClass('active');
                         $('#btnCheck, #btnSecondBack, #paymentStep').fadeIn();
-                        $('#valorPagamento').focus();
 
                         $(".delivery-text").fadeIn();
                         if(response.taxe == 0 || response.discount == 'Frete grátis'){

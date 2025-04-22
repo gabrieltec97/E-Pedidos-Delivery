@@ -17,7 +17,7 @@ $(document).ready(function (){
 
     $('#btnSecondBack').on('click', function (){
         $('#deliveryPlace').fadeIn();
-        $('#btnBack, #btnAddressStep, #btn-useHelp').fadeIn();
+        $('#btnBack, #btnAddressStep').fadeIn();
         $('#paymentStep').fadeOut();
         $('.step3').removeClass('active');
         $('.step2').addClass('active');
@@ -128,6 +128,10 @@ $(document).ready(function (){
             $('.valor-entregue').fadeOut();
         }else{
             $('.valor-entregue').fadeIn();
+
+           setTimeout(function(){
+               $('#valorPagamento').focus();
+           }, 1000);
         }
     });
 
@@ -151,15 +155,5 @@ $(document).ready(function (){
         } else {
             $(this).mask('(00) 0000-00009'); // Formato fixo (e mantém compatibilidade com celular)
         }
-    });
-
-    $('#btn-useHelp').on('click', function (e) {
-        $('#txtNumero').focus();
-        $(this).fadeOut();
-    });
-
-
-    $('#txtNumero').on('focus', function () {
-        $('#btn-useHelp').fadeOut(500); // 500ms de fadeOut
     });
 });
