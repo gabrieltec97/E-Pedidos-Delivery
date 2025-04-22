@@ -358,6 +358,10 @@ iframe {
     padding: 177px 90px 33px 85px;
   }
 
+  .first-div {
+      display: none;
+  }
+
   .login100-pic {
     width: 35%;
   }
