@@ -1,5 +1,5 @@
 @media (min-width: 992px){
-    .mb-only{
+    .mb-only, #btn-useHelp{
         display: none;
     }
 
