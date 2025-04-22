@@ -31,15 +31,15 @@
                         <td>
                             <div class="d-flex px-2 py-1">
                                 <div class="d-flex flex-column justify-content-center">
-                                    <h6 class="mb-0 text-sm">{{ $order->user_name }}</h6>
-                                    <p class="text-xs text-secondary mb-0">{{ $order->neighborhood }}</p>
+                                    <h6 data-bs-toggle="modal" data-bs-target="#order{{ $order->id }}" style="cursor: pointer;" class="mb-0 text-sm">{{ $order->user_name }}</h6>
+                                    <p data-bs-toggle="modal" data-bs-target="#order{{ $order->id }}" style="cursor: pointer;" class="text-xs text-secondary mb-0">{{ $order->neighborhood }}</p>
                                 </div>
                             </div>
                         </td>
                         <td>
-                            <h5 class="text-xs font-weight-bold mb-0">#{{ $order->id }}</h5>
+                            <h5 data-bs-toggle="modal" data-bs-target="#order{{ $order->id }}" style="cursor: pointer;" class="text-xs font-weight-bold mb-0">#{{ $order->id }}</h5>
                         </td>
-                        <td class="align-middle text-center text-sm">
+                        <td data-bs-toggle="modal" data-bs-target="#order{{ $order->id }}" style="cursor: pointer;" class="align-middle text-center text-sm">
                                             <span class="badge badge-sm
                                             @if($order->status == 'Novo Pedido')
                                                 bg-gradient-info
@@ -55,7 +55,7 @@
                                            ">{{ $order->status }}</span>
                         </td>
                         <td class="align-middle text-center">
-                            <span class="text-secondary text-xs font-weight-bold">{{ $order->created_at }}</span>
+                            <span data-bs-toggle="modal" data-bs-target="#order{{ $order->id }}" style="cursor: pointer;" class="text-secondary text-xs font-weight-bold">{{ $order->created_at }}</span>
                         </td>
                         <td class="align-middle">
                             <a href="javascript:;" class="text-secondary font-weight-bold text-xs"
