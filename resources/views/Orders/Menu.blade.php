@@ -1576,6 +1576,7 @@
 
                 if(response.taxe != 'no'){
 
+                    let nome = $("#txtNome").val();
                     let endereco = $("#txtEndereco").val();
                     let bairro = $("#txtBairro").val();
                     let numero = $("#txtNumero").val();
@@ -1611,6 +1612,10 @@
                         let message = "o campo cidade não foi preenchido corretamente.";
                         toastTrigger(message);
                         $("#txtCity").focus();
+                    }else if(nome === ''){
+                        let message = "o campo nome não foi preenchido corretamente.";
+                        toastTrigger(message);
+                        $("#txtNome").focus();
                     }else if(contato === ''){
                         let message = "o campo contato não foi preenchido corretamente.";
                         toastTrigger(message);
@@ -1622,6 +1627,7 @@
                         $('.step2').removeClass('active');
                         $('.step3').addClass('active');
                         $('#btnCheck, #btnSecondBack, #paymentStep').fadeIn();
+                        $('#valorPagamento').focus();
 
                         $(".delivery-text").fadeIn();
                         if(response.taxe == 0 || response.discount == 'Frete grátis'){
