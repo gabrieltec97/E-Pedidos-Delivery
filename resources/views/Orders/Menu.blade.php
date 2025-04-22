@@ -723,6 +723,7 @@
     <script type="text/javascript" src="{{ asset('assets/js/wow.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/js/dados.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/js/app.js') }}"></script>
+   <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
     <script src="{{ asset('assets/js/jquerytoast.js') }}"></script>
     <script>new WOW().init();</script>
 
@@ -1597,18 +1598,23 @@
                     if(endereco === ''){
                         let message = "o campo endereço não foi preenchido corretamente.";
                         toastTrigger(message);
+                        $("#txtEndereco").focus();
                     }else if(bairro === ''){
                         let message = "o campo bairro não foi preenchido corretamente.";
                         toastTrigger(message);
+                        $("#txtBairro").focus();
                     }else if(numero === ''){
                         let message = "o campo de número da residência não foi preenchido corretamente.";
                         toastTrigger(message);
+                        $('#txtNumero').focus();
                     }else if(cidade === ''){
                         let message = "o campo cidade não foi preenchido corretamente.";
                         toastTrigger(message);
+                        $("#txtCity").focus();
                     }else if(contato === ''){
                         let message = "o campo contato não foi preenchido corretamente.";
                         toastTrigger(message);
+                        $("#txtContato").focus();
                     }else{
                         $('#deliveryPlace').fadeOut();
                         $('#btnBack, #btnAddressStep, #btn-useHelp').fadeOut();

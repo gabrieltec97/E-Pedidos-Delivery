@@ -152,4 +152,14 @@ $(document).ready(function (){
             $(this).mask('(00) 0000-00009'); // Formato fixo (e mantém compatibilidade com celular)
         }
     });
+
+    $('#btn-useHelp').on('click', function (e) {
+        $('#txtNumero').focus();
+        $(this).fadeOut();
+    });
+
+
+    $('#txtNumero').on('focus', function () {
+        $('#btn-useHelp').fadeOut(500); // 500ms de fadeOut
+    });
 });

@@ -706,6 +706,7 @@ footer{
     bottom: 260px;
     height: 50px;
     width: 50px;
+    animation: bounce 2s infinite ease-in-out;
     background-color: var(--color-primary);
     display: flex;
     justify-content: center;
@@ -753,6 +754,16 @@ footer{
         transform: translateY(0) rotate(0deg);
     }
 }
+
+@keyframes bounce {
+    0%, 100% {
+        top: 0;
+    }
+    50% {
+        top: 10px;
+    }
+}
+
 
 .table-row {
     display: flex; /* Usa flexbox para alinhar o ícone e o texto */
