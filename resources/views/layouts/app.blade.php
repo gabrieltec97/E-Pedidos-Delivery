@@ -91,7 +91,7 @@
 {{--    {{ $chart2->script() }}--}}
 {{--@endif--}}
 
-    @stack('js');
+    @stack('js')
     @livewireScripts
 </body>
 
