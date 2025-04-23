@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -49,7 +48,6 @@
         @endif
     @endauth
 
-    <!--   Core JS Files   -->
     <script src="{{ asset('assets/js/core/popper.min.js') }}"></script>
 {{--    <script src="{{ asset('assets/js/core/bootstrap.min.js') }}"></script>--}}
 {{--    <script type="text/javascript" src="{{ asset('assets/js/jquery-1.12.4.js') }}"></script>--}}
@@ -65,27 +63,17 @@
             Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
         }
     </script>
-    <!-- Github buttons -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
-    <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="{{ asset('assets/js/argon-dashboard.js') }}"></script>
+
     @if(isset($chart))
         <script src="{{ $chart->cdn() }}"></script>
-
         {{ $chart->script() }}
     @endif
 
 @if(isset($chart3))
-{{--    <script src="{{ $chart->cdn() }}"></script>--}}
-
     {{ $chart3->script() }}
 @endif
-
-{{--@if(isset($chart2))--}}
-{{--    <script src="{{ $chart2->cdn() }}"></script>--}}
-
-{{--    {{ $chart2->script() }}--}}
-{{--@endif--}}
 
     @stack('js')
     @livewireScripts

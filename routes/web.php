@@ -21,11 +21,6 @@ use App\Http\Controllers\ResetPassword;
 use App\Http\Controllers\ChangePassword;
 use Illuminate\Support\Str;
 
-
-Route::get('log', function (){
-    Auth::loginUsingId(5);
-});
-
 //Rotas de login no sistema.
 Route::get('/gerent', [LoginController::class, 'show'])->name('login');
 Route::post('/login-do', [LoginController::class, 'login'])->middleware('guest')->name('login.perform');
@@ -52,7 +47,6 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/api/pedidos', [OrderController::class, 'getPedidosJson'])->name('pedidos.json');
         Route::get('/atualizar/{id}', [OrderController::class, 'updateStatus'])->name('update.status');
         Route::get('/entregadores', [UserController::class, 'motoboys']);
-
     });
 });
 
