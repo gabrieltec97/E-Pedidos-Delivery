@@ -105,7 +105,7 @@
                                             @if($item->order_id == $order->id)
                                                         <div class="col-12 tray-item">
                                                             <div class="img-product">
-                                                                <img class="product-img" src="{{ asset('products/' . $item->product_img) }}" />
+                                                                <img class="product-img" src="{{ asset('products/' . $item->product_img) }}" style="width: 100px; height: 100px;" />
                                                             </div>
 
                                                             <div class="product-data">
