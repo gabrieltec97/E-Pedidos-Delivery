@@ -27,8 +27,9 @@
                         <img src="img/img-01.png" class="img-login" alt="IMG">
                     </div>
                 </div>
+            </div>
 
-                <div class="col-12 col-lg-4 col-sm-12">
+            <div class="col-12 col-lg-4 col-sm-12">
                     <div class="div-login">
                         <form class="login100-form validate-form" action="{{ route('login.perform') }}" method="post">
                             @csrf
@@ -36,7 +37,7 @@
                            <b>Área de membros</b>
                         </span>
 
-                            <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+                            <div class="wrap-input100 validate-input">
                                 <input class="input100" type="text" name="email" placeholder="Email">
                                 <span class="focus-input100"></span>
                                 <span class="symbol-input100">
@@ -44,7 +45,7 @@
                             </span>
                             </div>
 
-                            <div class="wrap-input100 validate-input" data-validate = "Password is required">
+                            <div class="wrap-input100 validate-input">
                                 <input class="input100" type="password" name="password" placeholder="Senha">
                                 <span class="focus-input100"></span>
                                 <span class="symbol-input100">
@@ -76,14 +77,13 @@
                         </form>
                     </div>
                 </div>
-            </div>
 
             <div class="col-12 col-lg-4 col-sm-12">
                 <div class="div-recover">
                     <span class="login100-form-title text-black font-weight-bold">
                         Recuperação de senha:
                     </span>
-                    <div class="wrap-input100 validate-input mt-3" data-validate = "Valid email is required: ex@abc.xyz">
+                    <div class="wrap-input100 validate-input mt-3">
                         <input class="input100 myEmail" type="email" name="email" placeholder="Email">
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
@@ -108,7 +108,7 @@
                         <span class="login100-form-title text-black font-weight-bold">
                         Insira seu código:
                     </span>
-                        <div class="wrap-input100 validate-input mt-3" data-validate = "Valid email is required: ex@abc.xyz">
+                        <div class="wrap-input100 validate-input mt-3">
                             <input class="input100 myCode" type="number" name="code" placeholder="Código enviado ao e-mail" required>
                             <span class="focus-input100"></span>
                             <span class="symbol-input100">
@@ -116,7 +116,7 @@
                             </span>
                         </div>
 
-                        <div class="wrap-input100 validate-input" data-validate = "Password is required">
+                        <div class="wrap-input100 validate-input">
                             <input class="input100 pass1" type="password" name="password" placeholder="Insira a nova senha">
                             <span class="focus-input100"></span>
                             <span class="symbol-input100">
@@ -124,7 +124,7 @@
                             </span>
                         </div>
 
-                        <div class="wrap-input100 validate-input" data-validate = "Password is required">
+                        <div class="wrap-input100 validate-input">
                             <input class="input100 pass2" type="password" name="password2" placeholder="Confirme sua senha">
                             <span class="focus-input100"></span>
                             <span class="symbol-input100"><i class="fa fa-lock" aria-hidden="true"></i></span>
