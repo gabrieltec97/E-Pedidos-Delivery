@@ -54,16 +54,21 @@
         </td>
         <td class="align-middle">
         <a href="javascript:;" 
-   data-bs-toggle="modal" 
-   data-bs-target="#abrirModal"
-   data-id="{{ $order->id }}"
-   data-nome="{{ $order->user_name }}"
-   data-bairro="{{ $order->neighborhood }}"
-   data-status="{{ $order->status }}"
-   data-data="{{ $order->created_at }}"
-   class="text-secondary font-weight-bold text-xs abrir-detalhes">
-   Detalhes
-</a>
+            data-bs-toggle="modal" 
+            data-bs-target="#abrirModal"
+            data-id="{{ $order->id }}"
+            data-nome="{{ $order->user_name }}"
+            data-bairro="{{ $order->neighborhood }}"
+            data-address="{{ $order->userAdress }}"
+            data-status="{{ $order->status }}"
+            data-data="{{ $order->created_at }}"
+            data-payment="{{ $order->paymentMode }}"
+            data-change="{{ $order->change }}"
+            data-delivery_man="{{ $order->delivery_man }}"
+            data-contact="{{ $order->contact }}"
+            class="text-secondary font-weight-bold text-xs abrir-detalhes">
+            Detalhes
+        </a>
 
         </td>
     </tr>
@@ -84,15 +89,30 @@
             const bairro = botao.getAttribute('data-bairro');
             const status = botao.getAttribute('data-status');
             const data = botao.getAttribute('data-data');
+            const endereco = botao.getAttribute('data-address');
+            const contato = botao.getAttribute('data-contact');
+            const pagamento = botao.getAttribute('data-payment');
+            const change = botao.getAttribute('data-change');
+            const delivery_man = botao.getAttribute('data-delivery_man');
 
-            // Atualiza o conteúdo do modal
-            modal.querySelector('.modal-title').textContent = `Pedido #${id}`;
-            modal.querySelector('.modal-body').innerHTML = `
-                <p><strong>Cliente:</strong> ${nome}</p>
-                <p><strong>Bairro:</strong> ${bairro}</p>
-                <p><strong>Status:</strong> ${status}</p>
-                <p><strong>Data:</strong> ${data}</p>
-            `;
+           $(".modal-title").text('Pedido ' + id);
+           $(".status").text(status);
+           $(".date").text(data);
+           $(".client").text(nome);
+           $(".address").text(endereco);
+           $(".data1").text(bairro + ' - ' + contato);
+
+           if(pagamento == 'Dinheiro'){
+             $(".payment").text(pagamento + ' troco para R$: ' + change);  
+           }else{
+            $(".payment").text(pagamento);  
+           }
+
+           if(status == 'Pedido Entregue'){
+             $(".delivery").text('Entregue por: ' + delivery_man);
+           }else if(status == 'Em rota de entrega'){
+                $(".delivery").text('Saiu para entrega com: ' + delivery_man);
+           }
         });
     });
 </script>
@@ -108,13 +128,27 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLabel"></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-           
+      <div class="d-flex flex-column justify-content-center">
+                                                <p class="text-md text-black mb-0 status"></p>
+                                                <p class="text-sm text-secondary mb-0 date"></p>
+                                                <p class="text-sm text-secondary mb-0 delivery"></p>
+
+                                                <hr>
+                                                <ul>
+                                                    ${itemsList}
+                                                </ul>
+                                                <hr>
+                                                <h6 class="text-md text-success mb-1 client"></h6>
+                                                <p class="text-xs text-secondary mb-1 data1">${order.neighborhood} - ${order.contact}</p>
+                                                <p class="mb-0 text-sm address"></p>
+                                                <p class="mb-0 text-sm payment"></p>
+                                            </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
