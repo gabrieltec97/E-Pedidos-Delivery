@@ -44,6 +44,7 @@
                 <main class="main-content border-radius-lg">
                     @yield('content')
                 </main>
+            @include('layouts.fixed-plugin')
         @endif
     @endauth
 
