@@ -27,7 +27,7 @@
             @endif
             @if(Auth::user()->can('gerenciar pedidos'))
             <li class="nav-item">
-                <a class="nav-link dropdown-toggle {{ Route::currentRouteName() == 'produtos.index' ? 'active' : '' }}"
+                <a class="nav-link dropdown-toggle  {{ Route::currentRouteName() == 'pedidos.index' ? 'active' : '' }}"
                    id="dropdownOrders" role="button" data-bs-toggle="collapse" data-bs-target="#submenuOrders"
                    aria-expanded="false" aria-controls="submenuOrders">
                     <div
