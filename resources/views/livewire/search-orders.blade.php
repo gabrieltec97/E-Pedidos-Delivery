@@ -1,13 +1,3 @@
-<style>
-    .modal.fade .modal-dialog {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-
-</style>
 <div class="card mb-4">
     <div class="card-body px-0 pt-0 pb-2">
         <div class="p-4">
