@@ -53,51 +53,17 @@
             <span wire:click="abrirModal({{ $order->id }})" style="cursor: pointer;" class="text-secondary text-xs font-weight-bold">{{ $order->created_at }}</span>
         </td>
         <td class="align-middle">
-            <a href="javascript:;" wire:click="abrirModal({{ $order->id }})" class="text-secondary font-weight-bold text-xs">
+            <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#exampleModal" class="text-secondary font-weight-bold text-xs">
                 Detalhes
             </a>
         </td>
     </tr>
 
-    {{-- MODAL --}}
-    <div class="modal fade bd-example-modal-lg" id="order{{ $order->id }}" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Pedido {{ $order->id }}</h5>
-                    <i class="fa-solid fa-circle-xmark" style="cursor: pointer; color: #ef4444;" data-bs-dismiss="modal"></i>
-                </div>
-                <div class="modal-body">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-12">
-                                <p class="my-orders">
-                                    <b> {{ $order->user_name }} - {{ $order->created_at }}</b>
-                                </p>
+        <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Launch demo modal
+</button>
 
-                                <p class="my-status font-weight-bold
-                                @if($order->status == 'Pedido Entregue')
-                                text-success
-                                @elseif($order->status == 'Cancelado')
-                                text-danger
-                                @else
-                                text-warning
-                                @endif
-                                " style="margin-top: -15px;">
-                                        {{ $order->status }}
-                                </p>
-
-                            </div>
-                                        <hr>
-                        </div>   
-                    </div>                 
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">Imprimir</button>
-                    <button type="button" class="btn btn-success" data-bs-dismiss="modal">Fechar</button>
-                </div>
-            </div>
-        </div>
-    </div>
 @endforeach
 </tbody>
 
@@ -105,10 +71,7 @@
         </div>
     </div>
 
-    <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-  Launch demo modal
-</button>
+
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -121,7 +84,7 @@
         </button>
       </div>
       <div class="modal-body">
-        ...
+        <p class="name"></p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
