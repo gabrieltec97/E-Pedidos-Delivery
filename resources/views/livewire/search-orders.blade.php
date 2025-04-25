@@ -27,6 +27,18 @@
                 </thead>
                 <tbody>
     @foreach($orders as $order)
+
+    @php
+    $orderItems = $items->where('order_id', $order->id)->map(function($item) {
+        return [
+            'produto' => $item->product,
+            'quantidade' => $item->ammount,
+        ];
+    })->values();
+@endphp
+
+
+
     <tr>
         <td>
             <div class="d-flex px-2 py-1">
@@ -66,6 +78,7 @@
             data-change="{{ $order->change }}"
             data-delivery_man="{{ $order->delivery_man }}"
             data-contact="{{ $order->contact }}"
+             data-items='@json($orderItems)'
             class="text-secondary font-weight-bold text-xs abrir-detalhes">
             Detalhes
         </a>
@@ -113,6 +126,14 @@
            }else if(status == 'Em rota de entrega'){
                 $(".delivery").text('Saiu para entrega com: ' + delivery_man);
            }
+
+            const items = $(botao).data('items');
+            const $lista = $('#lista-itens-modal');
+            $lista.empty();
+
+            items.forEach(item => {
+                $lista.append(`<li> ${item.produto} - (${item.quantidade})</li>`);
+            }); 
         });
     });
 </script>
@@ -129,30 +150,28 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel"></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+        <i class="fa-solid fa-circle-xmark" style="cursor: pointer; color: #ef4444;" data-bs-dismiss="modal" aria-label="Close"></i>
       </div>
       <div class="modal-body">
-      <div class="d-flex flex-column justify-content-center">
-                                                <p class="text-md text-black mb-0 status"></p>
-                                                <p class="text-sm text-secondary mb-0 date"></p>
-                                                <p class="text-sm text-secondary mb-0 delivery"></p>
+        <div class="d-flex flex-column justify-content-center">
+            <p class="text-md text-black mb-0 status"></p>
+            <p class="text-sm text-secondary mb-0 date"></p>
+            <p class="text-sm text-secondary mb-0 delivery"></p>
 
-                                                <hr>
-                                                <ul>
-                                                    ${itemsList}
-                                                </ul>
-                                                <hr>
-                                                <h6 class="text-md text-success mb-1 client"></h6>
-                                                <p class="text-xs text-secondary mb-1 data1">${order.neighborhood} - ${order.contact}</p>
-                                                <p class="mb-0 text-sm address"></p>
-                                                <p class="mb-0 text-sm payment"></p>
-                                            </div>
-      </div>
+            <hr>
+            <ul id="lista-itens-modal">
+                                                   
+            </ul>
+            <hr>
+            <h6 class="text-md text-success mb-1 client"></h6>
+            <p class="text-xs text-secondary mb-1 data1"></p>
+            <p class="mb-0 text-sm address"></p>
+            <p class="mb-0 text-sm payment"></p>
+            </div>
+        </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-success font-weight-bold">Imprimir</button>
+        <button type="button" class="btn btn-primary font-weight-bold" data-bs-dismiss="modal">Fechar</button>
       </div>
     </div>
   </div>
