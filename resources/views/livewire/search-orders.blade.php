@@ -1,7 +1,11 @@
 <style>
-    .modal {
-    z-index: 1050 !important;
-    }
+    .modal.fade .modal-dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
 
 </style>
 <div class="card mb-4">
