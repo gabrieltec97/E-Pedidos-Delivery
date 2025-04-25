@@ -13,6 +13,15 @@ class SearchOrders extends Component
     public $orders;// Resultados da busca
     public $items;// Resultados da busca
 
+    protected $listeners = ['abrirModalPedido' => 'abrirModal'];
+
+    public function abrirModal($orderId)
+{
+    $this->dispatch('abrir-modal', orderId: $orderId);
+}
+
+    
+
 
     public function render()
     {
