@@ -53,13 +53,50 @@
             <span class="text-secondary text-xs font-weight-bold">{{ $order->created_at }}</span>
         </td>
         <td class="align-middle">
-            <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#abrirModal" class="text-secondary font-weight-bold text-xs">
-                Detalhes
-            </a>
+        <a href="javascript:;" 
+   data-bs-toggle="modal" 
+   data-bs-target="#abrirModal"
+   data-id="{{ $order->id }}"
+   data-nome="{{ $order->user_name }}"
+   data-bairro="{{ $order->neighborhood }}"
+   data-status="{{ $order->status }}"
+   data-data="{{ $order->created_at }}"
+   class="text-secondary font-weight-bold text-xs abrir-detalhes">
+   Detalhes
+</a>
+
         </td>
     </tr>
 
 @endforeach
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const modal = document.getElementById('abrirModal');
+
+        // Escuta quando o modal vai ser mostrado
+        modal.addEventListener('show.bs.modal', function (event) {
+            const botao = event.relatedTarget;
+
+            // Pega os dados
+            const id = botao.getAttribute('data-id');
+            const nome = botao.getAttribute('data-nome');
+            const bairro = botao.getAttribute('data-bairro');
+            const status = botao.getAttribute('data-status');
+            const data = botao.getAttribute('data-data');
+
+            // Atualiza o conteúdo do modal
+            modal.querySelector('.modal-title').textContent = `Pedido #${id}`;
+            modal.querySelector('.modal-body').innerHTML = `
+                <p><strong>Cliente:</strong> ${nome}</p>
+                <p><strong>Bairro:</strong> ${bairro}</p>
+                <p><strong>Status:</strong> ${status}</p>
+                <p><strong>Data:</strong> ${data}</p>
+            `;
+        });
+    });
+</script>
+
 </tbody>
 
             </table>
@@ -89,19 +126,6 @@
 </div>
 
 
-
-<script>
-    window.addEventListener('abrir-modal', event => {
-    const id = event.detail.orderId;
-    const modalEl = document.getElementById(`order${id}`);
-    const modal = new bootstrap.Modal(modalEl);
-    modal.show();
-
-    // Liberar a rolagem no body
-    document.body.style.overflow = 'auto';
-});
-
-</script>
 
 
 
