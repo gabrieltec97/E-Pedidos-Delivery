@@ -53,14 +53,14 @@
             <span wire:click="abrirModal({{ $order->id }})" style="cursor: pointer;" class="text-secondary text-xs font-weight-bold">{{ $order->created_at }}</span>
         </td>
         <td class="align-middle">
-            <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#exampleModal" class="text-secondary font-weight-bold text-xs">
+            <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#abrirModal{{ $order->id }}" class="text-secondary font-weight-bold text-xs">
                 Detalhes
             </a>
         </td>
     </tr>
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="abrirModal{{ $order->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -70,7 +70,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <p class="name"></p>
+            {{ $order->id }}
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
