@@ -108,11 +108,15 @@
 
 <script>
     window.addEventListener('abrir-modal', event => {
-        const id = event.detail.orderId;
-        const modalEl = document.getElementById(`order${id}`);
-        const modal = new bootstrap.Modal(modalEl);
-        modal.show();
-    });
+    const id = event.detail.orderId;
+    const modalEl = document.getElementById(`order${id}`);
+    const modal = new bootstrap.Modal(modalEl);
+    modal.show();
+
+    // Liberar a rolagem no body
+    document.body.style.overflow = 'auto';
+});
+
 </script>
 
 
