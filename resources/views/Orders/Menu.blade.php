@@ -928,7 +928,7 @@
                                                                    <b> {{ $order->user_name }}</b>
                                                                </p>
 
-                                                               <p class="my-status font-weight-bold
+                                                               <p class="my-status{{ $order->id }} font-weight-bold
                                                        @if($order->status == 'Pedido Entregue')
                                                        text-success
                                                        @elseif($order->status == 'Cancelado')
@@ -1028,11 +1028,11 @@
                    method: "GET",
                    success: function (response) {
                        if(response[0]){
-                           // Variável contador (certifique-se de que está declarada fora deste bloco)
                            response.forEach((item, index) => {
                                if (item.status == "Em Preparação") {
                                    $(`.second-live${item.id}`).css("color", "#FFBF00FF");
                                    $(`.step2${item.id}`).addClass("active");
+                                   $(`.my-status${item.id}`).text(item.status);
 
                                    if (contador === 0) {
                                        $.toast({
@@ -1051,6 +1051,7 @@
                                } else if (item.status == "Em rota de entrega") {
                                    $(`.third-live${item.id}`).css("color", "#25f4ab");
                                    $(`.step3${item.id}`).addClass("active");
+                                   $(`.my-status${item.id}`).text(item.status);
 
                                    if (contador === 1) {
                                        $.toast({
@@ -1065,22 +1066,17 @@
                                        });
                                        contador++;
                                    }
-
-                               } else if (item.status == "Pedido Entregue") {
-                                   $(`.fourth-live${item.id}`).css("color", "#25f4ab");
-                                   $(`.step4${item.id}`).addClass("active");
                                }
                            });
+                       }else{
+                           $('.btn-live-order').fadeOut();
                        }
                    },
                    error: function () {
                        console.error("Erro ao buscar valor total");
                    }
                });
-           }, 1000)
-
-
-
+           }, 10000)
 
             let totalItems = {{ $totalItems }};
 
