@@ -51,16 +51,16 @@
                 <div class="collapse navbar-collapse" id="navbarNavDropdown">
                     <ul class="navbar navbar-nav ml-auto mr-auto">
                         <li class="nav-item">
-                            <a href="#reservas" class="nav-link btn-reserve"><b>Reservas</b></a>
+                            <a class="nav-link btn-reserve"><b>Reservas</b></a>
                         </li>
                         <li class="nav-item">
-                            <a href="#serviços" class="nav-link"><b>Serviços</b></a>
+                            <a class="nav-link btn-services"><b>Serviços</b></a>
                         </li>
                         <li class="nav-item">
-                            <a href="#cardápio" class="nav-link btn-cardapio"><b>Cardápio</b></a>
+                            <a class="nav-link btn-cardapio"><b>Cardápio</b></a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link" data-toggle="modal" data-target="#exampleModalCenter"><b>Meus Pedidos</b></a>
+                            <a class="nav-link btn-myOrders" data-toggle="modal" data-target="#exampleModalCenter"><b>Meus Pedidos</b></a>
                         </li>
                     </ul>
 
@@ -120,7 +120,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 col-one text-center mb-5 wow fadeIn">
-                    <span class="hint-title"><b>Serviços</b></span>
+                    <span class="hint-title services"><b>Serviços</b></span>
                     <h1 class="title">
                         <b>Qual é o nosso diferencial?</b>
                     </h1>
@@ -434,7 +434,7 @@
                     <div class="card-secondary">
                         <div class="row">
                             <div class="col-12 col-lg-7 col-md-7 col-sm-12">
-                               <span class="hint-title wow fadeInLeft delay-02s"><b>Reservas</b></span>
+                               <span class="hint-title wow fadeInLeft delay-02s reserves"><b>Reservas</b></span>
                                 <h1 class="title wow fadeInLeft delay-02s">
                                 <b>Quer reservar um horário?</b>
                                 </h1>
@@ -1117,7 +1117,19 @@
             $('.btn-cardapio').click(function() {
                 $('html, body').animate({
                     scrollTop: $('.cardapio').offset().top
-                }, 1000); // O "1000" é o tempo em milissegundos (1 segundo)
+                }, 1000);
+            });
+
+            $('.btn-services').click(function() {
+                $('html, body').animate({
+                    scrollTop: $('.services').offset().top
+                }, 1000);
+            });
+
+            $('.btn-reserve').click(function() {
+                $('html, body').animate({
+                    scrollTop: $('.reserves').offset().top
+                }, 1000);
             });
 
             function vibrarBandeja() {

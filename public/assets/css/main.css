@@ -868,9 +868,18 @@ footer{
     color: var(--color-black-heavy);
 }
 
-#lbl-time , #lbl-subtotal, #lbl-sb, .lbl-details, .details-order{
+#lbl-time , #lbl-subtotal, #lbl-sb, .lbl-details, .details-order, .btn-services, .btn-cardapio, .btn-reserve, .btn-myOrders{
     color: var(--color-black-heavy) !important;
 }
+
+.btn-services:hover,
+.btn-cardapio:hover,
+.btn-reserve:hover,
+.btn-myOrders:hover {
+    color: var(--color-primary) !important;
+    cursor: pointer;
+}
+
 
 .order-time {
     color: var(--color-black-heavy) !important;
@@ -885,9 +894,6 @@ footer{
 .lg-only {
     margin-top: -20px;
 }
-
-
-
 
 /*.modal-item{*/
 /*    background-color: var(--color-primary);*/
