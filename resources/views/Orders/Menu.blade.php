@@ -729,7 +729,7 @@
 
                <div class="modal-header">
                    <h5 class="modal-title font-weight-bold" id="exampleModalLongTitle">Acompanhe seu pedido!</h5>
-                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                   <button type="button" class="close close-modalLive" data-dismiss="modal" aria-label="Close">
                        <span aria-hidden="true">&times;</span>
                    </button>
                </div>
@@ -1022,15 +1022,12 @@
     <script>
         $(document).ready(function () {
             let contador = 0;
-            const refresh = 0;
            setInterval(function(){
                $.ajax({
                    url: "{{ route('orders.realTime') }}",
                    method: "GET",
                    success: function (response) {
-
                        let refreshHistoric = true;
-
                        if(response[0]){
                            response.forEach((item, index) => {
                                if (item.status == "Novo Pedido"){
@@ -1092,13 +1089,11 @@
 
                                if (item.status == "Cancelado"){
                                    refreshHistoric = true;
+                                   $(".close-modalLive").click();
                                }
-
-
                            });
                        }
 
-                       console.log(refreshHistoric);
                        if (refreshHistoric == true){
                            $(".btn-live-order").fadeOut();
                        }
