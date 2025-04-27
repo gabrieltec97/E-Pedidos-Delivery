@@ -821,6 +821,17 @@
                                            <p><i class="fa fa-clock mx-1 text-warning"></i> {{ $time }}</p>
                                        </div>
                                    </div>
+
+                                   <div class="col-12 d-flex justify-content-center mt-3 helper">
+                                       <span class="help"><span class="text-danger font-weight-bold">Ajuda</span> com o pedido? Fale conosco
+                                           <a href="https://wa.me/5521997467377?text=Ol%C3%A1%2C%20gostaria%20de%20falar%20sobre%20meu%20pedido." target="_blank"><i class="fab fa-whatsapp ml-1 text-success i-help"></i></a>
+                                           <a href="tel:+5521997467377">
+                                                <i class="fa fa-phone-volume text-primary i-phone"></i>
+                                           </a>
+
+                                       </span>
+</span>
+                                   </div>
                                @endif
                            </div>
                        @elseif($liveOrder > 1)
