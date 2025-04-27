@@ -828,9 +828,7 @@
                                            <a href="tel:+5521997467377">
                                                 <i class="fa fa-phone-volume text-primary i-phone"></i>
                                            </a>
-
                                        </span>
-</span>
                                    </div>
                                @endif
                            </div>
@@ -1091,8 +1089,6 @@
                                    $(`.my-status${item.id}`).addClass('text-danger');
                                    $(`.my-status${item.id}`).text(item.status);
                                }
-
-                               console.log(item.status);
 
                                if (item.status != "Pedido Entregue"){
                                    refreshHistoric = false;
