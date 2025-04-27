@@ -1102,7 +1102,7 @@
                        console.error("Erro ao atualizar pedidos");
                    }
                });
-           }, 1000)
+           }, 10000)
 
             let totalItems = {{ $totalItems }};
 
