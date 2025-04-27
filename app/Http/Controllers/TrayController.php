@@ -188,8 +188,6 @@ class TrayController extends Controller
         }
 
         $orders = DB::table('orders')
-            ->where('status', '!=', 'Pedido Entregue')
-            ->where('status', '!=', 'Cancelado')
             ->where('user_id', $user)->get();
 
         return response()->json($orders);
