@@ -79,7 +79,7 @@
                     <div class="d-flex text-banner">
                         <h1 class="animated fadeInLeft"><b>Escolha sua comida <b class="color-primary">favorita!</b></b></h1>
                         <p class="animated fadeInLeft delay-02s">Aproveite nosso cardápio. Escolha o que desejar e receba no conforto do seu lar de forma rápida e segura!</p>
-                        <a class="btn btn-yellow mt-4 mr-3 btn-cardapio animated fadeInLeft delay-05s">
+                        <a class="btn btn-yellow mt-4 mr-3 btn-cardapio2 animated fadeInLeft delay-05s">
                             Ver cardápio
                         </a>
                     </div>
@@ -1114,7 +1114,7 @@
                  $(".valor-entregue").fadeIn();
              }
 
-            $('.btn-cardapio').click(function() {
+            $('.btn-cardapio, .btn-cardapio2').click(function() {
                 $('html, body').animate({
                     scrollTop: $('.cardapio').offset().top
                 }, 1000);
