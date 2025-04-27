@@ -808,16 +808,18 @@
                                        </div>
                                    </div>
 
-                                   <div class="col-12 mt-5 order-info">
+                                   <div class="col-12 mt-5 order-info d-flex justify-content-center">
                                        <p class="details-order"><i class="fa fa-check-circle mr-2 text-success"></i>Pedido n°{{ $myOrder[0]->id }} - <i class="fa fa-calendar-week text-primary mx-1"></i> {{ $myOrder[0]->created_at }} - <i class="fa fa-clock mx-1 text-warning"></i> {{ $time }}</p>
                                    </div>
 
                                    <div class="mb-only">
-                                       <div class="col-12 mt-5 d-flex justify-content-lg-center order-info">
+                                       <div class="col-12 mt-5">
                                            <p class="details-order"><i class="fa fa-check-circle mr-2 text-success"></i>Pedido n°{{ $myOrder[0]->id }}</p>
                                        </div>
-                                       <div class="col-12 mt-3"><p><i class="fa fa-calendar-week text-primary mx-1"></i> {{ $myOrder[0]->created_at }}</p></div>
-                                       <div class="col-12"><p><i class="fa fa-clock mx-1 text-warning"></i> {{ $time }}</p></div>
+                                       <div class="col-12 mt-3">
+                                           <p><i class="fa fa-calendar-week text-primary mx-1"></i> {{ $myOrder[0]->created_at }}</p>
+                                           <p><i class="fa fa-clock mx-1 text-warning"></i> {{ $time }}</p>
+                                       </div>
                                    </div>
                                @endif
                            </div>
