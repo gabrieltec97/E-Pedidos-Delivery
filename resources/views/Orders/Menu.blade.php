@@ -1033,7 +1033,10 @@
 
                        if(response[0]){
                            response.forEach((item, index) => {
-                               if (item.status == "Em Preparação") {
+                               if (item.status == "Novo Pedido"){
+                                   $(`.my-status${item.id}`).addClass('text-warning');
+
+                               } else if (item.status == "Em Preparação") {
                                    $(`.second-live${item.id}`).css("color", "#FFBF00FF");
                                    $(`.step2${item.id}`).addClass("active");
                                    $(`.my-status${item.id}`).text(item.status);
@@ -1074,16 +1077,28 @@
                                    $(`.fourth-live${item.id}`).css("color", "#25f4ab");
                                    $(`.step4${item.id}`).addClass("active");
                                    $(`.my-status${item.id}`).text(item.status);
+
                                }else{
+                                   $(`.my-status${item.id}`).removeClass('text-warning');
+                                   $(`.my-status${item.id}`).addClass('text-danger');
                                    $(`.my-status${item.id}`).text(item.status);
                                }
+
+                               console.log(item.status);
 
                                if (item.status != "Pedido Entregue"){
                                    refreshHistoric = false;
                                }
+
+                               if (item.status == "Cancelado"){
+                                   refreshHistoric = true;
+                               }
+
+
                            });
                        }
 
+                       console.log(refreshHistoric);
                        if (refreshHistoric == true){
                            $(".btn-live-order").fadeOut();
                        }
