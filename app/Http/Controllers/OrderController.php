@@ -77,16 +77,31 @@ class OrderController extends Controller
                 ->get()->toArray();
 
             $product = '';
+            $comments = '';
 
             foreach ($items as $item){
                 if ($product == ''){
                     $product = $item->product;
                 }else{
-                    $product = $product . ',' . $item->product . ' - ' . $item->ammount . ' item(s)';
+                    if($item->ammount > 1){
+                        $product = $product . ',' . $item->product . ' - ' . $item->ammount . ' unidades';  
+                    }else{
+                        $product = $product . ',' . $item->product . ' - ' . $item->ammount . ' unidade';
+                    }
                 }
+
+                if($item->comments != null){
+                    if ($comments == ''){
+                        $comments = $item->product . ' - ' . $item->comments;
+                    }else{
+                        $comments = $comments . ',' . $item->product . ' - ' . $item->comments;  
+                    }
+                }
+
+            
             }
             array_push($orders, ['id' => $order->id, 'items' => $product, 'value' => $order->value,
-                'address' => $order->userAdress, 'neighborhood' => $order->neighborhood,
+                'address' => $order->userAdress, 'neighborhood' => $order->neighborhood, 'comments' => $comments,
                 'client' => $order->user_name, 'date' => $order->created_at, 'status' => $order->status,
             'contact' => $order->contact, 'paymentMode' => $order->paymentMode,  'change' => $order->change]);
         }

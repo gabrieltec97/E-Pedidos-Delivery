@@ -123,8 +123,17 @@
 
                         let items = order.items.split(',');
                         let itemsList = items.map(item => `<li>${item}</li>`).join('');
-
-
+                        let commentsList = '';
+                        
+                        if(order.comments != ''){
+                            let comments = order.comments.split(',');
+                            commentsList = comments.map(comment => `<li>${comment}</li>`).join('');
+                        }else{
+                            commentsList = '<p style="margin-left: -32px;">Nenhum comentário adicionado pelo cliente.</p>';
+                        }
+                        
+                        
+                    
 
                         if(order.paymentMode == "Dinheiro"){
                            var pagamento = "Dinheiro - Troco para R$: " + order.change;
@@ -148,6 +157,11 @@
                                                 <hr>
                                                 <ul>
                                                     ${itemsList}
+                                                </ul>
+                                                <hr>
+                                                <h6>Comentários do cliente:</h6>
+                                                <ul>
+                                                    ${commentsList}
                                                 </ul>
                                                 <hr>
                                                 <h6 class="text-xs text-success mb-0">${order.client}</h6>
