@@ -132,9 +132,6 @@
                             commentsList = '<p style="margin-left: -32px;">Nenhum comentário adicionado pelo cliente.</p>';
                         }
                         
-                        
-                    
-
                         if(order.paymentMode == "Dinheiro"){
                            var pagamento = "Dinheiro - Troco para R$: " + order.change;
                         }else{
@@ -262,7 +259,10 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                        <button type="submit" class="btn btn-primary">Confirmar</button>
+                                        <button type="submit" class="btn btn-primary btn-confirm">
+                                        <div class="spinner-border spinner-border-sm loading" role="status" style="display: none;"></div>
+                                            Confirmar
+                                        </button>
                                     </div>
                                 </div>
                             </form>
@@ -272,6 +272,9 @@
                 // Adiciona o modal ao container de modais e exibe
                 $('body').append(modalHtml);
                 $('#confirmStatusChange').modal('show');
+                $(".btn-confirm").on('click', function(){
+                    $(".loading").fadeIn();
+                });
             } else if (newStatus === 'Em rota de entrega') {
                 // Fazendo uma chamada AJAX para obter os entregadores
                 $.ajax({
@@ -306,7 +309,10 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                                <button type="submit" class="btn btn-primary">Confirmar</button>
+                                                <button type="submit" class="btn btn-primary btn-confirm">
+                                                <div class="spinner-border spinner-border-sm loading" role="status" style="display: none;"></div>
+                                                    Confirmar
+                                                </button>
                                             </div>
                                         </div>
                                     </form>
@@ -316,6 +322,9 @@
                         // Adiciona o modal ao container de modais e exibe
                         $('body').append(modalHtml);
                         $('#confirmStatusChange').modal('show');
+                        $(".btn-confirm").on('click', function(){
+                            $(".loading").fadeIn();
+                        });
                     },
                     error: function () {
                         alert('Erro ao carregar a lista de entregadores. Por favor, tente novamente.');
