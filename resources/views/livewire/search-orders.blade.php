@@ -33,6 +33,7 @@
         return [
             'produto' => $item->product,
             'quantidade' => $item->ammount,
+            'comentarios' => $item->comments
         ];
     })->values();
 @endphp
@@ -65,8 +66,8 @@
             <span class="text-secondary text-xs font-weight-bold">{{ $order->created_at }}</span>
         </td>
         <td class="align-middle">
-        <a href="javascript:;" 
-            data-bs-toggle="modal" 
+        <a href="javascript:;"
+            data-bs-toggle="modal"
             data-bs-target="#abrirModal"
             data-id="{{ $order->id }}"
             data-nome="{{ $order->user_name }}"
@@ -116,9 +117,9 @@
            $(".data1").text(bairro + ' - ' + contato);
 
            if(pagamento == 'Dinheiro'){
-             $(".payment").text(pagamento + ' troco para R$: ' + change);  
+             $(".payment").text(pagamento + ' troco para R$: ' + change);
            }else{
-            $(".payment").text(pagamento);  
+            $(".payment").text(pagamento);
            }
 
            if(status == 'Pedido Entregue'){
@@ -132,8 +133,18 @@
             $lista.empty();
 
             items.forEach(item => {
-                $lista.append(`<li> ${item.produto} - (${item.quantidade})</li>`);
-            }); 
+                if(item.quantidade = 1){
+                    $lista.append(`<li> ${item.produto} - ${item.quantidade} unidade</li>`);
+                }else{
+                    $lista.append(`<li> ${item.produto} - ${item.quantidade} unidades</li>`);
+                }
+
+                if(item.comentarios != null){
+                    $(".comments").text(item.produto + ' - ' + item.comentarios + '.');
+                }else{
+                    $(".comments").text('Nenhum comentário adicionado pelo cliente.');
+                }
+            });
         });
     });
 </script>
@@ -160,8 +171,11 @@
 
             <hr>
             <ul id="lista-itens-modal">
-                                                   
+
             </ul>
+            <hr>
+            <h6>Comentários:</h6>
+            <p class="mb-0 text-sm comments"></p>
             <hr>
             <h6 class="text-md text-success mb-1 client"></h6>
             <p class="text-xs text-secondary mb-1 data1"></p>
