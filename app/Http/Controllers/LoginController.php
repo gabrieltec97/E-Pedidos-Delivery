@@ -9,7 +9,12 @@ class LoginController extends Controller
 {
     public function show()
     {
-        return view('auth.Login');
+        $user = Auth::user();
+        if ($user == null){
+            return view('auth.Login');
+        }else{
+            return redirect()->route('pedidos.index');
+        }
     }
 
     public function login(Request $request)
