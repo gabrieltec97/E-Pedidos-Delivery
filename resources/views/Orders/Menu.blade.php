@@ -1161,6 +1161,7 @@
 
             $('.fechar-modal').on('click', function (){
                 fecharBandeja();
+                atualizarContagemBandeja();
                 $(".btn-live-order").css("bottom", "90px").css("important", "true");
             });
 
