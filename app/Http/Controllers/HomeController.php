@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Charts\AreaChart;
-use App\Charts\MonthChart;
 use App\Models\Notification;
 use ConsoleTVs\Charts\Classes\Chartjs\Chart;
 use Illuminate\Http\Request;
@@ -32,7 +31,7 @@ class HomeController extends Controller
 
         return $mes_extenso["$mes"];
     }
-    public function index(AreaChart $chart, MonthChart $chart2, Request $request)
+    public function index(AreaChart $chart, Request $request)
     {
         if(isset($request->year)){
             $year = $request->year;
