@@ -87,7 +87,7 @@
                         tableRows += `
                             <tr>
                                 <td>
-                                    <div class="d-flex px-2 py-1">
+                                    <div class="d-flex px-3">
                                         <div class="d-flex flex-column justify-content-center">
                                             <h6 class="mb-0 text-sm text-black font-weight-bold" style="color: black; cursor: pointer;"
                                                 data-bs-toggle="modal" data-bs-target="#pedido${order.id}">
@@ -98,7 +98,7 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <h5 class="text-xs font-weight-bold mb-0" style="color: black; cursor: pointer;"
+                                    <h5 class="text-xs px-3 font-weight-bold mb-0" style="color: black; cursor: pointer;"
                                         data-bs-toggle="modal" data-bs-target="#pedido${order.id}">
                                         #${order.id}
                                     </h5>
@@ -106,7 +106,7 @@
                                 <td class="align-middle text-sm">
                                     <span class="badge badge-sm ${badgeClass}">${order.status}</span>
                                 </td>
-                                <td class="align-middle text-center">
+                                <td class="align-middle">
                                     <span class="text-secondary text-xs font-weight-bold">${order.date}</span>
                                 </td>
                                 <td class="align-middle">

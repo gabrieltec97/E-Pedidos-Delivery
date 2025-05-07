@@ -415,7 +415,7 @@ class OrderController extends Controller
         if ($request->status == 'Pedido Entregue'){
             return redirect()->route('pedidos.index')->with('msg-sale', 'Parabéns à toda equipe por ter concluído esta venda!');
         }else{
-            return redirect()->route('pedidos.index')->with('msg-change', 'O status do pedido '. $id . ' foi alterado para "'. $request->status . '"');
+            return redirect()->route('pedidos.index')->with('msg-change', 'O status do pedido #'. $id . ' foi alterado para "'. $request->status . '"');
         }
     }
 }
