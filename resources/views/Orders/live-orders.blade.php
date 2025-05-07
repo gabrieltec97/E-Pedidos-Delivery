@@ -28,7 +28,7 @@
                             </table>
                         </div>
 
-                        <!-- Container para os modais -->
+
                         <div id="modals-container">
                             <!-- Os modais serão inseridos dinamicamente aqui -->
                         </div>
@@ -103,7 +103,7 @@
                                         #${order.id}
                                     </h5>
                                 </td>
-                                <td class="align-middle text-center text-sm">
+                                <td class="align-middle text-sm">
                                     <span class="badge badge-sm ${badgeClass}">${order.status}</span>
                                 </td>
                                 <td class="align-middle text-center">
@@ -124,14 +124,14 @@
                         let items = order.items.split(',');
                         let itemsList = items.map(item => `<li>${item}</li>`).join('');
                         let commentsList = '';
-                        
+
                         if(order.comments != ''){
                             let comments = order.comments.split(',');
                             commentsList = comments.map(comment => `<li>${comment}</li>`).join('');
                         }else{
                             commentsList = '<p style="margin-left: -32px;">Nenhum comentário adicionado pelo cliente.</p>';
                         }
-                        
+
                         if(order.paymentMode == "Dinheiro"){
                            var pagamento = "Dinheiro - Troco para R$: " + order.change;
                         }else{
@@ -334,5 +334,34 @@
         });
     });
 </script>
+    @if(session('msg-change'))
+        <script>
+            $.toast({
+                heading: '<b>Alteração concluída!</b>',
+                showHideTransition : 'slide',  // It can be plain, fade or slide
+                bgColor : '#000000',
+                text: '<b>{{ session('msg-change') }}.</b>',
+                hideAfter : 6000,
+                position: 'top-right',
+                textColor: 'white',
+                icon: 'success'
+            });
+        </script>
+    @endif
+
+    @if(session('msg-sale'))
+        <script>
+            $.toast({
+                heading: '<b>Parabéns!</b>',
+                showHideTransition: 'slide',  // It can be plain, fade or slide
+                bgColor: '#2ecc71',
+                text: '<b>{{ session('msg-sale') }}.</b>',
+                hideAfter: 8000,
+                position: 'top-right',
+                textColor: '#ecf0f1',
+                icon: 'success'
+            });
+        </script>
+    @endif
 
 @endsection

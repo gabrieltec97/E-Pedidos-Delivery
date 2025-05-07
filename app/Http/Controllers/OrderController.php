@@ -84,7 +84,7 @@ class OrderController extends Controller
                     $product = $item->product;
                 }else{
                     if($item->ammount > 1){
-                        $product = $product . ',' . $item->product . ' - ' . $item->ammount . ' unidades';  
+                        $product = $product . ',' . $item->product . ' - ' . $item->ammount . ' unidades';
                     }else{
                         $product = $product . ',' . $item->product . ' - ' . $item->ammount . ' unidade';
                     }
@@ -94,11 +94,11 @@ class OrderController extends Controller
                     if ($comments == ''){
                         $comments = $item->product . ' - ' . $item->comments;
                     }else{
-                        $comments = $comments . ',' . $item->product . ' - ' . $item->comments;  
+                        $comments = $comments . ',' . $item->product . ' - ' . $item->comments;
                     }
                 }
 
-            
+
             }
             array_push($orders, ['id' => $order->id, 'items' => $product, 'value' => $order->value,
                 'address' => $order->userAdress, 'neighborhood' => $order->neighborhood, 'comments' => $comments,
@@ -412,6 +412,10 @@ class OrderController extends Controller
         $order->status = $request->status;
         $order->save();
 
-        return redirect()->route('pedidos.index');
+        if ($request->status == 'Pedido Entregue'){
+            return redirect()->route('pedidos.index')->with('msg-sale', 'Parabéns à toda equipe por ter concluído esta venda!');
+        }else{
+            return redirect()->route('pedidos.index')->with('msg-change', 'O status do pedido '. $id . ' foi alterado para "'. $request->status . '"');
+        }
     }
 }
