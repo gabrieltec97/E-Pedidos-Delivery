@@ -10,7 +10,7 @@
             <div class="col-12">
                 <div class="card mb-4">
                     <div class="card-header pb-0 d-flex">
-                        <h4>Itens Cadastrados</h4>
+                        <h4>Itens cadastrados</h4>
 
                         <a href="{{ route('produtos.create') }}" class="btn btn-primary ms-auto"><i class="fa-solid fa-plus"></i> Novo produto</a>
                     </div>
