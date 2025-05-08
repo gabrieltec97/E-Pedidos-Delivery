@@ -16,7 +16,7 @@
 
             <div class="card mb-4">
                 <div class="card-header pb-0 d-flex">
-                    <h3>Gerenciamento de Usuários</h3>
+                    <h3>Gerenciamento de usuários</h3>
                     <a href="{{ route('usuarios.create') }}" class="btn btn-primary ms-auto"><i class="fa-solid fa-user-plus"></i> Novo usuário</a>
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">
