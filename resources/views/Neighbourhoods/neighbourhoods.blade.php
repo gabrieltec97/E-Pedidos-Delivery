@@ -11,7 +11,7 @@
             <div class="col-12">
                 <div class="card mb-4">
                     <div class="card-header pb-0 d-flex">
-                        <h4 class="mb-4">Bairros Cadastrados</h4>
+                        <h4 class="mb-4">Bairros cadastrados</h4>
                         <a href="{{ route('bairros.create') }}" class="btn btn-primary ms-auto font-weight-bold"><i class="fa-solid fa-plus"></i> Novo bairro</a>
                     </div>
                     <div class="card-body px-0 pt-0 pb-2">
