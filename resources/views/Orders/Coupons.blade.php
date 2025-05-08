@@ -9,7 +9,7 @@
             <div class="col-12">
                 <div class="card mb-4">
                     <div class="card-header pb-0 d-flex">
-                        <h4>Cupons Cadastrados</h4>
+                        <h4>Cupons cadastrados</h4>
 
                         <button class="btn btn-primary ms-auto" data-bs-toggle="modal" data-bs-target="#modalCadastro"><i class="fa-solid fa-plus"></i> Novo cupom</button>
 
