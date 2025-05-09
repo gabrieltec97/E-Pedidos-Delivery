@@ -12,7 +12,7 @@
                 <div class="card mb-4">
                     <div class="card-header pb-0 d-flex">
                         <h4 class="mb-4">Bairros cadastrados</h4>
-                        <a href="{{ route('bairros.create') }}" class="btn btn-primary ms-auto font-weight-bold"><i class="fa-solid fa-plus"></i> Novo bairro</a>
+                        <button class="btn btn-primary ms-auto font-weight-bold" data-bs-toggle="modal" data-bs-target="#modalAlert"><i class="fa-solid fa-plus"></i> Novo bairro</button>
                     </div>
                     <div class="card-body px-0 pt-0 pb-2">
                         <div class="table-responsive p-0">
@@ -59,8 +59,8 @@
                                             @endif
                                         </td>
                                         <td class="align-middle">
-                                            <a href="{{ route('bairros.edit', $neighbourhood->id) }}" class="text-secondary font-weight-bold text-xs"
-                                               data-toggle="tooltip" data-original-title="Edit user">
+                                            <a href="#" class="text-secondary font-weight-bold text-xs"
+                                               data-toggle="tooltip" data-original-title="Edit user" data-bs-toggle="modal" data-bs-target="#modalAlert">
                                                 Editar
                                             </a>
                                         </td>
@@ -70,6 +70,28 @@
                             </table>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalAlert" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Funcionalidade desabilitada <i class="fa fa-info-circle text-primary"></i></h5>
+
+                </div>
+                <div class="modal-body">
+                    <p class="text-black">
+                        Pelo fato deste sistema estar aberto <span class="text-primary font-weight-bold">ao público</span> para que todos o
+                        conheçam, todas as funções de cadastro foram desabilitadas para que pudesse ser evitada uma exclusão ou
+                        cadastro <span class="text-danger font-weight-bold">indevido</span>, garantindo assim um perfeito funcionamento do sistema.
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary font-weight-bold" data-bs-dismiss="modal">Fechar</button>
                 </div>
             </div>
         </div>

@@ -43,11 +43,13 @@ class NeighbourhoodController extends Controller
 
     public function create()
     {
+        return redirect()->route('bairros.index');
         return view('Neighbourhoods.new-neighbourhood');
     }
 
     public function store(Request $request)
     {
+        return redirect()->route('bairros.index');
         $request->validate([
             'name' => 'required|min:3',
             'taxe' => 'required|min:3',
@@ -84,6 +86,8 @@ class NeighbourhoodController extends Controller
 
     public function edit(string $id)
     {
+        return redirect()->route('bairros.index');
+
         $neighbourhood = Neighbourhood::find($id);
         return view('Neighbourhoods.edit-neighbourhood',[
             'neighbourhood' => $neighbourhood
@@ -92,6 +96,8 @@ class NeighbourhoodController extends Controller
 
     public function update(Request $request, string $id)
     {
+        return redirect()->route('bairros.index');
+
         $request->validate([
             'name' => 'required|min:3',
             'taxe' => 'required|min:3',
@@ -119,6 +125,8 @@ class NeighbourhoodController extends Controller
 
     public function destroy(string $id)
     {
+        return redirect()->route('bairros.index');
+
         $neighbourhood = Neighbourhood::find($id);
         $neighbourhood->delete();
 

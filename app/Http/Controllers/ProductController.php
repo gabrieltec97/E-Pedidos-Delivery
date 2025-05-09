@@ -35,11 +35,14 @@ class ProductController extends Controller
 
     public function create()
     {
+        return redirect()->route('produtos.index');
         return view('Products.new-product');
     }
 
     public function edit($id)
     {
+        return redirect()->route('produtos.index');
+
         $product = Product::find($id);
         $additionals = Additional::all();
 
@@ -51,6 +54,8 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
+        return redirect()->route('produtos.index');
+
         $request->validate([
             'name' => 'required|min:3',
             'price' => 'required|min:3',
@@ -111,6 +116,8 @@ class ProductController extends Controller
 
     public function update(Request $request, string $id)
     {
+        return redirect()->route('produtos.index');
+
         $request->validate([
             'name' => 'required|min:3',
             'price' => 'required|min:3',
@@ -195,6 +202,8 @@ class ProductController extends Controller
 
     public function destroy(string $id)
     {
+        return redirect()->route('produtos.index');
+
         $product = Product::find($id);
         $product->delete();
 

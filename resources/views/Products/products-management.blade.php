@@ -12,7 +12,7 @@
                     <div class="card-header pb-0 d-flex">
                         <h4>Itens cadastrados</h4>
 
-                        <a href="{{ route('produtos.create') }}" class="btn btn-primary ms-auto"><i class="fa-solid fa-plus"></i> Novo produto</a>
+                        <button class="btn btn-primary ms-auto" data-bs-toggle="modal" data-bs-target="#modalAlert"><i class="fa-solid fa-plus"></i> Novo produto</button>
                     </div>
                     <div class="card-body px-0 pt-0 pb-2">
                         <div class="table-responsive p-0">
@@ -122,8 +122,8 @@
                                                 </td>
                                             @endif
                                             <td class="align-right ml-5 text-right text-sm">
-                                                <a href="{{ route('produtos.edit', $product->id) }}" class="text-secondary font-weight-bold text-xs d-flex justify-content-center"
-                                                   data-toggle="tooltip" data-original-title="Edit user">
+                                                <a href="#" class="text-secondary font-weight-bold text-xs d-flex justify-content-center"
+                                                   data-toggle="tooltip" data-original-title="Edit user" data-bs-toggle="modal" data-bs-target="#modalAlert">
                                                     Editar
                                                 </a>
                                             </td>
@@ -138,6 +138,27 @@
         </div>
     </div>
 
+    <!-- Modal -->
+    <div class="modal fade" id="modalAlert" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Funcionalidade desabilitada <i class="fa fa-info-circle text-primary"></i></h5>
+
+                </div>
+                <div class="modal-body">
+                    <p class="text-black">
+                        Pelo fato deste sistema estar aberto <span class="text-primary font-weight-bold">ao público</span> para que todos o
+                        conheçam, todas as funções de cadastro foram desabilitadas para que pudesse ser evitada uma exclusão ou
+                        cadastro <span class="text-danger font-weight-bold">indevido</span>, garantindo assim um perfeito funcionamento do sistema.
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary font-weight-bold" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     @if(session('msg'))
         <script>

@@ -20,6 +20,7 @@ class UserController extends Controller
 
     public function create()
     {
+        return redirect()->route('usuarios.index');
         return view('Users.user-create');
     }
 
@@ -59,6 +60,8 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
+        return redirect()->route('usuarios.index');
+
         $request->validate([
             'name' => 'required|min:3',
             'surname' => 'required|min:3',
@@ -107,6 +110,7 @@ class UserController extends Controller
 
     public function changePassword(Request $request)
     {
+        return redirect()->route('usuarios.index');
         $status = false;
         if ($request->password != $request->password2){
             $status = 'As senhas digitadas são diferentes umas das outras.';
@@ -141,6 +145,8 @@ class UserController extends Controller
 
     public function update(Request $request, string $id)
     {
+        return redirect()->route('usuarios.index');
+
         $request->validate([
             'name' => 'required|min:3',
             'surname' => 'required|min:3',
@@ -181,6 +187,8 @@ class UserController extends Controller
 
     public function destroy(string $id)
     {
+        return redirect()->route('usuarios.index');
+
         $user = User::find($id);
         $user->delete();
 

@@ -25,6 +25,8 @@ class AdditionalController extends Controller
 
     public function store(Request $request)
     {
+        return redirect()->route('adicionais.index');
+
         $additional = new Additional();
         $additional->name = $request->name;
         $additional->type = $request->type;
@@ -41,6 +43,8 @@ class AdditionalController extends Controller
     }
     public function update(Request $request, string $id)
     {
+        return redirect()->route('adicionais.index');
+
         $additional = Additional::find($id);
         $additional->name = $request->name;
         $additional->type = $request->type;
@@ -58,6 +62,8 @@ class AdditionalController extends Controller
 
     public function destroy(string $id)
     {
+        return redirect()->route('adicionais.index');
+
         $item = Additional::find($id);
         $item->delete();
         return redirect()->back()->with('msg', 'ok');

@@ -11,8 +11,7 @@
                     <div class="card-header pb-0 d-flex">
                         <h4>Adicionais cadastrados</h4>
 
-                        <button class="btn btn-primary ms-auto" data-bs-toggle="modal" data-bs-target="#modalCadastro"><i class="fa-solid fa-plus"></i> Novo Adicional</button>
-
+                        <button class="btn btn-primary ms-auto" data-bs-toggle="modal" data-bs-target="#modalAlert"><i class="fa-solid fa-plus"></i> Novo Adicional</button>
                     </div>
                     <div class="card-body px-0 pt-0 pb-2">
                         <div class="table-responsive p-0">
@@ -59,7 +58,7 @@
                                             </td>
 
                                             <td>
-                                                <a href="#" data-bs-toggle="modal" data-bs-target="#modalItem{{$registered->id}}">Detalhes</a>
+                                                <p data-bs-toggle="modal" style="margin-bottom: 0px; cursor: pointer; color: #515050;" data-bs-target="#modalItem{{$registered->id}}">Detalhes</p>
                                             </td>
                                             </tr>
 
@@ -120,11 +119,7 @@
                                                                 </div>
                                                             </div>
                                                             <div class="modal-footer">
-                                                                <button type="button" class="btn btn-danger deleteItem" data-bs-toggle="modal" data-bs-target="#exampleModal{{ $registered->id }}">Deletar item</button>
-                                                                <button type="submit" class="btn btn-primary save" style="display: none;">
-                                                                    <div class="spinner-border spinner-border-sm loading" role="status" style="display: none;"></div>
-                                                                     Salvar alterações
-                                                                </button>
+
                                                             </div>
                                                         </div>
                                                     </form>
@@ -203,9 +198,31 @@
         </div>
     </div>
 
+    <!-- Modal -->
+    <div class="modal fade" id="modalAlert" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Funcionalidade desabilitada <i class="fa fa-info-circle text-primary"></i></h5>
+
+                </div>
+                <div class="modal-body">
+                    <p class="text-black">
+                        Pelo fato deste sistema estar aberto <span class="text-primary font-weight-bold">ao público</span> para que todos o
+                        conheçam, todas as funções de cadastro foram desabilitadas para que pudesse ser evitada uma exclusão ou
+                        cadastro <span class="text-danger font-weight-bold">indevido</span>, garantindo assim um perfeito funcionamento do sistema.
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary font-weight-bold" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="modal fade" id="modalCadastro" tabindex="-1" role="dialog" aria-labelledby="modalCadastro" aria-hidden="true">
         <div class="modal-dialog" role="document">
-            <form action="{{ route('adicionais.store') }}" method="post">
+            <form action="#" method="post">
                 @csrf
             <div class="modal-content">
                 <div class="modal-header">
@@ -263,6 +280,28 @@
                 </div>
             </div>
             </form>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalAlert" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Funcionalidade desabilitada <i class="fa fa-info-circle text-primary"></i></h5>
+
+                </div>
+                <div class="modal-body">
+                    <p class="text-black">
+                        Pelo fato deste sistema estar aberto <span class="text-primary font-weight-bold">ao público</span> para que todos o conheçam, todas as opções de cadastro foram
+                        desabilitadas para que pudesse ser evitada uma exclusão ou cadastro <span class="text-danger font-weight-bold">indevido</span>,
+                        garantindo assim um perfeito funcionamento do sistema.
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary font-weight-bold" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
         </div>
     </div>
 

@@ -17,7 +17,7 @@
             <div class="card mb-4">
                 <div class="card-header pb-0 d-flex">
                     <h3>Gerenciamento de usuários</h3>
-                    <a href="{{ route('usuarios.create') }}" class="btn btn-primary ms-auto"><i class="fa-solid fa-user-plus"></i> Novo usuário</a>
+                    <button class="btn btn-primary ms-auto" data-bs-toggle="modal" data-bs-target="#modalAlert"><i class="fa-solid fa-user-plus"></i> Novo usuário</button>
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">
                     <div class="table-responsive p-0">
@@ -36,9 +36,6 @@
                                     <tr>
                                         <td>
                                             <div class="d-flex px-3 py-1">
-{{--                                                <div>--}}
-{{--                                                    <img src="./img/logos/user.png" style="height: 40px; width: 45px; border-radius: 15px; margin-right: 14px; margin-left: -8px;" alt="image">--}}
-{{--                                                </div>--}}
                                                 <div class="d-flex flex-column justify-content-center">
                                                     <h6 class="mb-0">{{ $user->firstname }}</h6>
                                                     <p class="mb-0 text-sm">{{ $user->lastname }}</p>
@@ -53,8 +50,8 @@
                                         </td>
                                         <td class="align-middle text-end">
                                             <div class="d-flex px-3 py-1 justify-content-center align-items-center">
-                                                    <a href="{{ route('usuarios.show', $user->id) }}" title="Editar" style="cursor: pointer; border: none; margin-right: 15px" class="badge badge-sm bg-gradient-success"><i class="fa-solid fa-pen-to-square"></i></a>
-                                                    <a title="Deletar" style="cursor: pointer; border: none;" class="badge badge-sm bg-gradient-danger" data-bs-toggle="modal" data-bs-target="#modalDelete{{ $user->id }}"><i class="fa-solid fa-trash"></i></a>
+                                                    <a href="#" title="Editar" style="cursor: pointer; border: none; margin-right: 15px" class="badge badge-sm bg-gradient-success" data-bs-toggle="modal" data-bs-target="#modalAlert"><i class="fa-solid fa-pen-to-square"></i></a>
+                                                    <a title="Deletar" style="cursor: pointer; border: none;" class="badge badge-sm bg-gradient-danger" data-bs-toggle="modal" data-bs-target="#modalAlert"><i class="fa-solid fa-trash"></i></a>
                                             </div>
                                         </td>
                                     </tr>
@@ -87,6 +84,28 @@
                             </tbody>
                         </table>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalAlert" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Funcionalidade desabilitada <i class="fa fa-info-circle text-primary"></i></h5>
+
+                </div>
+                <div class="modal-body">
+                    <p class="text-black">
+                        Pelo fato deste sistema estar aberto <span class="text-primary font-weight-bold">ao público</span> para que todos o
+                        conheçam, todas as funções de cadastro foram desabilitadas para que pudesse ser evitada uma exclusão ou
+                        cadastro <span class="text-danger font-weight-bold">indevido</span>, garantindo assim um perfeito funcionamento do sistema.
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary font-weight-bold" data-bs-dismiss="modal">Fechar</button>
                 </div>
             </div>
         </div>
