@@ -38,7 +38,7 @@
                         </span>
 
                             <div class="wrap-input100 validate-input">
-                                <input class="input100" type="text" name="email" placeholder="Email">
+                                <input class="input100" type="text" name="email" placeholder="Email" value="ad@t.com">
                                 <span class="focus-input100"></span>
                                 <span class="symbol-input100">
                                 <i class="fa fa-envelope" aria-hidden="true"></i>
@@ -46,7 +46,7 @@
                             </div>
 
                             <div class="wrap-input100 validate-input">
-                                <input class="input100" type="password" name="password" placeholder="Senha">
+                                <input class="input100" type="password" name="password" placeholder="Senha" value="123">
                                 <span class="focus-input100"></span>
                                 <span class="symbol-input100">
                                 <i class="fa fa-lock" aria-hidden="true"></i>
