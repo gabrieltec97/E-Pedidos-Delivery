@@ -9,6 +9,7 @@ use App\Models\Neighbourhood;
 use App\Models\OrderItems;
 use App\Models\Product;
 use App\Models\Tray;
+use App\Services\UserIdentifierService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
@@ -131,26 +132,9 @@ class OrderController extends Controller
         return $mes_extenso["$mes"];
     }
 
-    public function review(Request $userID)
+    public function review(Request $userID, UserIdentifierService $userIdentifierService)
     {
-        if (Auth::user() == null){
-            if (!$userID->cookie('user_identifier')) {
-                // Gera um identificador único
-                $identifier = uniqid('user_', true);
-
-                // Cria o cookie por 30 dias
-                Cookie::queue('user_identifier', $identifier, 43200); // 30 dias
-
-                // Redireciona para a mesma página para que o cookie seja lido corretamente
-                return redirect()->back();
-            }
-
-            // Obtém o cookie e exibe
-            $user = $userID->cookie('user_identifier');
-        }else{
-            $user = Auth::user()->id;
-        }
-
+        $user = $userIdentifierService->getUserIdentifier($userID);
         $neighborhoods = Neighbourhood::all();
         $items = DB::table('trays')->where('user_id', $user)->get();
 
@@ -221,7 +205,7 @@ class OrderController extends Controller
        }
     }
 
-    public function storeOrder(Request $userID)
+    public function storeOrder(Request $userID, UserIdentifierService $userIdentifierService)
     {
         $status = DB::table('delivery_status')
             ->select('status')
@@ -232,24 +216,7 @@ class OrderController extends Controller
             return redirect()->route('cardapio.index');
         }
 
-        if (Auth::user() == null){
-            if (!$userID->cookie('user_identifier')) {
-                // Gera um identificador único
-                $identifier = uniqid('user_', true);
-
-                // Cria o cookie por 30 dias
-                Cookie::queue('user_identifier', $identifier, 43200); // 30 dias
-
-                // Redireciona para a mesma página para que o cookie seja lido corretamente
-                return redirect()->back();
-            }
-
-            // Obtém o cookie e exibe
-            $user = $userID->cookie('user_identifier');
-        }else{
-            $user = Auth::user()->id;
-        }
-
+        $user = $userIdentifierService->getUserIdentifier($userID);
         $tray = DB::table('trays')->where('user_id', $user)->get();
 
         //Capturando o valor dos adicionais.
