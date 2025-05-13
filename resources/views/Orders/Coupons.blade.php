@@ -60,14 +60,11 @@
                                             @if($coupom->type == "Porcentagem")
                                                 <p class="text-xs font-weight-bold mb-0">{{ $coupom->discount }}% de desconto</p>
                                             @elseif($coupom->type == "Dinheiro")
-                                                <p class="text-xs font-weight-bold mb-0">{{ $coupom->discount }}reais de desconto</p>
+                                                <p class="text-xs font-weight-bold mb-0">R$ {{ $coupom->discount }} reais de desconto</p>
                                             @else
                                                 <p class="text-xs font-weight-bold mb-0">Frete grátis</p>
                                             @endif
                                         </td>
-{{--                                        <td class="align-middle text-center text-sm">--}}
-{{--                                            <p class="text-xs font-weight-bold mb-0">{{ $coupom->products }}</p>--}}
-{{--                                        </td>--}}
                                         <td class="align-middle text-center text-sm">
                                             <div class="d-flex align-items-center justify-content-center">
                                                 <span class="me-2 text-xs font-weight-bold">({{ $coupom->used }}/{{ $coupom->limit }}) {{ $percent }}%</span>
@@ -268,7 +265,6 @@
                                                             method: "GET",
                                                             data: {name: nome, id: id},
                                                             success: function (response) {
-                                                                console.log(response.success)
                                                                 if (response.success == false){
                                                                     $(".checkCoupon{{$coupom->id}}").fadeIn();
                                                                     $(".notName{{$coupom->id}}").text(nome);
