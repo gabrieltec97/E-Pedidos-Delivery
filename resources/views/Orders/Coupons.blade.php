@@ -10,9 +10,7 @@
                 <div class="card mb-4">
                     <div class="card-header pb-0 d-flex">
                         <h4>Cupons cadastrados</h4>
-
-                        <button class="btn btn-primary ms-auto" data-bs-toggle="modal" data-bs-target="#modalCadastro"><i class="fa-solid fa-plus"></i> Novo cupom</button>
-
+                        <button class="btn btn-primary ms-auto" data-bs-toggle="modal" data-bs-target="#modalAlert"><i class="fa-solid fa-plus"></i> Novo cupom</button>
                     </div>
                     <div class="card-body px-0 pt-0 pb-2">
                         <div class="table-responsive p-0">
@@ -23,8 +21,6 @@
                                         Nome</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                         Desconto</th>
-{{--                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">--}}
-{{--                                        Itens</th>--}}
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Uso</th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
@@ -98,11 +94,11 @@
                                         </td>
                                         <td class="align-middle">
                                             <a style="text-decoration: none; cursor: pointer;" class="text-secondary font-weight-bold text-xs edit{{$coupom->id}}"
-                                               data-bs-toggle="modal" data-bs-target="#editmodal{{$coupom->id}}">
+                                               data-bs-toggle="modal" data-bs-target="#modalAlert">
                                                 Editar
                                             </a>
                                             <a style="text-decoration: none; cursor: pointer;" class="text-secondary font-weight-bold text-xs"
-                                               data-bs-toggle="modal" data-bs-target="#deletemodal{{$coupom->id}}">
+                                               data-bs-toggle="modal" data-bs-target="#modalAlert">
                                                 &nbsp;Deletar
                                             </a>
                                         </td>
@@ -309,7 +305,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="container-fluid">
-                        <form action="{{ route('cupons.store') }}" method="post">
+                        <form action="#" method="post">
                             @csrf
                             <div class="row">
                                 <div class="col-lg-12">
@@ -367,6 +363,28 @@
                 </div>
             </div>
             </form>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalAlert" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Funcionalidade desabilitada <i class="fa fa-info-circle text-primary"></i></h5>
+
+                </div>
+                <div class="modal-body">
+                    <p class="text-black">
+                        Pelo fato deste sistema estar aberto <span class="text-primary font-weight-bold">ao público</span> para que todos o
+                        conheçam, todas as funções de cadastro foram desabilitadas para que pudesse ser evitada uma exclusão ou
+                        cadastro <span class="text-danger font-weight-bold">indevido</span>, garantindo assim um perfeito funcionamento do sistema.
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary font-weight-bold" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
         </div>
     </div>
 
