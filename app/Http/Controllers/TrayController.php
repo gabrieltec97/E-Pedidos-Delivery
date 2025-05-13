@@ -372,17 +372,17 @@ class TrayController extends Controller
             ->get();
 
         $update = DB::table('trays')
-        ->where('user_id', $user)  // Condição para selecionar o registro com user_id = 5
+        ->where('user_id', $user)
         ->update([
-            'name' => $request->name,  // Atualizando o campo1
-            'cep' => $request->cep,  // Atualizando o campo1
-            'address' => $request->address,  // Atualizando o campo1
-            'neighbourhood' => $request->neighbourhood,  // Atualizando o campo2
+            'name' => ucwords(strtolower($request->name)),
+            'cep' => $request->cep,
+            'address' => $request->address,
+            'neighbourhood' => $request->neighbourhood,
             'city' => $request->city,
             'complement' => $request->complement,
             'contact' => $request->contact,
             'number' => $request->number,
-            'sendingValue' => $neighbourhood[0]->taxe,  // Atualizando o campo3
+            'sendingValue' => $neighbourhood[0]->taxe,
         ]);
 
         return response()->json(['message' => 'sucesso!']);

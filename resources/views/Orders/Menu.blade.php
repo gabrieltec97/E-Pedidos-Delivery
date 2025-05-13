@@ -1350,7 +1350,6 @@
                 </div>
             `;
 
-
                             $('.tray-container').append(produtoHTML);
                         });
 
@@ -1513,8 +1512,6 @@
                     }
                 });
             }
-
-
 
     $('#btnAddressStep').on('click', function(e) {
         e.preventDefault();
