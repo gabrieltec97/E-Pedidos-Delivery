@@ -60,7 +60,7 @@ Gerenciamento total (CRUD) de:
 1. Tenha em sua máquina um ambiente que faça a emulação de um servidor, como Xampp ou Docker instalado e parametrizado.
 2. Clone o repositório:
 ```bash
-git clone git@github.com:gabrieltec97/portfolio-delivery.git
+git clone git@github.com:gabrieltec97/E-Pedidos-Delivery.git
 ```
 3. Copie o arquivo .env.example para .env e configure as variáveis do banco de dados e do servidor de e-mails (MailTrap ou seu servidor).
 4. Instale as dependências com o Composer:
