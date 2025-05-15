@@ -52,12 +52,6 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('cardapio.index') }}">
-                                <i class="fa-solid fa-circle-plus text-primary ml-0"></i>
-                                <span class="nav-link-text ms-1">Nova venda</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link" href="{{ route('cupons.index') }}">
                                 <i class="fa-solid fa-ticket text-success ml-0"></i>
                                 <span class="nav-link-text ms-1">Cupons</span>
