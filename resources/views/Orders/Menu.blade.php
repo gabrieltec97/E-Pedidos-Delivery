@@ -508,7 +508,7 @@
                         <div class="col-12 col-lg-4 col-md-4 col-sm-12">
                             <div class="form-group container-cep">
                                 <label for="txtCEP"><b>Cep:</b></label>
-                                <input type="text" id="txtCEP" name="cep" value="{{ $tray[0]->cep ?? '' }}" class="form-control">
+                                <input type="text" id="txtCEP" name="cep" value="{{ $tray[0]->cep ?? '' }}" class="form-control" placeholder="Use o cep 22640-102">
                                 <a class="btn btn-yellow btn-sm buscar-cep">
                                     <i class="fa fa-search"></i>
                                 </a>
