@@ -55,6 +55,12 @@ Gerenciamento total (CRUD) de:
 - Usuários
 - Produtos, Adicionais para Produtos
 
+O sistema possui 3 (três) tipos de usuário:
+
+- Administrador
+- Entregador
+- Operador
+
 ## 🛠️ Como rodar o projeto
 
 1. Tenha em sua máquina um ambiente que faça a emulação de um servidor, como Xampp ou Docker instalado e parametrizado.
