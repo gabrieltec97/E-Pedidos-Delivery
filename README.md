@@ -53,6 +53,13 @@ O sistema possui 3 (três) tipos de usuário:
 - Entregador
 - Operador
 
+## 🌐 O projeto está online!
+
+Acesse o cardápio: [https://e-pedidosdelivery.online](https://e-pedidosdelivery.online)
+
+Acesse a área administrativa: [https://e-pedidosdelivery.online/gerent](https://e-pedidosdelivery.online/gerent)
+
+
 ## 🛠️ Como rodar o projeto
 
 1. Tenha em sua máquina um ambiente que faça a emulação de um servidor, como Xampp ou Docker instalado e parametrizado.
@@ -71,7 +78,7 @@ php (ou sail) artisan migrate --seed
 ```
 7. Inicie o servidor.
 ```bash
-php artisan serve
+php (ou sail) artisan serve
 ```
 8. Pronto! Agora é só acessar http://localhost:8000
 
