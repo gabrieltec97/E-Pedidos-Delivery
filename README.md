@@ -5,23 +5,15 @@ Sistema de pedidos online com painel administrativo que fornece informações qu
 
 ## 🚀 Tecnologias Utilizadas no projeto
 
-Front-end:
-- HTML
-- CSS
-- JavaScript
-- Jquery
-- Bootstrap
-- Ajax
-- Jquery Toast Plugin
+### 🖥️ Front-end
+- HTML, CSS, JavaScript, jQuery.
+- Bootstrap, jQuery Toast Plugin.
 
-Back-end:
-- PHP
-- Laravel
-- MySql
-- ACL (Controle de Acesso)
-- Livewire
-- Laravel Charts
-- MailTrap (Simulação de envio de e-mails)
+### ⚙️ Back-end
+- PHP, Laravel, MySQL, Ajax.
+- Livewire, Laravel Charts.
+- MailTrap (simulação de envio de e-mails).
+- Sistema de Controle de Acesso (ACL).
 
 ## ✨ Principais Funcionalidades
 
