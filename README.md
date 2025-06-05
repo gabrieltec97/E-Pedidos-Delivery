@@ -1,7 +1,7 @@
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 ## 🛍️ E-pedidos Delivery
-Este projeto, criado sem fins comerciais, tem como principal objetivo colocar em prática minhas habilidades em diferentes cenários da programação, tanto no front-end quanto no back-end. Iniciei minha carreira em 2018, e desde então venho estudando e explorando continuamente comandos, bibliotecas e componentes que tornam meus projetos mais robustos, funcionais e visualmente atrativos. Ao longo dessa jornada, cada projeto e estudo me permitiu construir uma base sólida que me permite enfrentar e solucionar desafios técnicos com eficiência, sempre buscando as melhores práticas de desenvolvimento.
+Sistema de pedidos online com painel administrativo que fornece informações quanto as vendas, acompanhamento em tempo real, cupons, controle de estoque e dashboard de vendas. Desenvolvido com Laravel e Livewire.
 
 ## 🚀 Tecnologias Utilizadas no projeto
 
