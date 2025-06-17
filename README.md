@@ -72,15 +72,20 @@ git clone git@github.com:gabrieltec97/E-Pedidos-Delivery.git
 ```bash
 composer install
 ```
-5. Rode as migrations e seeders necessárias para dar a configuração inicial para o sistema executar corretamente.
+5. Gere a chave de API do Laravel.
+```bash
+php (ou sail) artisan key:generate
+```
+6. Parametrize crie seu banco de dados e preenchendo com nome do banco, usuário, senha e porta no arquivo .env.
+7. Rode as migrations e seeders necessárias para dar a configuração inicial para o sistema executar corretamente.
 ```bash
 php (ou sail) artisan migrate --seed
 ```
-7. Inicie o servidor.
+8. Inicie o servidor.
 ```bash
 php (ou sail) artisan serve
 ```
-8. Pronto! Agora é só acessar http://localhost:8000
+9. Pronto! Agora é só acessar http://localhost:8000
 
 ## 📸 Screenshots
 
