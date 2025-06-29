@@ -1,19 +1,37 @@
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 ## 🛍️ E-pedidos Delivery
-Sistema de pedidos online com painel administrativo que fornece informações quanto as vendas, acompanhamento em tempo real, cupons, controle de estoque e dashboard de vendas. Desenvolvido com Laravel e Livewire.
+Sistema de pedidos online com painel administrativo completo, que oferece:
+
+- Acompanhamento de pedidos em tempo real
+
+- Controle de vendas e estoque
+
+- Criação e gestão de cupons promocionais
+
+- Dashboard interativo com métricas e gráficos de desempenho
+
+Desenvolvido com Laravel e Livewire para uma experiência moderna e dinâmica tanto no front-end quanto no back-end.
 
 ## 🚀 Tecnologias Utilizadas no projeto
 
 ### 🖥️ Front-end
-- HTML, CSS, JavaScript, jQuery.
-- Bootstrap, jQuery Toast Plugin.
+- HTML
+- CSS
+- JavaScript
+- JQuery
+- Bootstrap
+- JQuery Toast Plugin
 
 ### ⚙️ Back-end
-- PHP, Laravel, MySQL, Ajax.
-- Livewire, Laravel Charts.
-- MailTrap (simulação de envio de e-mails).
-- Sistema de Controle de Acesso (ACL).
+- PHP
+- Laravel
+- MySQL
+- Ajax
+- Livewire
+- Laravel Charts
+- MailTrap (simulação de envio de e-mails)
+- Sistema de Controle de Acesso (ACL)
 
 ## ✨ Principais Funcionalidades
 
